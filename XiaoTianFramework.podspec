@@ -26,10 +26,11 @@ Pod::Spec.new do |s|
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
-  s.frameworks = "UIKit", "Foundation"
-  # s.library   = "iconv"
-  # s.libraries = "iconv", "xml2"
+  s.frameworks = "Foundation","UIKit"
+  s.library   = "objc"
+  # s.libraries = "libobjc", "xml2"
   s.requires_arc = true
+  s.framework      = 'XiaoTianFramework'
   #
   s.subspec 'no-arc' do |sp|
     sp.source_files = 'XiaoTianFramework/EmailSmtp/*.{h,m}', "XiaoTianFramework/Util/UncaughtExceptionHandler.{h,m}"
