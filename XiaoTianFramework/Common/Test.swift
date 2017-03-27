@@ -7,3 +7,8 @@
 //
 
 import Foundation
+class XiaoTianTest: NSObject{
+    func testInfo(){
+        XTFMylog.infoClassField(self)
+    }
+}
