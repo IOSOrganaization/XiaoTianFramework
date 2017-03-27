@@ -28,6 +28,7 @@
 		04FCC9D21A4BA8D6001A6BBD /* XiaoTianFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 04FCC9D11A4BA8D6001A6BBD /* XiaoTianFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04FCC9FE1A4BAAD3001A6BBD /* XTFMylog.h in Headers */ = {isa = PBXBuildFile; fileRef = 04FCC9FD1A4BAAD3001A6BBD /* XTFMylog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04FCCA041A4BB3DB001A6BBD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04FCCA031A4BB3DB001A6BBD /* UIKit.framework */; };
+		585890FB1E88FB8F005F2500 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585890FA1E88FB8F005F2500 /* Test.swift */; };
 		589BC1741D201B64002D9DD9 /* XTFMylog.m in Sources */ = {isa = PBXBuildFile; fileRef = 040F2A241A4BD9C90018CE65 /* XTFMylog.m */; };
 		58AC85801E57F4D1008D5ED3 /* UncaughtExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 58AC857E1E57F4D1008D5ED3 /* UncaughtExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AC857F1E57F4D1008D5ED3 /* UncaughtExceptionHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -83,6 +84,7 @@
 		04FCC9DE1A4BA8D6001A6BBD /* XiaoTianFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoTianFrameworkTests.m; sourceTree = "<group>"; };
 		04FCC9FD1A4BAAD3001A6BBD /* XTFMylog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTFMylog.h; sourceTree = "<group>"; };
 		04FCCA031A4BB3DB001A6BBD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		585890FA1E88FB8F005F2500 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		589020E41C2069A3009350BB /* introduction.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = introduction.md; path = Controller/introduction.md; sourceTree = "<group>"; };
 		58AC857E1E57F4D1008D5ED3 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		58AC857F1E57F4D1008D5ED3 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			children = (
 				04FCC9FD1A4BAAD3001A6BBD /* XTFMylog.h */,
 				040F2A241A4BD9C90018CE65 /* XTFMylog.m */,
+				585890FA1E88FB8F005F2500 /* Test.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 		04FCC9C31A4BA8D6001A6BBD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = XiaoTian;
 				TargetAttributes = {
@@ -407,6 +411,7 @@
 				58B256471C0C90FF0052BCAD /* MYIntroductionPanel.m in Sources */,
 				04ABFC651A63768F008381AE /* XTFUtilFile.m in Sources */,
 				58E9BD461D21896100B9DC75 /* XTFSerializerJson.m in Sources */,
+				585890FB1E88FB8F005F2500 /* Test.swift in Sources */,
 				58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */,
@@ -519,6 +524,7 @@
 		04FCC9E31A4BA8D6001A6BBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
@@ -540,12 +546,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		04FCC9E41A4BA8D6001A6BBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
