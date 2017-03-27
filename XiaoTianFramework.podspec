@@ -1,3 +1,5 @@
+# pod lib lint XiaoTianFramework.podspec --allow-warnings
+#
 Pod::Spec.new do |s|
   s.name         = "XiaoTianFramework"
   s.version      = "1.0.0"
