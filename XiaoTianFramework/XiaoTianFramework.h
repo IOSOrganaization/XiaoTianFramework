@@ -18,6 +18,7 @@
 // In this header, you should import all the public headers of your framework using statements like #import <XiaoTianFramework/PublicHeader.h>
 // Common
 #import <XiaoTianFramework/XTFMylog.h>
+#import <XiaoTianFramework/XTFMylog.h>
 
 // Util
 #import <XiaoTianFramework/XTFUtilUIColor.h>

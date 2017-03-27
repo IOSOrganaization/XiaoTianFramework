@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
 
   #s.public_header_files = "XiaoTianFramework/XiaoTianFramework.h"
 
-  #s.prefix_header_file = "XiaoTianFramework/XiaoTianFramework.pch"
+  #s.prefix_header_file = "XiaoTianFramework/XiaoTianFramework.h"
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

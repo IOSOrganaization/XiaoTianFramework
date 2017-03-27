@@ -7,6 +7,7 @@
 //
 
 @import ObjectiveC.runtime;
+#import "UINavigationController+XTF.h"
 
 @implementation UINavigationController (XTF)
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XTFMylog.h"
 
 @interface UINavigationController (XTF)
 

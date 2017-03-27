@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XTFMylog.h"
 
 @interface XTFSerializerJson : NSObject
 // 序列化对象
