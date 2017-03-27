@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  #s.description  = This is XiaoTianFramework
+  s.description  = "This is XiaoTianFramework"
   s.homepage     = "https://github.com/IOSOrganaization"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
@@ -88,11 +88,12 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public
   #
 
-  s.source_files  = "Classes", "XiaoTianFramework/XiaoTianFramework/**/*.{h,m}"
+  s.source_files  = "XiaoTianFramework/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "XiaoTianFramework/XiaoTianFramework/XiaoTianFramework.h"
+  #s.public_header_files = "XiaoTianFramework/XiaoTianFramework.h"
 
+  #s.prefix_header_file = "XiaoTianFramework/XiaoTianFramework.pch"
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -114,8 +115,8 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  s.framework  = "UIKit"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  # s.framework  = "UIKit"
+  s.frameworks = "UIKit", "Foundation"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
@@ -128,6 +129,12 @@ Pod::Spec.new do |s|
   #  you can include multiple dependencies to ensure it works.
 
   s.requires_arc = true
+  #
+  s.subspec 'no-arc' do |sp|
+    sp.source_files = 'XiaoTianFramework/EmailSmtp/*.{h,m}', "XiaoTianFramework/Util/UncaughtExceptionHandler.{h,m}"
+    sp.requires_arc = false
+    sp.compiler_flags = '-fno-objc-arc'
+  end
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
