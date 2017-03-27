@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.library   = "objc"
   # s.libraries = "libobjc", "xml2"
   s.requires_arc = true
-  s.framework      = 'XiaoTianFramework'
+  #s.framework      = 'XiaoTianFramework'
   #
   s.subspec 'no-arc' do |sp|
     sp.source_files = 'XiaoTianFramework/EmailSmtp/*.{h,m}', "XiaoTianFramework/Util/UncaughtExceptionHandler.{h,m}"
