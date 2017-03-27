@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/IOSOrganaization/XiaoTianFramework.git", :tag => "#{s.version}" }
-  s.source_files  = "XiaoTianFramework/**/*.{h,m}"
+  s.source_files  = "XiaoTianFramework/**/*.{h,m,swift,c,mm}"
   s.exclude_files = "Classes/Exclude","XiaoTianFramework/XiaoTianFramework.h"
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
