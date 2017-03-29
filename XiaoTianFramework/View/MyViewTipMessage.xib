@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <view tag="4409" contentMode="scaleToFill" restorationIdentifier="Loading" id="HH6-Mn-QQ7" userLabel="Loading">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ENo-Jh-6YC" customClass="MyLogoIndicator" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="275" y="229" width="50" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="eWQ-Gb-W2C"/>
+                        <constraint firstAttribute="width" constant="50" id="nnV-e8-GPN"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在加载,请稍等..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bo-Uk-cKs" customClass="MyUILabel" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="231" y="289" width="138" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorType" value="Black"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="type" value="Title"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ENo-Jh-6YC" firstAttribute="centerX" secondItem="HH6-Mn-QQ7" secondAttribute="centerX" id="AHO-Fm-F4z"/>
+                <constraint firstItem="1Bo-Uk-cKs" firstAttribute="centerX" secondItem="HH6-Mn-QQ7" secondAttribute="centerX" id="UQy-uw-Xde"/>
+                <constraint firstItem="1Bo-Uk-cKs" firstAttribute="centerY" secondItem="HH6-Mn-QQ7" secondAttribute="centerY" id="nc7-hR-uum"/>
+                <constraint firstItem="1Bo-Uk-cKs" firstAttribute="top" secondItem="ENo-Jh-6YC" secondAttribute="bottom" constant="10" id="ttA-Dv-lc7"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="173" y="-534"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view tag="4509" contentMode="scaleToFill" restorationIdentifier="Empty" id="crk-G4-2Wm" userLabel="Empty" customClass="MyUIView" customModule="DriftBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zrc-rC-5tx" customClass="MyLogoGray" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="270" y="220" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="RFG-A4-0nF"/>
+                        <constraint firstAttribute="width" constant="60" id="SYe-Yo-m5F"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还没有数据哟" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyt-zu-Cua" customClass="MyUILabel" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="249" y="290" width="102" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorType" value="Gray"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="type" value="Title"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Jyt-zu-Cua" firstAttribute="centerY" secondItem="crk-G4-2Wm" secondAttribute="centerY" id="BNa-lw-uPN"/>
+                <constraint firstItem="Jyt-zu-Cua" firstAttribute="top" secondItem="Zrc-rC-5tx" secondAttribute="bottom" constant="10" id="Izl-dA-vHe"/>
+                <constraint firstItem="Jyt-zu-Cua" firstAttribute="centerX" secondItem="crk-G4-2Wm" secondAttribute="centerX" id="Ux3-rp-DjS"/>
+                <constraint firstItem="Zrc-rC-5tx" firstAttribute="centerX" secondItem="crk-G4-2Wm" secondAttribute="centerX" id="yuO-le-TXL"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="173" y="114"/>
+        </view>
+        <view tag="4609" contentMode="scaleToFill" restorationIdentifier="Error" id="ub8-wG-xbt" userLabel="Error" customClass="MyUIView" customModule="DriftBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view hidden="YES" tag="4610" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngG-yT-hqJ" userLabel="netError" customClass="MyUIView" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无网络访问 检查网络设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-ue-4kg" customClass="MyUILabel" customModule="DriftBook" customModuleProvider="target">
+                            <rect key="frame" x="204" y="10" width="192" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="type" value="Title"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorType" value="White"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.71801272904522884" green="0.72557075777202074" blue="0.72557075777202074" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Rcf-ue-4kg" firstAttribute="centerY" secondItem="ngG-yT-hqJ" secondAttribute="centerY" id="KHo-VS-fat"/>
+                        <constraint firstItem="Rcf-ue-4kg" firstAttribute="centerX" secondItem="ngG-yT-hqJ" secondAttribute="centerX" id="QPg-sZ-QVa"/>
+                        <constraint firstAttribute="height" constant="40" id="cS9-g9-lSG"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wYa-RW-yhm" customClass="MyLogoGray" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="270" y="220" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="7HX-HA-wyb"/>
+                        <constraint firstAttribute="height" constant="60" id="VIl-wU-rPm"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败, 点击页面重试" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emU-Nh-LLx" customClass="MyUILabel" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="193" y="290" width="214" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="type" value="Title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorType" value="Black"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ngG-yT-hqJ" firstAttribute="top" secondItem="ub8-wG-xbt" secondAttribute="top" id="6i3-YL-KSe"/>
+                <constraint firstItem="emU-Nh-LLx" firstAttribute="centerY" secondItem="ub8-wG-xbt" secondAttribute="centerY" id="UxY-IE-oHl"/>
+                <constraint firstItem="ngG-yT-hqJ" firstAttribute="leading" secondItem="ub8-wG-xbt" secondAttribute="leading" id="YtD-3u-opn"/>
+                <constraint firstItem="wYa-RW-yhm" firstAttribute="centerX" secondItem="ub8-wG-xbt" secondAttribute="centerX" id="aWa-M4-w5a"/>
+                <constraint firstItem="emU-Nh-LLx" firstAttribute="top" secondItem="wYa-RW-yhm" secondAttribute="bottom" constant="10" id="fZ1-MU-F48"/>
+                <constraint firstItem="emU-Nh-LLx" firstAttribute="centerX" secondItem="ub8-wG-xbt" secondAttribute="centerX" id="mjR-b0-GjY"/>
+                <constraint firstAttribute="trailing" secondItem="ngG-yT-hqJ" secondAttribute="trailing" id="qhL-Ym-GND"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="173" y="759"/>
+        </view>
+        <view tag="4709" contentMode="scaleToFill" id="7Z2-t7-sSv" userLabel="ReLoading" customClass="MyUIView" customModule="DriftBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTf-iu-yEX" customClass="MyLogoIndicator" customModule="DriftBook" customModuleProvider="target">
+                    <rect key="frame" x="275" y="275" width="50" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="01Q-io-HTg"/>
+                        <constraint firstAttribute="width" constant="50" id="7KO-IR-ikC"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="GTf-iu-yEX" firstAttribute="centerX" secondItem="7Z2-t7-sSv" secondAttribute="centerX" id="973-6k-Pi2"/>
+                <constraint firstItem="GTf-iu-yEX" firstAttribute="centerY" secondItem="7Z2-t7-sSv" secondAttribute="centerY" id="eKo-O1-Vea"/>
+            </constraints>
+            <point key="canvasLocation" x="173" y="1414"/>
+        </view>
+    </objects>
+</document>

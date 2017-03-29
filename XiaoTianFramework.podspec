@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
-  s.frameworks = "Foundation","UIKit"
+  s.frameworks = "Foundation","UIKit","SystemConfiguration"
   s.library   = "objc"
   # s.libraries = "libobjc", "xml2"
   s.requires_arc = true
