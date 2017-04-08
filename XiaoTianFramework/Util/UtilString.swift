@@ -141,4 +141,7 @@ class UtilString :NSObject {
         }
         return UnicodeScalar(0)
     }
+    func test(){
+        
+    }
 }
