@@ -2,7 +2,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "XiaoTianFramework"
-  s.version      = "1.0.0"
+  s.version      = “2.0.0”
   s.summary      = "This is XiaoTianFramework. contain some useful and funny tool."
   s.description  = "This is XiaoTianFramework. contain some useful and funny tool. as  1.Util for model. 2.Util for network. 3.Util for json. 4.Util for Anyobject. 5.any more…"
   s.homepage     = "https://github.com/IOSOrganaization"
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.authors      = { "xiaotian" => "gtrstudio@qq.com" ,'liang' => 'xiaotian@qq.com'}
   s.platform     = :ios
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/IOSOrganaization/XiaoTianFramework.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/IOSOrganaization/XiaoTianFramework.git", :tag => s.version }
   s.source_files  = "XiaoTianFramework/**/*.{h,m,swift,c,mm}"
   s.exclude_files = "Classes/Exclude","XiaoTianFramework/XiaoTianFramework.h"
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
