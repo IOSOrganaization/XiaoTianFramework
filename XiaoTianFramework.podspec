@@ -2,7 +2,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "XiaoTianFramework"
-  s.version      = “2.0.0”
+  s.version      = "2.0.0"
   s.summary      = "This is XiaoTianFramework. contain some useful and funny tool."
   s.description  = "This is XiaoTianFramework. contain some useful and funny tool. as  1.Util for model. 2.Util for network. 3.Util for json. 4.Util for Anyobject. 5.any more…"
   s.homepage     = "https://github.com/IOSOrganaization"
