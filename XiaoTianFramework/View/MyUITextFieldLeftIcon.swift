@@ -13,17 +13,17 @@ class MyUITextFieldLeftIcon: UITextField{
     @IBInspectable var padding: CGFloat = 0
     
     // 自定义 Padding 的 TextField
-    override func textRectForBounds(bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         let leftViewWidth: CGFloat? = self.leftView?.bounds.width
         var paddingX = padding
         if leftViewWidth != nil {
             paddingX = leftViewWidth!
         }
-        return CGRectInset(bounds, paddingX, padding)
+        return bounds.insetBy(dx: paddingX, dy: padding)
     }
     
-    override func editingRectForBounds(bounds: CGRect) -> CGRect {
-        return textRectForBounds(bounds)
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return textRect(forBounds: bounds)
     }
 }
 

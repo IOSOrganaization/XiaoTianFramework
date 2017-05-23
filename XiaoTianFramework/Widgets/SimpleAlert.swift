@@ -8,28 +8,28 @@
 
 import UIKit
 
-public class SimpleAlert {
+open class SimpleAlert {
     // 事件卡
     @objc(SimpleAlertAction)
-    public class Action : NSObject {
+    open class Action : NSObject {
         
         public enum Style {
-            case Default
-            case OK
-            case Cancel
-            case Destructive
+            case `default`
+            case ok
+            case cancel
+            case destructive
         }
         var title: String
         var handler: ((Action) -> Void)?
         var style: Action.Style
-        public var enabled: Bool = true {
+        open var enabled: Bool = true {
             didSet {
-                button?.enabled = enabled
+                button?.isEnabled = enabled
             }
         }
-        public private(set) var button: UIButton!
+        open fileprivate(set) var button: UIButton!
         
-        public init(title: String, style: Style, handler: ((Action!) -> Void)? = nil) {
+        public init(title: String, style: Style, handler: ((Action?) -> Void)? = nil) {
             self.title = title
             self.handler = handler
             self.style = style
@@ -38,84 +38,84 @@ public class SimpleAlert {
     }
     // 内容视图
     @objc(SimpleAlertContentView)//OC对象,映射对象
-    public class ContentView: UIView {
+    open class ContentView: UIView {
         let TextFieldFontSize: CGFloat = 14
         let TextFieldHeight: CGFloat = 25
         // UI
-        @IBOutlet public weak var baseView: UIView!
-        @IBOutlet public weak var titleLabel: UILabel!
-        @IBOutlet public weak var messageLabel: UILabel!
-        @IBOutlet public weak var textBackgroundView: UIView!
+        @IBOutlet open weak var baseView: UIView!
+        @IBOutlet open weak var titleLabel: UILabel!
+        @IBOutlet open weak var messageLabel: UILabel!
+        @IBOutlet open weak var textBackgroundView: UIView!
         // 约束
-        @IBOutlet private var verticalSpaceConstraint: NSLayoutConstraint!
-        @IBOutlet private var titleSpaceConstraint: NSLayoutConstraint!
-        @IBOutlet private var messageSpaceConstraint: NSLayoutConstraint!
-        @IBOutlet private var textViewHeightConstraint: NSLayoutConstraint!
+        @IBOutlet fileprivate var verticalSpaceConstraint: NSLayoutConstraint!
+        @IBOutlet fileprivate var titleSpaceConstraint: NSLayoutConstraint!
+        @IBOutlet fileprivate var messageSpaceConstraint: NSLayoutConstraint!
+        @IBOutlet fileprivate var textViewHeightConstraint: NSLayoutConstraint!
         
-        public override func awakeFromNib() {
+        open override func awakeFromNib() {
             super.awakeFromNib()
             
-            backgroundColor = UIColor.whiteColor()
+            backgroundColor = UIColor.white
         }
     }
     
     // 控制器VC
     @objc(SimpleAlertController)
-    public class Controller: UIViewController {
+    open class Controller: UIViewController {
         // 模式
         public enum Style {
-            case Alert//弹框
-            case ActionSheet//事件卡
+            case alert//弹框
+            case actionSheet//事件卡
         }
         
         @objc(SimpleAlertControllerRespondView)
-        private class RespondView: UIView {//背景视图
+        fileprivate class RespondView: UIView {//背景视图
             var touchHandler: ((UIView) -> Void)?
             
-            override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
                 touchHandler?(self)
             }
         }
         // UI
-        @IBOutlet private weak var containerView: UIView!//容器
-        @IBOutlet private weak var backgroundView: RespondView!//背景
-        @IBOutlet private weak var coverView: UIView!//覆盖
-        @IBOutlet private weak var marginView: UIView!//顶层容器
-        @IBOutlet private weak var baseView: UIView!//主视图容器
-        @IBOutlet private weak var mainView: UIScrollView!//主视图容器
-        @IBOutlet private weak var buttonView: UIScrollView!//主按钮容器
-        @IBOutlet private weak var cancelButtonView: UIScrollView!//取消按钮容器
-        @IBOutlet private weak var contentView: ContentView?//主视图
+        @IBOutlet fileprivate weak var containerView: UIView!//容器
+        @IBOutlet fileprivate weak var backgroundView: RespondView!//背景
+        @IBOutlet fileprivate weak var coverView: UIView!//覆盖
+        @IBOutlet fileprivate weak var marginView: UIView!//顶层容器
+        @IBOutlet fileprivate weak var baseView: UIView!//主视图容器
+        @IBOutlet fileprivate weak var mainView: UIScrollView!//主视图容器
+        @IBOutlet fileprivate weak var buttonView: UIScrollView!//主按钮容器
+        @IBOutlet fileprivate weak var cancelButtonView: UIScrollView!//取消按钮容器
+        @IBOutlet fileprivate weak var contentView: ContentView?//主视图
         // UI AutoLayout 约束
-        @IBOutlet private var containerViewWidthConstraint: NSLayoutConstraint!//容器宽
-        @IBOutlet private var containerViewBottomSpaceConstraint: NSLayoutConstraint!//容器底边
-        @IBOutlet private var backgroundViewTopSpaceConstraint: NSLayoutConstraint!//背景顶
-        @IBOutlet private var backgroundViewBottomSpaceConstraint: NSLayoutConstraint!//背景底
-        @IBOutlet private var coverViewHeightConstraint: NSLayoutConstraint!//覆盖层高
+        @IBOutlet fileprivate var containerViewWidthConstraint: NSLayoutConstraint!//容器宽
+        @IBOutlet fileprivate var containerViewBottomSpaceConstraint: NSLayoutConstraint!//容器底边
+        @IBOutlet fileprivate var backgroundViewTopSpaceConstraint: NSLayoutConstraint!//背景顶
+        @IBOutlet fileprivate var backgroundViewBottomSpaceConstraint: NSLayoutConstraint!//背景底
+        @IBOutlet fileprivate var coverViewHeightConstraint: NSLayoutConstraint!//覆盖层高
         
-        @IBOutlet private var mainViewHeightConstraint: NSLayoutConstraint!//主容高
-        @IBOutlet private var buttonViewHeightConstraint: NSLayoutConstraint!//主按高
-        @IBOutlet private var cancelButtonViewHeightConstraint: NSLayoutConstraint!//取消按高
-        @IBOutlet private var buttonViewSpaceConstraint: NSLayoutConstraint!//主按/取消按 间距
+        @IBOutlet fileprivate var mainViewHeightConstraint: NSLayoutConstraint!//主容高
+        @IBOutlet fileprivate var buttonViewHeightConstraint: NSLayoutConstraint!//主按高
+        @IBOutlet fileprivate var cancelButtonViewHeightConstraint: NSLayoutConstraint!//取消按高
+        @IBOutlet fileprivate var buttonViewSpaceConstraint: NSLayoutConstraint!//主按/取消按 间距
         
-        @IBOutlet private var marginViewTopSpaceConstraint: NSLayoutConstraint!//顶上
-        @IBOutlet private var marginViewLeftSpaceConstraint: NSLayoutConstraint!//顶左
-        @IBOutlet private var marginViewBottomSpaceConstraint: NSLayoutConstraint!//顶下
-        @IBOutlet private var marginViewRightSpaceConstraint: NSLayoutConstraint!//顶右
+        @IBOutlet fileprivate var marginViewTopSpaceConstraint: NSLayoutConstraint!//顶上
+        @IBOutlet fileprivate var marginViewLeftSpaceConstraint: NSLayoutConstraint!//顶左
+        @IBOutlet fileprivate var marginViewBottomSpaceConstraint: NSLayoutConstraint!//顶下
+        @IBOutlet fileprivate var marginViewRightSpaceConstraint: NSLayoutConstraint!//顶右
         
         // 内容View配置
-        public var configContainerWidth: (() -> CGFloat?)? //修改容器宽
-        public var configContainerCornerRadius: (() -> CGFloat?)?//修改容器圆角
-        public var configContentView: ((UIView!) -> Void)?//修改主视图
+        open var configContainerWidth: (() -> CGFloat?)? //修改容器宽
+        open var configContainerCornerRadius: (() -> CGFloat?)?//修改容器圆角
+        open var configContentView: ((UIView?) -> Void)?//修改主视图
         
-        public private(set) var actions: [Action] = []//事件集合[公开属性,私有setter(公开外部不能setter)]
-        public private(set) var textFields: [UITextField] = []//输入框集合
+        open fileprivate(set) var actions: [Action] = []//事件集合[公开属性,私有setter(公开外部不能setter)]
+        open fileprivate(set) var textFields: [UITextField] = []//输入框集合
         //
-        private var textFieldHandlers: [((UITextField!) -> Void)?] = []
-        private var customView: UIView?//自定义View
-        private var transitionCoverView: UIView?//覆盖层
-        private var displayTargetView: UIView?//显示主View
-        private var presentedAnimation: Bool = true//显示动态
+        fileprivate var textFieldHandlers: [((UITextField?) -> Void)?] = []
+        fileprivate var customView: UIView?//自定义View
+        fileprivate var transitionCoverView: UIView?//覆盖层
+        fileprivate var displayTargetView: UIView?//显示主View
+        fileprivate var presentedAnimation: Bool = true//显示动态
         //
         let AlertDefaultWidth: CGFloat = 270
         let AlertButtonHeight: CGFloat = 48
@@ -126,10 +126,10 @@ public class SimpleAlert {
         let ActionSheetButtonFontSize: CGFloat = 21
         let ConstraintPriorityRequired: Float = 1000
         
-        private var message: String?
-        private var preferredStyle: Style = .Alert//优先样式为弹框
+        fileprivate var message: String?
+        fileprivate var preferredStyle: Style = .alert//优先样式为弹框
         
-        private var marginInsets: UIEdgeInsets {//边距
+        fileprivate var marginInsets: UIEdgeInsets {//边距
             set {
                 marginViewTopSpaceConstraint.constant = newValue.top
                 marginViewLeftSpaceConstraint.constant = newValue.left
@@ -146,7 +146,7 @@ public class SimpleAlert {
         }
         // 构造器
         public convenience init() {
-            self.init(nibName: "SimpleAlert", bundle: NSBundle(forClass: Controller.self))
+            self.init(nibName: "SimpleAlert", bundle: Bundle(for: Controller.self))
         }
         
         public convenience init(title: String?, message: String?, style: Style) {
@@ -167,25 +167,25 @@ public class SimpleAlert {
         }
         
         // 覆盖构造器
-        override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
             super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
             
-            modalPresentationStyle = .Custom
-            modalTransitionStyle = .CrossDissolve
+            modalPresentationStyle = .custom
+            modalTransitionStyle = .crossDissolve
             transitioningDelegate = self
             // 通知中心->添加键盘侦听器
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardDidHide), name: UIKeyboardDidHideNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         }
         // 销毁器
         deinit {
-            NSNotificationCenter.defaultCenter().removeObserver(self)
+            NotificationCenter.default.removeObserver(self)
         }
         // #UIViewController
-        override public func viewDidLoad() {
+        override open func viewDidLoad() {
             super.viewDidLoad()
             
-            view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             baseView.layer.cornerRadius = 3.0
             baseView.clipsToBounds = true
@@ -195,7 +195,7 @@ public class SimpleAlert {
             
             displayTargetView = contentView
         }
-        override public func viewWillAppear(animated: Bool) {
+        override open func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
             if let view = customView {// 是否自定义View
@@ -212,18 +212,19 @@ public class SimpleAlert {
                 textField.becomeFirstResponder()
             }
             
-            if preferredStyle == .ActionSheet {// 优先样式为事件卡
+            if preferredStyle == .actionSheet {// 优先样式为事件卡
                 containerViewBottomSpaceConstraint.priority = ConstraintPriorityRequired// 优先级,权重
                 // 点击背景隐藏,销毁
                 backgroundView.touchHandler = {
                     [weak self] //声明对self弱引用,因为这个方法会dismissViewController,会销毁self,所以声明弱引用
                     view in
-                    self?.dismissViewController()//隐藏,销毁 self
+                    self?.dismiss()//隐藏,销毁 self
                 }
             }
         }
-        override public func dismissViewController(sender: AnyObject? = nil) {
-            dismissViewControllerAnimated(true) { //动态隐藏,销毁
+        
+        open func dismiss(_ sender: AnyObject? = nil) {
+            dismiss(animated: true) { //动态隐藏,销毁
                 if let action = self.actions.filter({ $0.button == sender as? UIButton }).first {
                     action.handler?(action)//执行第一个事件的handler
                 }
@@ -232,7 +233,7 @@ public class SimpleAlert {
                 self.textFields.removeAll()
             }
         }
-        override public func viewDidLayoutSubviews() {
+        override open func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
             
             if transitionCoverView == nil {
@@ -275,7 +276,7 @@ public class SimpleAlert {
                 }
             }
             
-            if preferredStyle == .ActionSheet {
+            if preferredStyle == .actionSheet {
                 let contentHeight = cancelButtonViewHeightConstraint.constant + mainViewHeightConstraint.constant + buttonViewHeightConstraint.constant + buttonViewSpaceConstraint.constant
                 coverViewHeightConstraint.constant = contentHeight + marginInsets.top + marginInsets.bottom
             }
@@ -283,13 +284,13 @@ public class SimpleAlert {
             view.layoutSubviews()
         }
         // 添加输入框[handler默认为nil]
-        public func addTextFieldWithConfigurationHandler(configurationHandler: ((UITextField!) -> Void)? = nil) {
+        open func addTextFieldWithConfigurationHandler(_ configurationHandler: ((UITextField?) -> Void)? = nil) {
             textFieldHandlers.append(configurationHandler)
         }
         // 添加事件卡
-        public func addAction(action: Action) {
+        open func addAction(_ action: Action) {
             var buttonHeight: CGFloat!
-            if preferredStyle == .ActionSheet {
+            if preferredStyle == .actionSheet {
                 buttonHeight = ActionSheetButtonHeight
             } else {
                 buttonHeight = AlertButtonHeight
@@ -299,26 +300,26 @@ public class SimpleAlert {
             if button.bounds.height <= 0 {
                 button.frame.size.height = buttonHeight
             }
-            button.autoresizingMask = .FlexibleWidth
-            button.addTarget(self, action: #selector(buttonWasTapped), forControlEvents: .TouchUpInside)
+            button.autoresizingMask = .flexibleWidth
+            button.addTarget(self, action: #selector(buttonWasTapped), for: .touchUpInside)
             action.setButton(button)
             configurButton(action.style, forButton: button)
             actions.append(action)
         }
         
         /** override if needed */
-        public func loadButton() -> UIButton {
-            let button = UIButton(type: .System)
+        open func loadButton() -> UIButton {
+            let button = UIButton(type: .system)
             let borderView = UIView(frame: CGRect(x: 0, y: -0.5, width: 0, height: 0.5))
-            borderView.backgroundColor = UIColor.lightGrayColor()
-            borderView.autoresizingMask = .FlexibleWidth
+            borderView.backgroundColor = UIColor.lightGray
+            borderView.autoresizingMask = .flexibleWidth
             button.addSubview(borderView)
             
             return button
         }
         
-        public func configurButton(style: Action.Style, forButton button: UIButton) {
-            if preferredStyle == .Alert {
+        open func configurButton(_ style: Action.Style, forButton button: UIButton) {
+            if preferredStyle == .alert {
                 configurAlertButton(style, forButton: button)
             } else {
                 configurActionSheetButton(style, forButton: button)
@@ -328,10 +329,10 @@ public class SimpleAlert {
 }
 // 私有扩展Action方法
 private extension SimpleAlert.Action {
-    private func setButton(forButton: UIButton) {
+    func setButton(_ forButton: UIButton) {
         button = forButton
-        button.setTitle(title, forState: .Normal)
-        button.enabled = enabled
+        button.setTitle(title, for: UIControlState())
+        button.isEnabled = enabled
     }
 }
 // 私有扩展内容视图方法
@@ -339,21 +340,21 @@ private extension SimpleAlert.ContentView {
      // 内容输入框
     class ContentTextField: UITextField {
         let TextLeftOffset: CGFloat = 4
-        override func textRectForBounds(bounds: CGRect) -> CGRect {
-            return CGRectOffset(bounds, TextLeftOffset, 0)
+        override func textRect(forBounds bounds: CGRect) -> CGRect {
+            return bounds.offsetBy(dx: TextLeftOffset, dy: 0)
         }
         
-        override func editingRectForBounds(bounds: CGRect) -> CGRect {
-            return CGRectOffset(bounds, TextLeftOffset, 0)
+        override func editingRect(forBounds bounds: CGRect) -> CGRect {
+            return bounds.offsetBy(dx: TextLeftOffset, dy: 0)
         }
     }
     // 创建输入框View
     func addTextField() -> UITextField {
         let textField = ContentTextField(frame: textBackgroundView.bounds)
-        textField.autoresizingMask = .FlexibleWidth
-        textField.font = UIFont.systemFontOfSize(TextFieldFontSize)
-        textField.backgroundColor = UIColor.whiteColor()
-        textField.layer.borderColor = UIColor.darkGrayColor().CGColor
+        textField.autoresizingMask = .flexibleWidth
+        textField.font = UIFont.systemFont(ofSize: TextFieldFontSize)
+        textField.backgroundColor = UIColor.white
+        textField.layer.borderColor = UIColor.darkGray.cgColor
         textField.layer.borderWidth = 0.5
         
         textBackgroundView.addSubview(textField)
@@ -388,7 +389,7 @@ private extension SimpleAlert.ContentView {
         frame.size.height = baseView.bounds.height + (verticalSpaceConstraint.constant * 2)
     }
     // 重新布局输入框
-    func layoutTextField(textField: UITextField) {
+    func layoutTextField(_ textField: UITextField) {
         textField.frame.origin.y = textViewHeightConstraint.constant
         if textField.frame.height <= 0 {
             textField.frame.size.height = TextFieldHeight
@@ -405,7 +406,7 @@ private extension SimpleAlert.Controller {
         contentView?.titleLabel.text = title
         contentView?.messageLabel.text = message
         
-        if preferredStyle == .Alert {
+        if preferredStyle == .alert {
             for handler in textFieldHandlers {
                 if let textField = self.contentView?.addTextField() {
                     self.textFields.append(textField)
@@ -418,7 +419,7 @@ private extension SimpleAlert.Controller {
     // 重新布局容器
     func layoutContainer() {
         var containerWidth = AlertDefaultWidth
-        if preferredStyle == .ActionSheet {
+        if preferredStyle == .actionSheet {
             marginInsets = UIEdgeInsetsMake(ActionSheetMargin, ActionSheetMargin, ActionSheetMargin, ActionSheetMargin)
             marginView.layoutIfNeeded()
             containerWidth = min(view.bounds.width, view.bounds.height) - marginInsets.top - marginInsets.bottom
@@ -463,22 +464,22 @@ private extension SimpleAlert.Controller {
     // 重新布局按钮
     func layoutButtons() {
         var buttonActions = actions
-        if preferredStyle == .ActionSheet {
-            let cancelActions = actions.filter { $0.style == .Cancel }
+        if preferredStyle == .actionSheet {
+            let cancelActions = actions.filter { $0.style == .cancel }
             let buttonHeight = addButton(cancelButtonView, actions: cancelActions)
             cancelButtonViewHeightConstraint.constant = buttonHeight
             buttonViewSpaceConstraint.constant = ActionSheetMargin
             
-            buttonActions = actions.filter { $0.style != .Cancel }
+            buttonActions = actions.filter { $0.style != .cancel }
         }
         
         let buttonHeight = addButton(buttonView, actions: buttonActions)
-        if preferredStyle != .Alert || buttonActions.count != 2 {
+        if preferredStyle != .alert || buttonActions.count != 2 {
             buttonViewHeightConstraint.constant = buttonHeight
         }
     }
     // 设置View颜色为背景颜色[View的透明覆盖]
-    func takeOverColor(targetView: UIView?) {
+    func takeOverColor(_ targetView: UIView?) {
         if let color = targetView?.backgroundColor {
             mainView.backgroundColor = color
             buttonView.backgroundColor = color
@@ -487,62 +488,62 @@ private extension SimpleAlert.Controller {
         targetView?.backgroundColor = nil
     }
     // 添加按钮
-    func addButton(view: UIView, actions: [SimpleAlert.Action]) -> CGFloat {
-        var sizeToFit: ((button: UIButton, index: Int) -> Void) = buttonSizeToFitForVertical
-        if preferredStyle == .Alert && actions.count == 2 {
+    func addButton(_ view: UIView, actions: [SimpleAlert.Action]) -> CGFloat {
+        var sizeToFit: ((_ button: UIButton, _ index: Int) -> Void) = buttonSizeToFitForVertical
+        if preferredStyle == .alert && actions.count == 2 {
             sizeToFit = buttonSizeToFitForHorizontal
         }
         
         return actions.reduce(0) { height, action in
             let button = action.button
-            view.addSubview(button)
+            view.addSubview(button!)
             
-            let buttonHeight = Int(button.bounds.height)
+            let buttonHeight = Int((button?.bounds.height)!)
             let buttonsHeight = Int(height)
-            sizeToFit(button: button, index: buttonsHeight / buttonHeight)
+            sizeToFit(button!, buttonsHeight / buttonHeight)
             
             return CGFloat(buttonsHeight + buttonHeight)
         }
     }
     // 纵向适配按钮大小
-    func buttonSizeToFitForVertical(button: UIButton, index: Int) {
+    func buttonSizeToFitForVertical(_ button: UIButton, index: Int) {
         button.frame.size.width = containerViewWidthConstraint.constant
         button.frame.origin.y = button.bounds.height * CGFloat(index)
     }
     // 横向适配按钮大小
-    func buttonSizeToFitForHorizontal(button: UIButton, index: Int) {
+    func buttonSizeToFitForHorizontal(_ button: UIButton, index: Int) {
         button.frame.size.width = containerViewWidthConstraint.constant / 2
         button.frame.origin.x = button.bounds.width * CGFloat(index)
         
         if index != 0 {
             let borderView = UIView(frame: CGRect(x: 0, y: 0, width: 0.5, height: button.bounds.height))
-            borderView.backgroundColor = UIColor.lightGrayColor()
-            borderView.autoresizingMask = .FlexibleHeight
+            borderView.backgroundColor = UIColor.lightGray
+            borderView.autoresizingMask = .flexibleHeight
             button.addSubview(borderView)
         }
     }
     // 配置弹框按钮字体,颜色
-    func configurAlertButton(style :SimpleAlert.Action.Style, forButton button: UIButton) {
+    func configurAlertButton(_ style :SimpleAlert.Action.Style, forButton button: UIButton) {
         switch style {
-        case .Destructive:
-            button.setTitleColor(UIColor.redColor(), forState: .Normal)
-            button.titleLabel?.font = UIFont.systemFontOfSize(AlertButtonFontSize)
-        case .Cancel:
-            button.titleLabel?.font = UIFont.boldSystemFontOfSize(AlertButtonFontSize)
+        case .destructive:
+            button.setTitleColor(UIColor.red, for: UIControlState())
+            button.titleLabel?.font = UIFont.systemFont(ofSize: AlertButtonFontSize)
+        case .cancel:
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: AlertButtonFontSize)
         default:
-            button.titleLabel?.font = UIFont.systemFontOfSize(AlertButtonFontSize)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: AlertButtonFontSize)
         }
     }
     // 配置默认事件卡按钮字体,颜色
-    func configurActionSheetButton(style :SimpleAlert.Action.Style, forButton button: UIButton) {
+    func configurActionSheetButton(_ style :SimpleAlert.Action.Style, forButton button: UIButton) {
         switch style {
-        case .Destructive:
-            button.setTitleColor(UIColor.redColor(), forState: .Normal)
-            button.titleLabel?.font = UIFont.systemFontOfSize(ActionSheetButtonFontSize)
-        case .Cancel:
-            button.titleLabel?.font = UIFont.boldSystemFontOfSize(ActionSheetButtonFontSize)
+        case .destructive:
+            button.setTitleColor(UIColor.red, for: UIControlState())
+            button.titleLabel?.font = UIFont.systemFont(ofSize: ActionSheetButtonFontSize)
+        case .cancel:
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: ActionSheetButtonFontSize)
         default:
-            button.titleLabel?.font = UIFont.systemFontOfSize(ActionSheetButtonFontSize)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: ActionSheetButtonFontSize)
         }
     }
 }
@@ -550,22 +551,22 @@ private extension SimpleAlert.Controller {
 // MARK: - Action Methods
 extension SimpleAlert.Controller {
     // 事件点击,隐藏事件卡
-    func buttonWasTapped(sender: UIButton) {
-        dismissViewController(sender)
+    func buttonWasTapped(_ sender: UIButton) {
+        dismiss(sender)
     }
 }
 
 // MARK: - NSNotificationCenter Methods
 extension SimpleAlert.Controller {
     //键盘隐藏
-    func keyboardDidHide(notification: NSNotification) {
+    func keyboardDidHide(_ notification: Notification) {
         backgroundViewBottomSpaceConstraint?.constant = 0
     }
     //键盘显示
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if let window = view.window {
-            if let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
-                let rect = window.convertRect(frame, toView: view)
+            if let frame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
+                let rect = window.convert(frame, to: view)
                 
                 backgroundViewBottomSpaceConstraint?.constant = view.bounds.size.height - rect.origin.y
             }
@@ -576,12 +577,12 @@ extension SimpleAlert.Controller {
 // MARK: - UIViewControllerTransitioningDelegate Methods
 extension SimpleAlert.Controller: UIViewControllerTransitioningDelegate {//动画转换委托
     // 动画->显示
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presentedAnimation = true
         return self
     }
     // 动画->隐藏
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presentedAnimation = false
         return self
     }
@@ -590,33 +591,33 @@ extension SimpleAlert.Controller: UIViewControllerTransitioningDelegate {//动�
 // MARK: - UIViewControllerAnimatedTransitioning Methods
 extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
     //动画时间
-    func animateDuration() -> NSTimeInterval {
+    func animateDuration() -> TimeInterval {
         return 0.25
     }
     //动画执行曲线
-    func animationOptionsForAnimationCurve(curve: UInt) -> UIViewAnimationOptions {
+    func animationOptionsForAnimationCurve(_ curve: UInt) -> UIViewAnimationOptions {
         return UIViewAnimationOptions(rawValue: curve << 16)
     }
     //创建动画转换视图
-    func createCoverView(frame: CGRect) -> UIView {
+    func createCoverView(_ frame: CGRect) -> UIView {
         let coverView = UIView(frame: frame)
-        coverView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+        coverView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         coverView.alpha = 0
-        coverView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        coverView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return coverView
     }
     
-    func animation(animations: () -> Void, completion: (Bool) -> Void) {
+    func animation(_ animations: @escaping () -> Void, completion: @escaping (Bool) -> Void) {
         //执行指定动画(持续时间,延时,动画执行曲线,动画体,完成回调)
-        UIView.animateWithDuration(animateDuration(), delay: 0, options: animationOptionsForAnimationCurve(7), animations: animations, completion: completion)
+        UIView.animate(withDuration: animateDuration(), delay: 0, options: animationOptionsForAnimationCurve(7), animations: animations, completion: completion)
     }
     // 弹出框显示动画
-    func presentAnimationForAlert(container: UIView, toView: UIView, fromView: UIView, completion: (Bool) -> Void) {
+    func presentAnimationForAlert(_ container: UIView, toView: UIView, fromView: UIView, completion: @escaping (Bool) -> Void) {
         let coverView = createCoverView(container.bounds)
         container.addSubview(coverView)
         
         toView.frame = container.bounds
-        toView.transform = CGAffineTransformConcat(fromView.transform, CGAffineTransformMakeScale(1.2, 1.2))//先放大1.2陪 (缩小效果)
+        toView.transform = fromView.transform.concatenating(CGAffineTransform(scaleX: 1.2, y: 1.2))//先放大1.2陪 (缩小效果)
         coverView.addSubview(toView)
 
         transitionCoverView = coverView
@@ -627,7 +628,7 @@ extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
             }, completion: completion)
     }
     // 弹出框隐藏动画
-    func dismissAnimationForAlert(container: UIView, toView: UIView, fromView: UIView, completion: (Bool) -> Void) {
+    func dismissAnimationForAlert(_ container: UIView, toView: UIView, fromView: UIView, completion: @escaping (Bool) -> Void) {
         transitionCoverView?.addSubview(fromView)
         
         animation({
@@ -636,7 +637,7 @@ extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
             }, completion: completion)
     }
     // 事件卡显示动画
-    func presentAnimationForActionSheet(container: UIView, toView: UIView, fromView: UIView, completion: (Bool) -> Void) {
+    func presentAnimationForActionSheet(_ container: UIView, toView: UIView, fromView: UIView, completion: @escaping (Bool) -> Void) {
         let coverView = createCoverView(container.bounds)
         container.addSubview(coverView)
         toView.frame = container.bounds
@@ -656,7 +657,7 @@ extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
             }, completion: completion)
     }
     // 事件卡隐藏动画
-    func dismissAnimationForActionSheet(container: UIView, toView: UIView, fromView: UIView, completion: (Bool) -> Void) {
+    func dismissAnimationForActionSheet(_ container: UIView, toView: UIView, fromView: UIView, completion: @escaping (Bool) -> Void) {
         container.addSubview(fromView)
         
         backgroundViewBottomSpaceConstraint.constant = -toView.bounds.height
@@ -669,25 +670,25 @@ extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
             }, completion: completion)
     }
     // 动画时间
-    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animateDuration()
     }
     // 转换动画
-    public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let container = transitionContext.containerView() else {
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let container:UIView = transitionContext.containerView else {
             return transitionContext.completeTransition(false)
         }
         
-        guard let from = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) else {
+        guard let from = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
             return transitionContext.completeTransition(false)
         }
         
-        guard let to = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
+        guard let to = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
             return transitionContext.completeTransition(false)
         }
 
         if presentedAnimation == true {
-            if preferredStyle == .Alert {
+            if preferredStyle == .alert {
                 presentAnimationForAlert(container, toView: to.view, fromView: from.view) {
                     _ in
                     transitionContext.completeTransition(true)
@@ -699,7 +700,7 @@ extension SimpleAlert.Controller: UIViewControllerAnimatedTransitioning {
                 }
             }
         } else {
-            if preferredStyle == .Alert {
+            if preferredStyle == .alert {
                 dismissAnimationForAlert(container, toView: to.view, fromView: from.view) {
                     _ in
                     transitionContext.completeTransition(true)

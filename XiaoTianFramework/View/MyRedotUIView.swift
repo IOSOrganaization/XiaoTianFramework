@@ -13,25 +13,25 @@ class MyRedotUIView: UIView {
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         colorTip = UtilColor().redColor
     }
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         colorTip = UtilColor().redColor
     }
     
-    func setColor(color:UIColor){
+    func setColor(_ color:UIColor){
         colorTip = color
         self.setNeedsDisplay() // 刷新drawRect UIView
     }
     
     // 画椭圆[控制: width,height约束相等(圆)]
-    override func drawRect(rect: CGRect){
+    override func draw(_ rect: CGRect){
         let ctx = UIGraphicsGetCurrentContext() // 绘图上下文
-        CGContextAddEllipseInRect(ctx, rect) // 椭圆
-        CGContextSetFillColor(ctx, CGColorGetComponents(colorTip.CGColor)) // 设置绘图上下文画笔填充颜色
-        CGContextFillPath(ctx) // 填充
+        ctx?.addEllipse(in: rect) // 椭圆
+        ctx?.setFillColor(colorTip.cgColor.components!) // 设置绘图上下文画笔填充颜色
+        ctx?.fillPath() // 填充
     }
 }

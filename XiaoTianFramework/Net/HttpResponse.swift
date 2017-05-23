@@ -38,39 +38,39 @@ class HttpResponse : NSObject {
     
     // 请求是否成功
     func isSuccess() -> Bool {
-        return successXJ == nil ? false : successXJ?.integerValue == 1
+        return successXJ == nil ? false : successXJ?.intValue == 1
     }
     
     // 用户Token是否错误
     func isTokenError() -> Bool {
-        return codeXJ == nil ? false : codeXJ?.integerValue == 400
+        return codeXJ == nil ? false : codeXJ?.intValue == 400
     }
     
     // 获取data子对象
-    func getDataSubObject(key:String) -> NSDictionary?{
+    func getDataSubObject(_ key:String) -> NSDictionary?{
         if dataXJ == nil {
             return nil
         }
-        return dataXJ?.objectForKey(key) as? NSDictionary
+        return dataXJ?.object(forKey: key) as? NSDictionary
     }
     
     // 获取data子数组
-    func getDataSubArray(key:String) -> [AnyObject]?{
+    func getDataSubArray(_ key:String) -> [AnyObject]?{
         if dataXJ == nil {
             return nil
         }
-        return dataXJ?.objectForKey(key) as? [AnyObject]
+        return dataXJ?.object(forKey: key) as? [AnyObject]
     }
     
     // 携带参数转型
-    func getResultExtra<T>(clazz: T.Type) -> T?{
+    func getResultExtra<T>(_ clazz: T.Type) -> T?{
         if resultExtra == nil{
             return nil
         }
         return resultExtra as? T
     }
     // 携带参数组转型
-    func getResultExtraArray<T>(clazz: T.Type) -> [T]?{
+    func getResultExtraArray<T>(_ clazz: T.Type) -> [T]?{
         if resultExtraArray == nil{
             return nil
         }
@@ -83,30 +83,30 @@ class HttpResponse : NSObject {
     
     /************************ Static Method ************************/
     // NSData 转化为HttpResponse
-    static func genHttpResponse(responseData:NSData?) -> HttpResponse{
+    static func genHttpResponse(_ responseData:Data?) -> HttpResponse{
         if responseData == nil {
-            return HttpResponse(success: TYPE_FAILED, code: CODE_ERROR_DATA, msg: "反序列化为HttpResponse错误,数据为空.")
+            return HttpResponse(success: NSNumber(value:TYPE_FAILED), code: NSNumber(value:CODE_ERROR_DATA), msg: "反序列化为HttpResponse错误,数据为空.")
         }
         let httpResponse = XTFSerializerJson().deSerializing(responseData, clazz: HttpResponse.self)
         if httpResponse == nil {
-            return HttpResponse(success: TYPE_FAILED, code: CODE_ERROR_DATA, msg: "反序列化为HttpResponse错误,JSON数据不合法.JSON:\(String(data:responseData!, encoding:NSUTF8StringEncoding)!)")
+            return HttpResponse(success: NSNumber(value:TYPE_FAILED), code: NSNumber(value:CODE_ERROR_DATA), msg: "反序列化为HttpResponse错误,JSON数据不合法.JSON:\(String(data:responseData!, encoding:String.Encoding.utf8)!)")
         }
         return httpResponse as! HttpResponse
     }
     
     static func genSelfLoseResponse()-> HttpResponse{
-        return HttpResponse(success: TYPE_SELF_LOSE, code: CODE_ERROR_CONTEXT, msg: "页面数据访问错误,请重新打开页面.")
+        return HttpResponse(success: NSNumber(value:TYPE_SELF_LOSE), code: NSNumber(value:CODE_ERROR_CONTEXT), msg: "页面数据访问错误,请重新打开页面.")
     }
     
     // 生成请求错误返回Data
-    static func genDataResponseFailure(code:NSNumber, msg:String) -> NSData {
-        return "{\"code\":\(code),\"success\":0,\"msg\":\"\(msg)\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static func genDataResponseFailure(_ code:NSNumber, msg:String) -> Data {
+        return "{\"code\":\(code),\"success\":0,\"msg\":\"\(msg)\"}".data(using: String.Encoding.utf8)!
     }
-    static func genDataResponseFailure(msg:String) -> NSData {
-        return "{\"code\":\(CODE_ERROR_HTTP),\"success\":0,\"msg\":\"\(msg)\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static func genDataResponseFailure(_ msg:String) -> Data {
+        return "{\"code\":\(CODE_ERROR_HTTP),\"success\":0,\"msg\":\"\(msg)\"}".data(using: String.Encoding.utf8)!
     }
-    static func genDataResponse(code:NSNumber, success:NSNumber, msg:String) -> NSData {
-        return "{\"code\":\(CODE_ERROR_HTTP),\"success\":\(success),\"msg\":\"\(msg)\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static func genDataResponse(_ code:NSNumber, success:NSNumber, msg:String) -> Data {
+        return "{\"code\":\(CODE_ERROR_HTTP),\"success\":\(success),\"msg\":\"\(msg)\"}".data(using: String.Encoding.utf8)!
     }
 
 }

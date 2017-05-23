@@ -89,7 +89,7 @@ class UtilColor: NSObject{
     }
     /// 透明
     var cleanColor: UIColor{
-        return UIColor.clearColor()
+        return UIColor.clear
     }
     
     /// 随机颜色

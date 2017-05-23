@@ -14,7 +14,7 @@ class MyLogoGray: UIImageView{
     override func awakeFromNib() {
         // 灰色的Logo 图片
         if let image = renderingImageWithThintColor(){
-            contentMode = .ScaleAspectFill
+            contentMode = .scaleAspectFill
             self.image = image
         }
     }
@@ -24,9 +24,9 @@ class MyLogoGray: UIImageView{
         if let image = UIImage(named: "logoDefault"){
             UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
             UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1).setFill()
-            let bounds = CGRectMake(0, 0, image.size.width, image.size.height)
+            let bounds = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
             UIRectFill(bounds)
-            image.drawInRect(bounds, blendMode: CGBlendMode.DestinationIn, alpha: 1.0)
+            image.draw(in: bounds, blendMode: CGBlendMode.destinationIn, alpha: 1.0)
             let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             return tintedImage

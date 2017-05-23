@@ -11,7 +11,7 @@ import Foundation
 class UtilSwift: NSObject {
     
     /// 封装请求图片的URL
-    func wrapRequestUrlImage(path:String) -> String{
+    func wrapRequestUrlImage(_ path:String) -> String{
         return "\(ConstantNet.HTTP_SERVER):\(ConstantNet.HTTP_PORT_IMAGE)\(path)"
     }
     //
@@ -19,7 +19,7 @@ class UtilSwift: NSObject {
         return localizedString("APP Name")
     }
     //
-    func localizedString(key:String) -> String{
+    func localizedString(_ key:String) -> String{
         return NSLocalizedString(key, comment:"");
     }
     

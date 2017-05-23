@@ -11,21 +11,21 @@ import Foundation
 class UtilNSNotificationDefaultCenter: NSObject{
     
     /// Post Notification
-    func postNotificationName(notificationName:String,_ userInfo:[NSObject: AnyObject]? = nil){
-        NSNotificationCenter.defaultCenter().postNotificationName(notificationName, object: nil, userInfo: userInfo)
+    func postNotificationName(_ notificationName:String,_ userInfo:[AnyHashable: Any]? = nil){
+        NotificationCenter.default.post(name: Notification.Name(rawValue: notificationName), object: nil, userInfo: userInfo)
     }
     /// 注册通知侦听器/观察者
-    func addObserver(observer:AnyObject,_ selector:Selector,_ name:String){
-        NSNotificationCenter.defaultCenter().addObserver(observer, selector: selector, name: name, object: nil)
+    func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:String){
+        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name(rawValue: name), object: nil)
     }
     /// 移除通知侦听器/观察者
-    func removeAllObserve(observer:AnyObject){
-        NSNotificationCenter.defaultCenter().removeObserver(observer)
+    func removeAllObserve(_ observer:AnyObject){
+        NotificationCenter.default.removeObserver(observer)
     }
     /// 注册侦听器
-    func addObserver(observer: NSObject) {
+    func addObserver(_ observer: NSObject) {
         // 默认获取指定回调的 function
-        if observer.respondsToSelector(Selector("addObserver")){
+        if observer.responds(to: Selector("addObserver")){
             
         }
     }
@@ -35,20 +35,20 @@ class UtilNSNotificationDefaultCenter: NSObject{
     //}
     
     /// 添加键盘弹出侦听器
-    func addObserverKeyboardWillShow(observer: NSObject,_ selector:Selector) {
-        NSNotificationCenter.defaultCenter().addObserver(observer, selector: selector, name: UIKeyboardWillShowNotification, object: nil)
+    func addObserverKeyboardWillShow(_ observer: NSObject,_ selector:Selector) {
+        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     /// 添加键盘收起侦听器
-    func addObserverKeyboardDidHide(observer: NSObject,_ selector:Selector) {
-        NSNotificationCenter.defaultCenter().addObserver(observer, selector: selector, name: UIKeyboardDidHideNotification, object: nil)
+    func addObserverKeyboardDidHide(_ observer: NSObject,_ selector:Selector) {
+        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     /// 移除键盘弹出侦听器
-    func removeObserverKeyboardWillShow(observer: NSObject){
-        NSNotificationCenter.defaultCenter().removeObserver(observer, name: UIKeyboardWillShowNotification, object: nil)
+    func removeObserverKeyboardWillShow(_ observer: NSObject){
+        NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     /// 移除键盘收起侦听器
-    func removeObserverKeyboardDidHide(observer: NSObject){
-        NSNotificationCenter.defaultCenter().removeObserver(observer, name: UIKeyboardDidHideNotification, object: nil)
+    func removeObserverKeyboardDidHide(_ observer: NSObject){
+        NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
 
 }

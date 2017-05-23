@@ -528,6 +528,7 @@
 					04FCC9CB1A4BA8D6001A6BBD = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = R7Q7VVJKLG;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -754,6 +755,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -783,6 +785,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

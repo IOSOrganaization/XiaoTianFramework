@@ -12,41 +12,43 @@ import Foundation
 class UtilRegularExpression: NSObject{
     
     // 查找
-    func findFirst(target:String,_ pattern:String) -> NSRange{
+    func findFirst(_ target:String,_ pattern:String) -> NSRange{
         do{
-            let re = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
-            return re.rangeOfFirstMatchInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let re = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            return re.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
         } catch {
             
         }
         return NSRange(location: NSNotFound, length: 0)
     }
     // 替换
-    func replayFirst(target:String,_ pattern:String,_ value:String) -> String{
+    func replayFirst(_ target:String,_ pattern:String,_ value:String) -> String{
         do{
-            let regex = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
-            let rangeOfFirstMatch = regex.rangeOfFirstMatchInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if !NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0)){
-                let startIndex = target.startIndex.advancedBy(rangeOfFirstMatch.location)
-                let endIndex = target.startIndex.advancedBy(rangeOfFirstMatch.location+rangeOfFirstMatch.length)
-                let range = Range<String.Index>(startIndex ..< endIndex)
-                var resultString = String(target)
-                resultString.replaceRange(range, with: value)
+                let resultString = target.replacingOccurrences(of: pattern, with: value, options: .literal, range: nil)
+                
+                //let startIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location)
+                //let endIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location+rangeOfFirstMatch.length)
+                //let range = Range<String.Index>(startIndex ..< endIndex)
+                //var resultString = String(target)
+                //resultString.replaceSubrange(range, with: value)
                 return resultString
             }
         } catch {}
         return String(target)
     }
     //
-    func getMatched(target:String,_ pattern:String) -> String!{
+    func getMatched(_ target:String,_ pattern:String) -> String!{
         do{
-            let regex = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
-            let rangeOfFirstMatch = regex.rangeOfFirstMatchInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if !NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0)){
-                let startIndex = target.startIndex.advancedBy(rangeOfFirstMatch.location)
-                let endIndex = target.startIndex.advancedBy(rangeOfFirstMatch.location+rangeOfFirstMatch.length)
+                let startIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location)
+                let endIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location+rangeOfFirstMatch.length)
                 let range = Range<String.Index>(startIndex ..< endIndex)
-                let subStringForFirstMatch = target.substringWithRange(range)
+                let subStringForFirstMatch = target.substring(with: range)
                 return subStringForFirstMatch
             }
         } catch {
@@ -54,10 +56,10 @@ class UtilRegularExpression: NSObject{
         }
         return nil
     }
-    func matching(target:String,_ pattern:String) -> Bool{
+    func matching(_ target:String,_ pattern:String) -> Bool{
         do{
-            let regex = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
-            let rangeOfFirstMatch = regex.rangeOfFirstMatchInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if !NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0)){
                 return true
             }
@@ -66,16 +68,16 @@ class UtilRegularExpression: NSObject{
         }
         return false
     }
-    func isMatch(target:String,_ pattern:String){
+    func isMatch(_ target:String,_ pattern:String){
         do{
-            let regex = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             
             //
-            let match = regex.firstMatchInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let match = regex.firstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if match != nil{
                 let matchRange = match?.range
-                let firstHalfRange = match?.rangeAtIndex(1)
-                let secondHalfRange = match?.rangeAtIndex(1)
+                let firstHalfRange = match?.rangeAt(1)
+                let secondHalfRange = match?.rangeAt(1)
                 //
                 Mylog.log(matchRange)
                 Mylog.log(firstHalfRange)
@@ -83,16 +85,16 @@ class UtilRegularExpression: NSObject{
             }
             //
             let point: UInt8! = nil
-            regex.enumerateMatchesInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count), usingBlock: { (match, flags, point) in
+            regex.enumerateMatches(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count), using: { (match, flags, point) in
                 let matchRange = match?.range
-                let firstHalfRange = match?.rangeAtIndex(1)
-                let secondHalfRange = match?.rangeAtIndex(2)
+                let firstHalfRange = match?.rangeAt(1)
+                let secondHalfRange = match?.rangeAt(2)
                 
             })
             //
-            let modifiedString = regex.stringByReplacingMatchesInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count), withTemplate: "$2$1")
+            let modifiedString = regex.stringByReplacingMatches(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count), withTemplate: "$2$1")
             //
-            let numberOfMatches = regex.numberOfMatchesInString(target, options: .ReportProgress, range:  NSMakeRange(0, target.characters.count))
+            let numberOfMatches = regex.numberOfMatches(in: target, options: .reportProgress, range:  NSMakeRange(0, target.characters.count))
         } catch {
             
         }

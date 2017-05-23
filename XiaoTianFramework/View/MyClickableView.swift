@@ -10,7 +10,7 @@ import Foundation
 // 可点击的 UIView
 @IBDesignable
 class MyClickableUIView: UIView{
-    var tabFunction:((view:MyClickableUIView)->())?
+    var tabFunction:((_ view:MyClickableUIView)->())?
     
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
     @IBInspectable var onClickAction: String = ""
@@ -28,7 +28,7 @@ class MyClickableUIView: UIView{
             return
         }
         // 获取当前 Responder 链中包含该Selector的第一个Responder
-        if let responder: AnyObject? = self.targetForAction(Selector(onClickAction), withSender: self) {
+        if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject {
             setOnTabListener() {
                 [weak self, responder] params in
                 guard let wSelf = self else {
@@ -38,12 +38,12 @@ class MyClickableUIView: UIView{
                     return
                 }
                 // 执行绑定的 OnClickAction [最多传递一个参数]
-                wResponder.performSelector(Selector(wSelf.onClickAction), withObject: wSelf)
+                wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
             }
         }
     }
     // Clickable
-    func setClickable(clickable:Bool?){
+    func setClickable(_ clickable:Bool?){
         if clickable == nil{
             return
         }
@@ -52,29 +52,29 @@ class MyClickableUIView: UIView{
     // Tab 事件
     func onTabAction(){
         if tabFunction != nil{
-            tabFunction!(view:self)
+            tabFunction!(self)
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(onTabListener:(view:MyClickableUIView)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:MyClickableUIView)->()){
         clickableExt = true
         self.tabFunction = onTabListener
     }
     // 设置Tabed的背景色
-    func setTabedBackground(color:UIColor){
+    func setTabedBackground(_ color:UIColor){
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?){
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
     }
     
@@ -82,7 +82,7 @@ class MyClickableUIView: UIView{
 // 可点击的 UILabel
 @IBDesignable
 class MyClickableUILabel: UILabel{
-    var tabFunction:((view:MyClickableUILabel)->())?
+    var tabFunction:((_ view:MyClickableUILabel)->())?
     @IBInspectable var onClickAction: String = ""
     //
     required init?(coder aDecoder: NSCoder){
@@ -97,7 +97,7 @@ class MyClickableUILabel: UILabel{
         if onClickAction == "" {
             return
         }
-        if let responder: AnyObject? = self.targetForAction(Selector(onClickAction), withSender: self) {
+        if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject {
             setOnTabListener() {
                 [weak self, responder] params in
                 guard let wSelf = self else {
@@ -106,12 +106,12 @@ class MyClickableUILabel: UILabel{
                 guard let wResponder = responder else {
                     return
                 }
-                wResponder.performSelector(Selector(wSelf.onClickAction), withObject: wSelf)
+                wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
             }
         }
     }
     // Clickable
-    func setClickable(clickable:Bool?){
+    func setClickable(_ clickable:Bool?){
         if clickable == nil{
             return
         }
@@ -120,36 +120,36 @@ class MyClickableUILabel: UILabel{
     // Tab 事件
     func onTabAction(){
         if tabFunction != nil{
-            tabFunction!(view:self)
+            tabFunction!(self)
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(onTabListener:(view:MyClickableUILabel)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:MyClickableUILabel)->()){
         clickableExt = true
         self.tabFunction = onTabListener
     }
     // 设置Tabed的背景色
-    func setTabedBackground(color:UIColor){
+    func setTabedBackground(_ color:UIColor){
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?){
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
     }
 }
 // 可点击的 UIImageView
 @IBDesignable
 class MyUIImageView: UIImageView{
-    var tabFunction:((view:UIView)->())?
+    var tabFunction:((_ view:UIView)->())?
     //
     @IBInspectable var onClickAction: String = ""
     @IBInspectable var onClickColor: UIColor = UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1)
@@ -166,7 +166,7 @@ class MyUIImageView: UIImageView{
         if onClickAction == "" {
             return
         }
-        if let responder: AnyObject? = self.targetForAction(Selector(onClickAction), withSender: self) {
+        if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject {
             setTabedBackground(onClickColor)
             setOnTabListener() {
                 [weak self, responder] params in
@@ -176,12 +176,12 @@ class MyUIImageView: UIImageView{
                 guard let wResponder = responder else {
                     return
                 }
-                wResponder.performSelector(Selector(wSelf.onClickAction), withObject: wSelf)
+                wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
             }
         }
     }
     // Clickable
-    func setClickable(clickable:Bool?){
+    func setClickable(_ clickable:Bool?){
         if clickable == nil{
             return
         }
@@ -190,29 +190,29 @@ class MyUIImageView: UIImageView{
     // Tab 事件
     func onTabAction(){
         if tabFunction != nil{
-            tabFunction!(view:self)
+            tabFunction!(self)
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(onTabListener:(view:UIView)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:UIView)->()){
         clickableExt = true
         self.tabFunction = onTabListener
     }
     // 设置Tabed的背景色
-    func setTabedBackground(color:UIColor){
+    func setTabedBackground(_ color:UIColor){
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?){
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
     }
 }
@@ -223,19 +223,19 @@ private var tabFunctionAssociationKey: UInt8 = 0
 private var clickableAssociationKey: UInt8 = 0
 private var backgroundViewAssociationKey: UInt8 = 0
 private extension UIView {
-    private var tabDateExt : NSTimeInterval {
+    var tabDateExt : TimeInterval {
         get {
             var value = objc_getAssociatedObject(self, &tabDataAssociationKey)
             if value == nil{
-                value = NSDate().timeIntervalSince1970
+                value = Date().timeIntervalSince1970
             }
-            return value as! NSTimeInterval
+            return value as! TimeInterval
         }
         set (newValue) {
             objc_setAssociatedObject(self, &tabDataAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
-    private var clickableExt: Bool {
+    var clickableExt: Bool {
         get {
             let value = objc_getAssociatedObject(self, &clickableAssociationKey)
             return value == nil ? false : value as! Bool
@@ -244,7 +244,7 @@ private extension UIView {
             objc_setAssociatedObject(self, &clickableAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
-    private var backgroundViewExt: UIView! {
+    var backgroundViewExt: UIView! {
         get {
             return objc_getAssociatedObject(self, &backgroundViewAssociationKey) as? UIView
         }
@@ -255,55 +255,55 @@ private extension UIView {
     }
     
     // #ClickAble Method
-    private func clickableInit() {
-        userInteractionEnabled = true //开启用户交互事件
+    func clickableInit() {
+        isUserInteractionEnabled = true //开启用户交互事件
         if backgroundViewExt == nil{
             backgroundViewExt = UIView(frame: self.bounds)
             backgroundViewExt.alpha = 0.3
-            backgroundViewExt.hidden = true
-            backgroundViewExt.backgroundColor = UIColor.grayColor()
-            self.insertSubview(backgroundViewExt, atIndex: 0)
+            backgroundViewExt.isHidden = true
+            backgroundViewExt.backgroundColor = UIColor.gray
+            self.insertSubview(backgroundViewExt, at: 0)
         }
     }
-    private func clickableTouchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    func clickableTouchesEnded(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
         if !clickableExt {
             return
         }
-        if NSDate().timeIntervalSince1970 - tabDateExt < 0.1 {
+        if Date().timeIntervalSince1970 - tabDateExt < 0.1 {
             // 点击太快(小于0.1s,背景还没显示),延时隐藏背景,等待背景显示
             let delay = 0.1 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue(), {
-                self.backgroundViewExt.hidden = true
+            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                self.backgroundViewExt.isHidden = true
             })
         } else {
             // 点击正常
-            backgroundViewExt.hidden = true
+            backgroundViewExt.isHidden = true
         }
     }
-    private func clickableTouchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    func clickableTouchesCancelled(_ touches: Set<UITouch>?, withEvent event: UIEvent?) {
         if !clickableExt {
             return
         }
-        if NSDate().timeIntervalSince1970 - tabDateExt < 0.2 {
+        if Date().timeIntervalSince1970 - tabDateExt < 0.2 {
             // 点击太快(小于0.1s,背景还没显示),延时隐藏背景,等待背景显示
             let delay = 0.1 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue(), {
-                self.backgroundViewExt.hidden = true
+            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                self.backgroundViewExt.isHidden = true
             })
         } else {
             // 点击正常
-            backgroundViewExt.hidden = true
+            backgroundViewExt.isHidden = true
         }
         
     }
-    private func clickableTouchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    func clickableTouchesBegan(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
         if !clickableExt {
             return
         }
-        tabDateExt = NSDate().timeIntervalSince1970
+        tabDateExt = Date().timeIntervalSince1970
         backgroundViewExt.frame = self.bounds
-        backgroundViewExt.hidden = false
+        backgroundViewExt.isHidden = false
     }
 }

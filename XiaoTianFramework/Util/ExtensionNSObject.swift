@@ -16,10 +16,10 @@ extension NSObject {
         }
     }
     /// 单例实例
-    public class Util {
+    open class Util {
         // 全局单例
         static let shared = Util()
-        private init(){
+        fileprivate init(){
             // private 声明,防止实例化
         }
         // Util 延时实例化

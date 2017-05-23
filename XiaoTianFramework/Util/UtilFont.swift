@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(UtilFontXT)
-public class UtilFont: NSObject{
+open class UtilFont: NSObject{
     // 添加字体
     // 1.拷贝字体文件driftbook_font.ttf到项目中
     // 2.设置该字体文件被拷贝到app中 Copy Resource bundle
@@ -21,89 +21,89 @@ public class UtilFont: NSObject{
         if let font = UIFont(name: "HYQiHei", size: 13){
             return font
         }
-        return UIFont.systemFontOfSize(13)
+        return UIFont.systemFont(ofSize: 13)
     }
     /// 列表头字体大小
     var textItem: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 15){
             return font
         }
-        return UIFont.systemFontOfSize(15)
+        return UIFont.systemFont(ofSize: 15)
     }
     /// 列表标题字体大小
     var textTitle: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 14){
             return font
         }
-        return UIFont.systemFontOfSize(14)
+        return UIFont.systemFont(ofSize: 14)
     }
     /// 列表内容字体大小
     var textLabel: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 13){
             return font
         }
-        return UIFont.systemFontOfSize(13)
+        return UIFont.systemFont(ofSize: 13)
     }
     /// 消息提示字体大小
     var textNewTip: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 10){
             return font
         }
-        return UIFont.systemFontOfSize(10)
+        return UIFont.systemFont(ofSize: 10)
     }
     /// 分享文本字体大小
     var textShare: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 10){
             return font
         }
-        return UIFont.systemFontOfSize(10)
+        return UIFont.systemFont(ofSize: 10)
     }
     /// 输入框文字大小
     var textInput: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 15){
             return font
         }
-        return UIFont.systemFontOfSize(15)
+        return UIFont.systemFont(ofSize: 15)
     }
     var textButton: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 14){
             return font
         }
-        return UIFont.systemFontOfSize(14)
+        return UIFont.systemFont(ofSize: 14)
     }
     /// 工具栏
     var textBar: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 15){
             return font
         }
-        return UIFont.systemFontOfSize(15)
+        return UIFont.systemFont(ofSize: 15)
     }
     /// 指定字体大小
-    func withSize(size: CGFloat) -> UIFont{
+    func withSize(_ size: CGFloat) -> UIFont{
         if let font = UIFont(name: "HYQiHei", size: size){
             return font
         }
-        return UIFont.systemFontOfSize(size)
+        return UIFont.systemFont(ofSize: size)
     }
     var dialogTitle: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 13){
             return font
         }
-        return UIFont.systemFontOfSize(13)
+        return UIFont.systemFont(ofSize: 13)
     }
     
     var dialogContent: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 13){
             return font
         }
-        return UIFont.systemFontOfSize(13)
+        return UIFont.systemFont(ofSize: 13)
     }
     
     var dialogButton: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 14){
             return font
         }
-        return UIFont.systemFontOfSize(14)
+        return UIFont.systemFont(ofSize: 14)
     }
     
 }

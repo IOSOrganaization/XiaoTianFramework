@@ -10,43 +10,43 @@ import Foundation
 
 class HttpRequest : NSObject{
     /// You can use NSURL, NSURLRequest and NSURLSession or NSURLConnection ,NSURLSession is preferred
-    func request(url:String, method:String, params:NSDictionary){
+    func request(_ url:String, method:String, params:NSDictionary){
         
     }
     
     /// 普通Get请求
-    func getRequest(url:String, parameters:NSDictionary?) -> NSData{
-        let sem:dispatch_semaphore_t = dispatch_semaphore_create(0) // 创建调度线程锁,锁定线程
+    func getRequest(_ url:String, parameters:NSDictionary?) -> Data{
+        let sem:DispatchSemaphore = DispatchSemaphore(value: 0) // 创建调度线程锁,锁定线程
         // 构造请求URL
-        var nsurl:NSURL?
+        var nsurl:URL?
         if (parameters != nil){
             var urlParams:[String] = []
             let enumerator = parameters?.keyEnumerator()
             while let key = enumerator?.nextObject() {
-                let value = parameters?.objectForKey(key)
+                let value = parameters?.object(forKey: key)
                 if value != nil {
                     urlParams.append("\(key)=\(value!)")
                 }
             }
             // 构造
             if urlParams.count > 0 {
-                nsurl = NSURL(string: "\(url)\(url.containsString("?") ? "/" : "?" )\(urlParams.joinWithSeparator("&"))")
+                nsurl = URL(string: "\(url)\(url.contains("?") ? "/" : "?" )\(urlParams.joined(separator: "&"))")
             }
         }
         if nsurl == nil {
-            nsurl = NSURL(string: url)
+            nsurl = URL(string: url)
         }
         if nsurl == nil {
-            return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
+            return HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_URL), msg:"构造请求URL失败,请检测URL合法性.")
         }
         //
-        var resultData: NSData!
-        let defaultConfigObject = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let urlSession = NSURLSession(configuration: defaultConfigObject)
+        var resultData: Data!
+        let defaultConfigObject = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: defaultConfigObject)
         // 请求配置
-        let requestUrl = NSMutableURLRequest(URL: nsurl!)
+        let requestUrl = NSMutableURLRequest(url: nsurl!)
         // 请求的 Method
-        requestUrl.HTTPMethod = HttpProperty.Method.GET
+        requestUrl.httpMethod = HttpProperty.Method.GET
         // 请求的内容类型 Content_Type
         requestUrl.addValue(HttpProperty.ContentType.APPLICATION_FORM_URLENCODEED, forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_TYPE)
         // 请求持续性 Connection
@@ -60,59 +60,59 @@ class HttpRequest : NSObject{
         // 请求传递内容长度(get 在请求体里不传递内容,请求参数在URL上)
         requestUrl.addValue("0", forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
         // 构造请求
-        let requestTask = urlSession.dataTaskWithRequest(requestUrl){
+        let requestTask = urlSession.dataTask(with: requestUrl as URLRequest, completionHandler: {
             (data, urlResponse, error) in
             if error != nil {
                 // 请求失败
                 Mylog.log(error.debugDescription)
-                resultData = HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:(error?.localizedDescription)!)
+                resultData = HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:(error?.localizedDescription)!)
             } else {
                 // 请求成功
-                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
+                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:"返回数据为空.")
                 //Mylog.log("执行完成,请求结束")
             }
-            dispatch_semaphore_signal(sem) // 发信号,解锁
-        }
+            sem.signal() // 发信号,解锁
+        })
         // 发送请求
         requestTask.resume()
         
         Mylog.log(nsurl)
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER); // 锁定,等待解锁
+        let _ = sem.wait(timeout: DispatchTime.distantFuture); // 锁定,等待解锁
         
-        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: NSUTF8StringEncoding))
+        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: String.Encoding.utf8))
         return resultData
     }
     
     /// 普通Post请求
-    func postRequest(url:String, parameters:NSDictionary?) -> NSData{
-        let sem:dispatch_semaphore_t = dispatch_semaphore_create(0) // 创建调度线程锁,锁定线程
+    func postRequest(_ url:String, parameters:NSDictionary?) -> Data{
+        let sem:DispatchSemaphore = DispatchSemaphore(value: 0) // 创建调度线程锁,锁定线程
         // 构造请求URL
-        let nsurl:NSURL? = NSURL(string: url)
+        let nsurl:URL? = URL(string: url)
         if nsurl == nil {
-            return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
+            return HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_URL), msg:"构造请求URL失败,请检测URL合法性.")
         }
         // 构造请求参数Body
         var requestString: String! = nil
-        var requestData: NSData? = nil
+        var requestData: Data? = nil
         if parameters != nil {
             let enumerator = parameters?.keyEnumerator()
             while let key = enumerator?.nextObject(){
-                let value = parameters?.objectForKey(key)
+                let value = parameters?.object(forKey: key)
                 if value == nil {
                     continue
                 }
                 requestString = requestString == nil ? "\(key)=\(value!)" : "\(requestString)&\(key)=\(value!)"
             }
             // 常量参数
-            requestData = requestString.dataUsingEncoding(NSUTF8StringEncoding)
+            requestData = requestString.data(using: String.Encoding.utf8)
         }
-        var resultData: NSData!
-        let defaultConfigObject = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let urlSession = NSURLSession(configuration: defaultConfigObject)
+        var resultData: Data!
+        let defaultConfigObject = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: defaultConfigObject)
         // 请求配置
-        let requestUrl = NSMutableURLRequest(URL: nsurl!)
+        let requestUrl = NSMutableURLRequest(url: nsurl!)
         // 请求的 Method
-        requestUrl.HTTPMethod = HttpProperty.Method.POST
+        requestUrl.httpMethod = HttpProperty.Method.POST
         // 请求的内容类型 Content_Type
         requestUrl.addValue(HttpProperty.ContentType.APPLICATION_FORM_URLENCODEED, forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_TYPE)
         // 请求持续性 Connection
@@ -127,42 +127,42 @@ class HttpRequest : NSObject{
         if requestData == nil {
             requestUrl.addValue("0", forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
         } else {
-            requestUrl.addValue(String(requestData?.length), forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
+            requestUrl.addValue(String(describing: requestData?.count), forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
         }
         // 请求参数
-        requestUrl.HTTPBody = requestData
+        requestUrl.httpBody = requestData
         // 构造请求
-        let requestTask = urlSession.dataTaskWithRequest(requestUrl){
+        let requestTask = urlSession.dataTask(with: requestUrl as URLRequest, completionHandler: {
             (data, urlResponse, error) in
             if error != nil {
                 // 请求失败
                 Mylog.log(error.debugDescription)
-                resultData = HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:(error?.localizedDescription)!)
+                resultData = HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:(error?.localizedDescription)!)
             } else {
                 // 请求成功
-                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
+                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:"返回数据为空.")
                 //Mylog.log("执行完成,请求结束")
             }
-            dispatch_semaphore_signal(sem) // 发信号,解锁
-        }
+            sem.signal() // 发信号,解锁
+        })
         // 发送请求
         requestTask.resume()
         
         Mylog.log(nsurl)
         Mylog.log(requestString)
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER); // 锁定,等待解锁
+        let _ = sem.wait(timeout: DispatchTime.distantFuture); // 锁定,等待解锁
         
-        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: NSUTF8StringEncoding))
+        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: String.Encoding.utf8))
         return resultData
     }
     
     /// Post表单请求
-    func postFormRequest(url:String, parameters:NSDictionary?, parameterFiles:NSDictionary?) -> NSData{
-        let sem:dispatch_semaphore_t = dispatch_semaphore_create(0) // 创建调度线程锁,锁定线程[调度信号]
+    func postFormRequest(_ url:String, parameters:NSDictionary?, parameterFiles:NSDictionary?) -> Data{
+        let sem:DispatchSemaphore = DispatchSemaphore(value: 0) // 创建调度线程锁,锁定线程[调度信号]
         // 构造请求URL
-        let nsurl:NSURL? = NSURL(string: url)
+        let nsurl:URL? = URL(string: url)
         if nsurl == nil {
-            return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
+            return HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_URL), msg:"构造请求URL失败,请检测URL合法性.")
         }
         // 构造Form请求参数Body
         let boundary = genBoundary()
@@ -172,27 +172,27 @@ class HttpRequest : NSObject{
             let wrapParams = NSMutableDictionary(dictionary: parameters!)
             let enumerator = wrapParams.keyEnumerator()
             while let key = enumerator.nextObject(){
-                let value = wrapParams.objectForKey(key)
+                let value = wrapParams.object(forKey: key)
                 if value == nil {
                     continue
                 }
                 if requestData == nil {
                     requestData = NSMutableData()
                 }
-                requestData.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                requestData.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                requestData.appendData("Content-Type: text/plain; charset=UTF-8\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                requestData.appendData("Content-Transfer-Encoding: 8bit\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                requestData.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                requestData.appendData(("\(value!)".dataUsingEncoding(NSUTF8StringEncoding))!)
-                requestData.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                requestData.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                requestData.append("Content-Disposition: form-data; name=\"\(key)\"\r\n".data(using: String.Encoding.utf8)!)
+                requestData.append("Content-Type: text/plain; charset=UTF-8\r\n".data(using: String.Encoding.utf8)!)
+                requestData.append("Content-Transfer-Encoding: 8bit\r\n".data(using: String.Encoding.utf8)!)
+                requestData.append("\r\n".data(using: String.Encoding.utf8)!)
+                requestData.append(("\(value!)".data(using: String.Encoding.utf8))!)
+                requestData.append("\r\n".data(using: String.Encoding.utf8)!)
             }
         }
         if parameterFiles != nil {
             // form表单文件
             let enumerator = parameterFiles?.keyEnumerator()
             while let key = enumerator?.nextObject(){
-                let value = parameterFiles?.objectForKey(key)
+                let value = parameterFiles?.object(forKey: key)
                 if value == nil {
                     continue
                 }
@@ -200,16 +200,16 @@ class HttpRequest : NSObject{
                     requestData = NSMutableData()
                 }
                 // Translate File Stream Boundary
-                func writeFileStream(filePath: String){
-                    if NSFileManager.defaultManager().fileExistsAtPath(filePath){
+                func writeFileStream(_ filePath: String){
+                    if FileManager.default.fileExists(atPath: filePath){
                         do {
-                            let fileData = try NSData(contentsOfFile: filePath, options: NSDataReadingOptions())
-                            requestData.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                            requestData.appendData("Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(getFileName(filePath))\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                            requestData.appendData("Content-Type: application/octet-stream; charset=UTF-8\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                            requestData.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-                            requestData.appendData(fileData)
-                            requestData.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                            let fileData = try Data(contentsOf: URL(fileURLWithPath: filePath), options: NSData.ReadingOptions())
+                            requestData.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                            requestData.append("Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(getFileName(filePath))\"\r\n".data(using: String.Encoding.utf8)!)
+                            requestData.append("Content-Type: application/octet-stream; charset=UTF-8\r\n".data(using: String.Encoding.utf8)!)
+                            requestData.append("\r\n".data(using: String.Encoding.utf8)!)
+                            requestData.append(fileData)
+                            requestData.append("\r\n".data(using: String.Encoding.utf8)!)
                         } catch {
                             Mylog.log("Translate File Stream Boundary Error")
                         }
@@ -228,15 +228,15 @@ class HttpRequest : NSObject{
             }
         }
         // form表单数据结束标识
-        requestData.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        requestData.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
         //
-        var resultData: NSData!
-        let defaultConfigObject = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let urlSession = NSURLSession(configuration: defaultConfigObject)
+        var resultData: Data!
+        let defaultConfigObject = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: defaultConfigObject)
         // 请求配置
-        let requestUrl = NSMutableURLRequest(URL: nsurl!)
+        let requestUrl = NSMutableURLRequest(url: nsurl!)
         // 请求的 Method
-        requestUrl.HTTPMethod = HttpProperty.Method.POST
+        requestUrl.httpMethod = HttpProperty.Method.POST
         // 请求的内容类型 Content_Type
         requestUrl.addValue("\(HttpProperty.ContentType.MULTIPART_FORM_DATA); boundary=\(boundary)", forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_TYPE)
         // 请求持续性 Connection
@@ -252,61 +252,62 @@ class HttpRequest : NSObject{
         if requestData == nil {
             requestUrl.addValue("0", forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
         } else {
-            requestUrl.addValue(String(requestData?.length), forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
+            requestUrl.addValue(String(describing: requestData?.length), forHTTPHeaderField: HttpProperty.HeaderProperty.CONTENT_LENGTH)
         }
         // 请求Body数据体
-        requestUrl.HTTPBody = requestData
+        requestUrl.httpBody = requestData as Data
         // 构造请求
-        let requestTask = urlSession.dataTaskWithRequest(requestUrl){
+        
+        let requestTask = urlSession.dataTask(with: requestUrl as URLRequest, completionHandler: {
             (data, urlResponse, error) in
             if error != nil {
                 // 请求失败
                 Mylog.log(error.debugDescription)
-                resultData = HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:(error?.localizedDescription)!)
+                resultData = HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:(error?.localizedDescription)!)
             } else {
                 // 请求成功
-                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
+                resultData = data != nil ? data : HttpResponse.genDataResponseFailure(NSNumber(value:HttpResponse.CODE_ERROR_HTTP), msg:"返回数据为空.")
                 //Mylog.log("执行完成,请求结束")
             }
-            dispatch_semaphore_signal(sem) // 发信号,解锁
-        }
+            sem.signal() // 发信号,解锁
+        })
         // 发送请求
         requestTask.resume()
         
         Mylog.log(nsurl)
         Mylog.log(formatRequestParams(parameters, parameterFiles))
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER); // 锁定,等待解锁
+        let _ = sem.wait(timeout: DispatchTime.distantFuture); // 锁定,等待解锁
         
-        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: NSUTF8StringEncoding))
+        Mylog.log(String(data: XTFSerializerJson().formatJSONData(resultData), encoding: String.Encoding.utf8))
         return resultData
     }
     
     /// 生成Form表单Boundary边界标识
     func genBoundary() -> String{
-        let date = String(Int64(NSDate().timeIntervalSince1970 * 1000))
+        let date = String(Int64(Date().timeIntervalSince1970 * 1000))
         return "---------------------------\(date)---------------------------"
     }
     
     /// 获取文件名
-    func getFileName(filePath:String) -> String{
-        let paths = filePath.characters.split("/").map(String.init)
+    func getFileName(_ filePath:String) -> String{
+        let paths = filePath.characters.split(separator: "/").map(String.init)
         return paths[paths.count - 1]
     }
     
     /// 请求参数格式化为String
-    func formatRequestParams(params:NSDictionary?...) -> String{
+    func formatRequestParams(_ params:NSDictionary?...) -> String{
         var result:String! = nil;
         for param in params {
             let enumerator = param?.keyEnumerator()
             while let key = enumerator?.nextObject(){
-                let value = param?.objectForKey(key)
+                let value = param?.object(forKey: key)
                 result = result == nil ? "\(key)=\(value == nil ? "nil" : value!)" : "\(result),\(key)=\(value == nil ? "nil" : value!)"
             }
         }
         return result
     }
     /// 过滤空值的Dictionary [过滤掉 nil 值对]
-    func filterParamsNilValue(params:[String: AnyObject?]) -> NSDictionary{
+    func filterParamsNilValue(_ params:[String: AnyObject?]) -> NSDictionary{
         let resultDic = NSMutableDictionary()
         let unnilParams = params.filter(){ return $0.1 != nil } // filter nil value
         for (key, value) in unnilParams{
@@ -315,15 +316,15 @@ class HttpRequest : NSObject{
         return resultDic
     }
     /// Array String 提交前格式化为[xxx,xxx,xxx]字符串
-    func formatArrayToString(arrrayString:[String]?) -> String? {
+    func formatArrayToString(_ arrrayString:[String]?) -> String? {
         if arrrayString == nil || arrrayString!.isEmpty{
             return nil
         }
         var result = "["
-        for (index,value) in arrrayString!.enumerate() {
-            result.appendContentsOf(index == 0 ? "\(value)" : ",\(value)")
+        for (index,value) in arrrayString!.enumerated() {
+            result.append(index == 0 ? "\(value)" : ",\(value)")
         }
-        result.appendContentsOf("]")
+        result.append("]")
         return result
     }
 }

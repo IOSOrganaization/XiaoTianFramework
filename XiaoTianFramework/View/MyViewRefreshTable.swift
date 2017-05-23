@@ -11,19 +11,19 @@ import Foundation
 @IBDesignable
 class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
     // UI
-    private let LOADING_TYPE_INIT = 0
-    private let LOADING_TYPE_FIRST = 1
-    private let LOADING_TYPE_NEXT = 2
-    private let LOADING_TYPE_RELOAD = 3
+    fileprivate let LOADING_TYPE_INIT = 0
+    fileprivate let LOADING_TYPE_FIRST = 1
+    fileprivate let LOADING_TYPE_NEXT = 2
+    fileprivate let LOADING_TYPE_RELOAD = 3
     //
-    private var viewErrorNetSetting: MyUIView!
-    private var page = 0
-    private var loadingType = -1 // 0初始化,1第一页,2下一页,3重新加载当前页
-    private var isLoading = false
-    private var hasMoreData = true
-    private var viewErrorNetSettingHeight:CGFloat = 40
-    private(set) var tableView:UITableView!
-    private var refreshController:MyLogoRefreshControl!
+    fileprivate var viewErrorNetSetting: MyUIView!
+    fileprivate var page = 0
+    fileprivate var loadingType = -1 // 0初始化,1第一页,2下一页,3重新加载当前页
+    fileprivate var isLoading = false
+    fileprivate var hasMoreData = true
+    fileprivate var viewErrorNetSettingHeight:CGFloat = 40
+    fileprivate(set) var tableView:UITableView!
+    fileprivate var refreshController:MyLogoRefreshControl!
     //
     var viewLoading: UIView!
     var viewEmpty: MyUIView!
@@ -31,7 +31,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
     var viewReloading: MyUIView!
     var viewLoadingMore: UIView!
     var viewLoadingFinish: UIView!
-    private(set) var dataArray:[AnyObject]! = []
+    fileprivate(set) var dataArray:[AnyObject]! = []
     var toastNetConnectError = true
     var showLoadingFinishView = false
     var pageSize = 10
@@ -48,29 +48,29 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         initView()
     }
     
-    private func initView(){
+    fileprivate func initView(){
         // 初始化完成后,系统根据系统主题设置样式
         #if TARGET_INTERFACE_BUILDER
             return
         #endif
-        let rootViews =  NSBundle.mainBundle().loadNibNamed("MyViewTipMessage", owner: nil, options: nil)
-        viewLoading = rootViews[0] as? UIView
-        viewEmpty = rootViews[1] as? MyUIView
-        viewError = rootViews[2] as? MyUIView
-        viewReloading = rootViews[3] as? MyUIView
+        let rootViews =  Bundle.main.loadNibNamed("MyViewTipMessage", owner: nil, options: nil)
+        viewLoading = rootViews?[0] as? UIView
+        viewEmpty = rootViews?[1] as? MyUIView
+        viewError = rootViews?[2] as? MyUIView
+        viewReloading = rootViews?[3] as? MyUIView
         viewErrorNetSetting = viewError.viewWithTag(4610) as? MyUIView
         //
-        tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.Plain)
+        tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
         utilLayoutConstant(tableView).top().left().widthMultiplier(1).heightMultiplier(1) // x,y,w,h才能确定准确位置
         utilLayoutConstant(viewLoading).top().left().widthMultiplier(1).heightMultiplier(1)
         utilLayoutConstant(viewEmpty).top().left().widthMultiplier(1).heightMultiplier(1)
         utilLayoutConstant(viewError).top().left().widthMultiplier(1).heightMultiplier(1)
         utilLayoutConstant(viewReloading).top().left().widthMultiplier(1).heightMultiplier(1)
         //
-        viewEmpty.hidden = true
-        viewError.hidden = true
-        tableView.hidden = true
-        viewReloading.hidden = true
+        viewEmpty.isHidden = true
+        viewError.isHidden = true
+        tableView.isHidden = true
+        viewReloading.isHidden = true
         //
         backgroundColor = utilShared.color.cleanColor
         viewLoading.backgroundColor = utilShared.color.cleanColor
@@ -98,7 +98,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         })
         viewReloading.setOnTabListener({view in})
         refreshController = MyLogoRefreshControl()
-        refreshController.addTarget(self, action: #selector(loadFirstPageData), forControlEvents: UIControlEvents.ValueChanged)
+        refreshController.addTarget(self, action: #selector(loadFirstPageData), for: UIControlEvents.valueChanged)
         tableView.backgroundView = refreshController
     }
     
@@ -108,8 +108,8 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         self.tableView.estimatedRowHeight = 60
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.tableView.backgroundColor = UIColor.clear
         layoutIfNeeded()
     }
 //    func setupDataArray(dataArray:[AnyObject]?){
@@ -119,13 +119,13 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
 //        self.dataArray  = dataArray
 //    }
     // #UITableViewDataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if let result = dataSourceRefresh?.tableView?(tableView, numberOfRowsInSection: section){
             return result
         }
         return dataArray.count
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         // 滚动到最后加载更多
         if autoLoadingNextPage && self.tableView(tableView, numberOfRowsInSection: 1) - indexPath.row < 2{
             scrollEndLoadingMore()
@@ -133,50 +133,50 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         // 返回 Cell
         return dataSourceRefresh == nil ? UITableViewCell() : dataSourceRefresh!.tableView(tableView, cellForRowAtIndexPath: indexPath)
     }
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool{
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool{
         if let result = dataSourceRefresh?.tableView?(tableView, canEditRowAtIndexPath: indexPath){
            return result
         }
         return false
     }
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         dataSourceRefresh?.tableView?(tableView, commitEditingStyle: editingStyle, forRowAtIndexPath: indexPath)
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         if let result = dataSourceRefresh?.tableView?(tableView, heightForRowAtIndexPath: indexPath){
             return result
         }
         return UITableViewAutomaticDimension
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+    func numberOfSections(in tableView: UITableView) -> Int{
         if let result = dataSourceRefresh?.numberOfSectionsInTableView?(tableView){
             return result
         }
         return 1
     }
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         //tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         return dataSourceRefresh?.tableView?(tableView, viewForHeaderInSection: section)
     }
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         //tableView.sectionFooterHeight = UITableViewAutomaticDimension
         return dataSourceRefresh?.tableView?(tableView, viewForFooterInSection: section)
     }
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return dataSourceRefresh?.tableView?(tableView, titleForHeaderInSection: section)
     }
     // #UITableViewDelegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataSourceRefresh?.tableView?(tableView, didSelectRowAtIndexPath: indexPath)
     }
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?{
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         if let result = dataSourceRefresh?.tableView?(tableView, editActionsForRowAtIndexPath: indexPath){
             return result
         }
         return nil
     }
     // #UITableViewDataSource:UIScrollViewDelegate
-    func scrollViewDidScroll(scrollView: UIScrollView){
+    func scrollViewDidScroll(_ scrollView: UIScrollView){
         refreshController.scrollViewDidScroll(scrollView)
     }
     /// 数据加载
@@ -189,14 +189,14 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         loadingType = LOADING_TYPE_INIT
         if dataArray.isEmpty{
             // 无数据,显示加载页面
-            viewEmpty.hidden = true
-            viewError.hidden = true
-            tableView.hidden = true
-            viewReloading.hidden = true
-            viewLoading.hidden = false
+            viewEmpty.isHidden = true
+            viewError.isHidden = true
+            tableView.isHidden = true
+            viewReloading.isHidden = true
+            viewLoading.isHidden = false
         } else {
             // 有数据,显示重加载页面
-            viewReloading.hidden = false
+            viewReloading.isHidden = false
         }
         dataSourceRefresh?.loadingPageData(page, pageSize: pageSize)
     }
@@ -232,7 +232,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         dataSourceRefresh?.loadingPageData(page, pageSize: pageSize)
     }
     /// 加载成功
-    func loadingSuccess(dataArray:[AnyObject]?){
+    func loadingSuccess(_ dataArray:[AnyObject]?){
         isLoading = false
         endRefreshing()
         switch loadingType {
@@ -242,7 +242,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                 self.dataArray.removeAll()
             }
             if dataArray != nil{
-                self.dataArray.appendContentsOf(dataArray!)
+                self.dataArray.append(contentsOf: dataArray!)
             }
             hasMoreData = self.dataArray.count >= pageSize
             setupHasMoreDataView(hasMoreData)
@@ -250,7 +250,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         case LOADING_TYPE_NEXT:
             // 下一页
             if dataArray != nil{
-                self.dataArray.appendContentsOf(dataArray!)
+                self.dataArray.append(contentsOf: dataArray!)
                 hasMoreData = dataArray!.count >= pageSize
                 setupHasMoreDataView(hasMoreData)
             }else{
@@ -262,7 +262,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
             // 重新加载页
             if dataArray != nil{
                 let start = page * pageSize
-                self.dataArray.replaceRange(start ..< start+dataArray!.count, with: dataArray!)
+                self.dataArray.replaceSubrange(start ..< start+dataArray!.count, with: dataArray!)
             }
             break
         default:
@@ -270,24 +270,24 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                 self.dataArray.removeAll()
             }
             if dataArray != nil{
-                self.dataArray.appendContentsOf(dataArray!)
+                self.dataArray.append(contentsOf: dataArray!)
             }
             hasMoreData = self.dataArray.count >= pageSize
             setupHasMoreDataView(hasMoreData)
             break
         }
         if self.dataArray.isEmpty{
-            tableView.hidden = true
-            viewEmpty.hidden = false
-            viewError.hidden = true
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = true
+            viewEmpty.isHidden = false
+            viewError.isHidden = true
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
         }else{
-            tableView.hidden = false
-            viewEmpty.hidden = true
-            viewError.hidden = true
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = false
+            viewEmpty.isHidden = true
+            viewError.isHidden = true
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
             tableView.reloadData()
         }
         loadingType = -1
@@ -300,11 +300,11 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         switch loadingType {
         case LOADING_TYPE_INIT:
             // 第一页
-            tableView.hidden = true
-            viewEmpty.hidden = true
-            viewError.hidden = false
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = true
+            viewEmpty.isHidden = true
+            viewError.isHidden = false
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
             break
         case LOADING_TYPE_NEXT:
             // 下一页
@@ -323,7 +323,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         layoutIfNeeded()
     }
     /// 加载完成
-    func onLodingPostExecute(result: HttpResponse){
+    func onLodingPostExecute(_ result: HttpResponse){
         isLoading = false
         endRefreshing()
         if result.isSuccess(){
@@ -335,7 +335,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                     dataArray.removeAll()
                 }
                 if result.resultExtraArray != nil{
-                    dataArray.appendContentsOf(result.resultExtraArray!)
+                    dataArray.append(contentsOf: result.resultExtraArray!)
                 }
                 hasMoreData = dataArray.count >= pageSize
                 setupHasMoreDataView(hasMoreData)
@@ -343,7 +343,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
             case LOADING_TYPE_NEXT:
                 // 下一页
                 if result.resultExtraArray != nil{
-                    dataArray.appendContentsOf(result.resultExtraArray!)
+                    dataArray.append(contentsOf: result.resultExtraArray!)
                     hasMoreData = result.resultExtraArray!.count >= pageSize
                     setupHasMoreDataView(hasMoreData)
                 }else{
@@ -355,7 +355,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                 // 重新加载页
                 if result.resultExtraArray != nil{
                     let start = page * pageSize
-                    dataArray.replaceRange(start ..< start+result.resultExtraArray!.count, with: result.resultExtraArray!)
+                    dataArray.replaceSubrange(start ..< start+result.resultExtraArray!.count, with: result.resultExtraArray!)
                 }
                 break
             default:
@@ -363,24 +363,24 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                     dataArray.removeAll()
                 }
                 if result.resultExtraArray != nil{
-                    dataArray.appendContentsOf(result.resultExtraArray!)
+                    dataArray.append(contentsOf: result.resultExtraArray!)
                 }
                 hasMoreData = dataArray.count >= pageSize
                 setupHasMoreDataView(hasMoreData)
                 break
             }
             if dataArray.isEmpty{
-                tableView.hidden = true
-                viewEmpty.hidden = false
-                viewError.hidden = true
-                viewLoading.hidden = true
-                viewReloading.hidden = true
+                tableView.isHidden = true
+                viewEmpty.isHidden = false
+                viewError.isHidden = true
+                viewLoading.isHidden = true
+                viewReloading.isHidden = true
             }else{
-                tableView.hidden = false
-                viewEmpty.hidden = true
-                viewError.hidden = true
-                viewLoading.hidden = true
-                viewReloading.hidden = true
+                tableView.isHidden = false
+                viewEmpty.isHidden = true
+                viewError.isHidden = true
+                viewLoading.isHidden = true
+                viewReloading.isHidden = true
             }
             loadingType = -1
             tableView.reloadData()
@@ -402,11 +402,11 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
                 break
             }
             loadingType = -1
-            tableView.hidden = true
-            viewEmpty.hidden = true
-            viewError.hidden = false
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = true
+            viewEmpty.isHidden = true
+            viewError.isHidden = false
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
             if !UtilEnvironment.isConnectedToNetwork && toastNetConnectError{
                 showNetErrorSetting()
             }
@@ -414,21 +414,21 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         }
     }
     /// 获取指定 Indexpath 的数据
-    func getDataForRowAtIndexPath(indexpath: NSIndexPath) -> AnyObject?{
+    func getDataForRowAtIndexPath(_ indexpath: IndexPath) -> AnyObject?{
         if indexpath.row < 0 || indexpath.row >= dataArray.count{
             return nil
         }
         return dataArray[indexpath.row]
     }
     /// 获取指定 Index 的数据
-    func getDataForRowAtIndex(index: Int) -> AnyObject?{
+    func getDataForRowAtIndex(_ index: Int) -> AnyObject?{
         if index < 0 || index >= dataArray.count{
             return nil
         }
         return dataArray[index]
     }
     /// 滚动到最后加载更多
-    private func scrollEndLoadingMore(){
+    fileprivate func scrollEndLoadingMore(){
         if isLoading{
             return
         }
@@ -440,51 +440,51 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         }
     }
     /// 网络无连接提示
-    private func showNetErrorSetting(){
+    fileprivate func showNetErrorSetting(){
         // 动画出现,y 轴值[-90 ~ 0]
-        UIView.animateWithDuration(0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             [weak self] in
             if let wSelf = self{
                 var frame = wSelf.viewErrorNetSetting.frame
                 frame.origin.y = 0
                 wSelf.viewErrorNetSetting.frame = frame
             }
-        }
-        performSelector(#selector(hideNetErrorSetting), withObject: self, afterDelay: 3 + 0.3)
+        }) 
+        perform(#selector(hideNetErrorSetting), with: self, afterDelay: 3 + 0.3)
     }
     /// 是否有还有更多
-    private func setupHasMoreDataView(hasMore:Bool){
+    fileprivate func setupHasMoreDataView(_ hasMore:Bool){
         if hasMore{
             if viewLoadingMore == nil{
-                let frame = CGRectMake(0, 0, tableView.frame.width, 50)
+                let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
                 viewLoadingMore = UIView(frame: frame)
                 let moreIndicator = MyLogoIndicator()
-                moreIndicator.frame = CGRectMake(0, 0, 30, 30)
-                moreIndicator.center = CGPointMake(frame.width / 2.0 - 70, 25)
+                moreIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                moreIndicator.center = CGPoint(x: frame.width / 2.0 - 70, y: 25)
                 let moreLabel = MyUILabel()
-                moreLabel.frame = CGRectMake(0, 0, tableView.frame.width, 21)
-                moreLabel.center = CGPointMake(frame.width / 2.0, 25)
+                moreLabel.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21)
+                moreLabel.center = CGPoint(x: frame.width / 2.0, y: 25)
                 moreLabel.textColor = utilShared.color.textGray
                 moreLabel.font = utilShared.font.textTitle
-                moreLabel.textAlignment = .Center
+                moreLabel.textAlignment = .center
                 moreLabel.text = "加载更多数据..."
-                viewLoadingMore.backgroundColor = UIColor.clearColor()
+                viewLoadingMore.backgroundColor = UIColor.clear
                 viewLoadingMore.addSubview(moreLabel)
                 viewLoadingMore.addSubview(moreIndicator)
             }
             tableView.tableFooterView = viewLoadingMore
         }else if showLoadingFinishView{
             if viewLoadingFinish == nil{
-                let frame = CGRectMake(0, 0, tableView.frame.width, 50)
+                let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
                 viewLoadingMore = UIView(frame: frame)
                 let moreLabel = MyUILabel()
-                moreLabel.frame = CGRectMake(0, 0, tableView.frame.width, 21)
-                moreLabel.center = CGPointMake(frame.width / 2.0, 25)
+                moreLabel.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21)
+                moreLabel.center = CGPoint(x: frame.width / 2.0, y: 25)
                 moreLabel.textColor = utilShared.color.textGray
                 moreLabel.font = utilShared.font.textLabel
-                moreLabel.textAlignment = .Center
+                moreLabel.textAlignment = .center
                 moreLabel.text = "━━　End　━━"
-                viewLoadingMore.backgroundColor = UIColor.clearColor()
+                viewLoadingMore.backgroundColor = UIColor.clear
                 viewLoadingMore.addSubview(moreLabel)
             }
             tableView.tableFooterView = viewLoadingMore
@@ -493,62 +493,62 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         }
     }
     /// 替换 DataArray 整个数组并刷新页面
-    func replaceDataArray(dataArray:[AnyObject]?){
+    func replaceDataArray(_ dataArray:[AnyObject]?){
         if !self.dataArray.isEmpty{
             self.dataArray.removeAll()
         }
         if dataArray != nil && !dataArray!.isEmpty{
-            self.dataArray.appendContentsOf(dataArray!)
+            self.dataArray.append(contentsOf: dataArray!)
         }
         if self.dataArray.isEmpty{
-            tableView.hidden = true
-            viewEmpty.hidden = false
-            viewError.hidden = true
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = true
+            viewEmpty.isHidden = false
+            viewError.isHidden = true
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
         }else{
-            tableView.hidden = false
-            viewEmpty.hidden = true
-            viewError.hidden = true
-            viewLoading.hidden = true
-            viewReloading.hidden = true
+            tableView.isHidden = false
+            viewEmpty.isHidden = true
+            viewError.isHidden = true
+            viewLoading.isHidden = true
+            viewReloading.isHidden = true
         }
         tableView.reloadData()
         layoutIfNeeded()
     }
     /// 移除 Item 数据
-    func removeDataByIndexPath(indexPath: NSIndexPath){
+    func removeDataByIndexPath(_ indexPath: IndexPath){
         if dataArray.isEmpty || indexPath.row < 0 || dataArray.count < indexPath.row{
             return
         }
-        dataArray.removeAtIndex(indexPath.row)
+        dataArray.remove(at: indexPath.row)
         tableView.reloadData()
     }
-    func removeDataByIndexPathAnimation(indexPath: NSIndexPath){
+    func removeDataByIndexPathAnimation(_ indexPath: IndexPath){
         if dataArray.isEmpty || indexPath.row < 0 || dataArray.count < indexPath.row{
             return
         }
-        dataArray.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        dataArray.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
-    func removeData(data:AnyObject?){
+    func removeData(_ data:AnyObject?){
         if dataArray.isEmpty || data == nil{
             return
         }
-        if let index = dataArray.indexOf({ data!.hash == $0.hash }){
-            dataArray.removeAtIndex(index)
+        if let index = dataArray.index(where: { data!.hash == $0.hash }){
+            dataArray.remove(at: index)
             if dataArray.isEmpty{
-                tableView.hidden = true
-                viewEmpty.hidden = false
-                viewError.hidden = true
-                viewLoading.hidden = true
-                viewReloading.hidden = true
+                tableView.isHidden = true
+                viewEmpty.isHidden = false
+                viewError.isHidden = true
+                viewLoading.isHidden = true
+                viewReloading.isHidden = true
             }else{
-                tableView.hidden = false
-                viewEmpty.hidden = true
-                viewError.hidden = true
-                viewLoading.hidden = true
-                viewReloading.hidden = true
+                tableView.isHidden = false
+                viewEmpty.isHidden = true
+                viewError.isHidden = true
+                viewLoading.isHidden = true
+                viewReloading.isHidden = true
             }
             tableView.reloadData()
             layoutIfNeeded()
@@ -558,16 +558,16 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
     func endRefreshing(){
         refreshController.endRefreshing()
     }
-    @objc private func hideNetErrorSetting(){
+    @objc fileprivate func hideNetErrorSetting(){
         // 动态隐藏y 轴[0 ~ -90]
-        UIView.animateWithDuration(0.3){
+        UIView.animate(withDuration: 0.3, animations: {
             [weak self]params in
             if let wSelf = self{
                 var frame = wSelf.viewErrorNetSetting.frame
                 frame.origin.y = -wSelf.viewErrorNetSettingHeight
                 wSelf.viewErrorNetSetting.frame = frame
             }
-        }
+        })
         
     }
     override func didMoveToSuperview(){
@@ -600,62 +600,62 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
     
     // 定义 IB 显示效果
     override func prepareForInterfaceBuilder() {
-        let table = UITableView(frame: CGRectMake(0, 35, self.frame.width, self.frame.height - 35))
+        let table = UITableView(frame: CGRect(x: 0, y: 35, width: self.frame.width, height: self.frame.height - 35))
         self.addSubview(table)
-        let iconFrame = CGRectMake(0, 0, 30, 30)
+        let iconFrame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let bar = UIImageView(image: UtilPrepareForInterfaceBuilder.loadImage("loading_bar", self.classForCoder, self.traitCollection))
         bar.frame = iconFrame
-        bar.center = CGPointMake(self.frame.width/2.0, 25)
+        bar.center = CGPoint(x: self.frame.width/2.0, y: 25)
         let bg = UIImageView(image: UtilPrepareForInterfaceBuilder.loadImage("loading_bar_bg", self.classForCoder, self.traitCollection))
         bg.frame = iconFrame
-        bg.center = CGPointMake(self.frame.width/2.0, 25)
+        bg.center = CGPoint(x: self.frame.width/2.0, y: 25)
         self.addSubview(bar)
         self.addSubview(bg)
     }
 }
 @objc
 protocol MyViewRefreshTableDataSource {
-    func loadingPageData(page: Int,pageSize:Int)
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func loadingPageData(_ page: Int,pageSize:Int)
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
     //
-    optional func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    optional func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    optional func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    optional func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-    optional func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-    optional func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    optional func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?
-    optional func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    optional func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
-    optional func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    @objc optional func numberOfSectionsInTableView(_ tableView: UITableView) -> Int
+    @objc optional func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
+    @objc optional func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    @objc optional func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool
+    @objc optional func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath)
+    @objc optional func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+    @objc optional func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [UITableViewRowAction]?
+    @objc optional func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    @objc optional func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    @objc optional func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     
 }
 /// UIRefreshControl 下拉刷新控制[启动加载动画记得要 endRefreshing ]
 class MyLogoRefreshControl: UIRefreshControl{
-    private let LOGO_SIZE:CGFloat = 38
-    private let LOGO_CENTER_Y:CGFloat = 28
-    private var logo: Logo = {
-        let view = Logo(frame:CGRectMake(0,0,38,38))
+    fileprivate let LOGO_SIZE:CGFloat = 38
+    fileprivate let LOGO_CENTER_Y:CGFloat = 28
+    fileprivate var logo: Logo = {
+        let view = Logo(frame:CGRect(x: 0,y: 0,width: 38,height: 38))
         return view
     }()
-    private var bar: Bar = {
-        let view = Bar(frame:CGRectMake(0,0,38,38))
+    fileprivate var bar: Bar = {
+        let view = Bar(frame:CGRect(x: 0,y: 0,width: 38,height: 38))
         return view
     }()
-    private(set) var isRefreshControlAnimating:Bool!
-    private var refreshContainerView: UIView!
+    fileprivate(set) var isRefreshControlAnimating:Bool!
+    fileprivate var refreshContainerView: UIView!
     
     override init() {
         super.init()
         setupRefreshControl()
-        addTarget(self, action: #selector(triggerValueChange), forControlEvents: UIControlEvents.ValueChanged)
+        addTarget(self, action: #selector(triggerValueChange), for: UIControlEvents.valueChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var refreshBounds = self.bounds
         
         // Distance the table has been pulled
@@ -667,28 +667,28 @@ class MyLogoRefreshControl: UIRefreshControl{
         _ = [self.refreshContainerView].map({$0.frame = refreshBounds});
         
         // Don't rotate the gears if the refresh animation is playing
-        if (!refreshing && !isRefreshControlAnimating) {
+        if (!isRefreshing && !isRefreshControlAnimating) {
             // 放大
             let centerX = self.frame.width / 2.0
             let centerY = pullDistance / 2.0
-            logo.center = CGPointMake(centerX , centerY > LOGO_CENTER_Y ? LOGO_CENTER_Y : centerY)
+            logo.center = CGPoint(x: centerX , y: centerY > LOGO_CENTER_Y ? LOGO_CENTER_Y : centerY)
             let progress:CGFloat = (pullDistance > LOGO_SIZE ? LOGO_SIZE : pullDistance) / LOGO_SIZE
-            logo.transform = CGAffineTransformMakeScale(progress, progress)
+            logo.transform = CGAffineTransform(scaleX: progress, y: progress)
             // 旋转
             let scaleProgress = (centerY > LOGO_CENTER_Y ? LOGO_CENTER_Y : centerY) / LOGO_CENTER_Y
             bar.alpha = max(scaleProgress, 0.7) > 0.7 ? min(scaleProgress, 1.0) : 0.0
-            bar.center = CGPointMake(centerX, LOGO_CENTER_Y)
-            bar.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * pullRatio)
+            bar.center = CGPoint(x: centerX, y: LOGO_CENTER_Y)
+            bar.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI) * pullRatio)
         }
         
         // If we're refreshing and the animation is not playing, then play the animation
-        if (refreshing && !isRefreshControlAnimating) {
-            UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+        if (isRefreshing && !isRefreshControlAnimating) {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
                 [weak self] in
                 if let wSelf = self{
                     let centerX = wSelf.frame.width / 2.0
-                    wSelf.logo.center = CGPointMake(centerX , wSelf.LOGO_CENTER_Y)
-                    wSelf.bar.center = CGPointMake(centerX , wSelf.LOGO_CENTER_Y)
+                    wSelf.logo.center = CGPoint(x: centerX , y: wSelf.LOGO_CENTER_Y)
+                    wSelf.bar.center = CGPoint(x: centerX , y: wSelf.LOGO_CENTER_Y)
                 }
             }, completion:nil)
             animateRefreshView()
@@ -701,22 +701,22 @@ class MyLogoRefreshControl: UIRefreshControl{
         _ = [logo, bar].map { self.refreshContainerView.addSubview($0) }
         
         refreshContainerView.clipsToBounds = true
-        tintColor = UIColor.clearColor()
+        tintColor = UIColor.clear
         
         addSubview(self.refreshContainerView)
     }
     
     func animateRefreshView() {
         isRefreshControlAnimating = true
-        UIView.animateWithDuration(0.6, delay: 0, options: .CurveLinear, animations: {
+        UIView.animate(withDuration: 0.6, delay: 0, options: .curveLinear, animations: {
                 [weak self] in
                 if let wSelf = self{
-                    wSelf.bar.transform = CGAffineTransformRotate(wSelf.bar.transform, CGFloat(M_PI))
+                    wSelf.bar.transform = wSelf.bar.transform.rotated(by: CGFloat(M_PI))
                 }
             }, completion: { [weak self]finished in
                 // If still refreshing, keep spinning
                 if let wSelf = self{
-                    if (wSelf.refreshing) {
+                    if (wSelf.isRefreshing) {
                         wSelf.animateRefreshView() //一定要调用endRefreshing方法,不然造成死递归
                     } else {
                         wSelf.isRefreshControlAnimating = false
@@ -756,8 +756,8 @@ class MyLogoRefreshControl: UIRefreshControl{
 //        }
     }
     // UIView Animation 动画[UIView 整体动画]
-    private class Logo: UIView{
-        lazy private var backgroudLayer : CALayer = {
+    fileprivate class Logo: UIView{
+        lazy fileprivate var backgroudLayer : CALayer = {
             return CALayer()
         }()
        
@@ -766,7 +766,7 @@ class MyLogoRefreshControl: UIRefreshControl{
             clipsToBounds = true
             let imageBarLogo = UIImage(named: "loading_bar_bg")
             backgroudLayer.frame = frame
-            backgroudLayer.contents = imageBarLogo?.CGImage
+            backgroudLayer.contents = imageBarLogo?.cgImage
             backgroudLayer.masksToBounds = true
             backgroudLayer.anchorPoint = CGPoint(x: 0.5,y: 0.5) // Scale锚点
             self.layer.addSublayer(backgroudLayer)
@@ -776,8 +776,8 @@ class MyLogoRefreshControl: UIRefreshControl{
             fatalError("init(coder:) has not been implemented")
         }
     }
-    private class Bar: UIView{
-        lazy private var backgroudLayer : CALayer = { //CA[Code Animation]层 [The base layer class of View]
+    fileprivate class Bar: UIView{
+        lazy fileprivate var backgroudLayer : CALayer = { //CA[Code Animation]层 [The base layer class of View]
             return CALayer()
         }()
         
@@ -786,7 +786,7 @@ class MyLogoRefreshControl: UIRefreshControl{
             clipsToBounds = true
             let imageBarLogo = UIImage(named: "loading_bar")
             backgroudLayer.frame = frame
-            backgroudLayer.contents = imageBarLogo?.CGImage
+            backgroudLayer.contents = imageBarLogo?.cgImage
             backgroudLayer.masksToBounds = true
             self.layer.addSublayer(backgroudLayer)
         }

@@ -11,34 +11,34 @@ import Foundation
 class UtilPrepareForInterfaceBuilder{
     
     /// 获取当前 Bundle 的图片
-    class func loadImage(name: String) ->UIImage?{
-        let processInfo = NSProcessInfo.processInfo()
+    class func loadImage(_ name: String) ->UIImage?{
+        let processInfo = ProcessInfo.processInfo
         let environment = processInfo.environment
-        let projectSourceDirectories : AnyObject = environment["IB_PROJECT_SOURCE_DIRECTORIES"]!
-        let directories = projectSourceDirectories.componentsSeparatedByString(":")
+        let projectSourceDirectories : AnyObject = environment["IB_PROJECT_SOURCE_DIRECTORIES"]! as AnyObject
+        let directories = projectSourceDirectories.components(separatedBy: ":")
         
         if directories.count != 0 {
             let firstPath = directories[0] as String
-            let imagePath = firstPath.stringByAppendingString(name)
+            let imagePath = firstPath + name
             let image = UIImage(contentsOfFile: imagePath)
             return image
         }
         return nil
     }
     ///
-    class func loadImage(name:String,_ clazz: AnyClass,_ traitCollection:UITraitCollection)-> UIImage?{
+    class func loadImage(_ name:String,_ clazz: AnyClass,_ traitCollection:UITraitCollection)-> UIImage?{
         // self.classForCoder
         // self.traitCollection
-        return UIImage(named: name, inBundle: NSBundle(forClass: clazz), compatibleWithTraitCollection:traitCollection)
+        return UIImage(named: name, in: Bundle(for: clazz), compatibleWith:traitCollection)
     }
     /// 获取当前 Bundle 的渲染图片
-    class func loadImageThint(name:String,_ color:UIColor,_ clazz: AnyClass,_ traitCollection:UITraitCollection) -> UIImage?{
+    class func loadImageThint(_ name:String,_ color:UIColor,_ clazz: AnyClass,_ traitCollection:UITraitCollection) -> UIImage?{
         if let image = UtilPrepareForInterfaceBuilder.loadImage(name,clazz,traitCollection){
             UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
             color.setFill()
-            let bounds = CGRectMake(0, 0, image.size.width, image.size.height)
+            let bounds = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
             UIRectFill(bounds)
-            image.drawInRect(bounds, blendMode: CGBlendMode.DestinationIn, alpha: 1.0)
+            image.draw(in: bounds, blendMode: CGBlendMode.destinationIn, alpha: 1.0)
             let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             return tintedImage
@@ -47,20 +47,20 @@ class UtilPrepareForInterfaceBuilder{
         }
     }
     /// 编程时用的 Bundle 资源管理器
-    class func bundleCoder(clazz: AnyClass) -> NSBundle{
-        return NSBundle(forClass: clazz)
+    class func bundleCoder(_ clazz: AnyClass) -> Bundle{
+        return Bundle(for: clazz)
     }
-    class func loadPlist(clazz: AnyClass) -> [String:AnyObject]?{
-        let bundle = NSBundle(forClass: clazz)
-        if let plist = bundle.pathForResource("Styles", ofType: "plist"),
-            dict = NSDictionary(contentsOfFile: plist) as? [String:AnyObject] {
+    class func loadPlist(_ clazz: AnyClass) -> [String:AnyObject]?{
+        let bundle = Bundle(for: clazz)
+        if let plist = bundle.path(forResource: "Styles", ofType: "plist"),
+            let dict = NSDictionary(contentsOfFile: plist) as? [String:AnyObject] {
             return dict
         }
         return nil
     }
     /// 编程时用的 Bundle 加载 Xib
-    class func loadNib(clazz: AnyClass,_ nibName:String) -> [AnyObject]?{
-        return NSBundle(forClass: clazz).loadNibNamed(nibName, owner: nil, options: nil)
+    class func loadNib(_ clazz: AnyClass,_ nibName:String) -> [AnyObject]?{
+        return Bundle(for: clazz).loadNibNamed(nibName, owner: nil, options: nil) as! [AnyObject]
     }
     
     /// 是否是 InterfaceBuilder

@@ -13,48 +13,48 @@ import SystemConfiguration
 class UtilEnvironment : NSObject{
     /// App Version
     class var appVersion:String{
-        return NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }
     /// App Build Version
     class var appBuildVersion:String!{
-        return NSBundle.mainBundle().infoDictionary?[kCFBundleVersionKey as String] as! String
+        return Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as! String
     }
     /// System Version eg: 7.0,8.0,9.0
     class var systemVersion:String{
-        return UIDevice.currentDevice().systemVersion
+        return UIDevice.current.systemVersion
     }
     /// 拷贝到粘贴板
-    class func copyToPasteboard(text:String){
-        UIPasteboard.generalPasteboard().string = text
+    class func copyToPasteboard(_ text:String){
+        UIPasteboard.general.string = text
     }
     /// 从粘贴板复制
     class func pasteFromPasteboard()->String?{
-        return UIPasteboard.generalPasteboard().string
+        return UIPasteboard.general.string
     }
     /// 打开AppStore 中的 App
-   class func openAppStore(bundleName: String!){
+   class func openAppStore(_ bundleName: String!){
         if bundleName == nil{
-            let bundleInfo = NSBundle.mainBundle().infoDictionary
+            let bundleInfo = Bundle.main.infoDictionary
             var bundleName = bundleInfo!["CFBundleName"] as! String
-            bundleName = bundleName.stringByReplacingOccurrencesOfString(" ", withString: "")
-            UIApplication.sharedApplication().openURL(NSURL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
+            bundleName = bundleName.replacingOccurrences(of: " ", with: "")
+            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
         } else {
-            UIApplication.sharedApplication().openURL(NSURL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
+            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
         }
     }
     /// 打开App设置
     class func openSettingNetwork(){
-        guard let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString) else {
+        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
         }
-        if UIApplication.sharedApplication().canOpenURL(settingsUrl) {
-            let result = UIApplication.sharedApplication().openURL(settingsUrl)
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            let result = UIApplication.shared.openURL(settingsUrl)
             Mylog.log("Setting open: \(result)")
         }
     }
     /// Class Method
     /// 系统版本大于
-    class func systemVersionAfter(version:Double) -> Bool{
+    class func systemVersionAfter(_ version:Double) -> Bool{
         let currentVersion:Double! = Double(UtilEnvironment.systemVersion)
         return currentVersion - version > 0.0
     }
@@ -84,11 +84,14 @@ class UtilEnvironment : NSObject{
     /// 是否已经联网
     class var isConnectedToNetwork: Bool{
         var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
         
-        guard let defaultRouteReachability = withUnsafePointer(&zeroAddress, {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+            //SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
         }) else {
             return false
         }
@@ -98,15 +101,15 @@ class UtilEnvironment : NSObject{
             return false
         }
         
-        let isReachable = flags.contains(.Reachable)
-        let needsConnection = flags.contains(.ConnectionRequired)
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
         
         return (isReachable && !needsConnection)
     }
     /// 设备唯一 ID :UUID
     class var driverUUID: String?{
         get{
-            return UIDevice.currentDevice().identifierForVendor?.UUIDString
+            return UIDevice.current.identifierForVendor?.uuidString
         }
     }
 }

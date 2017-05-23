@@ -11,7 +11,7 @@ import Foundation
 class UtilAttributedString: NSObject{
     
     /// 设置匹配Pattern的字符串的前景色
-    func genForegroundColor(string: String! = nil,_ pattern:String!,_ color: UIColor) -> NSMutableAttributedString{
+    func genForegroundColor(_ string: String! = nil,_ pattern:String!,_ color: UIColor) -> NSMutableAttributedString{
         let attributeString = NSMutableAttributedString(string: string)
         if let matchedRanges = matchingPattern(string, pattern){
             for range in matchedRanges {
@@ -22,12 +22,12 @@ class UtilAttributedString: NSObject{
     }
     
     /// 模式匹配
-    private func matchingPattern(target:String,_ pattern: String) -> [NSRange]!{
+    fileprivate func matchingPattern(_ target:String,_ pattern: String) -> [NSRange]!{
         var ranges: [NSRange]! = nil
         do{
-            let escapedPattern = NSRegularExpression.escapedPatternForString(pattern)
-            let regex = try NSRegularExpression(pattern: escapedPattern, options: .CaseInsensitive)
-            let matchs = regex.matchesInString(target, options: .ReportProgress, range: NSMakeRange(0, target.characters.count))
+            let escapedPattern = NSRegularExpression.escapedPattern(for: pattern)
+            let regex = try NSRegularExpression(pattern: escapedPattern, options: .caseInsensitive)
+            let matchs = regex.matches(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if matchs.count > 0 {
                 ranges = []
             }

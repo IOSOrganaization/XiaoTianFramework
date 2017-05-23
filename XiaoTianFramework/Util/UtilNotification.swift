@@ -12,7 +12,7 @@ class UtilNotification: NSObject{
     let DEFAULT_USER_INFO_VALUE = "UtilNotificationDefaultUserInfoValue"
     
     /// 发送本地系统通知
-    func sendLocalNotification(text:String,_ userInfo:[String:AnyObject]?){
+    func sendLocalNotification(_ text:String,_ userInfo:[String:AnyObject]?){
         if UtilEnvironment.systemVersionAfter(10.0){
             // IOS 10+
             //if (NSClassFromString(@"UNUserNotificationCenter")) {
@@ -25,8 +25,8 @@ class UtilNotification: NSObject{
             //}
         }else{
             let notification = UILocalNotification()
-            notification.fireDate = NSDate()
-            notification.timeZone = NSTimeZone.defaultTimeZone()
+            notification.fireDate = Date()
+            notification.timeZone = TimeZone.current
             //
             notification.alertBody = text
             //notification.alertAction = "open"
@@ -34,22 +34,22 @@ class UtilNotification: NSObject{
             notification.soundName = UILocalNotificationDefaultSoundName
             notification.applicationIconBadgeNumber = 1
             notification.userInfo = userInfo
-            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+            UIApplication.shared.scheduleLocalNotification(notification)
         }
     }
     /// 发送本地默认系统通知
-    func sendDefaultLocalNotification(text:String){
-        sendLocalNotification(text,[DEFAULT_USER_INFO_KEY:DEFAULT_USER_INFO_VALUE])
+    func sendDefaultLocalNotification(_ text:String){
+        sendLocalNotification(text,[DEFAULT_USER_INFO_KEY:DEFAULT_USER_INFO_VALUE as AnyObject])
     }
     /// 取消本地默认系统通知
     func cancelDefaultLocalNotification(){
-        if let localNotification = UIApplication.sharedApplication().scheduledLocalNotifications{
+        if let localNotification = UIApplication.shared.scheduledLocalNotifications{
             for notification in localNotification{
                 if let userInfo = notification.userInfo{
                     if let defaultValue = userInfo[DEFAULT_USER_INFO_KEY] as? String{
                         if defaultValue == DEFAULT_USER_INFO_VALUE{
                             // 取消本地通知
-                            UIApplication.sharedApplication().cancelLocalNotification(notification)
+                            UIApplication.shared.cancelLocalNotification(notification)
                             break
                         }
                     }
@@ -58,8 +58,8 @@ class UtilNotification: NSObject{
         }
     }
     /// 设置Icon图标的Badge标识数字[当badgeNumber = 0 时隐藏 Badge]
-    func setIconBadge(badgeNumber: Int){
-        let application = UIApplication.sharedApplication()
+    func setIconBadge(_ badgeNumber: Int){
+        let application = UIApplication.shared
         let badge = application.applicationIconBadgeNumber
         if badgeNumber == badge{
             return

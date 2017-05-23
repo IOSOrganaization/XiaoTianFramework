@@ -8,67 +8,67 @@
 
 import Foundation
 
-public class HttpProperty {
-    public class HeaderProperty{
+open class HttpProperty {
+    open class HeaderProperty{
         // header fields
-        public static let ACCEPT = "Accept";
-        public static let ACCEPT_CHARSET = "Accept-Charset";
-        public static let ACCEPT_ENCODING = "Accept-Encoding";
-        public static let ACCEPT_LANGUAGE = "Accept-Language";
-        public static let AUTHORIZATION = "Authorization";
-        public static let FROM = "From";
-        public static let HOST = "Host";
-        public static let RANGE = "Range";
-        public static let EXPECT = "Expect";
-        public static let REFERER = "Referer";
-        public static let USER_AGENT = "User-Agent";
-        public static let MAX_FORWARDS = "Max-Forwards";
-        public static let PROXY_AUTHORIZATION = "Proxy-Authorization";
-        public static let TE = "TE";
-        public static let IF_RANGE = "If-Range";
-        public static let IF_MATCH = "If-Match";
-        public static let IF_NONE_MATCH = "If-None-Match";
-        public static let IF_MODIFIED_SINCE = "If-Modified-Since";
-        public static let IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
+        open static let ACCEPT = "Accept";
+        open static let ACCEPT_CHARSET = "Accept-Charset";
+        open static let ACCEPT_ENCODING = "Accept-Encoding";
+        open static let ACCEPT_LANGUAGE = "Accept-Language";
+        open static let AUTHORIZATION = "Authorization";
+        open static let FROM = "From";
+        open static let HOST = "Host";
+        open static let RANGE = "Range";
+        open static let EXPECT = "Expect";
+        open static let REFERER = "Referer";
+        open static let USER_AGENT = "User-Agent";
+        open static let MAX_FORWARDS = "Max-Forwards";
+        open static let PROXY_AUTHORIZATION = "Proxy-Authorization";
+        open static let TE = "TE";
+        open static let IF_RANGE = "If-Range";
+        open static let IF_MATCH = "If-Match";
+        open static let IF_NONE_MATCH = "If-None-Match";
+        open static let IF_MODIFIED_SINCE = "If-Modified-Since";
+        open static let IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
         // header fields for Entity
-        public static let DATE = "Date";
-        public static let ALLOW = "Allow";
-        public static let EXPIRES = "Expires";
-        public static let CHARSET = "Charset";
-        public static let CONNECTION = "Connection";
-        public static let CONTENT_MD5 = "Content-MD5";
-        public static let CONTENT_TYPE = "Content-Type";
-        public static let LAST_MODIFIED = "Last-Modified";
-        public static let CONTENT_RANGE = "Content-Range";
-        public static let CONTENT_LENGTH = "Content-Length";
-        public static let CONTENT_ENCODING = "Content-Encoding";
-        public static let CONTENT_LANGUAGE = "Content-Language";
-        public static let CONTENT_LOCATION = "Content-Location";
-        public static let CONTENT_DISPOSITION = "Content-Disposition";
-        public static let CONTENT_TRANSFER_ENCODING = "Content-Transfer-Encoding";
+        open static let DATE = "Date";
+        open static let ALLOW = "Allow";
+        open static let EXPIRES = "Expires";
+        open static let CHARSET = "Charset";
+        open static let CONNECTION = "Connection";
+        open static let CONTENT_MD5 = "Content-MD5";
+        open static let CONTENT_TYPE = "Content-Type";
+        open static let LAST_MODIFIED = "Last-Modified";
+        open static let CONTENT_RANGE = "Content-Range";
+        open static let CONTENT_LENGTH = "Content-Length";
+        open static let CONTENT_ENCODING = "Content-Encoding";
+        open static let CONTENT_LANGUAGE = "Content-Language";
+        open static let CONTENT_LOCATION = "Content-Location";
+        open static let CONTENT_DISPOSITION = "Content-Disposition";
+        open static let CONTENT_TRANSFER_ENCODING = "Content-Transfer-Encoding";
         // Media
-        public static let BOUNDARY = "boundary";
+        open static let BOUNDARY = "boundary";
     }
-    public class ContentType {
-        public static let TEXT_PLAN = "text/plain";
-        public static let TEXT_HTML = "text/html";
-        public static let IMAGE_GIF = "image/gif";
-        public static let IMAGE_PNG = "image/png";
-        public static let IMAGE_JPG = "image/jpeg";
-        public static let VIDEO_MPEG = "video/mpeg";
-        public static let MESSAGE_HTTP = "message/http";
-        public static let MESSAGE_RFC822 = "message/rfc822";
-        public static let APPLICATION_PDF = "application/pdf";
-        public static let APPLICATION_JSON = "application/json";
-        public static let APPLICATION_WORD = "application/msword";
-        public static let APPLICATION_XHTML = "application/xhtml+xml";
-        public static let APPLICATION_WAP_HTML_10 = "application/vnd.wap.xhtml+xml";
-        public static let APPLICATION_WAP_HTML_20 = "application/xhtml+xml";
-        public static let APPLICATION_STREAM = "application/octet-stream";
-        public static let MULTIPART_ALTERNATIVE = "multipart/alternative";
-        public static let MULTIPART_FORM_DATA = "multipart/form-data";
-        public static let MULTIPART_BYTERANGES = "multipart/byteranges";
-        public static let APPLICATION_FORM_URLENCODEED = "application/x-www-form-urlencoded;charset=utf-8";
+    open class ContentType {
+        open static let TEXT_PLAN = "text/plain";
+        open static let TEXT_HTML = "text/html";
+        open static let IMAGE_GIF = "image/gif";
+        open static let IMAGE_PNG = "image/png";
+        open static let IMAGE_JPG = "image/jpeg";
+        open static let VIDEO_MPEG = "video/mpeg";
+        open static let MESSAGE_HTTP = "message/http";
+        open static let MESSAGE_RFC822 = "message/rfc822";
+        open static let APPLICATION_PDF = "application/pdf";
+        open static let APPLICATION_JSON = "application/json";
+        open static let APPLICATION_WORD = "application/msword";
+        open static let APPLICATION_XHTML = "application/xhtml+xml";
+        open static let APPLICATION_WAP_HTML_10 = "application/vnd.wap.xhtml+xml";
+        open static let APPLICATION_WAP_HTML_20 = "application/xhtml+xml";
+        open static let APPLICATION_STREAM = "application/octet-stream";
+        open static let MULTIPART_ALTERNATIVE = "multipart/alternative";
+        open static let MULTIPART_FORM_DATA = "multipart/form-data";
+        open static let MULTIPART_BYTERANGES = "multipart/byteranges";
+        open static let APPLICATION_FORM_URLENCODEED = "application/x-www-form-urlencoded;charset=utf-8";
         // 必要参数:
         // **1.message/http**
         // Media Type name: message
@@ -126,98 +126,98 @@ public class HttpProperty {
         // --THIS_STRING_SEPARATES--
     }
     //
-    public class TransferEncoding {
-        public static let BIT_7 = "7bit"; // 7 BIT ASCII
-        public static let BIT_8 = "8bit"; // 8 BIT ASCII
-        public static let BINARY = "binary";
-        public static let BASE64 = "base64";
-        public static let QUOTED_PRINTABLE = "quoted-printable";
+    open class TransferEncoding {
+        open static let BIT_7 = "7bit"; // 7 BIT ASCII
+        open static let BIT_8 = "8bit"; // 8 BIT ASCII
+        open static let BINARY = "binary";
+        open static let BASE64 = "base64";
+        open static let QUOTED_PRINTABLE = "quoted-printable";
     }
     
     //
-    public class Charset {
-        public static let ASCII = "ASCII";
-        public static let GBK = "GBK";
-        public static let UTF_8 = "UTF-8";
+    open class Charset {
+        open static let ASCII = "ASCII";
+        open static let GBK = "GBK";
+        open static let UTF_8 = "UTF-8";
     }
     
     //
-    public class Method {
-        public static let GET = "GET";
-        public static let PUT = "PUT";
-        public static let POST = "POST";
-        public static let HEAD = "HEAD";
-        public static let TRACE = "TRACE";
-        public static let DELETE = "DELETE";
-        public static let CONNECT = "CONNECT";
-        public static let OPTIONS = "OPTIONS";
+    open class Method {
+        open static let GET = "GET";
+        open static let PUT = "PUT";
+        open static let POST = "POST";
+        open static let HEAD = "HEAD";
+        open static let TRACE = "TRACE";
+        open static let DELETE = "DELETE";
+        open static let CONNECT = "CONNECT";
+        open static let OPTIONS = "OPTIONS";
     }
     
     //
-    public class Accept {
-        public static let ALL = "*/*";
-        public static let TEXT = "text/*";
-        public static let TEXT_HTML = "text/html";
-        public static let TEXT_HTML_level_1 = "text/html;level=1";
-        public static let IMAGE = "image/*";
-        public static let IMAGE_jpeg = "image/jpeg";
+    open class Accept {
+        open static let ALL = "*/*";
+        open static let TEXT = "text/*";
+        open static let TEXT_HTML = "text/html";
+        open static let TEXT_HTML_level_1 = "text/html;level=1";
+        open static let IMAGE = "image/*";
+        open static let IMAGE_jpeg = "image/jpeg";
     }
     
-    public class AcceptEncoding {
-        public static let ALL = "*";
-        public static let COMPRESS_GZIP = "compress, gzip";
+    open class AcceptEncoding {
+        open static let ALL = "*";
+        open static let COMPRESS_GZIP = "compress, gzip";
     }
     
-    public class ConetentEncoding {
-        public static let GZIP = "gzip";
+    open class ConetentEncoding {
+        open static let GZIP = "gzip";
     }
     
-    public class Date {
-        public func current() -> String{
-            let nowDouble = NSDate().timeIntervalSince1970
+    open class Date {
+        open func current() -> String{
+            let nowDouble = Foundation.Date().timeIntervalSince1970
             let millisecond = Int64(nowDouble * 1000)
             return String(millisecond)
         }
     }
     
-    public class ETag {
-        public static let XYZZY = "\"xyzzy\"";
-        public static let WXYZZY = "W/\"xyzzy\"";
+    open class ETag {
+        open static let XYZZY = "\"xyzzy\"";
+        open static let WXYZZY = "W/\"xyzzy\"";
     }
     
-    public class From {
-        public static let ME = "gtrstudio@qq.com";
+    open class From {
+        open static let ME = "gtrstudio@qq.com";
     }
     
-    public class Host {
-        public static let ME = "www.xiaotiangd.com";
+    open class Host {
+        open static let ME = "www.xiaotiangd.com";
     }
     
-    public class UserAgent {
-        public static let IE = "IntentExplorer";
-        public static let Chrome = "Chrome";
-        public static let IOS = "IOS";
-        public static let CERN = "CERN-LineMode/2.15 libwww/2.17b3";
+    open class UserAgent {
+        open static let IE = "IntentExplorer";
+        open static let Chrome = "Chrome";
+        open static let IOS = "IOS";
+        open static let CERN = "CERN-LineMode/2.15 libwww/2.17b3";
     }
     
-    public class ContentTransferEncoding {
-        public static let QUOTED_PRINTABLE = "quoted-printable";
-        public static let BASE64 = "base64";
+    open class ContentTransferEncoding {
+        open static let QUOTED_PRINTABLE = "quoted-printable";
+        open static let BASE64 = "base64";
     }
     
-    public class ContentDisposition {
-        public static let ATTACHMENT_FILENAME = "attachment; filename=\"fname.ext\"";
+    open class ContentDisposition {
+        open static let ATTACHMENT_FILENAME = "attachment; filename=\"fname.ext\"";
     }
     
-    public class Language {
-        public static let EN = "en";
-        public static let EN_US = "en-US";
-        public static let CN = "cn";
-        public static let ZH_CN = "zh-CN";
+    open class Language {
+        open static let EN = "en";
+        open static let EN_US = "en-US";
+        open static let CN = "cn";
+        open static let ZH_CN = "zh-CN";
     }
     
-    public class Connection {
-        public static let KEEP_ALIVE = "keep-alive";
+    open class Connection {
+        open static let KEEP_ALIVE = "keep-alive";
     }
     // **General Header Fields**
     // general-header = Cache-Control ; Section 14.9

@@ -11,10 +11,10 @@ class UtilFile: NSObject{
     /// 缓存图片目录
     var cacheImageFolder: String!{
         let dataPath = "\(NSHomeDirectory())/Library/appdata/cache_image"
-        let fm = NSFileManager.defaultManager()
-        if !fm.fileExistsAtPath(dataPath){
+        let fm = FileManager.default
+        if !fm.fileExists(atPath: dataPath){
             do{
-                try fm.createDirectoryAtPath(dataPath, withIntermediateDirectories: true,attributes: nil)
+                try fm.createDirectory(atPath: dataPath, withIntermediateDirectories: true,attributes: nil)
             }catch{
                 Mylog.log("创建缓存图片目录失败.")
                 return nil
@@ -28,40 +28,40 @@ class UtilFile: NSObject{
     }
     /// 用户文档目录
     static var userDocumentDirectory:String {
-       return NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0]
+       return NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
     }
     /// 临时目录
     static var temporaryDirectory:String{
         return NSTemporaryDirectory()
     }
     /// Wrap 目录
-    static func wrapUserDocumentDirectory(pathParam: String) ->String{
+    static func wrapUserDocumentDirectory(_ pathParam: String) ->String{
         let doc = UtilFile.userDocumentDirectory
         return "\(doc)/\(pathParam)"
     }
     /// 创建目录
-    static func createUserDocumentDirectory(folder: String) ->String?{
+    static func createUserDocumentDirectory(_ folder: String) ->String?{
         let doc = UtilFile.userDocumentDirectory
         let path = "\(doc)/\(folder)"
         do{
-            if NSFileManager.defaultManager().fileExistsAtPath(path){
+            if FileManager.default.fileExists(atPath: path){
                 return path
             }
-            try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }catch{
             return nil
         }
         return path
     }
     /// 获取目录下的子文件
-    static func getSubFileInPath(path: String) ->[String]?{
-        let manager = NSFileManager.defaultManager()
-        if let subPath = manager.subpathsAtPath(path){
+    static func getSubFileInPath(_ path: String) ->[String]?{
+        let manager = FileManager.default
+        if let subPath = manager.subpaths(atPath: path){
             var files:[String] = []
             for sp in subPath{
                 var isDirectory:ObjCBool = false
-                if manager.fileExistsAtPath("\(path)/\(sp)", isDirectory: &isDirectory){
-                    if !isDirectory{
+                if manager.fileExists(atPath: "\(path)/\(sp)", isDirectory: &isDirectory){
+                    if !isDirectory.boolValue {
                         // File
                         files.append(sp)
                     }

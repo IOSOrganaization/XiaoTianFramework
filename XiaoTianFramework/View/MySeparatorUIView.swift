@@ -20,11 +20,11 @@ class MySeparatorUIView : UIView {
         backgroundColor = UtilColor().separatorColor
     }
     
-    func setColor(color:UIColor){
+    func setColor(_ color:UIColor){
         backgroundColor = color
     }
     
-    func setMargin(top:CGFloat,left:CGFloat,bottom:CGFloat,right:CGFloat){
+    func setMargin(_ top:CGFloat,left:CGFloat,bottom:CGFloat,right:CGFloat){
         
         //UIEdgeInsetsMake(top, left, bottom, right)
     }

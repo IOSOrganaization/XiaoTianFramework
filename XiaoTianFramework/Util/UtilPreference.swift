@@ -16,44 +16,44 @@ class UtilPreference : NSObject {
     let KEY_FIRST_OPEN_APP_VERSION = "UtilPreference.KEY_FIRST_OPEN_APP_VERSION"
     let KEY_MESSAGE_NOTIFICATION = "UtilPreference.KEY_MESSAGE_NOTIFICATION"
     //
-    let userDefault:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+    let userDefault:UserDefaults = UserDefaults.standard
     /// 是否已经登录
     func isLogin() -> Bool{
-        return userDefault.boolForKey(KEY_PERSON_IS_LOGIN)
+        return userDefault.bool(forKey: KEY_PERSON_IS_LOGIN)
     }
     
-    func setIsLogin(isLogin:Bool){
-        userDefault.setBool(isLogin, forKey: KEY_PERSON_IS_LOGIN)
+    func setIsLogin(_ isLogin:Bool){
+        userDefault.set(isLogin, forKey: KEY_PERSON_IS_LOGIN)
     }
     func getLastLoginPhone() -> String?{
-        return userDefault.stringForKey(KEY_PHONE_LOGIN)
+        return userDefault.string(forKey: KEY_PHONE_LOGIN)
     }
-    func setLastLoginPhone(phone:String){
-        userDefault.setObject(phone, forKey: KEY_PHONE_LOGIN)
+    func setLastLoginPhone(_ phone:String){
+        userDefault.set(phone, forKey: KEY_PHONE_LOGIN)
     }
     /// 首次打开APP
     func isFirstOpenApp() -> Bool{
-        let result = userDefault.boolForKey(KEY_FIRST_OPEN_APP)
+        let result = userDefault.bool(forKey: KEY_FIRST_OPEN_APP)
         if result == false {
-            userDefault.setBool(true, forKey: KEY_FIRST_OPEN_APP)
+            userDefault.set(true, forKey: KEY_FIRST_OPEN_APP)
         }
         return !result
     }
     /// 首次打开本版本APP
     func isFirstOpenAppVersion() -> Bool{
-        let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let key = "\(KEY_FIRST_OPEN_APP_VERSION)_\(version==nil ? "1.0" : version!)"
-        let result = userDefault.boolForKey(key)
+        let result = userDefault.bool(forKey: key)
         if result == false {
-            userDefault.setBool(true, forKey: key)
+            userDefault.set(true, forKey: key)
         }
         return !result
     }
     /// 消息提醒
-    func setMessageNotification(notificat: Bool){
-        userDefault.setBool(notificat, forKey: KEY_MESSAGE_NOTIFICATION)
+    func setMessageNotification(_ notificat: Bool){
+        userDefault.set(notificat, forKey: KEY_MESSAGE_NOTIFICATION)
     }
     func isMessageNotification() -> Bool{
-        return userDefault.boolForKey(KEY_MESSAGE_NOTIFICATION)
+        return userDefault.bool(forKey: KEY_MESSAGE_NOTIFICATION)
     }
 }
