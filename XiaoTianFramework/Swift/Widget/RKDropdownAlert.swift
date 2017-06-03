@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 class RKDropdownAlert: UIView{
     static let TAG = "RKDropdownAlert"
     let HEIGHT:CGFloat = 90

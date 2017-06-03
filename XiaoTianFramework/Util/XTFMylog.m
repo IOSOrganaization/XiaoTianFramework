@@ -9,7 +9,7 @@
 @import ObjectiveC.runtime;
 
 #import "XTFMylog.h"
-#define TAG @"[XTF]"
+#define TAG @"[XTF] "
 
 @implementation XTFMylog
 
@@ -31,7 +31,6 @@
     NSLog(@"%@:%@", key !=nil ? key : @"CGSize", NSStringFromCGSize(size));
 #endif
 }
-
 
 +(void) infoSCGSize:(CGSize) size{
 #if defined(DEBUG)||defined(_DEBUG)
@@ -126,33 +125,39 @@
     va_start (ap, message);
     if([message isKindOfClass: [NSString class]]){
         // 字符串
-        NSLogv([NSString stringWithFormat:@"%@:%@", TAG, message], ap);
+        NSLogv([NSString stringWithFormat:@"%@%@", TAG, message], ap);
     }else if([message isKindOfClass: [NSArray class]]){
         // 数组
-        NSLog(@"%@:NSArray : {", TAG);
+        NSLog(@"%@NSArray : {", TAG);
         NSArray *array = (NSArray *)message;
         for (int i=0; i < [array count]; i++) {
             NSObject *obj = [array objectAtIndex: i];
             [self info: obj];
         }
-        NSLog(@"%@:}", TAG);
+        NSLog(@"%@}", TAG);
     }else if([message isKindOfClass:[NSDictionary class]]){
         // Dictionary字典集合
-        NSLog(@"%@:NSDictionary : {", TAG);
+        NSLog(@"%@NSDictionary : {", TAG);
         NSDictionary *dictionary = (NSDictionary *)message;
         NSEnumerator *enumerator = [dictionary keyEnumerator];
         id key, value;
         while ((key = [enumerator nextObject])) {
             value = [dictionary objectForKey: key];
-            NSLog(@"%@:%@ = %@", TAG, key, value);
+            NSLog(@"%@%@ = %@", TAG, key, value);
         }
-        NSLog(@"%@:}", TAG);
+        NSLog(@"%@}", TAG);
     }else{
-        NSLogv([NSString stringWithFormat:@"%@:%@", TAG, message], ap);
+        NSLogv([NSString stringWithFormat:@"%@%@", TAG, message], ap);
     }
     //NSLogv([NSString stringWithFormat:@"%@ %@", TAG, message], ap);
     //NSString *msg = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end (ap);
+#endif
+}
+
++(void) infoId:(id) message{
+#if defined(DEBUG)||defined(_DEBUG)
+    [XTFMylog info: message];
 #endif
 }
 
@@ -169,15 +174,106 @@
 }
 
 // 必须传入Object-C 的id
-+(void) infoClassField: (id<NSObject>) message{
++(void) infoClassMethod: (id) message{
 #if defined(DEBUG)||defined(_DEBUG)
     if(message == nil){
-        NSLog(@"%@:nil", TAG);
+        NSLog(@"%@nil", TAG);
         return;
     }
     Class messageClass = [message class];
     if (class_isMetaClass(messageClass)) {
-        NSLog(@"%@:%@", TAG, message);
+        NSLog(@"%@%@", TAG, message);
+        return;
+    }
+    NSMutableArray *arrayClassName = [[NSMutableArray alloc] initWithCapacity: 5];
+    NSMutableDictionary *dictionaryProperties = [[NSMutableDictionary alloc] init];
+    const char *className;
+    while (messageClass !=  nil) {
+        if (class_isMetaClass(messageClass)) {
+            return;
+        }
+        className = class_getName(messageClass);
+        [arrayClassName addObject: [NSString stringWithUTF8String: className]];
+        NSMutableArray *arrayClassMethod = [[NSMutableArray alloc] init];
+        unsigned int propertiesCount, i;
+        Method* methods = class_copyMethodList(messageClass, &propertiesCount);
+        for (i = 0; i < propertiesCount; i++) {
+            struct objc_method* method = methods[i];
+            char returnType[255];
+            method_getReturnType(method, returnType , 255);
+            SEL selector = method_getName(method);
+            const char* methodName  = sel_getName(selector);
+            //NSString *name = [NSString stringWithUTF8String:methodName];
+            const char * typeEncoding = method_getTypeEncoding(method);
+            //NSString *type = [NSString stringWithUTF8String:typeEncoding];
+            IMP implimentation = method_getImplementation(method);
+            //id block = imp_getBlock(implimentation);
+            [arrayClassMethod addObject:[NSString stringWithFormat:@"->%s %s (%s) ~(%p)", returnType, methodName, typeEncoding, implimentation]];
+            //NSLog(@"%@ ->%s %s (%s) ~(%p)", TAG, returnType, methodName, typeEncoding, block);
+        }
+        [dictionaryProperties setValue:arrayClassMethod forKey:[NSString stringWithUTF8String: className]];
+        messageClass = class_getSuperclass(messageClass);
+    }
+    NSString* classNameAppend = @"";
+    for(NSString* name in arrayClassName){
+        classNameAppend = [NSString stringWithFormat:@"%@-%@", classNameAppend, name];
+        NSLog(@"%@Method Start %@", TAG, classNameAppend);
+        NSMutableArray *arrayClassMethod = [dictionaryProperties objectForKey:name];
+        for(NSString* nameMethod in arrayClassMethod){
+            NSLog(@"%@%@", TAG, nameMethod);
+        }
+        NSLog(@"%@Method End %@", TAG, classNameAppend);
+    }
+#endif
+}
++(void) infoClassMethodCurrent: (id) message{
+#if defined(DEBUG)||defined(_DEBUG)
+    if(message == nil){
+        NSLog(@"%@nil", TAG);
+        return;
+    }
+    Class messageClass = object_isClass(message) ? message : [message class];
+    if (class_isMetaClass(messageClass)) {
+        NSLog(@"%@%@", TAG, message);
+        return;
+    }
+    const char* className = class_getName(messageClass);
+    unsigned int propertiesCount, i;
+    Method* methods = class_copyMethodList(messageClass, &propertiesCount);
+    NSLog(@"%@Method Start %s", TAG, className);
+    for (i = 0; i < propertiesCount; i++) {
+        struct objc_method* method = methods[i];
+        char returnType[255];
+        method_getReturnType(method, returnType , 255);
+        SEL selector = method_getName(method);
+        const char* methodName  = sel_getName(selector);
+        //NSString *name = [NSString stringWithUTF8String:methodName];
+        const char * typeEncoding = method_getTypeEncoding(method);
+        //NSString *type = [NSString stringWithUTF8String:typeEncoding];
+        IMP implimentation = method_getImplementation(method);
+        NSLog(@"%@-> %s %s (%s) ~(%p)", TAG, returnType, methodName, typeEncoding, implimentation);
+    }
+    NSLog(@"%@Method End %s", TAG, className);
+#endif
+}
++(void) infoMethodImplementation: (id) target selector: (SEL) selector{
+#if defined(DEBUG)||defined(_DEBUG)
+    Class messageClass = object_isClass(target) ? target : [target class];
+    const char* className = class_getName(messageClass);
+    const char* methodName  = sel_getName(selector);
+    struct objc_method* method = class_getInstanceMethod(messageClass, selector);
+    NSLog(@"%@%s-> %s (%p)", TAG, className, methodName, method_getImplementation(method));
+#endif
+}
++(void) infoClassField: (id<NSObject>) message{
+#if defined(DEBUG)||defined(_DEBUG)
+    if(message == nil){
+        NSLog(@"%@nil", TAG);
+        return;
+    }
+    Class messageClass = [message class];
+    if (class_isMetaClass(messageClass)) {
+        NSLog(@"%@%@", TAG, message);
         return;
     }
     NSMutableArray *arrayClassName = [[NSMutableArray alloc] initWithCapacity: 5];
@@ -296,21 +392,21 @@
         [values appendString:value];
         if(i+1 < [arrayClassName count]) [values appendString:@"->"];
     }
-    NSLog(@"%@:%@ : %@", TAG, values, @"{");
+    NSLog(@"%@%@ : %@", TAG, values, @"{");
     // 输出类开放属性
     enumerator = [dictionaryProperties keyEnumerator];
     while(key = [enumerator nextObject]){
         value = [dictionaryProperties objectForKey:key];
-        NSLog(@"%@:%@[%@]", TAG, key, value);
+        NSLog(@"%@%@[%@]", TAG, key, value);
     }
     NSLog(@"%@:-----------------------------", TAG);
     // 输出类变量
     enumerator = [dictionaryVariables keyEnumerator];
     while(key = [enumerator nextObject]){
         value = [dictionaryVariables objectForKey:key];
-        NSLog(@"%@:%@ = %@", TAG, key, value);
+        NSLog(@"%@%@ = %@", TAG, key, value);
     }
-    NSLog(@"%@:}", TAG);
+    NSLog(@"%@}", TAG);
 #endif
 }
 
@@ -318,7 +414,7 @@
 #if defined(DEBUG)||defined(_DEBUG)
     Class messageClass = [message class];
     if (class_isMetaClass(messageClass)) {
-        NSLog(@"%@:%@", TAG, message);
+        NSLog(@"%@%@", TAG, message);
         return;
     }
     NSMutableArray *arrayClassName = [[NSMutableArray alloc] initWithCapacity: 5];
@@ -365,7 +461,7 @@
 #if defined(DEBUG)||defined(_DEBUG)
     Class messageClass = [message class];
     if (class_isMetaClass(messageClass)) {
-        NSLog(@"%@:%@", TAG, message);
+        NSLog(@"%@%@", TAG, message);
         return;
     }
     NSMutableArray *arrayClassName = [[NSMutableArray alloc] initWithCapacity: 5];
@@ -478,7 +574,7 @@
     enumerator = [dictionaryVariables keyEnumerator];
     while(key = [enumerator nextObject]){
         value = [dictionaryVariables objectForKey:key];
-        NSLog(@"%@:%@ = %@", TAG, key, value);
+        NSLog(@"%@%@ = %@", TAG, key, value);
     }
     NSLog(@"}");
 #endif
@@ -709,5 +805,10 @@
  bnum :A bit field of num bits
  ^type :A pointer to type
  ? :An unknown type (among other things, this code is used for function pointers)
+ 
+ Object-C 快速初始化: @
+ NSArray: @[@"x",@"i",@"a",@"o"]
+ NSDictionary: @[@"name":@"xiaotian",@"age":@"25"]
+ NSNumber: @25,@173.5,@65.4,@(数字变量)
  */
 @end

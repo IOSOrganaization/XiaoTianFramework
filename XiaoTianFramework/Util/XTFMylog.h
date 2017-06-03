@@ -33,11 +33,15 @@
 +(void) infoBool:(BOOL) value;
 //
 +(void) info:(id) message, ...;// format:NSString, ... 不定参数,任意格式;
++(void) infoId:(id) message;
 +(void) infoDate:(NSString *) key;
 +(void) infoDate;
++(void) infoClassMethod: (id) message;
++(void) infoClassMethodCurrent: (id) message;
 +(void) infoClassField: (id) message;
 +(void) infoClassProperty: (id) message;
 +(void) infoClassVariable: (id) message;
++(void) infoMethodImplementation: (id) target selector: (SEL) selector;
 //
 +(void) infoBundleAllFiles;
 +(void) infoBundleAllFolder;

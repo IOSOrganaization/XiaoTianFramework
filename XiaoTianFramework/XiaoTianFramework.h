@@ -18,7 +18,6 @@
 // In this header, you should import all the public headers of your framework using statements like #import <XiaoTianFramework/PublicHeader.h>
 // Common
 #import <XiaoTianFramework/XTFMylog.h>
-#import <XiaoTianFramework/Mylog.h>
 // Util
 #import <XiaoTianFramework/XTFUtilEnvironment.h>
 #import <XiaoTianFramework/XTFUtilLocation.h>
@@ -26,6 +25,8 @@
 #import <XiaoTianFramework/XTFCryptorSecurity.h>
 #import <XiaoTianFramework/XTFSerializerJson.h>
 #import <XiaoTianFramework/UncaughtExceptionHandler.h>
+#import <XiaoTianFramework/XTFUtilRuntime.h>
+#import <XiaoTianFramework/XTFUtilSqlite.h>
 
 // Category
 #import <XiaoTianFramework/UILabel+XTF.h>
@@ -38,3 +39,6 @@
 
 // Email [只支持 SMTP 的传输协议,源码为非 ARC 需要配置编译添加 Flags : -fno-objc-arc]
 #import <XiaoTianFramework/SKPSMTPMessage.h>
+
+// Swift 开放文件会自动引入到头文件里面
+//#import <XiaoTianFramework/XiaoTianFramework-Swift.h>
