@@ -71,16 +71,68 @@ open class UtilDispatch: NSObject{
     public class func runInMain(_ vc: UIViewController,_ selector:Selector,_ params: AnyObject?){
         vc.performSelector(onMainThread: selector, with: params, waitUntilDone: true)
     }
-    /// NSTimer 调度执行器
-    public class func timerScheduled(_ timeInterval:TimeInterval,_ target:AnyObject,_ selector:Selector,_ userInfo:AnyObject?,_ repeats:Bool){
-        Timer.scheduledTimer(timeInterval: timeInterval, target: target, selector: selector, userInfo: userInfo, repeats: repeats)// 计划执行指定的定时器(自动加入 RunLoop 执行队列中)
+    /// NSTimer 调度执行器[target对象是强引用到定时器里面,必须要定时器执行完成/invalidate后,target才会被销毁deinit]
+    public class func timerScheduled(_ timeIntervalSecond:TimeInterval,_ target:AnyObject,_ selector:Selector,_ userInfo:AnyObject?,_ repeats:Bool) -> Timer {
+        //scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:
+        return Timer.scheduledTimer(timeInterval: timeIntervalSecond, target: target, selector: selector, userInfo: userInfo, repeats: repeats)// 计划执行指定的定时器(自动加入 RunLoop 执行队列中)
         //NSTimer().fire() // 触发
         //NSTimer().invalidate() //销毁,无效
     }
+    /// NSTimer 执行Block匿名函数,不会对target强引用,匿名函数要弱引用self[prevent block retain cycle]
+    //@available(iOS 10.0, *)
+    public class func timerScheduled(_ timeIntervalSecond:TimeInterval,_ repeats:Bool,_ block: @escaping (Timer) -> Void) -> Timer?{
+        if #available(iOS 10.0, *){
+            return Timer.scheduledTimer(withTimeInterval: timeIntervalSecond, repeats: repeats, block: block)// GCD
+        }
+        return nil
+    }
     /// NSTimer 调度执行器
-    public class func timerFire(_ timeInterval:TimeInterval,_ target:AnyObject,_ selector:Selector,_ userInfo:AnyObject?,_ repeats:Bool){
-        let timer = Timer.scheduledTimer(timeInterval: timeInterval, target: target, selector: selector, userInfo: userInfo, repeats: repeats)// 创建执行指定的定时器
+    public class func timerFire(_ timeIntervalSecond:TimeInterval,_ target:AnyObject,_ selector:Selector,_ userInfo:AnyObject?,_ repeats:Bool) -> Timer {
+        let timer = Timer.scheduledTimer(timeInterval: timeIntervalSecond, target: target, selector: selector, userInfo: userInfo, repeats: repeats)// 创建执行指定的定时器
         RunLoop.main.add(timer, forMode: RunLoopMode.defaultRunLoopMode) // 加入到 RunLoop 执行中
         timer.fire() // 触发
+        return timer
     }
+    // GCD Customer Timer
+    public class CancelableTimer: NSObject{
+        private var q = DispatchQueue(label: "com.xiaotian.framework.UtilDispatch$CancelableTimer", attributes: DispatchQueue.Attributes.concurrent, target: DispatchQueue.main)
+        private var timer: DispatchSourceTimer?
+        private var firsttimer = true
+        private var repeats: Bool
+        private var handler: ()->()
+        
+        public init(_ repeats: Bool,_ handler:@escaping ()->()){
+            self.repeats = repeats
+            self.handler = handler
+            super.init()
+        }
+        public func startWithInterval(_ intervalSecond: Double){
+            self.firsttimer = true
+            self.invalidate()
+            self.timer = DispatchSource.makeTimerSource(flags: [], queue: self.q)
+            self.timer?.scheduleRepeating(wallDeadline: DispatchWallTime.now(), interval: intervalSecond, leeway:  DispatchTimeInterval.seconds(1))
+            self.timer?.setEventHandler { 
+                if self.firsttimer{
+                    self.firsttimer = false
+                    return
+                }
+                self.handler()
+                if !self.repeats{
+                    self.invalidate()
+                }
+            }
+            if #available(iOS 10.0, *) {
+                self.timer?.activate()
+            } else {
+                self.timer?.resume()
+            }
+        }
+        public func invalidate() {
+            self.timer?.cancel()
+        }
+    }
+    // Object-C 大部分都是通过通知执行
+    //1. NSTimer执行:
+    //2. UITableView执行:UITableViewSelectionDidChangeNotification,[should,will,did]
+    //3. Data Source: UITableView, UICollectionView, UIPickerView, and UIPageViewController
 }

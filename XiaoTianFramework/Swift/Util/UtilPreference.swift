@@ -9,6 +9,7 @@
 import Foundation
 
 open class UtilPreference : NSObject {
+    // Property Key Lists
     let KEY_PERSON_LOGIN = "UtilPreference.KEY_PERSON_LOGIN"
     let KEY_PHONE_LOGIN = "UtilPreference.KEY_PHONE_LOGIN"
     let KEY_PERSON_IS_LOGIN = "UtilPreference.KEY_PERSON_IS_LOGIN"
@@ -18,21 +19,21 @@ open class UtilPreference : NSObject {
     //
     let userDefault:UserDefaults = UserDefaults.standard
     /// 是否已经登录
-    func isLogin() -> Bool{
+    public func isLogin() -> Bool{
         return userDefault.bool(forKey: KEY_PERSON_IS_LOGIN)
     }
     
-    func setIsLogin(_ isLogin:Bool){
+    public func setIsLogin(_ isLogin:Bool){
         userDefault.set(isLogin, forKey: KEY_PERSON_IS_LOGIN)
     }
-    func getLastLoginPhone() -> String?{
+    public func getLastLoginPhone() -> String?{
         return userDefault.string(forKey: KEY_PHONE_LOGIN)
     }
-    func setLastLoginPhone(_ phone:String){
+    public func setLastLoginPhone(_ phone:String){
         userDefault.set(phone, forKey: KEY_PHONE_LOGIN)
     }
     /// 首次打开APP
-    func isFirstOpenApp() -> Bool{
+    public func isFirstOpenApp() -> Bool{
         let result = userDefault.bool(forKey: KEY_FIRST_OPEN_APP)
         if result == false {
             userDefault.set(true, forKey: KEY_FIRST_OPEN_APP)
@@ -40,7 +41,7 @@ open class UtilPreference : NSObject {
         return !result
     }
     /// 首次打开本版本APP
-    func isFirstOpenAppVersion() -> Bool{
+    public func isFirstOpenAppVersion() -> Bool{
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let key = "\(KEY_FIRST_OPEN_APP_VERSION)_\(version==nil ? "1.0" : version!)"
         let result = userDefault.bool(forKey: key)
@@ -50,10 +51,23 @@ open class UtilPreference : NSObject {
         return !result
     }
     /// 消息提醒
-    func setMessageNotification(_ notificat: Bool){
+    public func setMessageNotification(_ notificat: Bool){
         userDefault.set(notificat, forKey: KEY_MESSAGE_NOTIFICATION)
     }
-    func isMessageNotification() -> Bool{
+    public func isMessageNotification() -> Bool{
         return userDefault.bool(forKey: KEY_MESSAGE_NOTIFICATION)
     }
+    /// 保存C Struct的UIColor
+    public func setColor(_ color: UIColor,_ key: String){
+        // Key 归档
+        let cData = NSKeyedArchiver.archivedData(withRootObject: color) // C Struct 转 NSData
+        //NSKeyedUnarchiver.unarchiveObject(with: cData) 解档
+        userDefault.set(cData, forKey: key)
+    }
+    /// Property Lists
+    
+    /// 全局可见参数
+    //1.静态类常量
+    //2.用户共享参数
+    //3.Notification & KVO
 }

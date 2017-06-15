@@ -161,4 +161,18 @@ open class UtilUIView: NSObject {
             setUIViewBackgroundStretch(uiview, image)
         }
     }
+    /// 获取嵌套的指定上层类型的UIResponder[View获取所在的VC]
+    func finResponder<T : UIResponder>(_ sender: UIResponder?,_ clazz: T.Type) -> T?{
+        // responder chain
+        if var sender = sender{
+            repeat{
+                // see the next object up the responder chain
+                guard let next = sender.next else{
+                    return nil
+                }
+                sender = next
+            } while !(sender is T)
+        }
+        return nil
+    }
 }

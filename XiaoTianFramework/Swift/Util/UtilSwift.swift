@@ -106,4 +106,21 @@ open class UtilSwift: NSObject {
 //        vcImageBrowser.displayCloseButton = true
 //        vc.navigationController?.presentViewController(vcImageBrowser, animated: true, completion: {})
 //    }
+    func nsArray(){
+        let pep = ["Manny","Moe","Jack"] as NSArray
+        let ems = pep.objects(at: pep.indexesOfObjects(passingTest:) {
+            (obj, idx, stop) -> Bool in
+            return (obj as! NSString).range(of: "m", options: .caseInsensitive).location == 0
+        })
+        print(ems) // ["Many","Moe"]
+        // subscripting:setter,getter
+        // NSArray,NSMutableArray,NSDictionary,NSMutableDictionary [Swift:Array,Dictionary]
+        // NSSet(与NSArray的不同),NSMutableSet,NSOrderedSet,NSMutableOrderedSet,NSCountedSet [Swift:Set] [集合空对象: NSNull, NSNull == nil]
+        // Property Lists: 生成xml属性列表文件
+        //      [NSArray,NSDictionary] writeToFile:atomically: ,writeToURL:atomically:
+        //      NSPropertyListSerialization: 反 Property Lists 序列化
+    }
+    func acc(){
+        
+    }
 }

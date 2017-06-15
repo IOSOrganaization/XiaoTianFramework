@@ -575,15 +575,65 @@ public extension UtilAnyObject{
     public class func associate<T: AnyObject>(_ target: AnyObject, key: UnsafePointer<UInt8>, value: T) {
         objc_setAssociatedObject(target, key, value, .OBJC_ASSOCIATION_RETAIN)
     }
-    /// 添加属性侦听器 KVC
-    public class func addPropertyObserve(_ target: NSObject,_ observer: NSObject,_ targetPropetyName:String){
+    /// 添加属性侦听器 KVC [NSKeyValueObserving,the property is dynamic.]
+    public class func addPropertyObserve(_ target: NSObject,_ observer: NSObject,_ targetPropetyNamePath:String){
         // .new 新值 .old 旧值 .initial 初始化 .prior初始化前值
-        target.addObserver(observer, forKeyPath: targetPropetyName, options: [.new,.old,.initial,.prior], context: nil)
-        // 属性改变接收器
+        // context:地址引用[UnsafeMutableRawPointer?]
+        //  private var con = "ObserveValue" 取地址:&con,由地址取取值:let c = UnsafeMutablePointer<String>(context) let s = c.memory // "ObserveValue"]
+        target.addObserver(observer, forKeyPath: targetPropetyNamePath, options: [.new,.old,.initial,.prior], context: nil)
+        // 属性改变接收器,target必须要重写这个方法接收改变
         // override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     }
-    /// 移除属性侦听器 KVC[ KeyPath:属性 KeyValue:属性值]
-    public class func removePropertyObserver(_ target: NSObject,_ observer: NSObject,_ targetPropetyName:String){
-        target.removeObserver(observer, forKeyPath: targetPropetyName)
+    /// 移除属性侦听器 KVC[ KeyPath:属性 KeyValue:属性值,必须在deinit中移除]
+    public class func removePropertyObserver(_ target: NSObject,_ observer: NSObject,_ targetPropetyNamePath:String){
+        target.removeObserver(observer, forKeyPath: targetPropetyNamePath)
+        //target.removeObserver(observer, forKeyPath: targetPropetyName, context: nil)
+    }
+    // Accessors, Properties, and Key–Value Coding
+    public class func setPropertyValue(_ target:AnyObject?,_ value: Any?, forKey key: String) {
+        // 设置value到属性key在target上
+        target?.setValue(value, forKey: key) // target必须要有key的属性,不然保存
+        //1. If you send valueForKey: to an NSArray, it sends valueForKey: to each of its elements and returns a new array consisting of the results, an elegant shorthand. NSSet behaves similarly.
+        //2. NSDictionary implements valueForKey: as an alternative to objectForKey: (useful particularly if you have an NSArray of dictionaries). Similarly, NSMutableDictionary treats setValue:forKey: as a synonym for setObject:forKey:, except that value: can be nil, in which case removeObject:forKey: is called.
+        //3. NSSortDescriptor sorts an NSArray by sending valueForKey: to each of its elements. This makes it easy to sort an array of dictionaries on the value of a particular dictionary key, or an array of objects on the value of a particular property.
+        //4. NSManagedObject, used in conjunction with Core Data, is guaranteed to be key–value coding compliant for attributes you’ve configured in the entity model. Thus, it’s common to access those attributes with valueForKey: and setValue:forKey:.
+        //5. CALayer and CAAnimation permit you to use key–value coding to define and retrieve the values for arbitrary keys, as if they were a kind of dictionary; they are, in effect, key–value coding compliant for every key. This is extremely helpful for attaching identifying and configuration information to an instance of one of these classes. That, in fact, is my own most common way of using key–value coding in Swift.
+        //6. KVC and Outlets
+        //7. Key Paths [object.property, Dictionary,Array的读取]
+        //8. NSObject: 
+        //  Creation, destruction, and memory management
+        //  Class relationships[such as superclass, isKindOfClass:, and isMemberOfClass:]
+        //  Object introspection and comparison[such as respondsToSelector:]
+        //  Message response[such as doesNotRecognizeSelector:]
+        //  Message sending[For example, performSelector:, performSelector:withObject:afterDelay:]
+    }
+    func autoreleasepooltest(){
+        for i in 0 ..< 100{
+            // func 自动包含了autoreleasepool,如果在循环中加载内存很大,可以手动声明使用一个释放池对某段代码库进行自动释放内存
+            autoreleasepool {
+                for j in 0 ..< 100{
+                    // load large image to caculate
+                    print("\(i)\(j)")
+                }
+            }
+        }
+        // Retain Cycles and Weak References: 
+        //  1.weak: (takes advantage of a powerful ARC feature, must be an Optional declared with var)
+        //  2.unowned: (An unowned reference is a different kettle of fish, unowned object should be some single object, assigned only once, without which the referrer cannot exist at all. Cocoa’s unowned is potentially dangerous and you need to exercise caution.除非你能确定引用是安全的,否则尽量不要用unowned)
+        //  weak常用于delegate引起的循环引用问题: weak var delegate: ColorPickerDelegate?(获取销毁时设置Delegate为nil)
+        //      @property(nonatomic, assign, nullable) id<AVSpeechSynthesizerDelegate> delegate; 非ARC情况下
+        //      unowned(unsafe) var delegate: AVSpeechSynthesizerDelegate? (assign == unowned 非ARC管理,是unsafe不安全的)
+        //1.NSNotificationCenter 典型的非ARC内存管理,注册后必须要移除[如果使用匿名函数处理通知,里面的self必须要使用弱引用]
+        //2.NSTimer 启动定时器target为self后必须要invalidated才会deinit,因为定时器会强引用回调 The timer maintains a strong reference to target until it (the timer) is invalidated
+        //3.Delegate 在销毁前请调用delegate = nil [声明 weak 除外],不然很容易造成循环引用(特别棘手,很难发现这种循环引用问题),特别是系统类的delegate[Eg:CAAnimation.Delegate]
+        //4.这些类NSPointerArray, NSHashTable, and NSMapTable由系统管理内存进行引用,所以尽管用,不会造成循环引用问题
+        //5.CFTypeRefs 是C语言的结构体,类似于Obje-c对象
+        //  [CGContext[属于伪对象](CGContextRef),CGColorSpace[伪对象](CGColorSpaceRef),CGGradient(CGGradientRef)]
+        //  They are all CFTypeRefs. The code is not object- oriented; it is a sequence of calls to global C functions. is pseudo-object
+        //  CFTypeRefs 在Obje-C中必须要手动管理内存的引用和释放,在Swift中不需要考虑这些,因为Swift会自动处理这些伪对象的引用
+        //6.检测实例内存释放: 重写deinit方法查看是否调用,如果调用则被释放(这是一个古老的检测方法)
+        //7.
     }
 }
+
+

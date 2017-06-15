@@ -14,37 +14,31 @@
 #define XTFMylog(s, ...)
 #endif
 @interface XTFMylog : NSObject
+// @property: corresponding setter accessor method
+@property(nonatomic,null_resettable,strong) NSString* debugTag;
 //
-+(void) infoSCGRect:(CGRect) rect;
-+(void) infoSCGRect:(CGRect) rect key:(NSString*) key;
-+(void) infoSCGSize:(CGSize) size;
-+(void) infoSCGSize:(CGSize) size key:(NSString*) key;
-+(void) infoSCGPoint:(CGPoint) point;
-+(void) infoSCGPoint:(CGPoint) point key:(NSString*) key;
-+(void) infoSCGVector:(CGVector) vector;
-+(void) infoSCGVector:(CGVector) vector key:(NSString*) key;
-+(void) infoSCGAffineTransform:(CGAffineTransform) transform;
-+(void) infoSCGAffineTransform:(CGAffineTransform) transform key:(NSString*) key;
-+(void) infoSUIEdgeInsets:(UIEdgeInsets) edge;
-+(void) infoSUIEdgeInsets:(UIEdgeInsets) edge key:(NSString*) key;
-+(void) infoSUIOffset:(UIOffset) offset;
-+(void) infoSUIOffset:(UIOffset) offset key:(NSString*) key;
-+(void) infoBool:(BOOL) value key:(NSString *)key;
-+(void) infoBool:(BOOL) value;
-//
-+(void) info:(id) message, ...;// format:NSString, ... 不定参数,任意格式;
-+(void) infoId:(id) message;
-+(void) infoDate:(NSString *) key;
 +(void) infoDate;
-+(void) infoClassMethod: (id) message;
-+(void) infoClassMethodCurrent: (id) message;
-+(void) infoClassField: (id) message;
-+(void) infoClassProperty: (id) message;
-+(void) infoClassVariable: (id) message;
-+(void) infoMethodImplementation: (id) target selector: (SEL) selector;
++(void) infoDate:(NSString * _Nullable) key;
+//
++(void) info:(id _Nullable ) message, ...;// format:NSString, ... 不定参数,任意格式;
++(void) infoId:(id _Nullable) message;
++(void) infoClassMethod: (id _Nullable) message;
++(void) infoClassMethodCurrent: (id _Nullable) message;
++(void) infoClassField: (id _Nullable) message;
++(void) infoClassProperty: (id _Nullable) message;
++(void) infoClassVariable: (id _Nullable) message;
++(void) infoMethodImplementation: (id _Nullable) target selector: (SEL _Nullable) selector;
 //
 +(void) infoBundleAllFiles;
 +(void) infoBundleAllFolder;
-+(void) infoBundleAllFiles:(NSString *)extends;
-//
++(void) infoBundleAllFiles:(NSString * _Nullable)extends;
+//@property policies:
+//strong, retain (no Swift equivalent)
+//  The default. The two terms are pure synonyms of one another; retain is the term inherited from pre-ARC days. Assignment to this property retains the incoming value and releases the existing value.
+//copy (no Swift equivalent, or @NSCopying)
+//  The same as strong or retain, except that the setter copies the incoming value by sending copy to it; the incoming value must be an object of a type that adopts NSCopying, to ensure that this is possible. The copy, which has an increased retain count already, becomes the new value.
+//weak (Swift weak)
+//  An ARC-weak reference. The incoming object value is not retained, but if it goes out of existence behind our back, ARC will magically substitute nil as the value of this property, which must be typed as an Optional declared with var.
+//assign (Swift unowned(unsafe))
+//  No memory management. This policy is inherited from pre-ARC days, and is inherently unsafe (hence the additional unsafe warning in the Swift translation of the name): if the object referred to goes out of existence, this reference will become a dangling pointer and can cause a crash if you subsequently try to use it.
 @end

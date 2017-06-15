@@ -18,11 +18,13 @@ import UIKit
 open class Mylog : NSObject{
     private static let TAG = "[Mylog]"
     // Swif Any Object Methos
+    @nonobjc
     open static func log(_ param:Any?){
         #if DEBUG
             print(TAG, param == nil ? "nil" : param!)
         #endif
     }
+    @nonobjc
     open static func log(_ params: Any?...){
         #if DEBUG
             if params.count == 1{
@@ -36,7 +38,7 @@ open class Mylog : NSObject{
             }
         #endif
     }
-    
+    @nonobjc
     open static func log(_ params:Any...,_ separator: String,_ terminator: String){
         #if DEBUG
             print(TAG, params.count < 2 ? params[0] : params, separator, terminator)

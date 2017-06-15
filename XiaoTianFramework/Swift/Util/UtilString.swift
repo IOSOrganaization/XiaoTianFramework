@@ -72,6 +72,7 @@ open class UtilString :NSObject {
         if (price == nil) {
             return nil
         }
+        // NSDecimalNumber,NSDecimal,NumberFormatter
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         numberFormatter.paddingPosition = NumberFormatter.PadPosition.afterSuffix // 后缀

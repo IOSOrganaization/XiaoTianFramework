@@ -1,7 +1,7 @@
 //
 //  ExtensionAnyObject.swift
 //  DriftBook
-//  便捷工具类全局单例
+//  便捷工具类全局单例扩展
 //  Created by XiaoTian on 16/10/29.
 //  Copyright © 2016年 XiaoTian. All rights reserved.
 //
@@ -194,16 +194,17 @@ public extension NSObject {
             }
         }
         /// NSNotificationCenter DefaultCenter 默认通知中心
-        public var notification: UtilNSNotificationDefaultCenter{
+        public var notification: UtilNotificationDefaultCenter{
             get {
                 let object = objc_getAssociatedObject(self, &ConstantApp.ASSOCIATED_KEY_UTIL_DEFAULT_NOTIFICATION)
                 if object != nil {
-                    return object as! UtilNSNotificationDefaultCenter
+                    return object as! UtilNotificationDefaultCenter
                 }
-                let value = UtilNSNotificationDefaultCenter()
+                let value = UtilNotificationDefaultCenter()
                 objc_setAssociatedObject(self, &ConstantApp.ASSOCIATED_KEY_UTIL_DEFAULT_NOTIFICATION, value, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 return value
             }
         }
+        ///
     }
 }

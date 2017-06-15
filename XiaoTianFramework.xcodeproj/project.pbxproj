@@ -38,6 +38,7 @@
 		58E9BD4A1D21933400B9DC75 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E9BD481D21933400B9DC75 /* Person.m */; };
 		58EC3C651DC8F7F2001EE875 /* BasicEncodingRules.h in Headers */ = {isa = PBXBuildFile; fileRef = 58EC3C631DC8F7F2001EE875 /* BasicEncodingRules.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58EC3C661DC8F7F2001EE875 /* BasicEncodingRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EC3C641DC8F7F2001EE875 /* BasicEncodingRules.m */; };
+		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
 		6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */; };
 		6B5FB9CF1ED522A600331247 /* HttpProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CB1ED522A600331247 /* HttpProperty.swift */; };
 		6B5FB9D01ED522A600331247 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CC1ED522A600331247 /* HttpRequest.swift */; };
@@ -55,7 +56,7 @@
 		6B5FB9F71ED522BA00331247 /* UtilLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9DF1ED522BA00331247 /* UtilLabel.swift */; };
 		6B5FB9F81ED522BA00331247 /* UtilLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E01ED522BA00331247 /* UtilLayoutConstraint.swift */; };
 		6B5FB9F91ED522BA00331247 /* UtilNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E11ED522BA00331247 /* UtilNotification.swift */; };
-		6B5FB9FA1ED522BA00331247 /* UtilNSNotificationDefaultCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E21ED522BA00331247 /* UtilNSNotificationDefaultCenter.swift */; };
+		6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E21ED522BA00331247 /* UtilNotificationDefaultCenter.swift */; };
 		6B5FB9FB1ED522BA00331247 /* UtilPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E31ED522BA00331247 /* UtilPreference.swift */; };
 		6B5FB9FC1ED522BA00331247 /* UtilPrepareForInterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E41ED522BA00331247 /* UtilPrepareForInterfaceBuilder.swift */; };
 		6B5FB9FD1ED522BA00331247 /* UtilRegularExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9E51ED522BA00331247 /* UtilRegularExpression.swift */; };
@@ -96,7 +97,10 @@
 		6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */; };
 		6B606C581ED703220058DA6D /* ExtensionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */; };
 		6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C571ED703220058DA6D /* ExtensionNSObject.swift */; };
-		6B606C5B1ED707A60058DA6D /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C5A1ED707A60058DA6D /* ExtensionUINavigationController.swift */; };
+		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
+		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
+		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
+		6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */; };
 		6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304931ED82CCD004BDD21 /* UtilJson.swift */; };
 		6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */; };
 		6BD304991ED83FCD004BDD21 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */; };
@@ -151,6 +155,7 @@
 		58E9BD481D21933400B9DC75 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Person.m; path = Serializer/Person.m; sourceTree = "<group>"; };
 		58EC3C631DC8F7F2001EE875 /* BasicEncodingRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEncodingRules.h; sourceTree = "<group>"; };
 		58EC3C641DC8F7F2001EE875 /* BasicEncodingRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEncodingRules.m; sourceTree = "<group>"; };
+		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
 		6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpAsyncTask.swift; path = Swift/Net/HttpAsyncTask.swift; sourceTree = "<group>"; };
 		6B5FB9CB1ED522A600331247 /* HttpProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpProperty.swift; path = Swift/Net/HttpProperty.swift; sourceTree = "<group>"; };
 		6B5FB9CC1ED522A600331247 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequest.swift; path = Swift/Net/HttpRequest.swift; sourceTree = "<group>"; };
@@ -168,7 +173,7 @@
 		6B5FB9DF1ED522BA00331247 /* UtilLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilLabel.swift; path = Swift/Util/UtilLabel.swift; sourceTree = "<group>"; };
 		6B5FB9E01ED522BA00331247 /* UtilLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilLayoutConstraint.swift; path = Swift/Util/UtilLayoutConstraint.swift; sourceTree = "<group>"; };
 		6B5FB9E11ED522BA00331247 /* UtilNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilNotification.swift; path = Swift/Util/UtilNotification.swift; sourceTree = "<group>"; };
-		6B5FB9E21ED522BA00331247 /* UtilNSNotificationDefaultCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilNSNotificationDefaultCenter.swift; path = Swift/Util/UtilNSNotificationDefaultCenter.swift; sourceTree = "<group>"; };
+		6B5FB9E21ED522BA00331247 /* UtilNotificationDefaultCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilNotificationDefaultCenter.swift; path = Swift/Util/UtilNotificationDefaultCenter.swift; sourceTree = "<group>"; };
 		6B5FB9E31ED522BA00331247 /* UtilPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilPreference.swift; path = Swift/Util/UtilPreference.swift; sourceTree = "<group>"; };
 		6B5FB9E41ED522BA00331247 /* UtilPrepareForInterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilPrepareForInterfaceBuilder.swift; path = Swift/Util/UtilPrepareForInterfaceBuilder.swift; sourceTree = "<group>"; };
 		6B5FB9E51ED522BA00331247 /* UtilRegularExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilRegularExpression.swift; path = Swift/Util/UtilRegularExpression.swift; sourceTree = "<group>"; };
@@ -209,7 +214,10 @@
 		6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilRuntimeSwift.swift; path = Swift/Util/UtilRuntimeSwift.swift; sourceTree = "<group>"; };
 		6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIViewController.swift; path = Swift/Extension/ExtensionUIViewController.swift; sourceTree = "<group>"; };
 		6B606C571ED703220058DA6D /* ExtensionNSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSObject.swift; path = Swift/Extension/ExtensionNSObject.swift; sourceTree = "<group>"; };
-		6B606C5A1ED707A60058DA6D /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUINavigationController.swift; sourceTree = "<group>"; };
+		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
+		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
+		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
+		6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUIControl.swift; path = Swift/Util/UtilUIControl.swift; sourceTree = "<group>"; };
 		6BD304931ED82CCD004BDD21 /* UtilJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJson.swift; path = Swift/Util/UtilJson.swift; sourceTree = "<group>"; };
 		6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilSqlite.swift; path = Swift/Util/UtilSqlite.swift; sourceTree = "<group>"; };
 		6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -426,6 +434,7 @@
 				6B5FBA3B1ED5365900331247 /* MyLog.swift */,
 				6B5FB9D61ED522BA00331247 /* UtilAnyObject.swift */,
 				6B5FB9D71ED522BA00331247 /* UtilAttributedString.swift */,
+				6B1DDE421EE291F4003FC51C /* UtilBundle.swift */,
 				6B5FB9D81ED522BA00331247 /* UtilColor.swift */,
 				6BDD036E1EE1B06800582862 /* UtilCoreData.swift */,
 				6B5FB9D91ED522BA00331247 /* UtilDateTime.swift */,
@@ -438,7 +447,7 @@
 				6B5FB9DF1ED522BA00331247 /* UtilLabel.swift */,
 				6B5FB9E01ED522BA00331247 /* UtilLayoutConstraint.swift */,
 				6B5FB9E11ED522BA00331247 /* UtilNotification.swift */,
-				6B5FB9E21ED522BA00331247 /* UtilNSNotificationDefaultCenter.swift */,
+				6B5FB9E21ED522BA00331247 /* UtilNotificationDefaultCenter.swift */,
 				6B5FB9E31ED522BA00331247 /* UtilPreference.swift */,
 				6B5FB9E41ED522BA00331247 /* UtilPrepareForInterfaceBuilder.swift */,
 				6B5FB9E51ED522BA00331247 /* UtilRegularExpression.swift */,
@@ -449,6 +458,7 @@
 				6B5FB9E81ED522BA00331247 /* UtilSwift.swift */,
 				6B5FB9E91ED522BA00331247 /* UtilToast.swift */,
 				6B5FB9EA1ED522BA00331247 /* UtilUIView.swift */,
+				6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -492,9 +502,11 @@
 		6B606C531ED7029F0058DA6D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */,
+				6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */,
 				6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */,
 				6B606C571ED703220058DA6D /* ExtensionNSObject.swift */,
-				6B606C5A1ED707A60058DA6D /* ExtensionUINavigationController.swift */,
+				6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -652,6 +664,7 @@
 				6B5FB9F71ED522BA00331247 /* UtilLabel.swift in Sources */,
 				6B5FBA391ED5235000331247 /* MYBlurIntroductionView.m in Sources */,
 				04ABFC651A63768F008381AE /* XTFUtilFile.m in Sources */,
+				6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */,
 				6B5FBA1E1ED522D200331247 /* MyUITextView.swift in Sources */,
 				58E9BD461D21896100B9DC75 /* XTFSerializerJson.m in Sources */,
 				6BD3049D1ED84D3D004BDD21 /* XTFUtilSqlite.m in Sources */,
@@ -661,16 +674,18 @@
 				6B5FBA1D1ED522D200331247 /* MyUITextFieldLeftIcon.swift in Sources */,
 				6B5FBA311ED5231000331247 /* SimpleAlert.swift in Sources */,
 				58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */,
+				6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */,
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
-				6B5FB9FA1ED522BA00331247 /* UtilNSNotificationDefaultCenter.swift in Sources */,
+				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */,
 				6B5FBA161ED522D200331247 /* MyLogoIndicator.swift in Sources */,
+				6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */,
 				6B5FB9FF1ED522BA00331247 /* UtilString.swift in Sources */,
 				6B5FBA191ED522D200331247 /* MyUIBookLabel.swift in Sources */,
+				6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */,
 				6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */,
-				6B606C5B1ED707A60058DA6D /* ExtensionUINavigationController.swift in Sources */,
 				6B5FB9FB1ED522BA00331247 /* UtilPreference.swift in Sources */,
 				6B5FB9F61ED522BA00331247 /* UtilImage.swift in Sources */,
 				6BDD036F1EE1B06800582862 /* UtilCoreData.swift in Sources */,
@@ -680,6 +695,7 @@
 				6B5FB9FC1ED522BA00331247 /* UtilPrepareForInterfaceBuilder.swift in Sources */,
 				6B5FBA2F1ED5231000331247 /* CRToast.swift in Sources */,
 				58EC3C661DC8F7F2001EE875 /* BasicEncodingRules.m in Sources */,
+				6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */,
 				584923BF1E8B6087005958B4 /* XTFMylog.m in Sources */,
 				6B5FB9D11ED522A600331247 /* HttpResponse.swift in Sources */,
 				6B5FBA141ED522D200331247 /* MyClickableView.swift in Sources */,

@@ -15,6 +15,7 @@ open class UtilDateTime: NSObject {
     public static let PATTERN_DATE_TIME = "yyyy年MM月dd日 HH:mm"
     public static let PATTERN_DATE_TIME_SECOND = "yyyy年MM月dd日 HH:mm:ss"
     public static let PATTERN_DATE_TIME_SECOND_MILLISE = "yyyy年MM月dd日 HH:mm:ss.SSS XXXXX" // 2017年05月26日 10:21:09.733 +08:00
+    public static let PATTERN_DATE_TIME_LOCAL = "dMMMMyyyyhmmaz" // July 16, 2015, 7:44 AM PDT.
     /// 格式化日期 (秒/s) [1990年1月1日]
     open func formatMillisecondDate(_ dateMillisecond: NSNumber?) -> String?{
         if dateMillisecond == nil {
@@ -311,4 +312,9 @@ open class UtilDateTime: NSObject {
         component.second = second
         return calander.date(from: component)!
     }
+    /// 地域格式输出时间日期
+    public func localDate(_ date: Date) -> String{
+        return date.description(with: Locale.current)
+    }
+    // NSDate,NSDateComponents,NSCalendar,NSDateFormatter
 }

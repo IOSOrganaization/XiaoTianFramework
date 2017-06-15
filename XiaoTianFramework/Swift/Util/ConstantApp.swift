@@ -237,7 +237,7 @@ open class ConstantApp : NSObject{
     public static var ASSOCIATED_KEY_UTIL_ENVIRONMENT : UnsafePointer<UtilEnvironment>? = nil
     public static var ASSOCIATED_KEY_UTIL_REGULAREXPRESSION : UnsafePointer<UtilRegularExpression>? = nil
     public static var ASSOCIATED_KEY_UTIL_ATTRIBUTESTRING : UnsafePointer<UtilAttributedString>? = nil
-    public static var ASSOCIATED_KEY_UTIL_DEFAULT_NOTIFICATION : UnsafePointer<UtilNSNotificationDefaultCenter>? = nil
+    public static var ASSOCIATED_KEY_UTIL_DEFAULT_NOTIFICATION : UnsafePointer<UtilNotificationDefaultCenter>? = nil
     public static var ASSOCIATED_KEY_SHOW_KEYBOARD : UnsafePointer<Bool>? = nil
     public static var ASSOCIATED_KEY_KEYBOARD_HEIGHT : UnsafePointer<CGFloat>? = nil
     // Action Sheet Tag 标识

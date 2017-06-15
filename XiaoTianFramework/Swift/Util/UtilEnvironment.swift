@@ -12,27 +12,27 @@ import SystemConfiguration
 @objc(UtilEnvironmentXT)
 open class UtilEnvironment : NSObject{
     /// App Version
-    class var appVersion:String{
+    public class var appVersion:String{
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }
     /// App Build Version
-    class var appBuildVersion:String!{
+    public class var appBuildVersion:String!{
         return Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as! String
     }
     /// System Version eg: 7.0,8.0,9.0
-    class var systemVersion:String{
+    public class var systemVersion:String{
         return UIDevice.current.systemVersion
     }
     /// 拷贝到粘贴板
-    class func copyToPasteboard(_ text:String){
+    public class func copyToPasteboard(_ text:String){
         UIPasteboard.general.string = text
     }
     /// 从粘贴板复制
-    class func pasteFromPasteboard()->String?{
+    public class func pasteFromPasteboard()->String?{
         return UIPasteboard.general.string
     }
     /// 打开AppStore 中的 App
-    class func openAppStore(_ bundleName: String!){
+    public class func openAppStore(_ bundleName: String!){
         if bundleName == nil{
             let bundleInfo = Bundle.main.infoDictionary
             var bundleName = bundleInfo!["CFBundleName"] as! String
@@ -43,7 +43,7 @@ open class UtilEnvironment : NSObject{
         }
     }
     /// 打开App设置
-    class func openSettingNetwork(){
+    public class func openSettingNetwork(){
         guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
             return
         }
@@ -54,7 +54,7 @@ open class UtilEnvironment : NSObject{
     }
     /// Class Method
     /// 系统版本大于
-    class func systemVersionAfter(_ version:Double) -> Bool{
+    public class func systemVersionAfter(_ version:Double) -> Bool{
         let currentVersion:Double! = Double(UtilEnvironment.systemVersion)
         return currentVersion - version > 0.0
     }
@@ -73,16 +73,16 @@ open class UtilEnvironment : NSObject{
     //        }
     //    }
     /// 是否是模拟器
-    class var isSimulator:Bool{
+    public class var isSimulator:Bool{
         return TARGET_OS_SIMULATOR != 0 // Use this line in Xcode 7 or newer
         //return TARGET_IPHONE_SIMULATOR != 0 // Use this line in Xcode 6
     }
     /// 是否是 Iphone
-    class var isIphone:Bool{
+    public class var isIphone:Bool{
         return TARGET_OS_IPHONE != 0
     }
     /// 是否已经联网
-    class var isConnectedToNetwork: Bool{
+    public class var isConnectedToNetwork: Bool{
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -107,61 +107,72 @@ open class UtilEnvironment : NSObject{
         return (isReachable && !needsConnection)
     }
     /// 设备唯一 ID :UUID
-    class var driverUUID: String?{
+    public class var driverUUID: String?{
         get{
             return UIDevice.current.identifierForVendor?.uuidString
         }
     }
-    class var isScreen55Inch: Bool{
+    public class var isScreen55Inch: Bool{
         return false
     }
-    class var isScreen47Inch: Bool{
+    public class var isScreen47Inch: Bool{
         return false
     }
-    class var isScreen40Inch: Bool{
+    public class var isScreen40Inch: Bool{
         return false
     }
-    class var isScreen35Inch: Bool{
+    public class var isScreen35Inch: Bool{
         return false
     }
-    static var screenSizeFor55Inch = CGSize(width: 414, height: 736)
-    static var screenSizeFor47Inch = CGSize(width: 375, height: 667)
-    static var screenSizeFor40Inch = CGSize(width: 320, height: 568)
-    static var screenSizeFor35Inch = CGSize(width: 320, height: 480)
+    public static var screenSizeFor55Inch = CGSize(width: 414, height: 736)
+    public static var screenSizeFor47Inch = CGSize(width: 375, height: 667)
+    public static var screenSizeFor40Inch = CGSize(width: 320, height: 568)
+    public static var screenSizeFor35Inch = CGSize(width: 320, height: 480)
     /// 是否横屏
-    class var isLandscape: Bool{
+    public class var isLandscape: Bool{
         return UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)
     }
     /// 设备是否横屏(与app无关)
-    class var isDriverLandscape: Bool{
+    public class var isDriverLandscape: Bool{
         return UIDeviceOrientationIsLandscape(UIDevice.current.orientation)
     }
     /// 当前屏幕宽(横竖屏会变)
-    class var screenWidth: CGFloat{
+    public class var screenWidth: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? size.width : isLandscape ? size.height : size.width
     }
     /// 当前屏幕高(横竖屏会变)
-    class var screenHeight: CGFloat{
+    public class var screenHeight: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? size.height : isLandscape ? size.width : size.height
     }
     /// 设备屏幕宽(横竖屏不变)
-    class var deviceWidth: CGFloat{
+    public class var deviceWidth: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? isLandscape ? size.height : size.width : size.width
-    }
-    /// 设备屏幕高度
-    class var deviceHeight: CGFloat{
+    }    /// 设备屏幕高度
+    public class var deviceHeight: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? isLandscape ? size.width: size.height : size.height
     }
     /// 设备iOS版本号
-    class var iosVersion: String{
+    public class var iosVersion: String{
         return UIDevice.current.systemVersion
     }
     /// iOS8+
-    class var isAfteriOS8: Bool{
+    public class var isAfteriOS8: Bool{
         return Float(UIDevice.current.systemVersion)! >= 8.0
+    }
+    /// Available iOS 10
+    public class var availableiOS10: Bool{
+        guard #available(iOS 10.0, *) else {
+            return false
+        }
+        return true
+    }
+    /// 加载Nib
+    public class func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
+        // UINib(nibName: name, bundle: Bundle.main)
+        return Bundle.main.loadNibNamed(name, owner: owner, options: option)
     }
 }

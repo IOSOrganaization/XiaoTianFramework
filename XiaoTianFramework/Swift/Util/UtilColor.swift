@@ -91,7 +91,6 @@ open class UtilColor: NSObject{
     var cleanColor: UIColor{
         return UIColor.clear
     }
-    
     /// 随机颜色
     var randomColor: UIColor{
         let r = arc4random_uniform(255) // 0~255

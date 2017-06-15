@@ -11,91 +11,11 @@
 #import "XTFMylog.h"
 #define TAG @"[XTF] "
 
-@implementation XTFMylog
+@implementation XTFMylog{
+    
+}
 
 // 输出Struct结构体
-+(void) infoSCGRect:(CGRect) rect key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@", key != nil ? key : @"CGRect", NSStringFromCGRect(rect));
-#endif
-}
-
-+(void) infoSCGRect:(CGRect) rect{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSCGRect:rect key:nil];
-#endif
-}
-
-+(void) infoSCGSize:(CGSize) size key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@", key !=nil ? key : @"CGSize", NSStringFromCGSize(size));
-#endif
-}
-
-+(void) infoSCGSize:(CGSize) size{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSCGSize: size key:nil];
-#endif
-}
-
-+(void) infoSCGPoint:(CGPoint) point key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@",key != nil ? key : @"CGPoint", NSStringFromCGPoint(point));
-#endif
-}
-
-+(void) infoSCGPoint:(CGPoint) point{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSCGPoint:point key:nil];
-#endif
-}
-
-+(void) infoSCGVector:(CGVector) vector key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@",key != nil ? key : @"CGVector", NSStringFromCGVector(vector));
-#endif
-}
-
-+(void) infoSCGVector:(CGVector) vector{
-    [self infoSCGVector:vector key:nil];
-}
-
-+(void) infoSCGAffineTransform:(CGAffineTransform) transform key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@",key != nil ? key : @"CGAffineTransform", NSStringFromCGAffineTransform(transform));
-#endif
-}
-
-+(void) infoSCGAffineTransform:(CGAffineTransform) transform{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSCGAffineTransform:transform];
-#endif
-}
-
-+(void) infoSUIEdgeInsets:(UIEdgeInsets) edge key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@",key != nil ? key : @"UIEdgeInsets", NSStringFromUIEdgeInsets(edge));
-#endif
-}
-
-+(void) infoSUIEdgeInsets:(UIEdgeInsets) edge{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSUIEdgeInsets:edge key:nil];
-#endif
-}
-
-+(void) infoSUIOffset:(UIOffset) offset key:(NSString*) key{
-#if defined(DEBUG)||defined(_DEBUG)
-    NSLog(@"%@:%@",key != nil ? key : @"UIOffset", NSStringFromUIOffset(offset));
-#endif
-}
-
-+(void) infoSUIOffset:(UIOffset) offset{
-#if defined(DEBUG)||defined(_DEBUG)
-    [self infoSUIOffset:offset key:nil];
-#endif
-}
-
 +(void) infoDate{
 #if defined(DEBUG)||defined(_DEBUG)
     [self infoDate:nil];
@@ -114,7 +34,7 @@
     }
 #endif
 }
-
+// 用NSValue进行封装为NSObject, [NSValue valueWithCGPoint:CGPointZero]对C的struct进行封装
 +(void) info:(id) message, ...{
 #if defined(DEBUG)||defined(_DEBUG)
     if(message == nil){

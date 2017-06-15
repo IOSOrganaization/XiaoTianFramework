@@ -84,4 +84,11 @@ extension UIViewController{
     open func executeNavigationPopGestureRecognizer() -> Bool{
         return true
     }
+    // Lefttime Method:
+    //  initWithCoder: or initWithNibName:bundle: where you perform instance initializations
+    //  viewDidLoad: where you perform view-related initializations
+    //  viewDidAppear: if you’re going to register for a notification or set up a timer, this is a likely place to do it.
+    //  viewDidDisappear: this would be a likely place to unregister for a notification or invalidate a repeating timer that you set up in viewDidAppear:
+    //  supportedInterfaceOrientations: where you specify what device orientations are allowed for this view controller’s main view.
+    //  deinit: where you perform end-of-life cleanup
 }
