@@ -124,9 +124,9 @@
             const char *propName = property_getName(property);
             if(propName) {
                 // 属性必须以XJ声明结尾
-                int propNameLength = strlen(propName);
+                size_t propNameLength = strlen(propName);
                 if (propNameLength < 2 || !endsWithXJ(propName)) continue;
-                const char *propType = getPropertyType(property);
+                //const char *propType = getPropertyType(property);
                 char* simpleName = (char*) malloc(propNameLength - 1);
                 strncpy(simpleName, propName, propNameLength - 2);
                 simpleName[propNameLength - 2] = '\0';
@@ -243,9 +243,9 @@
             const char *propName = property_getName(property);
             if(propName) {
                 // 属性必须以XJ声明结尾
-                int propNameLength = strlen(propName);
+                size_t propNameLength = strlen(propName);
                 if (propNameLength < 2 || !endsWithXJ(propName)) continue;
-                const char *propType = getPropertyType(property);
+                //const char *propType = getPropertyType(property);
                 char* simpleName = (char*) malloc(propNameLength - 1);
                 strncpy(simpleName, propName, propNameLength - 2);
                 simpleName[propNameLength - 2] = '\0';
@@ -285,7 +285,7 @@
             const char *propName = property_getName(property);
             if(propName) {
                 // 属性必须以XJ声明结尾
-                int propNameLength = strlen(propName);
+                size_t propNameLength = strlen(propName);
                 if (propNameLength < 2 || !endsWithXJ(propName)) continue;
                 const char* propType = getPropertyType(property);
                 char* simpleName = (char*) malloc(propNameLength - 1);
@@ -445,7 +445,7 @@
     if (error) {
         return [[[NSString alloc] initWithFormat:@"NSJSONSerialization Error.\n%@", error] dataUsingEncoding:NSUTF8StringEncoding];
     }
-    id data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONReadingMutableContainers error:&error];
+    id data = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:&error];
     if (error) {
         return [[[NSString alloc] initWithFormat:@"dataWithJSONObject Error.\n%@", error] dataUsingEncoding:NSUTF8StringEncoding];
     }

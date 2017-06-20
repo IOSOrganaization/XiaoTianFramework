@@ -58,11 +58,28 @@ open class UtilPreference : NSObject {
         return userDefault.bool(forKey: KEY_MESSAGE_NOTIFICATION)
     }
     /// 保存C Struct的UIColor
-    public func setColor(_ color: UIColor,_ key: String){
+    public func setColor(_ key: String,_ color: UIColor){
         // Key 归档
         let cData = NSKeyedArchiver.archivedData(withRootObject: color) // C Struct 转 NSData
         //NSKeyedUnarchiver.unarchiveObject(with: cData) 解档
         userDefault.set(cData, forKey: key)
+    }
+    /// 保存对象,必须实现 NSCoding 接口协议[调用encodeWithCoder方法]
+    public func setAny<T: NSObject>(_ key: String, _ any: T?){
+        if any == nil{
+            userDefault.set(nil, forKey: key)
+            return
+        }
+        let archivedData = NSKeyedArchiver.archivedData(withRootObject: any!)
+        userDefault.set(archivedData, forKey: key)
+    }
+    /// 获取对象,必须实现 NSCoding 接口协议[调用initWithCoder方法]
+    public func getAny<T: NSObject>(_ key: String,_ clazz: T.Type) -> T?{
+        if let unArchiveData = userDefault.data(forKey: key){
+            return NSKeyedUnarchiver.unarchiveObject(with: unArchiveData) as? T
+        }else{
+            return nil
+        }
     }
     /// Property Lists
     

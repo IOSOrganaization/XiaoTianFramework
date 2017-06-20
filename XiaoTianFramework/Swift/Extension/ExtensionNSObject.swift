@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension NSObject {
+extension NSObject {
     // Associated TAG Keys
     private struct AssociatedKeys{
         // creates the static associated object key we need but doesn’t muck up the global namespace

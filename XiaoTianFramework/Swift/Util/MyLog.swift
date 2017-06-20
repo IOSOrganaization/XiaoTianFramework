@@ -15,7 +15,7 @@ import UIKit
 //  2. Search for "other swift flags"
 //  3. Add the macros you wish to use, preceded by the -D flag
 @objc(MylogXT)
-open class Mylog : NSObject{
+open class Mylog: NSObject{
     private static let TAG = "[Mylog]"
     // Swif Any Object Methos
     @nonobjc
@@ -53,6 +53,36 @@ open class Mylog : NSObject{
                 Mylog.log(TAG, (path as NSString).lastPathComponent)
             }
         #endif
+    }
+    @nonobjc
+    open static func logClass(_ any: AnyObject?){
+        if any == nil{
+            Mylog.log("nil")
+            return
+        }
+        guard let propertyList = XTFUtilRuntime.queryPropertyList(any!.classForCoder, endSupperClazz: NSObject.self) else {
+            Mylog.log("\(any!.classForCoder) has non property.")
+            return
+        }
+        var clazz:String? = nil
+        var clazzSup: AnyClass? = any!.classForCoder
+        repeat {
+            if clazz == nil{
+                clazz = String(describing: clazzSup!)
+            }else{
+                clazz?.append("->")
+                clazz?.append(String(describing: clazzSup!))
+            }
+            clazzSup = clazzSup?.superclass()
+        } while (clazzSup != nil)
+        Mylog.log("Class: \(clazz!) {")
+        for property in propertyList{
+            if let property = property as? String{
+                let value = any?.value(forKey: property)
+                Mylog.log("\(property) = \(value == nil ? "nil" : value!)")
+            }
+        }
+        Mylog.log("}")
     }
     @objc(logClassConsumption:)
     open static func logClassConsumption(_ clazz: AnyClass){

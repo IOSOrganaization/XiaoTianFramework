@@ -16,7 +16,6 @@
 // 反序化对象
 -(id) deSerializing:(NSData *) jsonData clazz:(Class) clazz;
 -(id) deSerializing:(NSData *) jsonData;
--(id) deSerializingToString:(NSData *) jsonData;
 -(id) deSerializingObject:(NSDictionary *) dictionary clazz:(Class) clazz;
 -(id) deSerializingArrayObject:(NSArray *) array clazz:(Class) clazz;
 
