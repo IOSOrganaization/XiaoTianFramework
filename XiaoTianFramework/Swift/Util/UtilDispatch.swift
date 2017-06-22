@@ -45,6 +45,10 @@ open class UtilDispatch: NSObject{
     public class func sleepThread(_ second:Int){
         sleep(UInt32(second))
     }
+    @nonobjc
+    public class func sleepThread(_ second:TimeInterval){
+        Thread.sleep(forTimeInterval: second)
+    }
     /// 当前线程休眠 xxx 纳秒
     public class func sleepThreadMicrosecond(_ microsecond:Int){
         let ms: Int = 1000

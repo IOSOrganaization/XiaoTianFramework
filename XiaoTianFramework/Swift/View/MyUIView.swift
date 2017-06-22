@@ -10,21 +10,21 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class MyUIView: UIView{
+public class MyUIView: UIView{
     var tabFunction:((_ view:MyUIView)->())?
     
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
-    @IBInspectable var onClickAction: String = ""
+    @IBInspectable public var onClickAction: String = ""
     //
-    required init?(coder aDecoder: NSCoder){
+    public required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
         clickableInit()
     }
-    override init(frame: CGRect){
+    public override init(frame: CGRect){
         super.init(frame: frame)
         clickableInit()
     }
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         if onClickAction == "" {
             return
         }
@@ -67,16 +67,16 @@ class MyUIView: UIView{
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
     }
     

@@ -12,15 +12,15 @@ import UIKit
 open class UtilImage: NSObject {
 
     /// 普通渲染
-    func renderingImageWithTintColor(_ image: UIImage?,_ tintColor: UIColor) -> UIImage?{
+    public func renderingImageWithTintColor(_ image: UIImage?,_ tintColor: UIColor) -> UIImage?{
         return renderingImageWithThintColor(image, tintColor, CGBlendMode.destinationIn)
     }
     /// 渐变渲染
-    func renderingImageWithGradientThintColor(_ image: UIImage?,_ tintColor: UIColor) -> UIImage?{
+    public func renderingImageWithGradientThintColor(_ image: UIImage?,_ tintColor: UIColor) -> UIImage?{
         return renderingImageWithThintColor(image, tintColor, CGBlendMode.overlay)
     }
     /// 渲染(图片UIImage,渲染颜色,渲染模式)
-    func renderingImageWithThintColor(_ image: UIImage?,_ tintColor: UIColor,_ blendMode: CGBlendMode) -> UIImage?{
+    public func renderingImageWithThintColor(_ image: UIImage?,_ tintColor: UIColor,_ blendMode: CGBlendMode) -> UIImage?{
         if image == nil{
             return nil
         }
@@ -37,7 +37,7 @@ open class UtilImage: NSObject {
         return tintedImage
     }
     /// 渲染后的图片还有可能被系统上下文渲染器自动渲染,所以要根据不同情况进行是否取消系统自动渲染
-    func translateRenderingModeImage(_ image:UIImage?,_ renderingMode:UIImageRenderingMode) -> UIImage?{
+    public func translateRenderingModeImage(_ image:UIImage?,_ renderingMode:UIImageRenderingMode) -> UIImage?{
         if image == nil{
             return nil
         }
@@ -47,16 +47,16 @@ open class UtilImage: NSObject {
         return image?.withRenderingMode(renderingMode)
     }
     /// 普通渲染原色模式
-    func renderingImageForNavigation(_ image: UIImage,_ color:UIColor) -> UIImage{
+    public func renderingImageForNavigation(_ image: UIImage,_ color:UIColor) -> UIImage{
         return translateRenderingModeImage(renderingImageWithTintColor(image, color), UIImageRenderingMode.alwaysOriginal)!
     }
     /// 设置UIImageView圆角
-    func setImageViewCornerRadius(_ imageView:UIImageView?, radio:Int){
+    public func setImageViewCornerRadius(_ imageView:UIImageView?, radio:Int){
         imageView?.layer.cornerRadius = CGFloat(radio)
         imageView?.layer.masksToBounds = true
     }
     /// 拉伸图片
-    func scaleUIImage(_ image:UIImage, size:CGSize) -> UIImage{
+    public func scaleUIImage(_ image:UIImage, size:CGSize) -> UIImage{
         UIGraphicsBeginImageContext(size)
         image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -65,4 +65,18 @@ open class UtilImage: NSObject {
     }
     // 指定图片位置内容拉伸
     
+    /// UImage -> Data
+    public func imageJPEGRepresentation(_ image: UIImage?) -> Data?{
+        if let image = image {
+            UIImageJPEGRepresentation(image, 90)
+        }
+        return nil
+    }
+    /// UIImage -> Data
+    public func imagePNGRepresentation(_ image: UIImage?) -> Data?{
+        if let image = image {
+            UIImagePNGRepresentation(image)
+        }
+        return nil
+    }
 }

@@ -130,6 +130,10 @@ open class UtilString :NSObject {
         }
         return 0
     }
+    /// 进程中唯一字符串
+    public func processUniqueString() -> String{
+        return ProcessInfo.processInfo.globallyUniqueString
+    }
     public func characterToInt16(_ character: Character) -> UInt16{
         for i in String(character).utf16{
             return i
@@ -158,7 +162,18 @@ open class UtilString :NSObject {
         }
         return nil
     }
+    public func subString(_ data:String,_ start:Int,_ count:Int) -> String{
+        if start < 0 || start + count >= data.characters.count || start > count {
+            return data
+        }
+        //data.index(after: data.startIndex)
+        //data.index(before: data.startIndex)
+        let startIndex = data.index(data.startIndex, offsetBy: start)
+        let endIndex = data.index(startIndex, offsetBy: count)
+        return data.substring(with: startIndex..<endIndex)
+    }
     func test(){
         
     }
+    
 }

@@ -14,7 +14,7 @@ import UIKit
 //  1. Open Build Settings for your target
 //  2. Search for "other swift flags"
 //  3. Add the macros you wish to use, preceded by the -D flag
-@objc(MylogXT)
+@objc(MylogSwiftXT)
 open class Mylog: NSObject{
     private static let TAG = "[Mylog]"
     // Swif Any Object Methos
@@ -31,9 +31,11 @@ open class Mylog: NSObject{
                 print(TAG, params[0] == nil ? "nil" :params[0]!)
             }else{
                 var text = ""
-                let _ = params.flatMap({ (item) -> Any? in
-                    text = "\(text)\(String(describing: item))"
-                })
+                for item in params{
+                    if let item = item{
+                        text = "\(text)\(String(describing: item))"
+                    }
+                }
                 print(TAG, text)
             }
         #endif

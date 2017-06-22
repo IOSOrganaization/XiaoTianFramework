@@ -42,6 +42,22 @@ open class UtilEnvironment : NSObject{
             UIApplication.shared.openURL(URL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
         }
     }
+    /// 打开AppStore 中的 App,根据APP上线分发的APPID
+    public class func openAppStoreByAppID(_ appID: String){
+        var appStoreURL:String!
+        let systemVersion: Float! = Float(UtilEnvironment.systemVersion)
+        if systemVersion > 8.0{
+            // iOS 8.0+
+            appStoreURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software&id=\(appID)"
+        }else if systemVersion > 7.0{
+            // iOS 7.0 ~ iOS 8.0
+            appStoreURL = "itms-apps://itunes.apple.com/app/id\(appID)"
+        }else{
+            // iOS 7.0-
+            appStoreURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(appID)"
+        }
+        UIApplication.shared.openURL(URL(string: appStoreURL)!)
+    }
     /// 打开App设置
     public class func openSettingNetwork(){
         guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
@@ -59,19 +75,19 @@ open class UtilEnvironment : NSObject{
         return currentVersion - version > 0.0
     }
     /// 打开系统邮件
-    //    class func openEmail(viewController:UIViewController,_ delegate:MFMailComposeViewControllerDelegate?){
-    //        let mailComposerVC = MFMailComposeViewController()
-    //        mailComposerVC.mailComposeDelegate = delegate
-    //        mailComposerVC.setToRecipients(["nurdin@gmail.com"])
-    //        mailComposerVC.setSubject("Sending you an in-app e-mail...")
-    //        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
-    //
-    //        if MFMailComposeViewController.canSendMail() {
-    //            viewController.presentViewController(mailComposerVC, animated: true, completion: nil)
-    //        }else{
-    //            Mylog.log("打开系统邮件失败, 系统不支持发送.")
-    //        }
-    //    }
+//    class func openEmail(viewController:UIViewController,_ delegate:MFMailComposeViewControllerDelegate?){
+//        let mailComposerVC = MFMailComposeViewController()
+//        mailComposerVC.mailComposeDelegate = delegate
+//        mailComposerVC.setToRecipients(["nurdin@gmail.com"])
+//        mailComposerVC.setSubject("Sending you an in-app e-mail...")
+//        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+//
+//        if MFMailComposeViewController.canSendMail() {
+//            viewController.presentViewController(mailComposerVC, animated: true, completion: nil)
+//        }else{
+//            Mylog.log("打开系统邮件失败, 系统不支持发送.")
+//        }
+//    }
     /// 是否是模拟器
     public class var isSimulator:Bool{
         return TARGET_OS_SIMULATOR != 0 // Use this line in Xcode 7 or newer

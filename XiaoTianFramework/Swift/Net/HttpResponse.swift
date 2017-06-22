@@ -18,7 +18,7 @@ open class HttpResponse : NSObject {
     public static let TYPE_SUCCESS: Int = 1
     public static let TYPE_FAILED: Int = 0
     static let TYPE_SELF_LOSE: Int = -1 // self 丢失页面无效
-    
+    //
     var codeXJ : Int? //错误码 200:成功,400:Token错误
     var successXJ : Int? //成功标志 1:成功,0:失败
     var msgXJ : String? //错误信息
@@ -110,5 +110,5 @@ open class HttpResponse : NSObject {
     public static func genDataResponse(_ code:Int, success:Int, msg:String) -> Data {
         return "{\"code\":\(CODE_ERROR_HTTP),\"success\":\(success),\"msg\":\"\(msg)\"}".data(using: String.Encoding.utf8)!
     }
-
+    
 }
