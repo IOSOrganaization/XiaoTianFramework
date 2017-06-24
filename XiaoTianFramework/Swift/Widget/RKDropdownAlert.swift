@@ -80,7 +80,7 @@ class RKDropdownAlert: UIView{
             alert.removeFromSuperview()
             self.isShowing = false
             if delegate != nil{
-                delegate.dropdownAlertWasDismissed()
+                let _ = delegate.dropdownAlertWasDismissed()
             }
         }
     }

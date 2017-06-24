@@ -40,6 +40,7 @@
 		58EC3C661DC8F7F2001EE875 /* BasicEncodingRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EC3C641DC8F7F2001EE875 /* BasicEncodingRules.m */; };
 		6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */; };
 		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
+		6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */; };
 		6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */; };
 		6B5FB9CF1ED522A600331247 /* HttpProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CB1ED522A600331247 /* HttpProperty.swift */; };
 		6B5FB9D01ED522A600331247 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CC1ED522A600331247 /* HttpRequest.swift */; };
@@ -98,10 +99,12 @@
 		6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */; };
 		6B606C581ED703220058DA6D /* ExtensionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */; };
 		6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C571ED703220058DA6D /* ExtensionNSObject.swift */; };
+		6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */; };
 		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
 		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
 		6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */; };
+		6B94E8E11EFDFB8D00D43ECA /* MyViewProgressAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */; };
 		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */; };
 		6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304931ED82CCD004BDD21 /* UtilJson.swift */; };
 		6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */; };
@@ -118,6 +121,16 @@
 		6BD380EC1E56A8090034D24E /* SKPSMTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD380E21E56A8090034D24E /* SKPSMTPMessage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6BDD036F1EE1B06800582862 /* UtilCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD036E1EE1B06800582862 /* UtilCoreData.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6BA885721EFC9FEC0037E793 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BA8855D1EFC9E810037E793;
+			remoteInfo = BundleXiaoTian;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		040F2A291A4BE5B10018CE65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -157,6 +170,7 @@
 		58EC3C641DC8F7F2001EE875 /* BasicEncodingRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEncodingRules.m; sourceTree = "<group>"; };
 		6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSCoder.swift; path = Swift/Extension/ExtensionNSCoder.swift; sourceTree = "<group>"; };
 		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
+		6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BundleXiaoTian.bundle; sourceTree = "<group>"; };
 		6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpAsyncTask.swift; path = Swift/Net/HttpAsyncTask.swift; sourceTree = "<group>"; };
 		6B5FB9CB1ED522A600331247 /* HttpProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpProperty.swift; path = Swift/Net/HttpProperty.swift; sourceTree = "<group>"; };
 		6B5FB9CC1ED522A600331247 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequest.swift; path = Swift/Net/HttpRequest.swift; sourceTree = "<group>"; };
@@ -215,10 +229,13 @@
 		6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilRuntimeSwift.swift; path = Swift/Util/UtilRuntimeSwift.swift; sourceTree = "<group>"; };
 		6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIViewController.swift; path = Swift/Extension/ExtensionUIViewController.swift; sourceTree = "<group>"; };
 		6B606C571ED703220058DA6D /* ExtensionNSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSObject.swift; path = Swift/Extension/ExtensionNSObject.swift; sourceTree = "<group>"; };
+		6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewRingProgress.swift; path = Swift/View/MyViewRingProgress.swift; sourceTree = "<group>"; };
 		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
 		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
 		6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUIControl.swift; path = Swift/Util/UtilUIControl.swift; sourceTree = "<group>"; };
+		6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewProgressAlert.swift; path = Swift/View/MyViewProgressAlert.swift; sourceTree = "<group>"; };
+		6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BundleXiaoTian.xcodeproj; path = BundleXiaoTian/BundleXiaoTian.xcodeproj; sourceTree = "<group>"; };
 		6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewLinePropress.swift; path = Swift/View/MyViewLinePropress.swift; sourceTree = "<group>"; };
 		6BD304931ED82CCD004BDD21 /* UtilJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJson.swift; path = Swift/Util/UtilJson.swift; sourceTree = "<group>"; };
 		6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilSqlite.swift; path = Swift/Util/UtilSqlite.swift; sourceTree = "<group>"; };
@@ -313,6 +330,7 @@
 		04FCC9C21A4BA8D6001A6BBD = {
 			isa = PBXGroup;
 			children = (
+				6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */,
 				580E07471E894DE90023FF00 /* SystemConfiguration.framework */,
 				04EFE05B1A53967700E846CB /* libobjc.A.dylib */,
 				040F2A291A4BE5B10018CE65 /* Foundation.framework */,
@@ -334,6 +352,7 @@
 		04FCC9CE1A4BA8D6001A6BBD /* XiaoTianFramework */ = {
 			isa = PBXGroup;
 			children = (
+				6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */,
 				6B5FB9C81ED5228700331247 /* Swift */,
 				04EFE0661A53F34500E846CB /* Category */,
 				04EFE05A1A52AAFA00E846CB /* Controller */,
@@ -466,6 +485,8 @@
 				6B5FBA111ED522D200331247 /* MyViewRefreshTable.swift */,
 				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
 				6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */,
+				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
+				6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -495,6 +516,14 @@
 				6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */,
 			);
 			name = Extension;
+			sourceTree = "<group>";
+		};
+		6BA8856F1EFC9FEC0037E793 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6BA885731EFC9FEC0037E793 /* BundleXiaoTian.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		6BD304971ED83FCC004BDD21 /* Frameworks */ = {
@@ -611,6 +640,12 @@
 			mainGroup = 04FCC9C21A4BA8D6001A6BBD;
 			productRefGroup = 04FCC9CD1A4BA8D6001A6BBD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6BA8856F1EFC9FEC0037E793 /* Products */;
+					ProjectRef = 6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				04FCC9CB1A4BA8D6001A6BBD /* XiaoTianFramework */,
@@ -618,11 +653,22 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		6BA885731EFC9FEC0037E793 /* BundleXiaoTian.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BundleXiaoTian.bundle;
+			remoteRef = 6BA885721EFC9FEC0037E793 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		040F2A311A4BECFE0018CE65 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */,
 				6B5FBA211ED522D200331247 /* MyViewTipMessage.xib in Resources */,
 				6B5FBA2C1ED5231000331247 /* BTNavigationDropdownMenu.bundle in Resources */,
 				6B5FBA321ED5231000331247 /* SimpleAlert.xib in Resources */,
@@ -663,6 +709,7 @@
 				6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */,
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
+				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */,
@@ -699,6 +746,7 @@
 				6B5FBA3C1ED5365900331247 /* MyLog.swift in Sources */,
 				6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */,
 				6B5FBA001ED522BA00331247 /* UtilSwift.swift in Sources */,
+				6B94E8E11EFDFB8D00D43ECA /* MyViewProgressAlert.swift in Sources */,
 				045CB90F1A6620EC000942CE /* XTFUtilUserDefault.m in Sources */,
 				6B5FBA2E1ED5231000331247 /* CAPSPageMenu.swift in Sources */,
 				58E9BD411D2184EC00B9DC75 /* XTFCryptorSecurity.m in Sources */,

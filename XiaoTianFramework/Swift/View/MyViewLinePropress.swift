@@ -67,19 +67,20 @@ public class MyViewLinePropress : UIView{
             }
         }
     }
-    //
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // 构造器
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.clipsToBounds = true
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor(white: 0.667, alpha: 0.2)
         self.tintAdjustmentMode = .normal
         self.progressBar = UIView()
         self.progressBar.backgroundColor =  self.barColor
         self.addSubview(self.progressBar)
         self.progress = 0.0
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     /// Animation 百分比改变
     public func setPercentage(_ percentage:CGFloat,_ duration:Double = 0.5){
@@ -95,6 +96,17 @@ public class MyViewLinePropress : UIView{
             [weak self] in
             self?.progressBar.alpha = visiable ? 1 : 0
         })
+    }
+    /// 创建NavigationBar进度条
+    public static func navigationBarProgress(_ navigation:UINavigationController?,_ height:CGFloat = 2.5,_ barColor:UIColor = UIColor.gray,_ backgroundColor:UIColor = UIColor(white: 0.667, alpha: 0.2)) -> MyViewLinePropress?{
+        if let navigationBar = navigation?.navigationBar{
+            let progressBar = MyViewLinePropress(frame: navigationBar.bounds.divided(atDistance: height, from: .maxYEdge).slice)
+            progressBar.barColor = barColor
+            progressBar.backgroundColor = backgroundColor
+            navigationBar.addSubview(progressBar)
+            return progressBar
+        }
+        return nil
     }
     deinit {
         progressBar?.layer.removeAllAnimations()

@@ -22,6 +22,10 @@ open class UtilNotificationDefaultCenter: NSObject{
         // observer:通知接收器,selector:接收器的方法[必须是Objc-C的方法],name:通知名称(nil为接收所有通知)字符串常量,object:对象过滤(nil接收所有,不对对象拦截)
         NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name(rawValue: name), object: nil)
     }
+    @nonobjc
+    open class func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:NSNotification.Name){
+        NotificationCenter.default.addObserver(observer, selector: selector, name: name, object: nil)
+    }
     /// 注册通知侦听器/观察者,通过Block接收
     open class func addObserver(_ notificationName:String,_ usingBlock:@escaping (Notification)->Void){
         // 在usingBlock中使用self的话必须要弱引用,否则会造成死锁[匿名函数中引用self必须要弱引用]

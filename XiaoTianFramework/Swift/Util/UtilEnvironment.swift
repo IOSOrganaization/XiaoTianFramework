@@ -42,7 +42,7 @@ open class UtilEnvironment : NSObject{
             UIApplication.shared.openURL(URL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
         }
     }
-    /// 打开AppStore 中的 App,根据APP上线分发的APPID
+    /// 打开AppStore 中的 App,根据APP上线分发的APPID[Appirater:自动评价APP弹框]
     public class func openAppStoreByAppID(_ appID: String){
         var appStoreURL:String!
         let systemVersion: Float! = Float(UtilEnvironment.systemVersion)
