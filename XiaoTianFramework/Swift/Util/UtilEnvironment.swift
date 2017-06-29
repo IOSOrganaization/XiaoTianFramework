@@ -128,6 +128,10 @@ open class UtilEnvironment : NSObject{
             return UIDevice.current.identifierForVendor?.uuidString
         }
     }
+    /// 屏幕横竖屏方向
+    public class var screamOrientation:UIInterfaceOrientation{
+        return UIApplication.shared.statusBarOrientation
+    }
     public class var isScreen55Inch: Bool{
         return false
     }
@@ -190,5 +194,43 @@ open class UtilEnvironment : NSObject{
     public class func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
         // UINib(nibName: name, bundle: Bundle.main)
         return Bundle.main.loadNibNamed(name, owner: owner, options: option)
+    }
+    /// 获取可视键盘的高度
+    func visibleKeyboardHeight() -> CGFloat{
+        var keyboardWindow: UIWindow? = nil
+        // 当前所有窗口,获取可能是键盘的Window
+        for window in UIApplication.shared.windows{
+            // 不是UIWindow的类[可能是子类]
+            if !UIWindow.self.isEqual(type(of: window)) {
+                keyboardWindow = window
+                break
+            }
+        }
+        if let keyboardWindow = keyboardWindow {
+            for possibleKeyboard in keyboardWindow.subviews{
+                // 非公开类键盘类
+                let classUIPeripheralHostView:AnyClass! = NSClassFromString("UIPeripheralHostView")
+                let classUIKeyboard:AnyClass! = NSClassFromString("UIKeyboard")
+                if classUIPeripheralHostView != nil && possibleKeyboard.isKind(of: classUIPeripheralHostView){
+                    return possibleKeyboard.bounds.height
+                }
+                if classUIKeyboard != nil && possibleKeyboard.isKind(of: classUIKeyboard){
+                    return possibleKeyboard.bounds.height
+                }
+                //
+                let classUIInputSetContainerView:AnyClass! = NSClassFromString("UIInputSetContainerView")
+                if classUIInputSetContainerView != nil && possibleKeyboard.isKind(of: classUIInputSetContainerView){
+                    guard let classUIInputSetHostView:AnyClass = NSClassFromString("UIInputSetHostView") else{
+                        break
+                    }
+                    for possibleKeyboardSubview in possibleKeyboard.subviews{
+                        if possibleKeyboardSubview.isKind(of: classUIInputSetHostView) {
+                            return possibleKeyboardSubview.bounds.height
+                        }
+                    }
+                }
+            }
+        }
+        return 0
     }
 }

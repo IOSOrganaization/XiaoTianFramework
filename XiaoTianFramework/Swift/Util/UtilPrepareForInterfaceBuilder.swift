@@ -60,9 +60,8 @@ open class UtilPrepareForInterfaceBuilder{
     }
     /// 编程时用的 Bundle 加载 Xib
     class func loadNib(_ clazz: AnyClass,_ nibName:String) -> [AnyObject]?{
-        return Bundle(for: clazz).loadNibNamed(nibName, owner: nil, options: nil) as! [AnyObject]
+        return Bundle(for: clazz).loadNibNamed(nibName, owner: nil, options: nil) as [AnyObject]?
     }
-    
     /// 是否是 InterfaceBuilder
     class func isInterfaceBuilder() -> Bool{
         #if TARGET_INTERFACE_BUILDER
@@ -71,4 +70,5 @@ open class UtilPrepareForInterfaceBuilder{
             return false
         #endif
     }
+    ///
 }

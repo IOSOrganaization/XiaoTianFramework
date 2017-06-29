@@ -13,7 +13,7 @@ import UIKit
 public class MyUIView: UIView{
     var tabFunction:((_ view:MyUIView)->())?
     
-    // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
+    // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView],也可以通过KVC模式设置
     @IBInspectable public var onClickAction: String = ""
     //
     public required init?(coder aDecoder: NSCoder){

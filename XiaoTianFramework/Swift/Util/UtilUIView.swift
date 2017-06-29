@@ -185,4 +185,16 @@ open class UtilUIView: NSObject {
     public func createWidthRect(_ sourceRect:CGRect,_ width:CGFloat) -> CGRect{
         return sourceRect.divided(atDistance: width, from: .minXEdge).slice
     }
+    /// 计算Text的大小
+    public func calculateTextSize(_ text:NSString,_ font:UIFont,_ maxConstraintSize:CGSize) -> CGRect?{
+        return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSFontAttributeName:font], context: nil)
+    }
+    /// 计算Text的大小[label:1.必须设置bound视图大小,2.设置多行,3.设置font]
+    public func calculateTextSize(_ text:String,_ label:UILabel) -> CGRect{
+        //label.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        //label.numberOfLines = 0
+        label.text = text
+        label.sizeToFit()
+        return label.frame
+    }
 }

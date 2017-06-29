@@ -32,7 +32,7 @@ class MyRedotUIView: UIView {
     override func draw(_ rect: CGRect){
         let ctx = UIGraphicsGetCurrentContext() // 绘图上下文
         ctx?.addEllipse(in: rect) // 椭圆
-        ctx?.setFillColor(colorTip.cgColor.components!) // 设置绘图上下文画笔填充颜色
+        ctx?.setFillColor(colorTip.cgColor) // 设置绘图上下文画笔填充颜色
         ctx?.fillPath() // 填充
     }
 }

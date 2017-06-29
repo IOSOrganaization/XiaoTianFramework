@@ -99,10 +99,14 @@
 		6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */; };
 		6B606C581ED703220058DA6D /* ExtensionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */; };
 		6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C571ED703220058DA6D /* ExtensionNSObject.swift */; };
+		6B64FB021F05308A00C7B527 /* MyStoreHouseRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */; };
 		6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */; };
 		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
 		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
+		6B891F331F039431004A32E8 /* UtilInterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */; };
+		6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F341F0395F2004A32E8 /* UtilAnimation.swift */; };
+		6B891F371F039E06004A32E8 /* UtilKVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F361F039E06004A32E8 /* UtilKVC.swift */; };
 		6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */; };
 		6B94E8E11EFDFB8D00D43ECA /* MyViewProgressAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */; };
 		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */; };
@@ -229,10 +233,14 @@
 		6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilRuntimeSwift.swift; path = Swift/Util/UtilRuntimeSwift.swift; sourceTree = "<group>"; };
 		6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIViewController.swift; path = Swift/Extension/ExtensionUIViewController.swift; sourceTree = "<group>"; };
 		6B606C571ED703220058DA6D /* ExtensionNSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSObject.swift; path = Swift/Extension/ExtensionNSObject.swift; sourceTree = "<group>"; };
+		6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStoreHouseRefreshControl.swift; path = Swift/View/MyStoreHouseRefreshControl.swift; sourceTree = "<group>"; };
 		6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewRingProgress.swift; path = Swift/View/MyViewRingProgress.swift; sourceTree = "<group>"; };
 		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
 		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
+		6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilInterfaceBuilder.swift; path = Swift/Util/UtilInterfaceBuilder.swift; sourceTree = "<group>"; };
+		6B891F341F0395F2004A32E8 /* UtilAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilAnimation.swift; path = Swift/Util/UtilAnimation.swift; sourceTree = "<group>"; };
+		6B891F361F039E06004A32E8 /* UtilKVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilKVC.swift; path = Util/UtilKVC.swift; sourceTree = "<group>"; };
 		6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUIControl.swift; path = Swift/Util/UtilUIControl.swift; sourceTree = "<group>"; };
 		6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewProgressAlert.swift; path = Swift/View/MyViewProgressAlert.swift; sourceTree = "<group>"; };
 		6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BundleXiaoTian.xcodeproj; path = BundleXiaoTian/BundleXiaoTian.xcodeproj; sourceTree = "<group>"; };
@@ -435,6 +443,7 @@
 			children = (
 				6B5FB9D31ED522BA00331247 /* ConstantApp.swift */,
 				6B5FBA3B1ED5365900331247 /* MyLog.swift */,
+				6B891F341F0395F2004A32E8 /* UtilAnimation.swift */,
 				6B5FB9D61ED522BA00331247 /* UtilAnyObject.swift */,
 				6B5FB9D71ED522BA00331247 /* UtilAttributedString.swift */,
 				6B1DDE421EE291F4003FC51C /* UtilBundle.swift */,
@@ -446,7 +455,9 @@
 				6B5FB9DC1ED522BA00331247 /* UtilFile.swift */,
 				6B5FB9DD1ED522BA00331247 /* UtilFont.swift */,
 				6B5FB9DE1ED522BA00331247 /* UtilImage.swift */,
+				6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */,
 				6BD304931ED82CCD004BDD21 /* UtilJson.swift */,
+				6B891F361F039E06004A32E8 /* UtilKVC.swift */,
 				6B5FB9DF1ED522BA00331247 /* UtilLabel.swift */,
 				6B5FB9E01ED522BA00331247 /* UtilLayoutConstraint.swift */,
 				6B5FB9E11ED522BA00331247 /* UtilNotification.swift */,
@@ -460,8 +471,8 @@
 				6B5FB9E71ED522BA00331247 /* UtilString.swift */,
 				6B5FB9E81ED522BA00331247 /* UtilSwift.swift */,
 				6B5FB9E91ED522BA00331247 /* UtilToast.swift */,
-				6B5FB9EA1ED522BA00331247 /* UtilUIView.swift */,
 				6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */,
+				6B5FB9EA1ED522BA00331247 /* UtilUIView.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -469,6 +480,7 @@
 		6B5FBA031ED522C100331247 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */,
 				6B5FBA041ED522D200331247 /* GearRefreshControl.swift */,
 				6B5FBA051ED522D200331247 /* MyClickableView.swift */,
 				6B5FBA061ED522D200331247 /* MyLogoGray.swift */,
@@ -482,11 +494,11 @@
 				6B5FBA0E1ED522D200331247 /* MyUITextFieldLeftIcon.swift */,
 				6B5FBA0F1ED522D200331247 /* MyUITextView.swift */,
 				6B5FBA101ED522D200331247 /* MyUIView.swift */,
-				6B5FBA111ED522D200331247 /* MyViewRefreshTable.swift */,
-				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
 				6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */,
-				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
 				6B94E8E01EFDFB8D00D43ECA /* MyViewProgressAlert.swift */,
+				6B5FBA111ED522D200331247 /* MyViewRefreshTable.swift */,
+				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
+				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -689,6 +701,7 @@
 				6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */,
 				6B5FBA011ED522BA00331247 /* UtilToast.swift in Sources */,
 				6B5FB9FE1ED522BA00331247 /* UtilSecurity.swift in Sources */,
+				6B891F331F039431004A32E8 /* UtilInterfaceBuilder.swift in Sources */,
 				6B5FBA021ED522BA00331247 /* UtilUIView.swift in Sources */,
 				6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */,
 				6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */,
@@ -712,6 +725,7 @@
 				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
+				6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */,
 				6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */,
 				6B5FBA161ED522D200331247 /* MyLogoIndicator.swift in Sources */,
 				6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */,
@@ -730,12 +744,14 @@
 				6B5FBA2F1ED5231000331247 /* CRToast.swift in Sources */,
 				58EC3C661DC8F7F2001EE875 /* BasicEncodingRules.m in Sources */,
 				6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */,
+				6B64FB021F05308A00C7B527 /* MyStoreHouseRefreshControl.swift in Sources */,
 				584923BF1E8B6087005958B4 /* XTFMylog.m in Sources */,
 				6B5FB9D11ED522A600331247 /* HttpResponse.swift in Sources */,
 				6B5FBA141ED522D200331247 /* MyClickableView.swift in Sources */,
 				6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */,
 				6B5FB9F31ED522BA00331247 /* UtilEnvironment.swift in Sources */,
 				6BD380E41E56A8090034D24E /* Base64Transcoder.m in Sources */,
+				6B891F371F039E06004A32E8 /* UtilKVC.swift in Sources */,
 				6B5FB9F21ED522BA00331247 /* UtilDispatch.swift in Sources */,
 				6B5FB9EF1ED522BA00331247 /* UtilAttributedString.swift in Sources */,
 				04ABFC611A63753B008381AE /* XTFUtilEnvironment.m in Sources */,
