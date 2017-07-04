@@ -15,12 +15,12 @@ class MyRedotUIView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         backgroundColor = UIColor.clear
-        colorTip = UtilColor().redColor
+        colorTip = UIColor.red
     }
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clear
-        colorTip = UtilColor().redColor
+        colorTip = UIColor.red
     }
     
     func setColor(_ color:UIColor){

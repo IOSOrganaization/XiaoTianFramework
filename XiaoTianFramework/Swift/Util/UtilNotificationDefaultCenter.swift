@@ -10,7 +10,7 @@ import Foundation
 
 open class UtilNotificationDefaultCenter: NSObject{
     // 消息传递: Delegation,Notification,KeyValueObserve
-    
+    /******************************* DefaultCenter Notification Message *******************************/
     /// Post Notification
     open class func postNotificationName(_ notificationName:String,_ userInfo:[AnyHashable: Any]? = nil){
         NotificationCenter.default.post(name: Notification.Name(rawValue: notificationName), object: nil, userInfo: userInfo)
@@ -29,7 +29,7 @@ open class UtilNotificationDefaultCenter: NSObject{
     /// 注册通知侦听器/观察者,通过Block接收
     open class func addObserver(_ notificationName:String,_ usingBlock:@escaping (Notification)->Void){
         // 在usingBlock中使用self的话必须要弱引用,否则会造成死锁[匿名函数中引用self必须要弱引用]
-        let ab = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:notificationName), object: nil, queue: nil, using: usingBlock)
+        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:notificationName), object: nil, queue: nil, using: usingBlock)
         //NotificationCenter.default.removeObserver(ab) // 异常Block添加的侦听器,不异常会造成通知系统下发通知错乱,影响通知下发效率[在block中必须self要弱引用]
         //var observers = Set<NSObject>()
     }
@@ -41,16 +41,20 @@ open class UtilNotificationDefaultCenter: NSObject{
         NotificationCenter.default.removeObserver(observer)
     }
     /// 注册侦听器
-    open class func addObserver(_ observer: NSObject) {
-        // 默认获取指定回调的 function
-        if observer.responds(to: Selector("addObserver")){
-            
-        }
+    @objc(addObserver:)
+    open class func addObserver(_ observer: UtilNotificationDefaultCenterObserver) {
+        let className = NSStringFromClass(type(of: observer))
+        let notificationName = NSNotification.Name(rawValue:"UtilNotificationDefaultCenter_\(className)")
+        NotificationCenter.default.addObserver(observer, selector: #selector(observer.notification(userInfo:)), name: notificationName, object: nil)
     }
     /// 发送通知/推播通知
-    //func postNotification(observer: NSObject){
+    @objc(postType:userInfo:)
+    open class func postType(_ observerClass: UtilNotificationDefaultCenterObserver.Type,_ userInfo:[AnyHashable:Any]?){
+        let className = NSStringFromClass(observerClass)
+        let notificationName = NSNotification.Name(rawValue:"UtilNotificationDefaultCenter_\(className)")
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: userInfo)
+    }
     
-    //}
     /******************************* System Notification Message *******************************/
     /// 添加键盘弹出侦听器
     open class func addObserverKeyboardWillShow(_ observer: NSObject,_ selector:Selector) {
@@ -75,6 +79,68 @@ open class UtilNotificationDefaultCenter: NSObject{
             }
         }*/
     }
+    /******************************* Customer Notification Message *******************************/
+    /// 注册通知接收器[封装系统默认通知的Block模式,targetContext:目标上下文(nil:当前全局上下文)]
+    public class func addObserverCustomer(name:String,targetContext:AnyObject? = nil,queue:OperationQueue = OperationQueue(),usingBlock:@escaping (Notification)->Void){
+        SingleCustomer.executerQueue.sync {
+            let instanceId = UInt(bitPattern: ObjectIdentifier(targetContext == nil ? SingleCustomer.notification : targetContext!))
+            let observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:name), object: targetContext, queue: queue, using: usingBlock)
+            if let observers = SingleCustomer.notification.cacheObserverCustomer[instanceId]{
+                // Array + Array
+                SingleCustomer.notification.cacheObserverCustomer[instanceId] = observers + [ObserverCustomer(observer: observer, name: name)]
+            }else{
+                SingleCustomer.notification.cacheObserverCustomer[instanceId] = [ObserverCustomer(observer: observer, name: name)]
+            }
+        }
+    }
+    public class func addObserverCustomerMain(name:String,targetContext:AnyObject? = nil,usingBlock:@escaping (Notification)->Void){
+        addObserverCustomer(name: name, targetContext: targetContext, queue: OperationQueue.main, usingBlock: usingBlock)
+    }
+    /// 发送通知
+    public class func postNotificationNameCustomer(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
+        SingleCustomer.executerQueue.sync {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:name), object: targetContext, userInfo: userInfo)
+        }
+    }
+    public class func postNotificationNameCustomerMain(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:name), object: targetContext, userInfo: userInfo)
+        }
+    }
+    /// 移除通知
+    public class func removeObserverCustomer(_ targetContext:AnyObject? = nil,_ name: String? = nil){
+        SingleCustomer.executerQueue.sync {
+            let instanceId = UInt(bitPattern: ObjectIdentifier(targetContext == nil ? SingleCustomer.notification : targetContext!))
+            if let observers = SingleCustomer.notification.cacheObserverCustomer[instanceId]{
+                if let name = name{
+                    for observer in observers{
+                        if observer.name == name{
+                            NotificationCenter.default.removeObserver(observer)
+                            return
+                        }
+                    }
+                }else{
+                    for observer in observers{
+                        NotificationCenter.default.removeObserver(observer)
+                    }
+                }
+            }
+        }
+    }
+    private struct SingleCustomer {
+        // 全局单例
+        static let notification = UtilNotificationDefaultCenter()
+        // 用于发送通知的队列
+        static let executerQueue = DispatchQueue(label: "UtilNotificationDefaultCenter.SingleCustomer")
+    }
+    private struct ObserverCustomer{
+        // 缓冲通知接收Handler用于取消注册
+        var observer:NSObjectProtocol!
+        var name:String!
+    }
+    private var cacheObserverCustomer:[UInt:[ObserverCustomer]] = {
+        return [:]
+    }()
     // Communication Between Objects:
     //1.直接引用[Delegate sent the message],最普通的方式[可能会造成循环引用]
     //2.Notifications[broadcast mechanism]
@@ -119,4 +185,8 @@ open class UtilNotificationDefaultCenter: NSObject{
     //  C 转Swift 标注: __nonnull or __nullable
     //  NSArray<NSString *>: Array<String!>, NSArray; Array<AnyObject>
     // Objective-C cannot sub class a Swift class
+}
+@objc(UtilNotificationDefaultCenterObserver)
+public protocol UtilNotificationDefaultCenterObserver {
+    func notification(userInfo:[AnyHashable:Any]?)
 }
