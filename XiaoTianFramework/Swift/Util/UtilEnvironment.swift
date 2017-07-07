@@ -7,6 +7,7 @@
 //
 import UIKit
 import Foundation
+import MessageUI
 import SystemConfiguration
 
 @objc(UtilEnvironmentXT)
@@ -75,19 +76,19 @@ open class UtilEnvironment : NSObject{
         return currentVersion - version > 0.0
     }
     /// 打开系统邮件
-//    class func openEmail(viewController:UIViewController,_ delegate:MFMailComposeViewControllerDelegate?){
-//        let mailComposerVC = MFMailComposeViewController()
-//        mailComposerVC.mailComposeDelegate = delegate
-//        mailComposerVC.setToRecipients(["nurdin@gmail.com"])
-//        mailComposerVC.setSubject("Sending you an in-app e-mail...")
-//        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
-//
-//        if MFMailComposeViewController.canSendMail() {
-//            viewController.presentViewController(mailComposerVC, animated: true, completion: nil)
-//        }else{
-//            Mylog.log("打开系统邮件失败, 系统不支持发送.")
-//        }
-//    }
+    class func openEmail(viewController:UIViewController,_ toEmail:String,_ subject:String,_ message:String,_ delegate:MFMailComposeViewControllerDelegate?){
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = delegate
+        mailComposerVC.setToRecipients([toEmail])
+        mailComposerVC.setSubject(subject)
+        mailComposerVC.setMessageBody(message, isHTML: false)
+
+        if MFMailComposeViewController.canSendMail() {
+            viewController.present(mailComposerVC, animated: true, completion: nil)
+        }else{
+            Mylog.log("打开系统邮件失败, 系统不支持发送.")
+        }
+    }
     /// 是否是模拟器
     public class var isSimulator:Bool{
         return TARGET_OS_SIMULATOR != 0 // Use this line in Xcode 7 or newer

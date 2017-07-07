@@ -9,16 +9,22 @@
 import Foundation
 
 open class UtilSwift: NSObject {
-    
-    //
-    func stringAppName() -> String{
+    private static var lastClickTime: CFTimeInterval = { CACurrentMediaTime() }()
+    /// App名称
+    public func stringAppName() -> String{
         return localizedString("APP Name")
     }
-    //
-    func localizedString(_ key:String) -> String{
+    /// 区域字符串
+    public func localizedString(_ key:String) -> String{
         return NSLocalizedString(key, comment:"");
     }
-    
+    /// 点击太快
+    public func isClickQuick() -> Bool{
+        let time = CACurrentMediaTime()
+        let quick = time - UtilSwift.lastClickTime < 0.8
+        UtilSwift.lastClickTime = time
+        return quick
+    }
 //    /// 全屏浏览图片[网络图片]
 //    func browserImageArray(vc: UIViewController,_ imageName:[String]?, selectedIndex: Int = 0, originImage: UIImage? = nil , animatedFromView: UIView? = nil, delegate:SKPhotoBrowserDelegate? = nil){
 //        if imageName == nil{

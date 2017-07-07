@@ -55,7 +55,7 @@ public class HttpRequest : NSObject{
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
         //
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         let defaultConfigObject = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: defaultConfigObject)
         // 请求配置
@@ -130,7 +130,7 @@ public class HttpRequest : NSObject{
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
         //
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         let defaultConfigObject = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: defaultConfigObject, delegate: self, delegateQueue: nil)
         // 请求配置
@@ -171,7 +171,7 @@ public class HttpRequest : NSObject{
         if nsurl == nil {
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         // 构造请求参数Body
         var requestString: String! = nil
         var requestData: Data? = nil
@@ -223,7 +223,8 @@ public class HttpRequest : NSObject{
                 wSelf.responseCacheData = HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:(error?.localizedDescription)!)
             } else {
                 // 请求成功
-                wSelf.responseCacheData = data != nil ? data : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
+                wSelf.responseCacheData = data ?? HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
+                //wSelf.responseCacheData = data != nil ? data : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"返回数据为空.")
                 //Mylog.log("执行完成,请求结束")
             }
             wSelf.requestDispatchSemaphore?.signal() // 发信号,解锁
@@ -238,7 +239,8 @@ public class HttpRequest : NSObject{
         }
         // 请求结果
         Mylog.log(formatResultLogMessage(requestUrl, startDate, responseCacheData))
-        return responseCacheData != nil ? responseCacheData! : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"请求网络失败.")
+        return responseCacheData ?? HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"请求网络失败.")
+        //return responseCacheData != nil ? responseCacheData! : HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_HTTP, msg:"请求网络失败.")
     }
     /// Post Form表单请求
     open func postFormRequest(_ url:String, parameters:NSDictionary? = nil, parameterFiles:NSDictionary? = nil) -> Data{
@@ -248,7 +250,7 @@ public class HttpRequest : NSObject{
         if nsurl == nil {
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         // 构造Form请求参数Body
         let boundary = genBoundary()
         var requestData: Data! = nil
@@ -378,7 +380,7 @@ public class HttpRequest : NSObject{
         guard let nsurl = URL(string: url) else {
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         // 构造请求参数Body
         var requestString: String? = nil
         var requestData: Data? = nil
@@ -456,7 +458,7 @@ public class HttpRequest : NSObject{
         guard let nsurl = URL(string: url) else {
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_URL, msg:"构造请求URL失败,请检测URL合法性.")
         }
-        let startDate = Date()
+        let startDate = CACurrentMediaTime()
         // 构造Form请求参数Body
         let boundary = genBoundary()
         var requestData: Data! = nil
@@ -711,14 +713,14 @@ public class HttpRequest : NSObject{
         return nil
     }
     /// 请求完成输出格式化
-    open func formatResultLogMessage(_ url: URLRequest,_ startDate:Date,_ result:Data?) -> String{
+    open func formatResultLogMessage(_ url: URLRequest,_ startDate:CFTimeInterval,_ result:Data?) -> String{
         var message = ""
         if let method = url.httpMethod{
             message.append("(")
             message.append(method)
             message.append(")")
         }
-        let time = String(Int((Date().timeIntervalSince1970 - startDate.timeIntervalSince1970) * 1000.0)) // ms
+        let time = String(Int(CACurrentMediaTime() - startDate * 1000.0)) // ms
         message.append("[")
         message.append(time)
         message.append("ms]")
@@ -737,6 +739,20 @@ public class HttpRequest : NSObject{
             message.append(result)
         }
         return message
+    }
+    /// 创建百分号转码的URL
+    open func createEncodeUrl(_ url:String?) -> URL?{
+        if let url = url{
+            // 正则匹配结果Range,如果包含%23,%1F,...百分比转码符号(表面已经转过码了,否则要转码)
+            if let _ = url.range(of: "%[0-9A-Fa-f]{2}", options: .regularExpression, range: nil, locale: nil){
+                return Foundation.URL(string: url)
+            }else{
+                if let encodedString = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
+                    return Foundation.URL(string: encodedString)
+                }
+            }
+        }
+        return nil
     }
 }
 extension HttpRequest: URLSessionDataDelegate{ // Session Delegate

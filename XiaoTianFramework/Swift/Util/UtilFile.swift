@@ -71,5 +71,23 @@ open class UtilFile: NSObject{
         }
         return nil
     }
-    
+    /// Write Data To File
+    static func writeDataToFile(_ data:Any?,_ fileName:String) -> Error?{
+        guard let uData = data else {
+            return NSError(domain:"Write Data To File Error, Data Is Nil.", code:-1, userInfo:nil)
+        }
+        var fileUrl = URL(fileURLWithPath: userDocumentDirectory)
+        fileUrl.appendPathComponent(fileName)
+        do{
+            if uData is Data{
+                try (uData as! Data).write(to: fileUrl, options: .atomic)
+            }else if uData is String{
+                try (uData as! String).write(to: fileUrl, atomically: true, encoding: String.Encoding.utf8)
+            }
+            return NSError(domain:"Write Data To File Error, Data Is Not Data or String.", code:-1, userInfo:nil)
+        } catch (let error){
+            print(error)
+            return error
+        }
+    }
 }

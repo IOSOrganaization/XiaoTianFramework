@@ -21,5 +21,8 @@ extension String{
         }
         return occurrences
     }
-    
+    /// 区域化文本
+    var localized:String? {
+        return NSLocalizedString(self, comment:"")
+    }
 }

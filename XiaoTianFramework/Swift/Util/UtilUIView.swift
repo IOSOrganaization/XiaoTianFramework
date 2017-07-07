@@ -53,10 +53,30 @@ open class UtilUIView: NSObject {
         }
         return nil
     }
-    /// 设置UIView背景圆角
+    /// 设置UIView背景圆角(xib user default value: layer.masksToBounds Bool true)
     public func setCornerRadius(_ view:UIView?,_ radius:CGFloat){
         view?.layer.masksToBounds = true // 边距遮住[用透明遮住其他圆角部分]
         view?.layer.cornerRadius = radius
+    }
+    /// Appearance模式设置TabBar文本颜色
+    public func setupTabBar(_ colorTextNormal:UIColor,_ colorTextSelected:UIColor){
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:colorTextNormal], for: UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:colorTextSelected], for: .selected)
+    }
+    /// 设置TabBar的图标
+    public func setupTabBarImage(_ tabBar:UITabBar?,_ tabIndex:Int,_ imageNormal:UIImage?,_ imageSelected:UIImage?){
+        if let items = tabBar?.items{
+            if tabIndex < items.count{
+                let barItem = items[tabIndex]
+                // 一直保持原图,不执行颜色渲染
+                if imageNormal != nil{
+                    barItem.image = imageNormal?.withRenderingMode(.alwaysOriginal)
+                }
+                if imageSelected != nil{
+                    barItem.image = imageSelected?.withRenderingMode(.alwaysOriginal)
+                }
+            }
+        }
     }
     /// 在 UIView 中获取指定类型的 Response
     public func findResponderClass<T>(_ view: UIView?,_ clazz: T.Type) -> T?{
@@ -123,10 +143,7 @@ open class UtilUIView: NSObject {
             }
         }
     }
-    /**
-     创建一个分割线UIView
-     - Returns :分割线(UIView)
-     */
+    /// 创建一个分割线UIView
     public func genDividerView() -> UIView{
         let view = UIView(frame: CGRect.zero)
         view.backgroundColor = UIColor(colorLiteralRed: 188/255.0, green: 186/255.0, blue: 193/255.0, alpha: 1)

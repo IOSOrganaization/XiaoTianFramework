@@ -82,7 +82,27 @@ open class UtilPreference : NSObject {
         }
     }
     /// Property Lists
-    
+    public func stringArrayForKey(_ key:String) -> [String]?{
+        if let stringData = userDefault.data(forKey: key){
+            return NSKeyedUnarchiver.unarchiveObject(with: stringData) as? [String]
+        }
+        return nil
+    }
+    /// Set Property Lists
+    public func setStringArray(_ string:[String]?,_ key:String){
+        var stringData: Data?
+        if let string = string{
+            stringData = NSKeyedArchiver.archivedData(withRootObject: string)
+        }
+        userDefault.set(stringData, forKey: key)
+    }
+    /// Property Dictionary
+    public func stringDictionnaryForKey(_ key:String) -> [String: String]?{
+        if let stringData = userDefault.data(forKey: key){
+            return NSKeyedUnarchiver.unarchiveObject(with: stringData) as? [String: String]
+        }
+        return nil
+    }
     /// 全局可见参数
     //1.静态类常量
     //2.用户共享参数

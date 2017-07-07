@@ -10,7 +10,9 @@ import Foundation
 
 @objc(UtilColorXT) //声明指定OC映射类型
 open class UtilColor: NSObject{
-
+    // XCode显示颜色,返回UIColor(删掉空格): # colorLiteral(red: 0.619475, green: 0.3905, blue: 0.71, alpha: 1) -> #colorLiteral(red: 0.619475, green: 0.3905, blue: 0.71, alpha: 1)
+    // XCode自动识别: #colorLiteral(red: green: blue: alpha:1)转换为颜色显示
+    
     /// 主题色
     open var primaryColor: UIColor{
         return UIColor(colorLiteralRed: 30/255.0, green: 139/255.0, blue: 61/255.0, alpha: 1)
@@ -29,7 +31,8 @@ open class UtilColor: NSObject{
     }
     /// 白色
     open var whileColor: UIColor{
-        return UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1)
+        //return UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1)
+        return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     /// 红色[粉]
     open var redColor: UIColor{
@@ -132,6 +135,20 @@ open class UtilColor: NSObject{
         default:
             return nil
         }
+    }
+    /// Color->Hex
+    public func toHex(_ color:UIColor?) -> String?{
+        if let color = color{
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            if color.getRed(&r, green: &g, blue: &b, alpha: &a){
+                let argb = (Int)(a*255) << 24 | (Int)(r*255) << 16 | (Int)(g*255) << 8 | (Int)(b*255) << 0
+                return String(NSString(format: "#%08x", argb)).uppercased()
+            }
+        }
+        return nil
     }
     /// 图片颜色(拉伸区域会被忽略)
     @nonobjc
