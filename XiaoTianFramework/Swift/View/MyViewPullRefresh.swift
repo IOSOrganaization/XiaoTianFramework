@@ -410,7 +410,7 @@ public class MyViewPullRefresh: UIView{
                         wSelf.scrollView?.contentInset.top = top
                         wSelf.scrollView?.setContentOffset(CGPoint(x: 0, y: -top), animated: false)
                     }
-                    }, completion:{[weak self](finished) in
+                }, completion:{[weak self](finished) in
                         self?.executeRefreshingCallback?()
                 })
             }

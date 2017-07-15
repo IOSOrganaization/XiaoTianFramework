@@ -24,7 +24,14 @@ open class UtilString :NSObject {
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
         return rect.size.height
     }
-    
+    /// 
+    public func stringHeightWithLabel(_ label:UILabel,_ string:String,_ width: CGFloat) -> CGFloat{
+        let preString = label.text
+        label.text = string
+        let size = label.sizeThatFits(CGSize(width:width,height:CGFloat.greatestFiniteMagnitude))// 高度无穷大
+        label.text = preString
+        return size.height
+    }
     /// 格式化就;距离
     public func formatDistance(_ distance: NSNumber?) -> String? {
         if (distance == nil) {

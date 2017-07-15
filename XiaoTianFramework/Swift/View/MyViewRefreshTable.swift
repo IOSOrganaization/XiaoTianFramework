@@ -62,11 +62,11 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         viewErrorNetSetting = viewError.viewWithTag(4610) as? MyUIView
         //
         tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
-        utilLayoutConstant(tableView).top().left().widthMultiplier(1).heightMultiplier(1) // x,y,w,h才能确定准确位置
-        utilLayoutConstant(viewLoading).top().left().widthMultiplier(1).heightMultiplier(1)
-        utilLayoutConstant(viewEmpty).top().left().widthMultiplier(1).heightMultiplier(1)
-        utilLayoutConstant(viewError).top().left().widthMultiplier(1).heightMultiplier(1)
-        utilLayoutConstant(viewReloading).top().left().widthMultiplier(1).heightMultiplier(1)
+        _ = utilLayoutConstant(tableView).top().left().widthMultiplier(1).heightMultiplier(1) // x,y,w,h才能确定准确位置
+        _ = utilLayoutConstant(viewLoading).top().left().widthMultiplier(1).heightMultiplier(1)
+        _ = utilLayoutConstant(viewEmpty).top().left().widthMultiplier(1).heightMultiplier(1)
+        _ = utilLayoutConstant(viewError).top().left().widthMultiplier(1).heightMultiplier(1)
+        _ = utilLayoutConstant(viewReloading).top().left().widthMultiplier(1).heightMultiplier(1)
         //
         viewEmpty.isHidden = true
         viewError.isHidden = true
@@ -318,7 +318,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
             break
         }
         loadingType = -1
-        if !UtilEnvironment.isConnectedToNetwork && toastNetConnectError{
+        if !UtilEnvironment.isConnectedToNetwork() && toastNetConnectError{
             showNetErrorSetting()
         }
         layoutIfNeeded()
@@ -408,7 +408,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
             viewError.isHidden = false
             viewLoading.isHidden = true
             viewReloading.isHidden = true
-            if !UtilEnvironment.isConnectedToNetwork && toastNetConnectError{
+            if !UtilEnvironment.isConnectedToNetwork() && toastNetConnectError{
                 showNetErrorSetting()
             }
             layoutIfNeeded()
@@ -679,7 +679,7 @@ class MyLogoRefreshControl: UIRefreshControl{
             let scaleProgress = (centerY > LOGO_CENTER_Y ? LOGO_CENTER_Y : centerY) / LOGO_CENTER_Y
             bar.alpha = max(scaleProgress, 0.7) > 0.7 ? min(scaleProgress, 1.0) : 0.0
             bar.center = CGPoint(x: centerX, y: LOGO_CENTER_Y)
-            bar.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI) * pullRatio)
+            bar.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi) * pullRatio)
         }
         
         // If we're refreshing and the animation is not playing, then play the animation
@@ -712,7 +712,7 @@ class MyLogoRefreshControl: UIRefreshControl{
         UIView.animate(withDuration: 0.6, delay: 0, options: .curveLinear, animations: {
                 [weak self] in
                 if let wSelf = self{
-                    wSelf.bar.transform = wSelf.bar.transform.rotated(by: CGFloat(M_PI))
+                    wSelf.bar.transform = wSelf.bar.transform.rotated(by: CGFloat(Double.pi))
                 }
             }, completion: { [weak self]finished in
                 // If still refreshing, keep spinning

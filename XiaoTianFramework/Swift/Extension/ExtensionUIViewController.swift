@@ -84,6 +84,17 @@ extension UIViewController{
     open func executeNavigationPopGestureRecognizer() -> Bool{
         return true
     }
+    open func changeNavigationBarColor(barTintColor:UIColor,titleTextColor:UIColor){
+        navigationController?.navigationBar.barTintColor = barTintColor
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: titleTextColor]
+        navigationController?.navigationBar.tintColor = titleTextColor // 如果设置了背景图片,则渲染颜色无效(注意appearance方式设置)
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        if utilShared.color.contrastColor(barTintColor) == .white{
+            UIApplication.shared.statusBarStyle = .lightContent
+        }else{
+            UIApplication.shared.statusBarStyle = .default
+        }
+    }
     // Lefttime Method:
     //  initWithCoder: or initWithNibName:bundle: where you perform instance initializations
     //  viewDidLoad: where you perform view-related initializations

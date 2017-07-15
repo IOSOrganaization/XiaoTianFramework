@@ -45,4 +45,9 @@ open class UtilBundle{
     open static func imageInBundleXiaoTian(_ name:String) -> UIImage?{
         return UIImage(named: name, in: xiaotian, compatibleWith: nil)
     }
+    /// 加载Nib
+    open static func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
+        // UINib(nibName: name, bundle: Bundle.main)
+        return Bundle.main.loadNibNamed(name, owner: owner, options: option)
+    }
 }

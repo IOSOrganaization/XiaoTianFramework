@@ -139,6 +139,17 @@ open class UtilImage: NSObject {
         }
         return nil
     }
+    /// UILabel生成UIImage
+    public func genImageFromUILabel(_ uiLabel:UILabel?) -> UIImage?{
+        guard let label = uiLabel else {
+            return nil
+        }
+        UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
+        label.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
     // 指定图片位置内容拉伸
     
     /// UImage -> Data

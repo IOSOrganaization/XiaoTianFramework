@@ -32,6 +32,7 @@ open class MyStoreHouseRefreshControl: UIView{
     private var disappearProgress:CGFloat!
     
     /// Attach To ScrollView(Any Sub ScrollView)
+    @discardableResult
     public static func attachToScrollView(_ scrollView:UIScrollView,_ target:AnyObject,_ refreshAction:Selector,_ plist:String,color:UIColor = UIColor.gray,lineWidth:CGFloat = 2,dropHeight:CGFloat = 80,scale:CGFloat = 1,horizontalRandomness:CGFloat = 150,reverseAnimationLoading:Bool = false,internalAnimationFactor:CGFloat = 0.7) -> MyStoreHouseRefreshControl{
         let refreshControl = MyStoreHouseRefreshControl()
         refreshControl.scrollView = scrollView

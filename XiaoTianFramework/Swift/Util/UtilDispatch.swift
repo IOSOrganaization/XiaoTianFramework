@@ -97,6 +97,9 @@ open class UtilDispatch: NSObject{
         timer.fire() // 触发
         return timer
     }
+    /// 线程组(创建线程组可以控制线程组的同步:group.enter:声明进入,group.leave:声明离开,group.wait:同步等待进去次数等于离开次数(必须所有进入都离开后,进入次数==离开次数))
+    // DispatchQueue(label: "com.xiaotian.framework.UtilDispatch", attributes: .concurrent, target: .global())
+    public static var dispatchGroup:DispatchGroup = DispatchGroup()
     // GCD Customer Timer
     public class CancelableTimer: NSObject{
         private var q = DispatchQueue(label: "com.xiaotian.framework.UtilDispatch$CancelableTimer", attributes: DispatchQueue.Attributes.concurrent, target: DispatchQueue.main)
@@ -115,7 +118,7 @@ open class UtilDispatch: NSObject{
             self.invalidate()
             self.timer = DispatchSource.makeTimerSource(flags: [], queue: self.q)
             self.timer?.scheduleRepeating(wallDeadline: DispatchWallTime.now(), interval: intervalSecond, leeway:  DispatchTimeInterval.seconds(1))
-            self.timer?.setEventHandler { 
+            self.timer?.setEventHandler {
                 if self.firsttimer{
                     self.firsttimer = false
                     return

@@ -1,20 +1,20 @@
 //
-//  MyViewProgressAlert.swift
+//  MyAlertViewProgress.swift
 //  XiaoTianFramework
-//
+//  加载中弹框(加载中,加载完成提示)
 //  Created by guotianrui on 2017/6/24.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //
 
 import Foundation
-open class MyViewProgressAlert: UIView{
+open class MyAlertViewProgress: UIView{
     // 通知事件
-    public static let TAG_WILL_APPEAR = "MyViewProgressAlert.TAG_WILL_APPEAR"
-    public static let TAG_TOUCH_EVENT = "MyViewProgressAlert.TAG_TOUCH_EVENT"
-    public static let TAG_TOUCH_EVENT_DOWN_INSIDE = "MyViewProgressAlert.TAG_TOUCH_EVENT_DOWN_INSIDE"
-    public static let TAG_WILL_DISAPPEAR = "MyViewProgressAlert.TAG_WILL_DISAPPEAR"
-    public static let TAG_DID_DISAPPEAR = "MyViewProgressAlert.TAG_DID_DISAPPEAR"
-    public static let KEY_USER_INFO = "MyViewProgressAlert.KEY_USER_INFO"
+    public static let TAG_WILL_APPEAR = "MyAlertViewProgress.TAG_WILL_APPEAR"
+    public static let TAG_TOUCH_EVENT = "MyAlertViewProgress.TAG_TOUCH_EVENT"
+    public static let TAG_TOUCH_EVENT_DOWN_INSIDE = "MyAlertViewProgress.TAG_TOUCH_EVENT_DOWN_INSIDE"
+    public static let TAG_WILL_DISAPPEAR = "MyAlertViewProgress.TAG_WILL_DISAPPEAR"
+    public static let TAG_DID_DISAPPEAR = "MyAlertViewProgress.TAG_DID_DISAPPEAR"
+    public static let KEY_USER_INFO = "MyAlertViewProgress.KEY_USER_INFO"
     //
     private static let PROGRESS_RING:CGFloat = -1
     public static let MASK_NONE:Int = 0x001;// allow user interactions while HUD is displayed
@@ -22,8 +22,8 @@ open class MyViewProgressAlert: UIView{
     public static let MASK_BLACK:Int = 0x003;//  don't allow user interactions
     public static let MASK_GRADIENT:Int = 0x004;//  don't allow user interactions
     // 全局单例模式
-    static let shared:MyViewProgressAlert = {
-        return MyViewProgressAlert(frame: UIScreen.main.bounds) // 全屏
+    static let shared:MyAlertViewProgress = {
+        return MyAlertViewProgress(frame: UIScreen.main.bounds) // 全屏
     }()
     var maskType:Int = MASK_NONE
     var fontText:UIFont!
@@ -211,7 +211,7 @@ open class MyViewProgressAlert: UIView{
     }
     /// 如果是进度条,则更新进度
     public class func updateProgress(progress:CGFloat){
-        if shared.progress > MyViewProgressAlert.PROGRESS_RING{
+        if shared.progress > MyAlertViewProgress.PROGRESS_RING{
             UIView.animate(withDuration: 0.5, delay: 0.1, options: [.beginFromCurrentState,.curveLinear], animations: {
                 shared.ringLayer?.strokeEnd = progress
             })
@@ -244,12 +244,12 @@ open class MyViewProgressAlert: UIView{
     /// 隐藏
     public class func hide(){
         if isVisible {
-            MyViewProgressAlert.shared.hide()
+            MyAlertViewProgress.shared.hide()
         }
     }
     /// 已经显示
     public class var isVisible: Bool{
-        return MyViewProgressAlert.shared.alpha == 1
+        return MyAlertViewProgress.shared.alpha == 1
     }
     /// Instanc Method
     public func show(_ progress:CGFloat,_ status:String?,_ maskType:Int){
@@ -281,7 +281,7 @@ open class MyViewProgressAlert: UIView{
             overlayView.addSubview(self)
         }
         updatePosition()
-        if progress != MyViewProgressAlert.PROGRESS_RING {
+        if progress != MyAlertViewProgress.PROGRESS_RING {
             self.imageView?.image = nil
             self.imageView?.isHidden = false
             self.progressView?.removeFromSuperview()
@@ -296,7 +296,7 @@ open class MyViewProgressAlert: UIView{
         }
         overlayView.isHidden = false
         overlayView.backgroundColor = UIColor.clear
-        if maskType == MyViewProgressAlert.MASK_NONE{
+        if maskType == MyAlertViewProgress.MASK_NONE{
             overlayView.isUserInteractionEnabled = false
             hudView?.accessibilityLabel = status
             hudView?.isAccessibilityElement = true
@@ -310,9 +310,9 @@ open class MyViewProgressAlert: UIView{
         if alpha != 1 || hudView!.alpha != 1{
             // 第一次显示
             if let text = labelString?.text{
-                UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, [MyViewProgressAlert.KEY_USER_INFO:text])
+                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
             }else{
-                UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, nil)
+                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
             UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
             UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
@@ -336,9 +336,9 @@ open class MyViewProgressAlert: UIView{
                 }
             }, completion: { [weak self](finished) in
                 if let text = self?.labelString?.text{
-                    UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, [MyViewProgressAlert.KEY_USER_INFO:text])
+                    UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
                 }else{
-                    UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, nil)
+                    UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                 }
                 UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
@@ -348,7 +348,7 @@ open class MyViewProgressAlert: UIView{
         setNeedsDisplay()
     }
     public func show(_ image: UIImage,_ status:String?,_ duration:TimeInterval,_ maskType:Int){
-        self.progress = MyViewProgressAlert.PROGRESS_RING
+        self.progress = MyAlertViewProgress.PROGRESS_RING
         self.maskType = maskType
         self.labelString?.text = status
         self.imageView?.image = image
@@ -377,7 +377,7 @@ open class MyViewProgressAlert: UIView{
         overlayView.isHidden = false
         overlayView.backgroundColor = UIColor.clear
         cancelRingLayerAnimation()
-        if maskType == MyViewProgressAlert.MASK_NONE{
+        if maskType == MyAlertViewProgress.MASK_NONE{
             overlayView.isUserInteractionEnabled = false
             hudView?.accessibilityLabel = status
             hudView?.isAccessibilityElement = true
@@ -391,9 +391,9 @@ open class MyViewProgressAlert: UIView{
         if alpha != 1 || hudView!.alpha != 1{
             // 第一次显示
             if let text = labelString?.text{
-                UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, [MyViewProgressAlert.KEY_USER_INFO:text])
+                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
             }else{
-                UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, nil)
+                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
             UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
             UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
@@ -417,9 +417,9 @@ open class MyViewProgressAlert: UIView{
                 }
                 }, completion: { [weak self](finished) in
                     if let text = self?.labelString?.text{
-                        UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, [MyViewProgressAlert.KEY_USER_INFO:text])
+                        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
                     }else{
-                        UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_APPEAR, nil)
+                        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                     }
                     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
                     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
@@ -431,8 +431,8 @@ open class MyViewProgressAlert: UIView{
         RunLoop.main.add(fadeOutTimer!, forMode: .commonModes)
     }
     public func hide(){
-        let  userInfo:[String:String]? = labelString!.text == nil ? [:] : [MyViewProgressAlert.KEY_USER_INFO: labelString!.text!]
-        UtilNotificationDefaultCenter.postNotificationName(MyViewProgressAlert.TAG_WILL_DISAPPEAR, userInfo)
+        let  userInfo:[String:String]? = labelString!.text == nil ? [:] : [MyAlertViewProgress.KEY_USER_INFO: labelString!.text!]
+        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_DISAPPEAR, userInfo)
         activityCount = 0
         UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut,.allowUserInteraction], animations: {[weak self] in
             guard let wSelf = self else{
@@ -460,18 +460,18 @@ open class MyViewProgressAlert: UIView{
                 wSelf.progressView?.removeFromSuperview()
                 wSelf.progressView = nil
                 UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
-                NotificationCenter.default.post(name: NSNotification.Name(MyViewProgressAlert.TAG_DID_DISAPPEAR), object: nil, userInfo: userInfo)
+                NotificationCenter.default.post(name: NSNotification.Name(MyAlertViewProgress.TAG_DID_DISAPPEAR), object: nil, userInfo: userInfo)
                 let rootController = UIApplication.shared.keyWindow?.rootViewController
                 rootController?.setNeedsStatusBarAppearanceUpdate()
             }
         }
     }
     public func overlayViewDidReceiveTouchEvent(_ overlayView:UIControl,_ forEvent:UIEvent){
-        NotificationCenter.default.post(name: NSNotification.Name(MyViewProgressAlert.TAG_TOUCH_EVENT), object: forEvent)
+        NotificationCenter.default.post(name: NSNotification.Name(MyAlertViewProgress.TAG_TOUCH_EVENT), object: forEvent)
         if let touch = forEvent.allTouches?.first{
             let touchLocation = touch.location(in: self)
             if hudView!.frame.contains(touchLocation){
-                NotificationCenter.default.post(name: NSNotification.Name(MyViewProgressAlert.TAG_TOUCH_EVENT_DOWN_INSIDE), object: forEvent)
+                NotificationCenter.default.post(name: NSNotification.Name(MyAlertViewProgress.TAG_TOUCH_EVENT_DOWN_INSIDE), object: forEvent)
             }
         }
     }
@@ -680,14 +680,14 @@ open class MyViewProgressAlert: UIView{
     }
     open override func draw(_ rect: CGRect) {
         switch maskType {
-        case MyViewProgressAlert.MASK_BLACK:
+        case MyAlertViewProgress.MASK_BLACK:
             let context = UIGraphicsGetCurrentContext()
             if let colors = colorBackground?.cgColor{
                 context?.setFillColor(colors)
                 context?.fill(bounds)
             }
             break;
-        case MyViewProgressAlert.MASK_GRADIENT:
+        case MyAlertViewProgress.MASK_GRADIENT:
             let context = UIGraphicsGetCurrentContext()
             let location = UnsafeMutablePointer<CGFloat>.allocate(capacity: 2)
             location[0] = CGFloat(0.0)
@@ -724,6 +724,6 @@ open class MyViewProgressAlert: UIView{
         return tintImage
     }
     func isClear() -> Bool{
-        return maskType == MyViewProgressAlert.MASK_BLACK || maskType == MyViewProgressAlert.MASK_NONE
+        return maskType == MyAlertViewProgress.MASK_BLACK || maskType == MyAlertViewProgress.MASK_NONE
     }
 }

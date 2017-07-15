@@ -107,7 +107,7 @@ open class UtilColor: NSObject{
         let scanner = Scanner(string: hex!)
         scanner.scanLocation = 1 // #号
         scanner.scanHexInt32(value)
-        let argb = value.pointee
+        let argb:UInt32 = value.pointee
         // Int to A,R,G,B
         switch hex!.characters.count {
         case 4:     //#RGB
@@ -136,19 +136,93 @@ open class UtilColor: NSObject{
             return nil
         }
     }
+    /// Int,Hex颜色,0xRRGGBB
+    @nonobjc
+    public func color(_ hexInt:Int?) -> UIColor?{
+        guard let rgb = hexInt else{
+            return nil
+        }
+        let r = (rgb & 0xFF0000) >> 16
+        let g = (rgb & 0xFF00) >> 8
+        let b = rgb & 0xFF
+        return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: 1)
+    }
     /// Color->Hex
     public func toHex(_ color:UIColor?) -> String?{
-        if let color = color{
+        if let color = color {
             var r: CGFloat = 0
             var g: CGFloat = 0
             var b: CGFloat = 0
             var a: CGFloat = 0
-            if color.getRed(&r, green: &g, blue: &b, alpha: &a){
+            if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
                 let argb = (Int)(a*255) << 24 | (Int)(r*255) << 16 | (Int)(g*255) << 8 | (Int)(b*255) << 0
                 return String(NSString(format: "#%08x", argb)).uppercased()
             }
         }
         return nil
+    }
+    /// 暗色 Dark Color
+    public func darkenColor(_ color:UIColor?,_ percentage:CGFloat) -> UIColor?{
+        if color == nil{
+            return nil
+        }
+        var hue:CGFloat = 0
+        var alpha:CGFloat = 0
+        var brightness:CGFloat = 0
+        var staturation:CGFloat = 0
+        if color!.getHue(&hue, saturation: &staturation, brightness: &brightness, alpha: &alpha){
+            if percentage > 0{
+                brightness =  min(brightness - percentage, 1.0) // 加深色度
+            }
+            return UIColor(hue: hue, saturation: staturation, brightness: brightness, alpha: alpha)
+        }
+        return nil
+    }
+    /// 亮色 light Color
+    public func lightenColor(_ color:UIColor?,_ percentage:CGFloat) -> UIColor?{
+        if color == nil{
+            return nil
+        }
+        var hue:CGFloat = 0
+        var alpha:CGFloat = 0
+        var brightness:CGFloat = 0
+        var staturation:CGFloat = 0
+        if color!.getHue(&hue, saturation: &staturation, brightness: &brightness, alpha: &alpha){
+            if percentage > 0{
+                brightness =  min(brightness + percentage, 1.0) // 加深色度
+            }
+            return UIColor(hue: hue, saturation: staturation, brightness: brightness, alpha: alpha)
+        }
+        return nil
+    }
+    /// 反差色(黑/白) contrast Color
+    public func contrastColor(_ color:UIColor?) -> UIColor?{
+        guard var gColor = color else {
+            return nil
+        }
+        if gColor.cgColor.pattern != nil{
+            let size = CGSize(width: 1, height: 1)
+            UIGraphicsBeginImageContext(size)
+            let context = UIGraphicsGetCurrentContext()
+            context?.interpolationQuality = .medium
+            let image = UIImage()
+            image.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size:size), blendMode: .copy, alpha: 1)
+            let dataPointer = context?.data?.assumingMemoryBound(to: UInt8.self)
+            let data = UnsafePointer<UInt8>(dataPointer)
+            gColor = UIColor(red: CGFloat(data![2]/255), green: CGFloat(data![1]/255), blue: CGFloat(data![0]/255), alpha: 1)
+            UIGraphicsEndImageContext()
+        }
+        var luminance: CGFloat = 0
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        gColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        red *= 0.2126
+        green *= 0.7152
+        blue *= 0.0722
+        luminance = red + green + blue
+        return luminance > 0.6 ? .black : .white
     }
     /// 图片颜色(拉伸区域会被忽略)
     @nonobjc

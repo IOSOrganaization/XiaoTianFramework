@@ -6,6 +6,7 @@
 //  Copyright © 2016年 XiaoTian. All rights reserved.
 //
 import UIKit
+import StoreKit
 import Foundation
 import MessageUI
 import SystemConfiguration
@@ -59,6 +60,12 @@ open class UtilEnvironment : NSObject{
         }
         UIApplication.shared.openURL(URL(string: appStoreURL)!)
     }
+    /// 弹框AppStore评分
+    public class func alertGradeAppStore(){
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        }
+    }
     /// 打开App设置
     public class func openSettingNetwork(){
         guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
@@ -76,7 +83,7 @@ open class UtilEnvironment : NSObject{
         return currentVersion - version > 0.0
     }
     /// 打开系统邮件
-    class func openEmail(viewController:UIViewController,_ toEmail:String,_ subject:String,_ message:String,_ delegate:MFMailComposeViewControllerDelegate?){
+    class func openEmail(_ viewController:UIViewController,_ toEmail:String,_ subject:String,_ message:String,_ delegate:MFMailComposeViewControllerDelegate?){
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = delegate
         mailComposerVC.setToRecipients([toEmail])
@@ -89,17 +96,87 @@ open class UtilEnvironment : NSObject{
             Mylog.log("打开系统邮件失败, 系统不支持发送.")
         }
     }
+    /// 设置导航栏颜色(viewDidload后系统可能会改变tint渲染,所以要在viewDidAppear中修改)
+    open func setNavigationBarColor(_ navigationBar:UINavigationBar?,_ colorTintBar:UIColor,_ colorTintText:UIColor){
+        navigationBar?.titleTextAttributes = [NSForegroundColorAttributeName: colorTintText] // 标题文本颜色
+        navigationBar?.barTintColor = colorTintBar // bar背景色
+        navigationBar?.tintColor = colorTintText // 左右文本颜色
+        // 如果有背景图,则颜色不会渲染
+        navigationBar?.setBackgroundImage(nil, for: .default)
+    }
+    /// 设置导航栏图片,阴影线
+    open func setNavigationBarColor(_ navigationBar:UINavigationBar?,imageBar:UIImage? = nil,imageShadow:UIImage? = nil,colorTintBar:UIColor! = UIColor.white,colorTintText:UIColor! =
+        UIColor.black, colorShadow:UIColor! = UIColor.gray){
+        navigationBar?.titleTextAttributes = [NSForegroundColorAttributeName: colorTintText]
+        // 设置阴影线/图,必须要设置背景图,否则
+        navigationBar?.setBackgroundImage(imageBar ?? utilShared.image.genImageFromColor(colorTintBar, CGSize(width:1, height:1)), for: .default)
+        // 阴影图,导航栏下部分的分割线图
+        navigationBar?.shadowImage = imageShadow ?? utilShared.image.genImageFromColor(colorShadow, CGSize(width:1, height:1))
+    }
+    /// 设置搜索栏的颜色
+    open func setSearchBarColor(_ searchBar:UISearchBar?,_ colorTintBar:UIColor,_ colorTint:UIColor,_ colorBackground:UIColor){
+        searchBar?.barTintColor = colorTintBar
+        searchBar?.tintColor = colorTint
+        searchBar?.backgroundColor = colorBackground
+        // 如果有背景,背景色无效
+        searchBar?.backgroundImage = nil
+        searchBar?.searchBarStyle = .default // Text Field Style
+        //searchBar?.setSearchFieldBackgroundImage(nil, for: .normal) //Text Field Background
+    }
     /// 是否是模拟器
-    public class var isSimulator:Bool{
+    public class func isSimulator() -> Bool{
         return TARGET_OS_SIMULATOR != 0 // Use this line in Xcode 7 or newer
         //return TARGET_IPHONE_SIMULATOR != 0 // Use this line in Xcode 6
     }
     /// 是否是 Iphone
-    public class var isIphone:Bool{
+    public class func isIphone() -> Bool{
         return TARGET_OS_IPHONE != 0
     }
+    /// 加载Nib
+    public class func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
+        // UINib(nibName: name, bundle: Bundle.main)
+        return Bundle.main.loadNibNamed(name, owner: owner, options: option)
+    }
+    /// 获取可视键盘的高度
+    func visibleKeyboardHeight() -> CGFloat{
+        var keyboardWindow: UIWindow? = nil
+        // 当前所有窗口,获取可能是键盘的Window
+        for window in UIApplication.shared.windows{
+            // 不是UIWindow的类[可能是子类]
+            if !UIWindow.self.isEqual(type(of: window)) {
+                keyboardWindow = window
+                break
+            }
+        }
+        if let keyboardWindow = keyboardWindow {
+            for possibleKeyboard in keyboardWindow.subviews{
+                // 非公开类键盘类
+                let classUIPeripheralHostView:AnyClass! = NSClassFromString("UIPeripheralHostView")
+                let classUIKeyboard:AnyClass! = NSClassFromString("UIKeyboard")
+                if classUIPeripheralHostView != nil && possibleKeyboard.isKind(of: classUIPeripheralHostView){
+                    return possibleKeyboard.bounds.height
+                }
+                if classUIKeyboard != nil && possibleKeyboard.isKind(of: classUIKeyboard){
+                    return possibleKeyboard.bounds.height
+                }
+                //
+                let classUIInputSetContainerView:AnyClass! = NSClassFromString("UIInputSetContainerView")
+                if classUIInputSetContainerView != nil && possibleKeyboard.isKind(of: classUIInputSetContainerView){
+                    guard let classUIInputSetHostView:AnyClass = NSClassFromString("UIInputSetHostView") else{
+                        break
+                    }
+                    for possibleKeyboardSubview in possibleKeyboard.subviews{
+                        if possibleKeyboardSubview.isKind(of: classUIInputSetHostView) {
+                            return possibleKeyboardSubview.bounds.height
+                        }
+                    }
+                }
+            }
+        }
+        return 0
+    }
     /// 是否已经联网
-    public class var isConnectedToNetwork: Bool{
+    public class func isConnectedToNetwork() -> Bool{
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -122,28 +199,6 @@ open class UtilEnvironment : NSObject{
         let needsConnection = flags.contains(.connectionRequired)
         
         return (isReachable && !needsConnection)
-    }
-    /// 设备唯一 ID :UUID
-    public class var driverUUID: String?{
-        get{
-            return UIDevice.current.identifierForVendor?.uuidString
-        }
-    }
-    /// 屏幕横竖屏方向
-    public class var screamOrientation:UIInterfaceOrientation{
-        return UIApplication.shared.statusBarOrientation
-    }
-    public class var isScreen55Inch: Bool{
-        return false
-    }
-    public class var isScreen47Inch: Bool{
-        return false
-    }
-    public class var isScreen40Inch: Bool{
-        return false
-    }
-    public class var isScreen35Inch: Bool{
-        return false
     }
     public static var screenSizeFor55Inch = CGSize(width: 414, height: 736)
     public static var screenSizeFor47Inch = CGSize(width: 375, height: 667)
@@ -191,47 +246,26 @@ open class UtilEnvironment : NSObject{
         }
         return true
     }
-    /// 加载Nib
-    public class func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
-        // UINib(nibName: name, bundle: Bundle.main)
-        return Bundle.main.loadNibNamed(name, owner: owner, options: option)
+    /// 设备唯一 ID :UUID
+    public class var driverUUID: String?{
+        get{
+            return UIDevice.current.identifierForVendor?.uuidString
+        }
     }
-    /// 获取可视键盘的高度
-    func visibleKeyboardHeight() -> CGFloat{
-        var keyboardWindow: UIWindow? = nil
-        // 当前所有窗口,获取可能是键盘的Window
-        for window in UIApplication.shared.windows{
-            // 不是UIWindow的类[可能是子类]
-            if !UIWindow.self.isEqual(type(of: window)) {
-                keyboardWindow = window
-                break
-            }
-        }
-        if let keyboardWindow = keyboardWindow {
-            for possibleKeyboard in keyboardWindow.subviews{
-                // 非公开类键盘类
-                let classUIPeripheralHostView:AnyClass! = NSClassFromString("UIPeripheralHostView")
-                let classUIKeyboard:AnyClass! = NSClassFromString("UIKeyboard")
-                if classUIPeripheralHostView != nil && possibleKeyboard.isKind(of: classUIPeripheralHostView){
-                    return possibleKeyboard.bounds.height
-                }
-                if classUIKeyboard != nil && possibleKeyboard.isKind(of: classUIKeyboard){
-                    return possibleKeyboard.bounds.height
-                }
-                //
-                let classUIInputSetContainerView:AnyClass! = NSClassFromString("UIInputSetContainerView")
-                if classUIInputSetContainerView != nil && possibleKeyboard.isKind(of: classUIInputSetContainerView){
-                    guard let classUIInputSetHostView:AnyClass = NSClassFromString("UIInputSetHostView") else{
-                        break
-                    }
-                    for possibleKeyboardSubview in possibleKeyboard.subviews{
-                        if possibleKeyboardSubview.isKind(of: classUIInputSetHostView) {
-                            return possibleKeyboardSubview.bounds.height
-                        }
-                    }
-                }
-            }
-        }
-        return 0
+    /// 屏幕横竖屏方向
+    public class var screamOrientation:UIInterfaceOrientation{
+        return UIApplication.shared.statusBarOrientation
+    }
+    public class var isScreen55Inch: Bool{
+        return false
+    }
+    public class var isScreen47Inch: Bool{
+        return false
+    }
+    public class var isScreen40Inch: Bool{
+        return false
+    }
+    public class var isScreen35Inch: Bool{
+        return false
     }
 }
