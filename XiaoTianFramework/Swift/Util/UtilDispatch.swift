@@ -23,11 +23,15 @@ open class UtilDispatch: NSObject{
         queue.async(execute: task) // 在队列调度器里同步执行block
     }
     /// 延时任务
-    public class func after(_ second: Int, task: @escaping ()->()){
+    public class func after(_ second: TimeInterval, task: @escaping ()->()){
         // 延时时间: 当前系统调度器的时间 + 延时秒数 * 秒的单位
-        let time: DispatchTime = DispatchTime.now() + DispatchTimeInterval.seconds(second)
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline:time, execute:task)
+        //let time: DispatchTime = DispatchTime.now() + DispatchTimeInterval.seconds(second)
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: DispatchTime.now() + second, execute:task)
         //DISPATCH_TARGET_QUEUE_DEFAULT.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(second) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: task)
+    }
+    @nonobjc
+    public class func after(millisecond: Int, task: @escaping ()->()){
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline:DispatchTime.now() + DispatchTimeInterval.microseconds(millisecond), execute:task)
     }
     /// 异步任务主线程
     public static func asyncTaskMain(_ task: @escaping ()->()){
@@ -38,8 +42,14 @@ open class UtilDispatch: NSObject{
         DispatchQueue.main.sync(execute: task)
     }
     /// 主线程延时
-    public class func afterMainQueueDispatch(_ second: Int, task: @escaping ()->()){
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(second) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: task)
+    public class func afterMainQueueDispatch(_ second: TimeInterval, task: @escaping ()->()){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + second, execute: task)
+        //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(second) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: task)
+    }
+    /// 主线程延时
+    @nonobjc
+    public class func afterMainQueueDispatch(millisecond: Int, task: @escaping ()->()){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.microseconds(millisecond), execute: task)
     }
     /// 当前线程休眠 xxx 秒
     public class func sleepThread(_ second:Int){

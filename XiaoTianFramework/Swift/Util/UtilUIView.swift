@@ -214,4 +214,30 @@ open class UtilUIView: NSObject {
         label.sizeToFit()
         return label.frame
     }
+    /// 创建一个模糊的UIView[父View背景要设置为透明,才会有效果,设置子view为底层:sendSubview(toBack: viewBlur)]
+    public func genBlurUIView(effecType:UIBlurEffectStyle) -> UIView{
+        return UIVisualEffectView(effect: UIBlurEffect(style: effecType))
+    }
+    /// 开启约束布局
+    public func checkTranslatesAutoresizing(withView: UIView?, toView:UIView?){
+        if withView?.translatesAutoresizingMaskIntoConstraints == true{
+            withView?.translatesAutoresizingMaskIntoConstraints = false
+        }
+        if toView?.translatesAutoresizingMaskIntoConstraints == true{
+            toView?.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    /// 添加约束标注
+    public func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutAttribute,constant:CGFloat) -> NSLayoutConstraint{
+        return addNewConstraint(addView: addView, relation: .equal, withItem: withItem, withAttribute: attribute, toItem: toItem, toAttribute: attribute, constant: constant)
+    }
+    /// 添加约束
+    public func addNewConstraint(addView: UIView, relation:NSLayoutRelation, withItem:UIView, withAttribute:NSLayoutAttribute, toItem:UIView?, toAttribute:NSLayoutAttribute, constant:CGFloat) ->NSLayoutConstraint{
+        // 公式变量不可反,反了常量(若是零没影响,非零不一样[正,负关系])
+        // relatedBy:.equal -> widthItem.attribute = toItem.toAttribute * multiplier + constant
+        let constraint = NSLayoutConstraint(item: withItem, attribute: withAttribute, relatedBy: relation, toItem: toItem, attribute: toAttribute, multiplier: 1, constant: constant)
+        // 子类约束给自己,同级约束给父级,自己约束(大小给自己,边界给父级)
+        addView.addConstraint(constraint)
+        return constraint
+    }
 }

@@ -15,18 +15,21 @@ public struct MyAlertViewProgressPin{
     public init(_ mode:Mode){
         self.content = Content(mode)
     }
-    public static func show(_ content:Content){
+    // 全局单例模式(必须要在UI线程操作)
+    public static func show(_ content:Content = Content(Mode.duration(3.0, dimissDelay: 0.1))){
         self.window.show(content)
     }
     public static func updateProgress(_ percentage: CGFloat){
         self.window.updateProgress(percentage)
     }
-    public static func dismiss(_ duration:TimeInterval,_ delay:TimeInterval,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
+    public static func dismiss(_ duration:TimeInterval = 1,_ delay:TimeInterval = 0.1,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
         self.window.dismiss(duration,delay,text,completion)
     }
+    //
     public enum Mode{
-        case loop(TimeInterval),duration(TimeInterval, dimissDelay:TimeInterval),percentComplete
-        public static func ==(lhs:Mode,rhs:Mode) -> Bool{
+        case percentComplete, loop(TimeInterval), duration(TimeInterval, dimissDelay:TimeInterval)
+        // ==
+        public static func ==(lhs:Mode, rhs:Mode) -> Bool{
             // 两个变量的switch
             switch (lhs, rhs) {
             case (.loop(_), .loop(_)):
@@ -44,22 +47,29 @@ public struct MyAlertViewProgressPin{
         case round,circle,custom((UIView) -> Void)
     }
     public enum Style{
-        case light,dark,blur(UIBlurEffectStyle)
+        case light,dark,blur(UIBlurEffectStyle)// 模糊滤镜
     }
     public enum Background{
-        case none,color(UIColor),blur(UIBlurEffectStyle)
+        case none,color(UIColor),blur(UIBlurEffectStyle)// 模糊滤镜
     }
     open class Content{
+        /// 模式
         public var mode: Mode
+        /// 外观
         public var shape:Shape
+        /// 样式(外观样式)
         public var style:Style
+        /// 背景(背景样式)
         public var background:Background
         //
         public var textLoading:String?
         public var textCompletion:String?
-        public var isUserInteractionEnable = false
+        // 用户交互
+        public var isUserInteractionEnable = true
         public var fontLabel:UIFont?
+        // 默认线
         public var colorLineDefault:UIColor?
+        // 划过的线
         public var colorLineElapse:UIColor?
         //
         public init(_ mode:Mode,_ shape:Shape? = nil,_ theme:Style? = nil,_ background:Background? = nil) {
@@ -69,13 +79,14 @@ public struct MyAlertViewProgressPin{
             self.background = background ?? .none
         }
     }
+    // 显示的窗口 Window
     final class Window: UIWindow{
         private var hudView: HudView?
         
         convenience init(){
             self.init(frame: UIScreen.main.bounds)
-            rootViewController = ViewController()
-            windowLevel = UIWindowLevelNormal + 500
+            rootViewController = ViewController() // VC
+            windowLevel = UIWindowLevelNormal + 500 // Keep In Top
             backgroundColor = UIColor.clear
             rootViewController?.view.backgroundColor = UIColor.clear
             isHidden = true
@@ -93,13 +104,19 @@ public struct MyAlertViewProgressPin{
             alpha = 1
         }
         public func updateProgress(_ percentage: CGFloat){
-            hudView?.updateProgress(percentage)
-            hudView?.updateProgressText(percentage)
+            if let mode = hudView?.content?.mode{
+                // if case 常量 = 变量{}
+                if case .percentComplete = mode{
+                    hudView?.updateProgress(percentage)
+                    hudView?.updateProgressText(percentage)
+                }
+            }
         }
         public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
             hudView?.dismiss(duration, delay, text, completion)
         }
         func finish(){
+            hudView?.removeFromSuperview()
             hudView = nil
             UIApplication.shared.delegate?.window??.makeKeyAndVisible()
             isHidden = true
@@ -107,8 +124,27 @@ public struct MyAlertViewProgressPin{
         }
     }
     final class ViewController: UIViewController{
-        
+        private var appRootVC: UIViewController?{
+            return UIApplication.shared.delegate?.window??.rootViewController
+        }
+        // 从写默认属性
+        override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+            return appRootVC?.supportedInterfaceOrientations ?? .portrait
+        }
+        override var preferredStatusBarStyle: UIStatusBarStyle{
+            return presentingViewController?.preferredStatusBarStyle ?? UIApplication.shared.statusBarStyle
+        }
+        override var prefersStatusBarHidden: Bool{
+            return presentingViewController?.prefersStatusBarHidden ?? UIApplication.shared.isStatusBarHidden
+        }
+        override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
+            return appRootVC?.preferredStatusBarUpdateAnimation ?? .none
+        }
+        override var shouldAutorotate: Bool{
+            return appRootVC?.shouldAutorotate ?? false
+        }
     }
+    // 显示View
     final class HudView: UIView{
         static let size = CGSize(width: 180, height: 180)
         var dismiddHandler: ((Void)->Void)?
@@ -124,12 +160,12 @@ public struct MyAlertViewProgressPin{
         convenience init(_ view:UIView){
             self.init(frame: view.bounds)
             view.addSubview(self)
-            view.allPin(withView: self)
-            //
+            view.allPin(subView: self)
+            // 居中进度条
             viewProgress.clipsToBounds = true
             addSubview(viewProgress)
             setCenterLayoutConstraint(viewProgress)
-            //
+            // 文本
             label.textAlignment = .center
             label.backgroundColor = UIColor.clear
             label.adjustsFontSizeToFitWidth = true
@@ -137,8 +173,8 @@ public struct MyAlertViewProgressPin{
             viewProgress.addSubview(label)
             _ = addPin(withView: label, attribute:.top, toView:viewProgress, constant:HudView.insetLabel)
             _ = addPin(withView: label, attribute:.left, toView:viewProgress, constant:HudView.insetLabel)
-            _ = addPin(withView: label, attribute:.right, toView:viewProgress, constant:HudView.insetLabel)
-            _ = addPin(withView: label, attribute:.bottom, toView:viewProgress, constant:HudView.insetLabel)
+            _ = addPin(withView: label, attribute:.right, toView:viewProgress, constant:-HudView.insetLabel)
+            _ = addPin(withView: label, attribute:.bottom, toView:viewProgress, constant:-HudView.insetLabel)
         }
         func setContent(_ content:Content){
             self.content = content
@@ -177,6 +213,7 @@ public struct MyAlertViewProgressPin{
                 label.textColor = UIColor.white
                 viewProgress.colorDefault = content.colorLineDefault ?? UIColor.darkGray
                 viewProgress.colorElapsed = content.colorLineElapse ?? UIColor.white
+                // 模糊对话框背景View
                 let viewBlur = UIVisualEffectView(effect: UIBlurEffect(style: effecType))
                 viewBlur.clipsToBounds = true
                 addSubview(viewBlur)
@@ -191,11 +228,12 @@ public struct MyAlertViewProgressPin{
             case .color(let color):
                 backgroundColor = color
             case .blur(let effecType):
+                // 模糊弹框背景View
                 backgroundColor = UIColor.clear
                 let viewBlur = UIVisualEffectView(effect: UIBlurEffect(style: effecType))
                 addSubview(viewBlur)
                 sendSubview(toBack: viewBlur)
-                allPin(withView: viewBlur)
+                allPin(subView: viewBlur)
             }
             label.font = content.fontLabel ?? HudView.fontLabel
             viewProgress.mode = content.mode
@@ -213,7 +251,7 @@ public struct MyAlertViewProgressPin{
             viewProgress.percentComplete = percentage < 0 ? 0 : percentage > 1 ? 1 : percentage
         }
         func updateProgressText(_ percentage:CGFloat){
-            label.text = Int(percentage < 0 ? 0 : percentage > 1 ? 1 : percentage).description + "%"
+            label.text = Int(percentage < 0.0 ? 0.0 : percentage > 1.0 ? 1.0 : percentage * 100.0).description + "%"
         }
         public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval? = nil,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
             if linkDismiss != nil{
@@ -247,7 +285,7 @@ public struct MyAlertViewProgressPin{
         func setCenterLayoutConstraint(_ view:UIView){
             pinCenter(subView: view)
             _ = view.addWidthConstraint(view: view, constant: HudView.size.width)
-            _ = view.addWidthConstraint(view: view, constant: HudView.size.height)
+            _ = view.addHeightConstraint(view: view, constant: HudView.size.height)
         }
         func finishAllIfNeed(){
             viewProgress.outsideMargin -= 0.14
@@ -262,25 +300,77 @@ public struct MyAlertViewProgressPin{
         }
     }
     final class Progress: UIView{
-        static let startAngle:Double = 90
-        static let endAngle:Double = 270
+        static let startAngle:CGFloat = 90
+        static let endAngle:CGFloat = 270
+        //
         var mode: Mode?
-        var colorDefault = UIColor.gray
-        var colorElapsed = UIColor.black
-        var percentComplete:CGFloat = 0
-        var outsideMargin:CGFloat = 0
+        //
+        var colorDefault = UIColor.black
+        var colorElapsed = UIColor.lightGray
+        // 完成百分比
+        var percentComplete:CGFloat = 0{
+            didSet{ setNeedsDisplay() }
+        }
+        // 外边距
+        var outsideMargin:CGFloat = 10{
+            didSet{ setNeedsDisplay() }
+        }
         var lineWidth:CGFloat = 30{
             didSet{ setNeedsDisplay() }
         }
-        var lineLineWidth:CGFloat = 25{
+        var loopLineWidth:CGFloat = 25{
             didSet{ setNeedsDisplay() }
         }
-        
+        var radius: CGFloat {
+            return bounds.width * 0.5 - lineWidth * 0.5 - outsideMargin
+        }
         convenience init(){
             self.init(frame: CGRect.zero)
+            backgroundColor = .clear
         }
         func finish(){
-            
+            mode = nil
+        }
+        override func draw(_ rect: CGRect) {
+            super.draw(rect)
+            draw(percentComplete)
+        }
+        private func draw(_ percentComplete:CGFloat){
+            guard let mode = self.mode else{
+                return
+            }
+            if case .loop = mode{
+                let current = convertAngle(percentComplete)
+                let start = current - loopLineWidth
+                drawPath(startAngle: -Progress.startAngle, endAngle: Progress.endAngle, strokeColor: colorDefault)
+                drawPath(startAngle: start, endAngle: current, strokeColor: colorElapsed)
+            }else{
+                let start = -Progress.startAngle
+                if percentComplete >= 1.0{
+                    drawPath(startAngle: start, endAngle: Progress.endAngle, strokeColor: colorElapsed)
+                }else{
+                    let current = convertAngle(percentComplete)
+                    drawPath(startAngle: -Progress.startAngle, endAngle: Progress.endAngle, strokeColor: colorDefault)
+                    drawPath(startAngle: start, endAngle: current, strokeColor: colorElapsed)
+                }
+            }
+        }
+        // 百分比->角度
+        private func convertAngle(_ percentComplete:CGFloat) -> CGFloat{
+            return percentComplete * 360 - Progress.startAngle
+        }
+        // 画分割的圆弧
+        private func drawPath(startAngle: CGFloat, endAngle: CGFloat, strokeColor: UIColor){
+            let start = startAngle * CGFloat(Double.pi) / 180.0
+            let end = endAngle * CGFloat(Double.pi) / 180.0
+            let center = CGPoint(x: bounds.width * 0.5, y: bounds.height * 0.5)
+            // 圆弧
+            let art = UIBezierPath(arcCenter: center, radius: radius, startAngle: start, endAngle: end, clockwise: true)
+            art.lineWidth = lineWidth
+            // 分割线圆弧
+            art.setLineDash([CGFloat(Double.pi) * radius * 0.01 * 0.225, CGFloat(Double.pi) * radius * 0.01 * 0.7545], count: 2, phase: 0)
+            strokeColor.setStroke()
+            art.stroke()
         }
     }
     final class DisplayLink{
@@ -353,12 +443,12 @@ fileprivate extension UIView{
         checkTranslatesAutoresizing(withView: withView, toView: nil)
         _=addPinConstraint(addView: self, withItem: withView, toItem: toView, attribute: attribute, constant: constant)
     }
-    func allPin(withView: UIView,_ constant:CGFloat = 0){
-        checkTranslatesAutoresizing(withView: withView, toView: nil)
-        _=addPinConstraint(addView: self, withItem: withView, toItem: self, attribute: .top, constant: constant)
-        _=addPinConstraint(addView: self, withItem: withView, toItem: self, attribute: .bottom, constant: constant)
-        _=addPinConstraint(addView: self, withItem: withView, toItem: self, attribute: .left, constant: constant)
-        _=addPinConstraint(addView: self, withItem: withView, toItem: self, attribute: .right, constant: constant)
+    func allPin(subView: UIView,_ constant:CGFloat = 0){
+        checkTranslatesAutoresizing(withView: subView, toView: nil)
+        _=addPinConstraint(addView: self, withItem: subView, toItem: self, attribute: .top, constant: constant)
+        _=addPinConstraint(addView: self, withItem: subView, toItem: self, attribute: .bottom, constant: constant)
+        _=addPinConstraint(addView: self, withItem: subView, toItem: self, attribute: .left, constant: constant)
+        _=addPinConstraint(addView: self, withItem: subView, toItem: self, attribute: .right, constant: constant)
     }
     
     func pinCenter(subView:UIView,_ constantX:CGFloat = 0,_ constantY:CGFloat = 0){

@@ -846,7 +846,6 @@ open class MyAlertViewControl: UIViewController{
             }
         }
     }
-
     open class MyButton: UIButton{
         var actionType = MyAlertViewControl.Action.none
         var selectorTarget:AnyObject!

@@ -39,11 +39,11 @@ open class UtilAnyObject: NSObject{
         objc_setAssociatedObject(self, bindkey, value, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     /// 获取对象中关联的对象
-    func getAssociatedObject(_ target:AnyObject?,_ bindkey: UnsafeRawPointer) -> AnyObject!{
+    func getAssociatedObject(_ target:AnyObject?,_ bindkey: UnsafeRawPointer) -> Any!{
         if target == nil{
             return nil
         }
-        return objc_getAssociatedObject(self, bindkey) as AnyObject
+        return objc_getAssociatedObject(self, bindkey)
     }
     
     // ********************************** 绑定强引用属性 **********************************
@@ -58,7 +58,7 @@ open class UtilAnyObject: NSObject{
         setAnyObjectAssociatedObject(target, value, index)
     }
     /// 通过索引获取指定对象的关联对象
-    func accessAnyObject(_ target:AnyObject?,_ index:Int) -> AnyObject!{
+    func accessAnyObject(_ target:AnyObject?,_ index:Int) -> Any?{
         if target == nil{
             return nil
         }
@@ -168,39 +168,39 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 获取关联对象中的AnyObject
-    func getAnyObjectAssociatedObject(_ target:AnyObject?,_ index:Int) -> AnyObject?{
+    func getAnyObjectAssociatedObject(_ target:AnyObject?,_ index:Int) -> Any!{
         switch(index){
-            case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_0) as AnyObject
-            case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_1) as AnyObject
-            case 2:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_2) as AnyObject
-            case 3:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_3) as AnyObject
-            case 4:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_4) as AnyObject
-            case 5:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_5) as AnyObject
-            case 6:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_6) as AnyObject
-            case 7:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_7) as AnyObject
-            case 8:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_8) as AnyObject
-            case 9:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_9) as AnyObject
-            case 10:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_10) as AnyObject
-            case 11:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_11) as AnyObject
-            case 12:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_12) as AnyObject
-            case 13:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_13) as AnyObject
-            case 14:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_14) as AnyObject
-            case 15:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_15) as AnyObject
-            case 16:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_16) as AnyObject
-            case 17:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_17) as AnyObject
-            case 18:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_18) as AnyObject
-            case 19:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_19) as AnyObject
-            case 20:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_20) as AnyObject
-            case 21:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_21) as AnyObject
-            case 22:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_22) as AnyObject
-            case 23:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_23) as AnyObject
-            case 24:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_24) as AnyObject
-            case 25:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_25) as AnyObject
-            case 26:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_26) as AnyObject
-            case 27:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_27) as AnyObject
-            case 28:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_28) as AnyObject
-            case 29:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_29) as AnyObject
-            case 30:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_30) as AnyObject
+            case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_0)
+            case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_1)
+            case 2:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_2)
+            case 3:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_3)
+            case 4:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_4)
+            case 5:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_5)
+            case 6:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_6)
+            case 7:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_7)
+            case 8:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_8)
+            case 9:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_9)
+            case 10:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_10)
+            case 11:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_11)
+            case 12:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_12)
+            case 13:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_13)
+            case 14:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_14)
+            case 15:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_15)
+            case 16:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_16)
+            case 17:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_17)
+            case 18:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_18)
+            case 19:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_19)
+            case 20:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_20)
+            case 21:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_21)
+            case 22:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_22)
+            case 23:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_23)
+            case 24:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_24)
+            case 25:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_25)
+            case 26:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_26)
+            case 27:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_27)
+            case 28:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_28)
+            case 29:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_29)
+            case 30:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_30)
             default:return nil
         }
     }

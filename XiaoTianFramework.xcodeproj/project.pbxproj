@@ -42,6 +42,7 @@
 		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
 		6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */; };
 		6B45100C1F14741C00F0451F /* MyAlertViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */; };
+		6B4E1E681F1EE9CD00730561 /* MyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4E1E671F1EE9CD00730561 /* MyToast.swift */; };
 		6B571DB81F062F2C0021DC2A /* MyViewPullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */; };
 		6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */; };
 		6B5FB9CF1ED522A600331247 /* HttpProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CB1ED522A600331247 /* HttpProperty.swift */; };
@@ -89,8 +90,6 @@
 		6B5FBA2E1ED5231000331247 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */; };
 		6B5FBA2F1ED5231000331247 /* CRToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA281ED5231000331247 /* CRToast.swift */; };
 		6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */; };
-		6B5FBA311ED5231000331247 /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA2A1ED5231000331247 /* SimpleAlert.swift */; };
-		6B5FBA321ED5231000331247 /* SimpleAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B5FBA2B1ED5231000331247 /* SimpleAlert.xib */; };
 		6B5FBA371ED5235000331247 /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA331ED5235000331247 /* MYIntroductionPanel.m */; };
 		6B5FBA381ED5235000331247 /* MYIntroductionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B5FBA341ED5235000331247 /* MYIntroductionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6B5FBA391ED5235000331247 /* MYBlurIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA351ED5235000331247 /* MYBlurIntroductionView.m */; };
@@ -115,6 +114,7 @@
 		6B94E8E11EFDFB8D00D43ECA /* MyAlertViewProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94E8E01EFDFB8D00D43ECA /* MyAlertViewProgress.swift */; };
 		6B95A8721F0A74C400804091 /* MyViewPullRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B95A8711F0A74C400804091 /* MyViewPullRefreshFooter.swift */; };
 		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */; };
+		6BB1D0401F1CDE380070FB29 /* MyAlertActionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */; };
 		6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304931ED82CCD004BDD21 /* UtilJson.swift */; };
 		6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */; };
 		6BD304991ED83FCD004BDD21 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */; };
@@ -181,6 +181,7 @@
 		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
 		6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BundleXiaoTian.bundle; sourceTree = "<group>"; };
 		6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewControl.swift; path = Swift/View/MyAlertViewControl.swift; sourceTree = "<group>"; };
+		6B4E1E671F1EE9CD00730561 /* MyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToast.swift; path = Swift/View/MyToast.swift; sourceTree = "<group>"; };
 		6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefresh.swift; path = Swift/View/MyViewPullRefresh.swift; sourceTree = "<group>"; };
 		6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpAsyncTask.swift; path = Swift/Net/HttpAsyncTask.swift; sourceTree = "<group>"; };
 		6B5FB9CB1ED522A600331247 /* HttpProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpProperty.swift; path = Swift/Net/HttpProperty.swift; sourceTree = "<group>"; };
@@ -228,8 +229,6 @@
 		6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAPSPageMenu.swift; path = Swift/Widget/CAPSPageMenu.swift; sourceTree = "<group>"; };
 		6B5FBA281ED5231000331247 /* CRToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CRToast.swift; path = Swift/Widget/CRToast.swift; sourceTree = "<group>"; };
 		6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RKDropdownAlert.swift; path = Swift/Widget/RKDropdownAlert.swift; sourceTree = "<group>"; };
-		6B5FBA2A1ED5231000331247 /* SimpleAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleAlert.swift; path = Swift/Widget/SimpleAlert.swift; sourceTree = "<group>"; };
-		6B5FBA2B1ED5231000331247 /* SimpleAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SimpleAlert.xib; path = Swift/Widget/SimpleAlert.xib; sourceTree = "<group>"; };
 		6B5FBA331ED5235000331247 /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYIntroductionPanel.m; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYIntroductionPanel.m; sourceTree = SOURCE_ROOT; };
 		6B5FBA341ED5235000331247 /* MYIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYIntroductionPanel.h; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYIntroductionPanel.h; sourceTree = SOURCE_ROOT; };
 		6B5FBA351ED5235000331247 /* MYBlurIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYBlurIntroductionView.m; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYBlurIntroductionView.m; sourceTree = SOURCE_ROOT; };
@@ -255,6 +254,7 @@
 		6B95A8711F0A74C400804091 /* MyViewPullRefreshFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefreshFooter.swift; path = Swift/View/MyViewPullRefreshFooter.swift; sourceTree = "<group>"; };
 		6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BundleXiaoTian.xcodeproj; path = BundleXiaoTian/BundleXiaoTian.xcodeproj; sourceTree = "<group>"; };
 		6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewLinePropress.swift; path = Swift/View/MyViewLinePropress.swift; sourceTree = "<group>"; };
+		6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertActionControl.swift; path = Swift/View/MyAlertActionControl.swift; sourceTree = "<group>"; };
 		6BD304931ED82CCD004BDD21 /* UtilJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJson.swift; path = Swift/Util/UtilJson.swift; sourceTree = "<group>"; };
 		6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilSqlite.swift; path = Swift/Util/UtilSqlite.swift; sourceTree = "<group>"; };
 		6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -492,14 +492,17 @@
 			isa = PBXGroup;
 			children = (
 				6B5FBA041ED522D200331247 /* GearRefreshControl.swift */,
+				6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */,
 				6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */,
 				6B94E8E01EFDFB8D00D43ECA /* MyAlertViewProgress.swift */,
+				6B7369361F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift */,
 				6B5FBA051ED522D200331247 /* MyClickableView.swift */,
 				6B5FBA061ED522D200331247 /* MyLogoGray.swift */,
 				6B5FBA071ED522D200331247 /* MyLogoIndicator.swift */,
 				6B5FBA081ED522D200331247 /* MyRedotUIView.swift */,
 				6B5FBA091ED522D200331247 /* MySeparatorUIView.swift */,
 				6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */,
+				6B4E1E671F1EE9CD00730561 /* MyToast.swift */,
 				6B5FBA0A1ED522D200331247 /* MyUIBookLabel.swift */,
 				6B5FBA0B1ED522D200331247 /* MyUIImageView.swift */,
 				6B5FBA0C1ED522D200331247 /* MyUILabel.swift */,
@@ -513,7 +516,6 @@
 				6B5FBA111ED522D200331247 /* MyViewRefreshTable.swift */,
 				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
 				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
-				6B7369361F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -526,8 +528,6 @@
 				6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */,
 				6B5FBA281ED5231000331247 /* CRToast.swift */,
 				6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */,
-				6B5FBA2A1ED5231000331247 /* SimpleAlert.swift */,
-				6B5FBA2B1ED5231000331247 /* SimpleAlert.xib */,
 			);
 			name = Widget;
 			sourceTree = "<group>";
@@ -698,7 +698,6 @@
 				6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */,
 				6B5FBA211ED522D200331247 /* MyViewTipMessage.xib in Resources */,
 				6B5FBA2C1ED5231000331247 /* BTNavigationDropdownMenu.bundle in Resources */,
-				6B5FBA321ED5231000331247 /* SimpleAlert.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,7 +733,6 @@
 				6B5FBA371ED5235000331247 /* MYIntroductionPanel.m in Sources */,
 				6B5FBA1C1ED522D200331247 /* MyUITextField.swift in Sources */,
 				6B5FBA1D1ED522D200331247 /* MyUITextFieldLeftIcon.swift in Sources */,
-				6B5FBA311ED5231000331247 /* SimpleAlert.swift in Sources */,
 				58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */,
 				6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */,
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
@@ -752,6 +750,7 @@
 				6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */,
 				6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */,
 				6B8043231F18F8DA00420CDD /* UtilUITableView.swift in Sources */,
+				6BB1D0401F1CDE380070FB29 /* MyAlertActionControl.swift in Sources */,
 				6B5FB9FB1ED522BA00331247 /* UtilPreference.swift in Sources */,
 				6B5FB9F61ED522BA00331247 /* UtilImage.swift in Sources */,
 				6BDD036F1EE1B06800582862 /* UtilCoreData.swift in Sources */,
@@ -799,6 +798,7 @@
 				045CB9061A661C21000942CE /* UILabel+XTF.m in Sources */,
 				6BD380EC1E56A8090034D24E /* SKPSMTPMessage.m in Sources */,
 				6B5FBA171ED522D200331247 /* MyRedotUIView.swift in Sources */,
+				6B4E1E681F1EE9CD00730561 /* MyToast.swift in Sources */,
 				6B5FBA1B1ED522D200331247 /* MyUILabel.swift in Sources */,
 				6B5FB9F81ED522BA00331247 /* UtilLayoutConstraint.swift in Sources */,
 			);

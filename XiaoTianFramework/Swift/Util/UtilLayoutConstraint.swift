@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+/// [父->子之间的约束]
 @objc(UtilLayoutConstraintXT)
 open class UtilLayoutConstraint: NSObject{
     /// Parent UIView context.
@@ -1069,11 +1069,7 @@ public extension UIView {
         }
     }
     
-    /**
-     Used to chain UtilLayoutConstraint constraints on a child context.
-     - Parameter child: A child UIView to layout.
-     - Returns: The current UtilLayoutConstraint instance.
-     */
+    /// 父->子之间的约束
     @discardableResult
     public func utilLayoutConstant(_ child: UIView) -> UtilLayoutConstraint {
         return UtilLayoutConstraint(parent: self, child: child)
