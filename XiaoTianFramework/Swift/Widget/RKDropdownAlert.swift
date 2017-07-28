@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RKDropdownAlert: UIView{
+public class RKDropdownAlert: UIView{
     static let TAG = "RKDropdownAlert"
     let HEIGHT:CGFloat = 90
     let ANIMATION_TIME:TimeInterval = 0.3
@@ -20,13 +20,13 @@ class RKDropdownAlert: UIView{
     let FONT_SIZE:CGFloat = 14
     //
     var DEFAULT_TITLE = "Default Text Here"
-    var delegate:RKDropdownAlertDelegate!
-    var isShowing:Bool = false
-    var defaultTextColor:UIColor = UIColor.white
-    var defaultViewColor:UIColor = UIColor(red: 0.98, green: 0.66, blue: 0.2, alpha: 1)
+    public var delegate:RKDropdownAlertDelegate!
+    public var isShowing:Bool = false
+    public var defaultTextColor:UIColor = UIColor.white
+    public var defaultViewColor:UIColor = UIColor(red: 0.98, green: 0.66, blue: 0.2, alpha: 1)
     //
-    var titleLabel: UILabel!
-    var messageLabel: UILabel!
+    public var titleLabel: UILabel!
+    public var messageLabel: UILabel!
     
     fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,7 +47,7 @@ class RKDropdownAlert: UIView{
         self.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(viewWasTapped)))
         NotificationCenter.default.addObserver(self, selector: #selector(dismissAlertView), name: NSNotification.Name(rawValue: RKDropdownAlert.TAG), object: nil)
     }
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("Can Not Init RKDropdownAlert By Nib.")
     }
     func viewWasTapped(){
@@ -143,19 +143,19 @@ class RKDropdownAlert: UIView{
         perform(#selector(hideView), with: self, afterDelay: time + ANIMATION_TIME)
     }
     /// Static Method
-    static func dismissAllAlert(){
+    public static func dismissAllAlert(){
         NotificationCenter.default.post(name: Notification.Name(rawValue: RKDropdownAlert.TAG), object: nil)
     }
-    static func alert(_ title:String?,_ message:String?){
+    public static func alert(_ title:String?,_ message:String?){
         let alert = alertViewWithDelegate(nil)
         alert.alert(title, message, UIColor(red: 0.98, green: 0.66, blue: 0.2, alpha: 1), UIColor.white, -1)
     }
-    static func alert(_ title:String?,_ message:String?,_ backgroundColor:UIColor?,_ textColor:UIColor?){
+    public static func alert(_ title:String?,_ message:String?,_ backgroundColor:UIColor?,_ textColor:UIColor?){
         let alert = alertViewWithDelegate(nil)
         alert.alert(title, message, backgroundColor, textColor, -1)
     }
     // 静态构造
-    static func alertViewWithDelegate(_ delegate: RKDropdownAlertDelegate?) -> RKDropdownAlert{
+    public static func alertViewWithDelegate(_ delegate: RKDropdownAlertDelegate?) -> RKDropdownAlert{
         // (0, -90, screenWidth, 90)
         let alert = RKDropdownAlert(frame: CGRect(x: 0, y: -90,width: UIScreen.main.bounds.size.width, height: 90))
         alert.delegate = delegate
@@ -165,7 +165,7 @@ class RKDropdownAlert: UIView{
         NotificationCenter.default.removeObserver(self)
     }
 }
-protocol RKDropdownAlertDelegate {
+public protocol RKDropdownAlertDelegate {
     func dropdownAlertWasTapped(_ alert:RKDropdownAlert) -> Bool
     func dropdownAlertWasDismissed() -> Bool
 }

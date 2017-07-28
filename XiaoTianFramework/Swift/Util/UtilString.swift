@@ -179,6 +179,10 @@ open class UtilString :NSObject {
         let endIndex = data.index(startIndex, offsetBy: count)
         return data.substring(with: startIndex..<endIndex)
     }
+    /// trim
+    public func trim(string:String)-> String{
+        return string.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
     func test(){
         
     }
