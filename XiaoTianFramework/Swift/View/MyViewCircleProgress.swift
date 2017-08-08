@@ -22,7 +22,7 @@ public class MyViewCircleProgress: UIView{
     // 动画形状层
     let shapeLayer = CAShapeLayer()
     lazy var identityTransform: CATransform3D={
-       var transform = CATransform3DIdentity
+        var transform = CATransform3DIdentity
         transform.m34 = CGFloat(1.0 / -500.0)
         transform = CATransform3DRotate(transform, CGFloat(-90).toRadians(), 0.0, 0.0, 1.0)
         return transform

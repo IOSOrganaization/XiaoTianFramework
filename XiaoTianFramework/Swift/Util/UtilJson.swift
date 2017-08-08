@@ -532,7 +532,46 @@ open class UtilJson:NSObject{
         }
         return resultArray
     }
+    /// 可序列化接口初始化[是否继承协议: if let _ = classType as? JsonSerializable.Type, 永远拷贝代码模式,防止静态方法并发]
+    @inline(__always) public static func createSerializableObject<T: JsonSerializable>(_ properties:[String: Any]?,_ classType:T.Type)-> T?{
+        return properties == nil ? nil : classType.init(properties)
+    }
+    /// 可序列化接口数组初始化
+    @inline(__always) public static func createSerializableArray<T: JsonSerializable>(_ arrayProperties:[Any]?,_ classType:T.Type)-> [T]?{
+        if let arrayProperties = arrayProperties{
+            var array:[T] = []
+            for properties in arrayProperties{
+                if let properties = properties as? [String:Any]{
+                    if let t = UtilJson.createSerializableObject(properties, classType){
+                        array.append(t)
+                    }
+                }
+            }
+            return array
+        }
+        return nil
+    }
+    /// KVC编程模式赋属性值(必须类型匹配,注意: NSNull匹配错误)
+    @inline(__always) public static func setupSerializableProperties(_ properties:[String: Any]?, target:AnyObject?){
+        if let target = target{
+            if let properties = properties{
+                for (key,value) in properties{
+                    target.setValue(value, forKeyPath: key)
+                }
+            }
+        }
+    }
 }
+
+/// 可序列化接口
+public protocol JsonSerializable {
+    // JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers)
+    // 初始化一个对象, 系统JSON结果,只支持NSString,NSNumber,NSArray,NSDictionary,NSNull
+    init?(_ properties:[String:Any]?) //key:value Dictionary init return nil enable
+    // init?(_ dic:[String:Any]?){ return nil }
+}
+
+/// Json 对象操作
 public let TAG_UtilJson = "UtilJson"
 public struct Json{
     public enum TypeJson: Int {

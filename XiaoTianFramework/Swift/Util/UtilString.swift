@@ -183,8 +183,16 @@ open class UtilString :NSObject {
     public func trim(string:String)-> String{
         return string.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    /// format
+    public func format(_ pattern:String,_ arguments:CVarArg)-> String{
+        // String(format: "%@ %d %.02f", "text", 10, 13.0)
+        return String(format: pattern, arguments)
+        // %@:字符串
+        // %d:整形
+        // %.02f:保留2位浮点数,不足用0填充
+        // %X:十六进制显示
+    }
     func test(){
         
     }
-    
 }

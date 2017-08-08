@@ -64,7 +64,7 @@ open class UtilPreference : NSObject {
         //NSKeyedUnarchiver.unarchiveObject(with: cData) 解档
         userDefault.set(cData, forKey: key)
     }
-    /// 保存对象,必须实现 NSCoding 接口协议[调用encodeWithCoder方法]
+    /// 保存对象,必须实现 NSCoding 接口协议[调用encodeWithCoder方法,NSKeyedArchiver:NSCoding->NSData]
     public func setAny<T: NSObject>(_ key: String, _ any: T?){
         if any == nil{
             userDefault.set(nil, forKey: key)
@@ -73,7 +73,7 @@ open class UtilPreference : NSObject {
         let archivedData = NSKeyedArchiver.archivedData(withRootObject: any!)
         userDefault.set(archivedData, forKey: key)
     }
-    /// 获取对象,必须实现 NSCoding 接口协议[调用initWithCoder方法]
+    /// 获取对象,必须实现 NSCoding 接口协议[调用initWithCoder方法,NSKeyedUnarchiver:NSData->NSCoding]
     public func getAny<T: NSObject>(_ key: String,_ clazz: T.Type) -> T?{
         if let unArchiveData = userDefault.data(forKey: key){
             return NSKeyedUnarchiver.unarchiveObject(with: unArchiveData) as? T

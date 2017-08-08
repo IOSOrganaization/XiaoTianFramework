@@ -41,6 +41,7 @@
 		6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */; };
 		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
 		6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */; };
+		6B4422E81F2B680E00565651 /* MyUIImageViewGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */; };
 		6B45100C1F14741C00F0451F /* MyAlertViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */; };
 		6B4E1E681F1EE9CD00730561 /* MyToastTopbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */; };
 		6B571DB81F062F2C0021DC2A /* MyViewPullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */; };
@@ -106,6 +107,7 @@
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
 		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
 		6B8043231F18F8DA00420CDD /* UtilUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8043221F18F8DA00420CDD /* UtilUITableView.swift */; };
+		6B84421E1F39BF3000B83FF0 /* NetReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B84421D1F39BF3000B83FF0 /* NetReachability.swift */; };
 		6B891F331F039431004A32E8 /* UtilInterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */; };
 		6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F341F0395F2004A32E8 /* UtilAnimation.swift */; };
 		6B891F371F039E06004A32E8 /* UtilKVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F361F039E06004A32E8 /* UtilKVC.swift */; };
@@ -182,6 +184,7 @@
 		6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSCoder.swift; path = Swift/Extension/ExtensionNSCoder.swift; sourceTree = "<group>"; };
 		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
 		6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BundleXiaoTian.bundle; sourceTree = "<group>"; };
+		6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIImageViewGif.swift; path = Swift/View/MyUIImageViewGif.swift; sourceTree = "<group>"; };
 		6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewControl.swift; path = Swift/View/MyAlertViewControl.swift; sourceTree = "<group>"; };
 		6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToastTopbar.swift; path = Swift/View/MyToastTopbar.swift; sourceTree = "<group>"; };
 		6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefresh.swift; path = Swift/View/MyViewPullRefresh.swift; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
 		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
 		6B8043221F18F8DA00420CDD /* UtilUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUITableView.swift; path = Swift/Util/UtilUITableView.swift; sourceTree = "<group>"; };
+		6B84421D1F39BF3000B83FF0 /* NetReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetReachability.swift; path = Swift/Net/NetReachability.swift; sourceTree = "<group>"; };
 		6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilInterfaceBuilder.swift; path = Swift/Util/UtilInterfaceBuilder.swift; sourceTree = "<group>"; };
 		6B891F341F0395F2004A32E8 /* UtilAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilAnimation.swift; path = Swift/Util/UtilAnimation.swift; sourceTree = "<group>"; };
 		6B891F361F039E06004A32E8 /* UtilKVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilKVC.swift; path = Util/UtilKVC.swift; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 				6B5FB9CB1ED522A600331247 /* HttpProperty.swift */,
 				6B5FB9CC1ED522A600331247 /* HttpRequest.swift */,
 				6B5FB9CD1ED522A600331247 /* HttpResponse.swift */,
+				6B84421D1F39BF3000B83FF0 /* NetReachability.swift */,
 			);
 			name = Net;
 			sourceTree = "<group>";
@@ -511,6 +516,7 @@
 				6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */,
 				6B5FBA0A1ED522D200331247 /* MyUIBookLabel.swift */,
 				6B5FBA0B1ED522D200331247 /* MyUIImageView.swift */,
+				6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */,
 				6B5FBA0C1ED522D200331247 /* MyUILabel.swift */,
 				6B5FBA0D1ED522D200331247 /* MyUITextField.swift */,
 				6B5FBA0E1ED522D200331247 /* MyUITextFieldLeftIcon.swift */,
@@ -753,8 +759,10 @@
 				6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */,
 				6B5FB9FF1ED522BA00331247 /* UtilString.swift in Sources */,
 				6B5FBA191ED522D200331247 /* MyUIBookLabel.swift in Sources */,
+				6B84421E1F39BF3000B83FF0 /* NetReachability.swift in Sources */,
 				6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */,
 				6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */,
+				6B4422E81F2B680E00565651 /* MyUIImageViewGif.swift in Sources */,
 				6B97D2A01F28CEF900FD8099 /* MyViewCircleProgress.swift in Sources */,
 				6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */,
 				6B8043231F18F8DA00420CDD /* UtilUITableView.swift in Sources */,

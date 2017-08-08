@@ -43,8 +43,8 @@ import Foundation
 //  手动调用代码提示: Esc
 //  代码提示后跳转到下一个占位符: Tab/Control-/
 //  自动完成占位符代码: 占位符双击[针对匿名函数自动完成匿名函数声明]
-//  文件导航打开上一个文件: Command-Control- 左箭头
-//  文件导航打开下一个文件: Command-Control- 右箭头
+//  文件导航打开上一个文件/跳转到上一个焦点: Command-Control- 左箭头
+//  文件导航打开下一个文件/跳转到下一个焦点: Command-Control- 右箭头
 //  当前文件查找内容: Command-F
 //  项目中查找文件内容: Command-Shift-F
 //  全屏显示: Command-Control-F

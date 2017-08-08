@@ -29,7 +29,7 @@ open class UtilBundle{
     // 2.~iphone,~ipad 声明设备指定资源
     //
     // 使用asset catalog 会自动帮你重命名为@2x,@3x
-    //
+    /// XiaoTianFramework 里面的Bundle
     open static var xiaotian: Bundle?{
         let bundleDomain = Bundle(for: UtilBundle.self)
         guard let bundleURL = bundleDomain.url(forResource: "BundleXiaoTian", withExtension: "bundle") else {
@@ -37,13 +37,18 @@ open class UtilBundle{
         }
         return Bundle(url: bundleURL)
     }
-    
+    /// 当前项目的Bundle图片
     open static func imageInBundle(_ name:String) -> UIImage?{
         return UIImage(named: name, in: main, compatibleWith: nil)
     }
-    
+    /// XiaoTianFramework的Bundle图片
     open static func imageInBundleXiaoTian(_ name:String) -> UIImage?{
         return UIImage(named: name, in: xiaotian, compatibleWith: nil)
+    }
+    /// 项目的文件
+    open static func fileInBundle(_ name:String,_ type:String)-> String?{
+        //Bundle.main.bundlePath.appendingFormat("/%1@", "001.gif")
+        return main.path(forResource: name, ofType: type)
     }
     /// 加载Nib
     open static func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{

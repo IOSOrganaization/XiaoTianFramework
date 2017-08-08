@@ -102,4 +102,24 @@ extension UIViewController{
     //  viewDidDisappear: this would be a likely place to unregister for a notification or invalidate a repeating timer that you set up in viewDidAppear:
     //  supportedInterfaceOrientations: where you specify what device orientations are allowed for this view controller’s main view.
     //  deinit: where you perform end-of-life cleanup
+    
+    func popoverViewController(contentCV:UIViewController){
+        //contentCV.modalPresentationStyle = UIModalPresentationStyle.popover //呈现样式
+        //let popPC = contentCV.popoverPresentationController // 呈现控制器
+        //contentCV.popoverPresentationController?.sourceRect = button.frame // 出现源位置
+        //contentCV.popoverPresentationController?.sourceView = view // 出现源View
+        //popPC?.permittedArrowDirections = UIPopoverArrowDirection.any // 可以出现的方向
+        //popPC?.delegate = self // 控制器委托
+        //present(contentCV, animated: true, completion: nil)
+        /* Delegate 重写
+         func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+            return UIModalPresentationStyle.popover // 20
+         }
+         
+         private func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+            let navController = UINavigationController.init(rootViewController: controller.presentedViewController)
+            return navController // 21
+         }
+         */
+    }
 }

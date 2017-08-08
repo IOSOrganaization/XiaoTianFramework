@@ -15,7 +15,7 @@ public class HttpAsyncTask : NSObject {
     // 发起异步请求
     // class:可重写,覆盖, static: 不能重写,覆盖 [两者都是声明静态方法]
     // @escaping:转码,换码[closure function 完成后销毁,回收里面的所有内容,可以直接用self引用,而不用weak self 弱引用]
-    public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?) -> HttpResponse, onPostExecute: ((_ params: HttpResponse) -> Void)! = nil, onPreExecute: (() -> Void)! = nil) -> Void{
+    @inline(__always) public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?) -> HttpResponse, onPostExecute: ((_ params: HttpResponse) -> Void)! = nil, onPreExecute: (() -> Void)! = nil) -> Void{
         // 系统并发多线程调度处理器
         DispatchQueue.global(qos: .userInitiated).async{
             // 执行异步任务前
@@ -35,7 +35,7 @@ public class HttpAsyncTask : NSObject {
         }
     }
     //
-    public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?)->HttpResponse, onPostExecute: ((_ params: HttpResponse) -> Void)! = nil){
+    @inline(__always) public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?)->HttpResponse, onPostExecute: ((_ params: HttpResponse) -> Void)! = nil){
         // 系统并发多线程调度处理器
         DispatchQueue.global(qos: .userInitiated).async{
             // 执行异步任务
@@ -47,7 +47,7 @@ public class HttpAsyncTask : NSObject {
         }
     }
     //
-    public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?) -> HttpResponse){
+    @inline(__always) public static func execute(_ params: NSDictionary?, doInBackground:@escaping (_ params: NSDictionary?) -> HttpResponse){
         // 系统并发多线程调度处理器
         DispatchQueue.global(qos: .userInitiated).async{
             // 执行异步任务

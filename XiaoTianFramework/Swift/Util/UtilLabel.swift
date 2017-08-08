@@ -47,9 +47,32 @@ open class UtilLabel: NSObject{
         // http://stackoverflow.com/questions/24666515/how-do-i-make-an-attributed-string-using-swift
         // NSAttributedString
         // NSMutableAttributedString
-        // NSForegroundColorAttributeName
-        // NSBackgroundColorAttributeName
-        // NSUnderlineStyleAttributeName :NSUnderlineStyle.StyleDouble.rawValue
-        ////
+        // 前景色: NSForegroundColorAttributeName: UIColor
+        // 背景色: NSBackgroundColorAttributeName: UIColor
+        // 下划线(单,双,分割,字符,单词线...): NSUnderlineStyleAttributeName :NSUnderlineStyle.StyleDouble.rawValue
+        // 下划线颜色:NSUnderlineColorAttributeName:
+        // 线条宽度:NSStrokeWidthAttributeName:2.0
+        // 字体: NSFontAttributeName: UIFont
+        // 文字效果:NSTextEffectAttributeName:NSTextEffectLetterpressStyle(文字凸出)
+        // 阴影:NSShadowAttributeName:NSShadow {let shadow : NSShadow = NSShadow()shadow.shadowOffset = CGSizeMake(-2.0, -2.0)}
+        // 段落样式:NSParagraphStyleAttributeName:
+        // 字符连通(两个字符没间隔,连接一起):NSLigatureAttributeName:
+        // 字符之间靠紧间隔:NSKernAttributeName:10
+        // 删除线:NSStrikethroughStyleAttributeName:
+        // 删除线颜色:NSStrikethroughColorAttributeName:
+        // 文字线条宽度:NSStrokeWidthAttributeName:
+        // 文字线条颜色:NSStrokeColorAttributeName:
+        // 依附/嵌入:NSAttachmentAttributeName:
+        // 超连接:NSLinkAttributeName:NSURL/NSString
+        // 文字基线偏差:NSBaselineOffsetAttributeName:10
+        // 倾斜度:NSObliquenessAttributeName:
+        // 横向拉伸:NSExpansionAttributeName:1
+        // 文字书写方向(Left-to-Right and Right-to-Left):NSWritingDirectionAttributeName:
+        // 文字排布方向(0:横向,1:竖向):NSVerticalGlyphFormAttributeName:0/1
+        //
+        //If you need to render text vertically, attributed strings don’t seem to offer this solution just yet.
+        //If you want to draw into a shape other than a rectangle, you will still have to use Core Text.
+        //If you want to render your text on a non-horizontal line (such as a curved line), you will probably have to pick either Core Text or a CATextLayer.
+        // https://www.invasivecode.com/weblog/foundation/attributed-string/
     }
 }

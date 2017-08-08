@@ -180,7 +180,6 @@ open class UtilEnvironment : NSObject{
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
-        
         guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 SCNetworkReachabilityCreateWithAddress(nil, $0)
@@ -189,17 +188,15 @@ open class UtilEnvironment : NSObject{
         }) else {
             return false
         }
-        
         var flags : SCNetworkReachabilityFlags = []
         if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
             return false
         }
-        
         let isReachable = flags.contains(.reachable)
         let needsConnection = flags.contains(.connectionRequired)
-        
         return (isReachable && !needsConnection)
     }
+    /// 屏幕大小point
     public static var screenSizeFor55Inch = CGSize(width: 414, height: 736)
     public static var screenSizeFor47Inch = CGSize(width: 375, height: 667)
     public static var screenSizeFor40Inch = CGSize(width: 320, height: 568)
@@ -255,17 +252,5 @@ open class UtilEnvironment : NSObject{
     /// 屏幕横竖屏方向
     public class var screamOrientation:UIInterfaceOrientation{
         return UIApplication.shared.statusBarOrientation
-    }
-    public class var isScreen55Inch: Bool{
-        return false
-    }
-    public class var isScreen47Inch: Bool{
-        return false
-    }
-    public class var isScreen40Inch: Bool{
-        return false
-    }
-    public class var isScreen35Inch: Bool{
-        return false
     }
 }

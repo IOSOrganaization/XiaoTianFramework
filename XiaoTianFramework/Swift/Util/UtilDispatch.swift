@@ -107,11 +107,25 @@ open class UtilDispatch: NSObject{
         timer.fire() // 触发
         return timer
     }
+    /// 同步锁@synchronized,Objc-synchronized
+    @objc(syncTarget:execute:)
+    public class func sync(_ target:Any!,_ execute:()->()){
+        objc_sync_enter(target)
+            execute()
+        objc_sync_exit(target)
+    }
+    /// GCD同步锁
+    @objc(syncLockQueue:execute:)
+    public class func sync(_ lockQueue:DispatchQueue,_ execute:()->()){
+        lockQueue.sync(execute: execute)
+    }
+    
     /// 线程组(创建线程组可以控制线程组的同步:group.enter:声明进入,group.leave:声明离开,group.wait:同步等待进去次数等于离开次数(必须所有进入都离开后,进入次数==离开次数))
     // DispatchQueue(label: "com.xiaotian.framework.UtilDispatch", attributes: .concurrent, target: .global())
     public static var dispatchGroup:DispatchGroup = DispatchGroup()
     // GCD Customer Timer
     public class CancelableTimer: NSObject{
+        // default is serial[DISPATCH_QUEUE_SERIAL]
         private var q = DispatchQueue(label: "com.xiaotian.framework.UtilDispatch$CancelableTimer", attributes: DispatchQueue.Attributes.concurrent, target: DispatchQueue.main)
         private var timer: DispatchSourceTimer?
         private var firsttimer = true

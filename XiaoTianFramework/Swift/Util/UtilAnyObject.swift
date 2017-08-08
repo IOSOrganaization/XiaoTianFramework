@@ -31,15 +31,15 @@ open class UtilAnyObject: NSObject{
             }
         }
     }
-    /// 关联对象到指定对象
-    func setAssociatedObject(_ target:AnyObject?,_ value:AnyObject?,_ bindkey: UnsafeRawPointer){
+    /// 关联对象到指定对象(func传递的时地址拷贝)
+    public func setAssociatedObject(_ target:AnyObject?,_ value:AnyObject?,_ bindkey: UnsafeRawPointer){
         if target == nil || value == nil{
             return
         }
         objc_setAssociatedObject(self, bindkey, value, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     /// 获取对象中关联的对象
-    func getAssociatedObject(_ target:AnyObject?,_ bindkey: UnsafeRawPointer) -> Any!{
+    public func getAssociatedObject(_ target:AnyObject?,_ bindkey: UnsafeRawPointer) -> Any!{
         if target == nil{
             return nil
         }
@@ -48,7 +48,7 @@ open class UtilAnyObject: NSObject{
     
     // ********************************** 绑定强引用属性 **********************************
     /// 通过索引关联对象到指定对象
-    func bingAnyObject(_ target:AnyObject?,_ value:AnyObject?,_ index:Int){
+    public func bingAnyObject(_ target:AnyObject?,_ value:AnyObject?,_ index:Int){
         if target == nil || value == nil{
             return
         }
@@ -58,7 +58,7 @@ open class UtilAnyObject: NSObject{
         setAnyObjectAssociatedObject(target, value, index)
     }
     /// 通过索引获取指定对象的关联对象
-    func accessAnyObject(_ target:AnyObject?,_ index:Int) -> Any?{
+    public func accessAnyObject(_ target:AnyObject?,_ index:Int) -> Any?{
         if target == nil{
             return nil
         }
@@ -68,7 +68,7 @@ open class UtilAnyObject: NSObject{
         return getAnyObjectAssociatedObject(target, index)
     }
     /// 绑定Int
-    func bingInt(_ target:AnyObject?,_ value:Int?,_ index:Int){
+    public func bingInt(_ target:AnyObject?,_ value:Int?,_ index:Int){
         if target == nil || value == nil{
             return
         }
@@ -78,7 +78,7 @@ open class UtilAnyObject: NSObject{
         setIntAssociatedObject(target, value, index)
     }
     /// 获取绑定Int
-    func accessInt(_ target:AnyObject?,_ index:Int) -> Int!{
+    public func accessInt(_ target:AnyObject?,_ index:Int) -> Int!{
         if target == nil{
             return nil
         }
@@ -89,7 +89,7 @@ open class UtilAnyObject: NSObject{
         return value == nil ? nil : value!
     }
     /// 绑定String
-    func bingString(_ target:AnyObject?,_ value:String?,_ index:Int){
+    public func bingString(_ target:AnyObject?,_ value:String?,_ index:Int){
         if target == nil || value == nil{
             return
         }
@@ -99,7 +99,7 @@ open class UtilAnyObject: NSObject{
         setStringAssociatedObject(target, value, index)
     }
     /// 获取绑定String
-    func accessString(_ target:AnyObject?,_ index:Int) -> String!{
+    public func accessString(_ target:AnyObject?,_ index:Int) -> String!{
         if target == nil{
             return nil
         }
@@ -110,7 +110,7 @@ open class UtilAnyObject: NSObject{
         return value == nil ? nil : value!
     }
     /// 绑定number
-    func bindNumber(_ target:AnyObject?,_ value:NSNumber?,_ index:Int){
+    public func bindNumber(_ target:AnyObject?,_ value:NSNumber?,_ index:Int){
         if target == nil || value == nil{
             return
         }
@@ -120,7 +120,7 @@ open class UtilAnyObject: NSObject{
         setNumberAssociatedObject(target, value, index)
     }
     /// 获取关联对象中的number
-    func accessNumber(_ target:AnyObject?,_ index:Int) -> NSNumber!{
+    public func accessNumber(_ target:AnyObject?,_ index:Int) -> NSNumber!{
         if target == nil{
             return nil
         }
@@ -131,7 +131,7 @@ open class UtilAnyObject: NSObject{
         return value == nil ? nil : value!
     }
     /// 设置AnyObject关联到对象中
-    func setAnyObjectAssociatedObject(_ target:AnyObject?,_ value:AnyObject?,_ index:Int){
+    public func setAnyObjectAssociatedObject(_ target:AnyObject?,_ value:AnyObject?,_ index:Int){
         switch(index){
             case 0:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_0, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);break
             case 1:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_1, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);break
@@ -168,7 +168,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 获取关联对象中的AnyObject
-    func getAnyObjectAssociatedObject(_ target:AnyObject?,_ index:Int) -> Any!{
+    public func getAnyObjectAssociatedObject(_ target:AnyObject?,_ index:Int) -> Any!{
         switch(index){
             case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_0)
             case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_OBJECT_1)
@@ -205,7 +205,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 设置Number关联到对象中
-    func setNumberAssociatedObject(_ target:AnyObject?,_ value:NSNumber?,_ index:Int){
+    public func setNumberAssociatedObject(_ target:AnyObject?,_ value:NSNumber?,_ index:Int){
         switch(index){
             case 0:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_NUMBER_0, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY);break
             case 1:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_NUMBER_1, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY);break
@@ -242,7 +242,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 获取关联对象中的Number
-    func getNumberAssociatedObject(_ target:AnyObject?,_ index:Int) -> NSNumber?{
+    public func getNumberAssociatedObject(_ target:AnyObject?,_ index:Int) -> NSNumber?{
         switch(index){
             case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_NUMBER_0) as? NSNumber
             case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_NUMBER_1) as? NSNumber
@@ -279,7 +279,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 设置String关联到对象中
-    func setStringAssociatedObject(_ target:AnyObject?,_ value:String?,_ index:Int){
+    public func setStringAssociatedObject(_ target:AnyObject?,_ value:String?,_ index:Int){
         switch(index){
             case 0:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_STRING_0, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC);break
             case 1:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_STRING_1, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC);break
@@ -316,7 +316,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 获取关联对象中的String
-    func getStringAssociatedObject(_ target:AnyObject?,_ index:Int) -> String?{
+    public func getStringAssociatedObject(_ target:AnyObject?,_ index:Int) -> String?{
         switch(index){
             case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_STRING_0) as? String
             case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_STRING_1) as? String
@@ -353,7 +353,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 设置Int关联到对象中
-    func setIntAssociatedObject(_ target:AnyObject?,_ value:Int?,_ index:Int){
+    public func setIntAssociatedObject(_ target:AnyObject?,_ value:Int?,_ index:Int){
         switch(index){
             case 0:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_INT_0, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY);break
             case 1:objc_setAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_INT_1, value!, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY);break
@@ -390,7 +390,7 @@ open class UtilAnyObject: NSObject{
         }
     }
     /// 获取关联对象中的Int
-    func getIntAssociatedObject(_ target:AnyObject?,_ index:Int) -> Int?{
+    public func getIntAssociatedObject(_ target:AnyObject?,_ index:Int) -> Int?{
         switch(index){
             case 0:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_INT_0) as? Int
             case 1:return objc_getAssociatedObject(target, &UtilAnyObject.POINTER_INDEX_INT_1) as? Int
@@ -575,7 +575,7 @@ public extension UtilAnyObject{
     public class func associate<T: AnyObject>(_ target: AnyObject, key: UnsafePointer<UInt8>, value: T) {
         objc_setAssociatedObject(target, key, value, .OBJC_ASSOCIATION_RETAIN)
     }
-    /// 添加属性侦听器 KVC [NSKeyValueObserving,the property is dynamic.]
+    /// 添加属性侦听器 KVC,KVO [NSKeyValueObserving,the property is dynamic.]
     public class func addPropertyObserve(_ target: NSObject,_ observer: NSObject,_ targetPropetyNamePath:String){
         // .new 新值 .old 旧值 .initial 初始化 .prior初始化前值
         // context:地址引用[UnsafeMutableRawPointer?]
@@ -583,6 +583,14 @@ public extension UtilAnyObject{
         target.addObserver(observer, forKeyPath: targetPropetyNamePath, options: [.new,.old,.initial,.prior], context: nil)
         // 属性改变接收器,target必须要重写这个方法接收改变
         // override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
+        // 注意:
+        // 1.ObjC里面可以通过.赋值,setValue:forKey触发KVO侦听
+        // 2.Swift只能通过setValue:forKey触发KVO侦听(KVC编程模式)
+        // 3.集合Array,Dictionary,Set:Swift中如果要侦听集合的改变(添加/移除)必须要用dynamic var xxx定义(struct类型)
+        // 4.手动发布改变通知必须同时调用:willChangeValueForKey,didChangeValueForKey
+        // 5.所有的添加侦听必须要在销毁前移除(不移除侦听会发生崩溃: message was received but not handled)
+        // 6.Array:调用setValue:forKeyPath对所有Item都有作用
+        // 7.侦听Array里面的属性count: arrayAsyncTask.@count (侦听arrayAsyncTask, 返回count属性值,@:集合的属性,.:调用)
     }
     /// 移除属性侦听器 KVC[ KeyPath:属性 KeyValue:属性值,必须在deinit中移除]
     public class func removePropertyObserver(_ target: NSObject,_ observer: NSObject,_ targetPropetyNamePath:String){

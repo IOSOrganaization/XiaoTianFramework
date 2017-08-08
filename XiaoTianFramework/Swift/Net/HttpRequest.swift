@@ -45,7 +45,7 @@ public class HttpRequest : NSObject{
             }
             // 构造
             if urlParams.count > 0 {
-                nsurl = URL(string: "\(url)\(url.contains("?") ? "/" : "?" )\(urlParams.joined(separator: "&"))")
+                nsurl = URL(string: "\(url)\(url.contains("?") ? "&" : "?" )\(urlParams.joined(separator: "&"))")
             }
         }
         if nsurl == nil {
@@ -120,7 +120,7 @@ public class HttpRequest : NSObject{
             }
             // 构造
             if urlParams.count > 0 {
-                nsurl = URL(string: "\(url)\(url.contains("?") ? "/" : "?" )\(urlParams.joined(separator: "&"))")
+                nsurl = URL(string: "\(url)\(url.contains("?") ? "&" : "?" )\(urlParams.joined(separator: "&"))")
             }
         }
         if nsurl == nil {
