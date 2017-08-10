@@ -21,7 +21,7 @@ extension String{
         }
         return occurrences
     }
-    /// 区域化文本
+    /// 区域化文本(扩展不能包含相同属性,方法签名,否则重定义)
     var localized:String? {
         return NSLocalizedString(self, comment:"")
     }

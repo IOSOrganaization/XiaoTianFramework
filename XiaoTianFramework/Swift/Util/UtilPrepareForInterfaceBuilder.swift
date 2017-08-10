@@ -70,5 +70,14 @@ open class UtilPrepareForInterfaceBuilder{
             return false
         #endif
     }
+    /// InterfaceBuilder 支持的图片
+    class func supportIBUIImage(_ name:String)-> UIImage?{
+        #if TARGET_INTERFACE_BUILDER
+            let bundle = Bundle(for: type(of: self))
+        #else
+            let bundle = Bundle.main
+        #endif
+        return UIImage(named: name, in: bundle, compatibleWith: nil)
+    }
     ///
 }

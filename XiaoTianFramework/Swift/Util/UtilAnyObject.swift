@@ -10,7 +10,7 @@ import Foundation
 
 @objc(UtilAnyObjectXT)
 /// 调用对象关联绑定是必须要用同一个工具实例,因为变量key每一次都会新建实例都会创建key的地址不一致
-open class UtilAnyObject: NSObject{
+public class UtilAnyObject: NSObject{
     // Associated Keys
     private struct AssociatedKeys{
         // creates the static associated object key we need but doesn’t muck up the global namespace
@@ -641,6 +641,32 @@ public extension UtilAnyObject{
         //  CFTypeRefs 在Obje-C中必须要手动管理内存的引用和释放,在Swift中不需要考虑这些,因为Swift会自动处理这些伪对象的引用
         //6.检测实例内存释放: 重写deinit方法查看是否调用,如果调用则被释放(这是一个古老的检测方法)
         //7.
+    }
+}
+/// 扩展 NSObject
+public extension UtilAnyObject{
+    /// 获取类的所有Objective-C兼容的属性名称(不兼容Objective-C的属性无法获取, xxx.classForCoder)
+    @inline(__always) public class func getClassPropertyNames(clazz:AnyClass)-> [String]?{
+        // 根据Objective-C runtime运行时获取所有属性名称
+        // using Objective-C runtime functions for introspection:
+        // https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
+        var results = [String]()
+        var count: UInt32 = 0
+        let properties = class_copyPropertyList(clazz, &count)// Objective-C runtime get all property(不安全指针,需要手动释放: UnsafeMutablePointer<objc_property_t?>)
+        for i in 0 ..< count{
+            let property = properties?[Int(i)]
+            if let cname = property_getName(property){ // C property name
+                let name = String(cString: cname)// C String to Swift String
+                results.append(name)
+            }
+        }
+        // release objc_property_t structs
+        free(properties)
+        
+        return results
+    }
+    @inline(__always) public class func getClassName(clazz:AnyClass)-> String{
+       return NSStringFromClass(clazz)
     }
 }
 

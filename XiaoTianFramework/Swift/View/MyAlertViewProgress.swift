@@ -200,9 +200,10 @@ open class MyAlertViewProgress: UIView{
         colorLabelText = UIColor.gray
         colorProgress = UIColor.gray
         fontText = UIFont.systemFont(ofSize: 14)
-        imageInfo = UtilBundle.imageInBundleXiaoTian("info")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
-        imageSuccess = UtilBundle.imageInBundleXiaoTian("success")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
-        imageError = UtilBundle.imageInBundleXiaoTian("error")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
+        let bundle = UtilBundle()
+        imageInfo = bundle.imageInBundleXiaoTian("info")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
+        imageSuccess = bundle.imageInBundleXiaoTian("success")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
+        imageError = bundle.imageInBundleXiaoTian("error")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
     }
     /// Static Class Method
     // 进度条

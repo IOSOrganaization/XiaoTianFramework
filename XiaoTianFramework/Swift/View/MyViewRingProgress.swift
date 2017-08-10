@@ -91,7 +91,7 @@ public class MyViewRingProgress: UIView{
         shapeLayout.path = smoothPath.cgPath // 画圆弧
         //
         let maskLayer = CALayer()
-        maskLayer.contents = UtilBundle.imageInBundleXiaoTian("angle-mask")?.cgImage
+        maskLayer.contents = UtilBundle().imageInBundleXiaoTian("angle-mask")?.cgImage
         maskLayer.frame = shapeLayout.bounds
         shapeLayout.mask = maskLayer // 遮蔽，遮盖层,遮圆弧[不透明:不遮蔽(不遮蔽背景),透明:遮蔽(遮蔽背景)]
         // 遮蔽层旋转

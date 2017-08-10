@@ -95,8 +95,14 @@ open class UtilColor: NSObject{
         return UIColor.clear
     }
     /// HEX颜色
-    public func color(_ hex:String?) -> UIColor?{
-        guard let start = hex?[hex!.startIndex] else{
+    public func color(_ hexString:String?) -> UIColor?{
+        //guard var workingString = hexString else{
+        //    return nil
+        //}
+        //if workingString.hasPrefix("#") {
+        //    workingString = String(workingString.characters.dropFirst())
+        //}
+        guard let start = hexString?[hexString!.startIndex] else{
             return nil
         }
         if start != "#"{
@@ -104,12 +110,12 @@ open class UtilColor: NSObject{
         }
         // Hex to Int
         let value:UnsafeMutablePointer<UInt32> = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
-        let scanner = Scanner(string: hex!)
+        let scanner = Scanner(string: hexString!)
         scanner.scanLocation = 1 // #号
-        scanner.scanHexInt32(value)
+        scanner.scanHexInt32(value)// Hex->Int
         let argb:UInt32 = value.pointee
         // Int to A,R,G,B
-        switch hex!.characters.count {
+        switch hexString!.characters.count {
         case 4:     //#RGB
             let r = (argb & 0xF00) >> 8
             let g = (argb & 0xF0) >> 4

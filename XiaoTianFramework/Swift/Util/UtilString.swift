@@ -109,7 +109,7 @@ open class UtilString :NSObject {
     }
     /// 生成随机文件名称
     open func genFileName(_ minLength:Int,_ maxLength:Int,_ ext:String) -> String{
-        var name = ""
+        var name:String = ""
         let charcount = FILE_NAME_KEY.characters.count
         let length = minLength + Int(arc4random_uniform(UInt32(maxLength - minLength)))
         for _ in 0..<length {
@@ -153,6 +153,7 @@ open class UtilString :NSObject {
         }
         return UnicodeScalar(0)
     }
+    /// 获取字符串中的第一个URL字符串
     public func urlHost(url: String) -> String?{
         do{
             let regex = try NSRegularExpression(pattern: ".*?//(.*?)/.*", options: [])
@@ -169,6 +170,12 @@ open class UtilString :NSObject {
         }
         return nil
     }
+    /// 获取指定位置字符串
+    public func character(_ data:String,_ index:Int)-> Character{
+        let index = data.characters.index(data.startIndex, offsetBy: index)
+        return data[index]
+    }
+    /// 剪字符串
     public func subString(_ data:String,_ start:Int,_ count:Int) -> String{
         if start < 0 || start + count >= data.characters.count || start > count {
             return data
@@ -178,6 +185,19 @@ open class UtilString :NSObject {
         let startIndex = data.index(data.startIndex, offsetBy: start)
         let endIndex = data.index(startIndex, offsetBy: count)
         return data.substring(with: startIndex..<endIndex)
+    }
+    /// 剪字符串
+    public func subString(_ data:String,_ integerRange:Range<Int>) -> String{
+        let startIndex = data.characters.index(data.startIndex, offsetBy: integerRange.lowerBound)
+        let endIndex = data.characters.index(startIndex, offsetBy: integerRange.upperBound - integerRange.lowerBound)
+        let range = startIndex ..< endIndex
+        return data[range]
+    }
+    /// 剪字符串
+    public func subString(_ data:String,_ range:CountableClosedRange<Int>) -> String{
+        let startIndex = data.index(data.startIndex, offsetBy: range.lowerBound)
+        let endIndex = data.index(startIndex, offsetBy: range.upperBound - range.lowerBound)
+         return data[startIndex...endIndex]
     }
     /// trim
     public func trim(string:String)-> String{
@@ -192,6 +212,19 @@ open class UtilString :NSObject {
         // %.02f:保留2位浮点数,不足用0填充
         // %X:十六进制显示
     }
+    /// Hex to Int 十六进制转十进制
+    public func hexToInteger(_ hexString:String?)-> Int?{
+        if var hex = hexString{
+            // if has 0x remove it
+            if hex.lowercased().hasPrefix("0x"){
+                hex = String(hex.characters.dropFirst(2))
+            }
+            // string to long (swift integer)
+            return strtol(hex, nil, 16)
+        }
+        return nil
+    }
+    ///
     func test(){
         
     }

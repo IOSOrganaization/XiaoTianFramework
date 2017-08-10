@@ -122,16 +122,17 @@ public class MyViewPullRefresh: UIView{
         autoresizingMask = .flexibleWidth
         backgroundColor = UIColor.clear
         //
+        let bundle = UtilBundle()
         switch typeShow {
         case .Simple:
-            imageArrow = UIImageView(image: UtilBundle.imageInBundleXiaoTian("arrow"))
+            imageArrow = UIImageView(image: bundle.imageInBundleXiaoTian("arrow"))
             addSubview(imageArrow!)
             indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
             indicatorView?.hidesWhenStopped = true
             addSubview(indicatorView!)
             break
         case .Normal:
-            imageArrow = UIImageView(image: UtilBundle.imageInBundleXiaoTian("arrow"))
+            imageArrow = UIImageView(image: bundle.imageInBundleXiaoTian("arrow"))
             addSubview(imageArrow!)
             indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
             indicatorView?.hidesWhenStopped = true
