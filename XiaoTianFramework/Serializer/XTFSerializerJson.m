@@ -7,7 +7,6 @@
 //
 
 #import "XTFSerializerJson.h"
-#import "Person.h"
 
 @import ObjectiveC.runtime;
 
@@ -42,7 +41,7 @@
 //        NSLog(@"Register JSON:%@",[[NSString alloc] initWithData:registerData encoding:NSUTF8StringEncoding]);
 //    }
     // Object -> Json String
-    Dog* dog = [[Dog alloc] init];
+    /*Dog* dog = [[Dog alloc] init];
     dog.nameXJ = @"D爱心";
     dog.sexXJ = @"faile";
     Person* person = [[Person alloc] init];
@@ -61,7 +60,7 @@
     //
     //NSLog(@"Register JSON:%@", jsonData);
     
-    [self deSerializing:[jsonData dataUsingEncoding:NSUTF8StringEncoding] clazz:[Person class]];
+    [self deSerializing:[jsonData dataUsingEncoding:NSUTF8StringEncoding] clazz:[Person class]];*/
 }
 // 序列化[任意对象->JSON序列]
 -(NSData *) serializing:(NSObject *) objectData {
