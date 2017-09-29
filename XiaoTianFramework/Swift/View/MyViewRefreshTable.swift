@@ -202,7 +202,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         dataSourceRefresh?.loadingPageData(page, pageSize: pageSize)
     }
     /// 加载第一页数据
-    func loadFirstPageData(){
+    @objc func loadFirstPageData(){
         if isLoading {
             return
         }
@@ -562,14 +562,13 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
     @objc fileprivate func hideNetErrorSetting(){
         // 动态隐藏y 轴[0 ~ -90]
         UIView.animate(withDuration: 0.3, animations: {
-            [weak self]params in
+            [weak self]() -> Void in
             if let wSelf = self{
                 var frame = wSelf.viewErrorNetSetting.frame
                 frame.origin.y = -wSelf.viewErrorNetSettingHeight
                 wSelf.viewErrorNetSetting.frame = frame
             }
         })
-        
     }
     override func didMoveToSuperview(){
         super.didMoveToSuperview()
@@ -726,7 +725,7 @@ class MyLogoRefreshControl: UIRefreshControl{
             }
         )
     }
-    func triggerValueChange(){
+    @objc func triggerValueChange(){
         if !isRefreshControlAnimating{
             animateRefreshView()
         }

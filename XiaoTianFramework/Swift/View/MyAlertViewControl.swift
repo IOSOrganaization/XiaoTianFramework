@@ -199,6 +199,7 @@ open class MyAlertViewControl: UIViewController{
         contentView.frame.origin.y -= newContentViewFrameY
         circleBG.frame.origin.y = newBallViewFrameY
     }
+    @objc
     func keyboardWillHide(_ notification:Notification){
         if keyboardHasBeenShown{
             if tmpContentViewFrameOrigin != nil{
@@ -212,6 +213,7 @@ open class MyAlertViewControl: UIViewController{
             keyboardHasBeenShown = false
         }
     }
+    @objc
     open func hideView(){
         UIView.animate(withDuration: 0.2, animations: { 
             self.view.alpha = 0
@@ -285,6 +287,7 @@ open class MyAlertViewControl: UIViewController{
         buttons.append(btn)
         return btn
     }
+    @objc
     func buttonTapped(_ btn:MyButton){
         if btn.actionType == .closure{
             btn.action?()
@@ -298,6 +301,7 @@ open class MyAlertViewControl: UIViewController{
             hideView()
         }
     }
+    @objc
     func buttonTapDown(_ btn:MyButton){
         var hue:CGFloat = 0
         var staturation:CGFloat = 0
@@ -308,6 +312,7 @@ open class MyAlertViewControl: UIViewController{
         brightness = brightness * pressBrightnessFactor
         btn.backgroundColor = UIColor(hue: hue, saturation: staturation, brightness: brightness, alpha: alpha)
     }
+    @objc
     func buttonRelease(_ btn:MyButton){
         btn.backgroundColor = btn.customBackgroundColor ?? viewColor
     }
@@ -356,7 +361,7 @@ open class MyAlertViewControl: UIViewController{
         if !subTitle.isEmpty{
             viewText.text = subTitle
             let str = subTitle as NSString
-            let attr = [NSFontAttributeName:viewText.font ?? UIFont()]
+            let attr = [NSAttributedStringKey.font:viewText.font ?? UIFont()]
             let sz = CGSize(width: appearance.kWindowWidth - 24, height: 90)
             let r = str.boundingRect(with: sz, options: .usesLineFragmentOrigin, attributes: attr, context: nil)
             let ht = ceil(r.size.height)
@@ -451,7 +456,7 @@ open class MyAlertViewControl: UIViewController{
         }
     }
     // file private method
-    fileprivate static func color(_ rgb:Int) -> UIColor{
+    private static func color(_ rgb:Int) -> UIColor{
         let r = (rgb & 0xFF0000) >> 16
         let g = (rgb & 0xFF00) >> 8
         let b = rgb & 0xFF
@@ -498,9 +503,9 @@ open class MyAlertViewControl: UIViewController{
                     kTextFieldHeight:CGFloat = 45,
                     kTextViewHeight:CGFloat = 80,
                     kButtonHeight:CGFloat = 45,
-                    contentViewColor:UIColor = MyAlertViewControl.color(0xFFFFFF),
-                    contentViewBorderColor:UIColor = MyAlertViewControl.color(0xCCCCCC),
-                    titleColor:UIColor = MyAlertViewControl.color(0x4D4D4D),
+                    contentViewColor:UIColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1), //MyAlertViewControl.color(0xFFFFFF)
+                    contentViewBorderColor:UIColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1), //MyAlertViewControl.color(0xDDDDDD)
+                    titleColor:UIColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1),//MyAlertViewControl.color(0x4D4D4D),
                     kTitleFont:UIFont = UIFont.systemFont(ofSize: 20),
                     kTextFont:UIFont = UIFont.systemFont(ofSize: 14),
                     kButtonFont:UIFont = UIFont.systemFont(ofSize: 14),

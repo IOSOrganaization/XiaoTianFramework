@@ -235,15 +235,15 @@ public class MyAlertActionControl {
             // 根据内容居中(修改权重)
             // 靠上
             let containerViewTop = NSLayoutConstraint(item: containerView, attribute: .top, relatedBy: .equal, toItem: marginView, attribute: .top, multiplier: 1, constant: 0)
-            containerViewTop.priority = UILayoutPriorityDefaultLow
+            containerViewTop.priority = UILayoutPriority.defaultLow
             marginView.addConstraint(containerViewTop)
             // 居中
             let containerViewCenterY = NSLayoutConstraint(item: containerView, attribute: .centerY, relatedBy: .equal, toItem: marginView, attribute: .centerY, multiplier: 1, constant: 0)
-            containerViewCenterY.priority = UILayoutPriorityDefaultHigh
+            containerViewCenterY.priority = UILayoutPriority.defaultHigh
             marginView.addConstraint(containerViewCenterY)
             // 靠下
             containerViewBottomSpaceConstraint = NSLayoutConstraint(item: marginView, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
-            containerViewBottomSpaceConstraint.priority = UILayoutPriorityDefaultLow
+            containerViewBottomSpaceConstraint.priority = UILayoutPriority.defaultLow
             marginView.addConstraint(containerViewBottomSpaceConstraint)
             _ = addPinConstraint(addView: marginView, withItem: containerView, toItem: marginView, attribute: .centerX, constant: 0)
             containerViewWidthConstraint = addNewConstraint(addView: containerView, relation: .equal, withItem: containerView, withAttribute: .width, toItem: nil, toAttribute: .width, constant: 300)
@@ -308,7 +308,7 @@ public class MyAlertActionControl {
             }
             // 样式为事件卡
             if preferredStyle == .actionSheet {
-                containerViewBottomSpaceConstraint.priority = 999// 优先级,权重(控制靠下,不能修/改 为1000的权重)
+                containerViewBottomSpaceConstraint.priority = UILayoutPriority(rawValue: 999)// 优先级,权重(控制靠下,不能修/改 为1000的权重)
                 // 点击背景隐藏,销毁
                 backgroundView.touchHandler = { [weak self] view in //声明对self弱引用,因为这个方法会dismissViewController,会销毁self,所以声明弱引用
                     self?.dismiss()//隐藏,销毁 self
@@ -642,7 +642,7 @@ private extension MyAlertActionControl.Controller {
 // MARK: - Action Methods
 extension MyAlertActionControl.Controller {
     // 按钮事件点击,隐藏事件卡(可重写)
-    func buttonWasTapped(_ sender: UIButton) {
+    @objc func buttonWasTapped(_ sender: UIButton) {
         dismiss(sender)
     }
 }
@@ -650,11 +650,11 @@ extension MyAlertActionControl.Controller {
 // MARK: - NSNotificationCenter Methods
 extension MyAlertActionControl.Controller {
     //键盘隐藏
-    func keyboardDidHide(_ notification: Notification) {
+    @objc func keyboardDidHide(_ notification: Notification) {
         backgroundViewBottomSpaceConstraint.constant = 0
     }
     //键盘显示
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         if let window = view.window {
             if let frame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
                 let rect = window.convert(frame, to: view)

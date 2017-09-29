@@ -32,7 +32,7 @@ extension UIViewController{
     }
     // 方法交叉,方法混合,方法替换
     // Method swizzling lets you swap the implementations of two methods, essentially overriding an existing method with your own while keeping the original around.
-    open override class func initialize(){ // OBJC 每次创建实例化都会触发这个方法
+    //open override class func initialize(){ // OBJC 每次创建实例化都会触发这个方法(Swift4被禁)
         //It is not possible to override functionality (like properties or methods) in extensions as documented in Apple's Swift Guide.
         //
         //Extensions can add new functionality to a type, but they cannot override existing functionality.
@@ -44,8 +44,8 @@ extension UIViewController{
         // Therefore we can take a look at why it is allowing you to compile using layoutSubviews.
         // All Swift apps execute inside the Objective-C runtime except for when using pure Swift-only frameworks which allow for a Swift-only runtime.
         // As we found out the Objective-C runtime generally calls two class main methods load() and initialize() automatically when initializing classes in your app’s processes.
-        let _ = sharedOnce
-    }
+    //    let _ = sharedOnce
+    //}
     
     fileprivate class InitializeMethodSwizzling{
         init() {
@@ -55,20 +55,21 @@ extension UIViewController{
             let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector)
             let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector)
             // 添加自定义的方法到指定的类里面,如果添加成功则返回true,否则false[已经存在]
-            let didAddMethod = class_addMethod(UIViewController.self, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+            let didAddMethod = class_addMethod(UIViewController.self, originalSelector, method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!))
             if didAddMethod {
                 // 添加成功,替换原方法
                 Mylog.log("添加成功,替换原类方法")
-                class_replaceMethod(UIViewController.self, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+                class_replaceMethod(UIViewController.self, swizzledSelector, method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
             } else {
                 // 交换两个方法的实现
                 Mylog.log("添加失败,交换两个方法的实现指针")
-                method_exchangeImplementations(originalMethod, swizzledMethod)
+                method_exchangeImplementations(originalMethod!, swizzledMethod!)
             }
         }
     }
     
     // 用这个方法替换系统方法
+    @objc
     dynamic public func nsh_viewWillAppear(_ animated: Bool) {
         // self 当前的实体类,extension 不属于self
         self.nsh_viewWillAppear(animated)
@@ -86,7 +87,7 @@ extension UIViewController{
     }
     open func changeNavigationBarColor(barTintColor:UIColor,titleTextColor:UIColor){
         navigationController?.navigationBar.barTintColor = barTintColor
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: titleTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: titleTextColor]
         navigationController?.navigationBar.tintColor = titleTextColor // 如果设置了背景图片,则渲染颜色无效(注意appearance方式设置)
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         if utilShared.color.contrastColor(barTintColor) == .white{

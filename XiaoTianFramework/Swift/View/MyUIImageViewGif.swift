@@ -140,6 +140,7 @@ public class MyUIImageViewGif: UIImageView{
         return displayLink
     }
     // 链表动画步进
+    @objc
     func changeKeyframe(_ displayLink:CADisplayLink){
         if let animatedImage = animatedImage{
             if currentFrameIndex >= animatedImage.imagesGif.count{

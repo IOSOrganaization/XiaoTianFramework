@@ -41,7 +41,7 @@ class MyUILabel: UILabel{
     }
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
     @IBInspectable var onClickAction: String = ""
-    @IBInspectable var onClickColor: UIColor = UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1)
+    @IBInspectable var onClickColor: UIColor = UIColor(red: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1)
     // IB 支持的类型: Int CGFloat Double String Bool CGPoint CGSize CGRect UIColor UIImage
     
     //

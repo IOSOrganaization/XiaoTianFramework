@@ -31,7 +31,7 @@ extension UINavigationController: UIGestureRecognizerDelegate{
         return Static.instanceResult
     }
     
-    open override class func initialize(){ // OBJC 每次创建实例化都会触发这个方法
+    //open override class func initialize(){ // OBJC 每次创建实例化都会触发这个方法
         //It is not possible to override functionality (like properties or methods) in extensions as documented in Apple's Swift Guide.
         //
         //Extensions can add new functionality to a type, but they cannot override existing functionality.
@@ -44,7 +44,7 @@ extension UINavigationController: UIGestureRecognizerDelegate{
         // All Swift apps execute inside the Objective-C runtime except for when using pure Swift-only frameworks which allow for a Swift-only runtime.
         // As we found out the Objective-C runtime generally calls two class main methods load() and initialize() automatically when initializing classes in your app’s processes.
         //let _ = sharedOnceInitPopViewController
-    }
+    //}
     
     private class InitializePopViewControllerMethodSwizzling{
         init() {
@@ -110,7 +110,7 @@ extension UINavigationController: UIGestureRecognizerDelegate{
         }
         return true
     }
-    
+    @objc
     private dynamic func xiaotianShouldPopViewController(_ navigationBar: UINavigationBar,_ shouldPopItem:UINavigationItem)-> Bool{
         // 代码pop不受这个方法限制,因为pop后才会触发这个方法(用于改变navigationbar控制器的UI栈)
         let viewController:UIViewController = self.visibleViewController!
@@ -143,7 +143,7 @@ extension UINavigationController: UIGestureRecognizerDelegate{
         }
         return isPop
     }
-    
+    @objc
     private dynamic func xiaotianViewDidLoad(){
         self.xiaotianViewDidLoad() // 调用原来的被替换的方法 viewDidLoad
         cacheDefaultInteractivePopGestureRecognizer = self.interactivePopGestureRecognizer?.delegate // 缓冲

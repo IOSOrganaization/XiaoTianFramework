@@ -98,16 +98,13 @@ class MyClickableUILabel: UILabel{
         if onClickAction == "" {
             return
         }
-        if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject {
+        if let responder: AnyObject = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject? {
             setOnTabListener() {
                 [weak self, responder] params in
                 guard let wSelf = self else {
                     return
                 }
-                guard let wResponder = responder else {
-                    return
-                }
-                wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
+                let _ = responder.perform(Selector(wSelf.onClickAction), with: wSelf)
             }
         }
     }
@@ -153,7 +150,7 @@ class MyUIImageView: UIImageView{
     var tabFunction:((_ view:UIView)->())?
     //
     @IBInspectable var onClickAction: String = ""
-    @IBInspectable var onClickColor: UIColor = UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1)
+    @IBInspectable var onClickColor: UIColor = UIColor(red: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1)
     //
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)

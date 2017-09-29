@@ -16,7 +16,7 @@ open class UtilAttributedString: NSObject{
         let attributeString = NSMutableAttributedString(string: string)
         if let matchedRanges = matchingPattern(string, pattern){
             for range in matchedRanges {
-                attributeString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
+                attributeString.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
             }
         }
         return attributeString

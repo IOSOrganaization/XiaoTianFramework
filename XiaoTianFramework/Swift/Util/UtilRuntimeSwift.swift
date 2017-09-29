@@ -15,13 +15,13 @@ open class UtilRuntimeSwift: NSObject{
         let originalMethod = class_getInstanceMethod(clazz, originalSelector)// 原方法
         let swizzledMethod = class_getInstanceMethod(clazz, swizzledSelector)// 变形方法
         // 添加自定义的方法到指定的类里面,如果添加成功则返回true,否则false[已经存在]
-        let didAddMethod = class_addMethod(clazz, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+        let didAddMethod = class_addMethod(clazz, originalSelector, method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!))
         if didAddMethod {
             // 添加成功,替换原方法
-            class_replaceMethod(clazz, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+            class_replaceMethod(clazz, swizzledSelector, method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
         } else {
             // 交换两个方法的实现
-            method_exchangeImplementations(originalMethod, swizzledMethod)
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
         }
         /*
          Attention: add "dynamic" keyword in front of method name!!!

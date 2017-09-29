@@ -18,7 +18,7 @@ open class UtilString :NSObject {
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping;
-        let attributes = [NSFontAttributeName:font!, NSParagraphStyleAttributeName:paragraphStyle.copy()]
+        let attributes = [NSAttributedStringKey.font:font!, NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
         
         let text = string as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
@@ -159,10 +159,11 @@ open class UtilString :NSObject {
             let regex = try NSRegularExpression(pattern: ".*?//(.*?)/.*", options: [])
             let match = regex.firstMatch(in: url, options: .reportCompletion, range: NSMakeRange(0, url.characters.count))
             if match != nil{
-                if let range = match?.rangeAt(1){
+                if let range = match?.range(at: 1){
                     let start = url.index(url.startIndex, offsetBy: range.location)
                     let end = url.index(start, offsetBy: range.length)
                     return url.substring(with: start..<end)
+                    //return url[start..<end]
                 }
             }
         }catch{
@@ -191,13 +192,13 @@ open class UtilString :NSObject {
         let startIndex = data.characters.index(data.startIndex, offsetBy: integerRange.lowerBound)
         let endIndex = data.characters.index(startIndex, offsetBy: integerRange.upperBound - integerRange.lowerBound)
         let range = startIndex ..< endIndex
-        return data[range]
+        return String(data[range])
     }
     /// 剪字符串
     public func subString(_ data:String,_ range:CountableClosedRange<Int>) -> String{
         let startIndex = data.index(data.startIndex, offsetBy: range.lowerBound)
         let endIndex = data.index(startIndex, offsetBy: range.upperBound - range.lowerBound)
-         return data[startIndex...endIndex]
+        return String(data[startIndex...endIndex])
     }
     /// trim
     public func trim(string:String)-> String{

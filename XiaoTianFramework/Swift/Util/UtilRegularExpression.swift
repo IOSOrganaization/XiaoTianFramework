@@ -76,8 +76,8 @@ open class UtilRegularExpression: NSObject{
             let match = regex.firstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if match != nil{
                 let matchRange = match?.range
-                let firstHalfRange = match?.rangeAt(1)
-                let secondHalfRange = match?.rangeAt(1)
+                let firstHalfRange = match?.range(at: 1)
+                let secondHalfRange = match?.range(at: 1)
                 //
                 Mylog.log(matchRange)
                 Mylog.log(firstHalfRange)
@@ -87,8 +87,8 @@ open class UtilRegularExpression: NSObject{
             let point: UInt8! = nil
             regex.enumerateMatches(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count), using: { (match, flags, point) in
                 let matchRange = match?.range
-                let firstHalfRange = match?.rangeAt(1)
-                let secondHalfRange = match?.rangeAt(2)
+                _ = match?.range(at: 1)
+                _ = match?.range(at: 2)
                 
             })
             //

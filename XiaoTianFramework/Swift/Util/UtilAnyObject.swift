@@ -658,7 +658,7 @@ public extension UtilAnyObject{
         let properties = class_copyPropertyList(clazz, &count)// Objective-C runtime get all property(不安全指针,需要手动释放: UnsafeMutablePointer<objc_property_t?>)
         for i in 0 ..< count{
             let property = properties?[Int(i)]
-            if let cname = property_getName(property){ // C property name
+            if let cname = property == nil ? nil : property_getName(property!){ // C property name
                 let name = String(cString: cname)// C String to Swift String
                 results.append(name)
             }

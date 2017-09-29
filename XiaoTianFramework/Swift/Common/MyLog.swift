@@ -40,8 +40,9 @@ open class Mylog: NSObject{
             }
         #endif
     }
+    
     @nonobjc
-    open static func log(_ params:Any...,_ separator: String,_ terminator: String){
+    open static func log(_ params:Any...,separator: String = ",",terminator: String = ""){
         #if DEBUG
             print(TAG, params.count < 2 ? params[0] : params, separator, terminator)
         #endif

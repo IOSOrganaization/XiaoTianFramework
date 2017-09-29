@@ -22,7 +22,7 @@ public struct MyAlertViewProgressPin{
     public static func updateProgress(_ percentage: CGFloat){
         self.window.updateProgress(percentage)
     }
-    public static func dismiss(_ duration:TimeInterval = 1,_ delay:TimeInterval = 0.1,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
+    public static func dismiss(_ duration:TimeInterval = 1,_ delay:TimeInterval = 0.1,_ text:String? = nil,_ completion:(()->Void)? = nil) {
         self.window.dismiss(duration,delay,text,completion)
     }
     //
@@ -112,7 +112,7 @@ public struct MyAlertViewProgressPin{
                 }
             }
         }
-        public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
+        public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval,_ text:String? = nil,_ completion:(()->Void)? = nil) {
             hudView?.dismiss(duration, delay, text, completion)
         }
         func finish(){
@@ -147,7 +147,7 @@ public struct MyAlertViewProgressPin{
     // 显示View
     final class HudView: UIView{
         static let size = CGSize(width: 180, height: 180)
-        var dismiddHandler: ((Void)->Void)?
+        var dismiddHandler: (()->Void)?
         static let fontLabel: UIFont = UIFont(name: "HelveticaNeue-Thin", size: 26)!
         static let insetLabel:CGFloat = 44
         let label = UILabel()
@@ -253,7 +253,7 @@ public struct MyAlertViewProgressPin{
         func updateProgressText(_ percentage:CGFloat){
             label.text = Int(percentage < 0.0 ? 0.0 : percentage > 1.0 ? 1.0 : percentage * 100.0).description + "%"
         }
-        public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval? = nil,_ text:String? = nil,_ completion:((Void)->Void)? = nil) {
+        public func dismiss(_ duration:TimeInterval,_ delay:TimeInterval? = nil,_ text:String? = nil,_ completion:(()->Void)? = nil) {
             if linkDismiss != nil{
                 return
             }
@@ -375,7 +375,7 @@ public struct MyAlertViewProgressPin{
     }
     final class DisplayLink{
         var needLoop = false
-        var completion: ((Void)->Void)?
+        var completion: (()->Void)?
         var updateDurationCallback:((CGFloat) ->())?
         let duration:TimeInterval
         private(set) var currentDuration:TimeInterval = 0

@@ -157,7 +157,7 @@ public class MyViewPullRefreshFooter: UIView{
     public var isRefreshing:Bool{
         return state == .WillRefresh || state == .Refreshing
     }
-    public func onClickLabelState(){
+    @objc public func onClickLabelState(){
         if state == .Idle{
             beginRefreshing()
         }

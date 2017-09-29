@@ -24,7 +24,7 @@ class MyLogoGray: UIImageView{
     func renderingImageWithThintColor() -> UIImage?{
         if let image = UIImage(named: "logoDefault"){
             UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
-            UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1).setFill()
+            UIColor(red: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1).setFill()
             let bounds = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
             UIRectFill(bounds)
             image.draw(in: bounds, blendMode: CGBlendMode.destinationIn, alpha: 1.0)
@@ -40,6 +40,6 @@ class MyLogoGray: UIImageView{
     // 1.drawRect方法会被 IB 调用,用于绘制预览效果图[老方式]
     // 2.声明为@IBDesignable的视图,系统会自动调用里面的prepareForInterfaceBuilder方法进行绘图
     override func prepareForInterfaceBuilder() {
-        self.image = UtilPrepareForInterfaceBuilder.loadImageThint("logoDefault", UIColor(colorLiteralRed: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1), self.classForCoder, self.traitCollection)
+        self.image = UtilPrepareForInterfaceBuilder.loadImageThint("logoDefault", UIColor(red: 208/255.0, green: 208/255.0, blue: 208/255.0, alpha: 1), self.classForCoder, self.traitCollection)
     }
 }

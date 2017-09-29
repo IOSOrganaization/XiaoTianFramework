@@ -25,8 +25,8 @@ public class MyToastTopbar: NSObject{
     var preferedHeight: CGFloat = 48 // custom样式时的高度
     var type:ToastType = .navigationBar
     //
-    var appearance:((Void) -> Void)? // CallBack Func
-    var completion:((Void) -> Void)?
+    var appearance:(() -> Void)? // CallBack Func
+    var completion:(() -> Void)?
     //
     var title, subTitle:String?
     var fontTitle = UIFont.systemFont(ofSize: 12)
@@ -762,7 +762,7 @@ public class MyToastTopbar: NSObject{
                 return (!show || alignment == .center) ? 0 : padding + height + padding
             }
             public func calculateTextSize(_ text:NSString,_ font:UIFont,_ maxConstraintSize:CGSize) -> CGRect?{
-                return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSFontAttributeName:font], context: nil)
+                return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedStringKey.font:font], context: nil)
             }
         }
     }

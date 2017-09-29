@@ -16,7 +16,7 @@ open class MyAlertViewProgress: UIView{
     public static let TAG_DID_DISAPPEAR = "MyAlertViewProgress.TAG_DID_DISAPPEAR"
     public static let KEY_USER_INFO = "MyAlertViewProgress.KEY_USER_INFO"
     //
-    private static let PROGRESS_RING:CGFloat = -1
+    public static let PROGRESS_RING:CGFloat = -1
     public static let MASK_NONE:Int = 0x001;// allow user interactions while HUD is displayed
     public static let MASK_CLEAR:Int = 0x002;//  don't allow user interactions
     public static let MASK_BLACK:Int = 0x003;//  don't allow user interactions
@@ -431,7 +431,7 @@ open class MyAlertViewProgress: UIView{
         fadeOutTimer = Timer(timeInterval: duration, target: self, selector: #selector(hide), userInfo: nil, repeats: false)
         RunLoop.main.add(fadeOutTimer!, forMode: .commonModes)
     }
-    public func hide(){
+    @objc public func hide(){
         let  userInfo:[String:String]? = labelString!.text == nil ? [:] : [MyAlertViewProgress.KEY_USER_INFO: labelString!.text!]
         UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_DISAPPEAR, userInfo)
         activityCount = 0
@@ -467,7 +467,7 @@ open class MyAlertViewProgress: UIView{
             }
         }
     }
-    public func overlayViewDidReceiveTouchEvent(_ overlayView:UIControl,_ forEvent:UIEvent){
+    @objc public func overlayViewDidReceiveTouchEvent(_ overlayView:UIControl,_ forEvent:UIEvent){
         NotificationCenter.default.post(name: NSNotification.Name(MyAlertViewProgress.TAG_TOUCH_EVENT), object: forEvent)
         if let touch = forEvent.allTouches?.first{
             let touchLocation = touch.location(in: self)
@@ -556,7 +556,7 @@ open class MyAlertViewProgress: UIView{
         backgroundRingLayer = nil
         CATransaction.commit()
     }
-    public func notifyPositionHUD(_ notification: NSNotification?){ // 根据弹出键盘状态重新计算弹框的位置或旋转
+    @objc public func notifyPositionHUD(_ notification: NSNotification?){ // 根据弹出键盘状态重新计算弹框的位置或旋转
         var keyboardHeight:CGFloat = 0.0
         var animationDuration:TimeInterval? = 0.0
         let screamOrientation = UIApplication.shared.statusBarOrientation

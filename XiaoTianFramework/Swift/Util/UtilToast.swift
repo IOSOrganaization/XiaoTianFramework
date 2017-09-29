@@ -195,13 +195,13 @@ extension UIView {
     fileprivate func showToast(toast: UIView, duration: Double, position: AnyObject) {
         // 获取已经关联的Toast对象 (target, key)
         let existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
-        if existToast != nil {
+        if let existToast = existToast{
             // 取消定时器
             if let timer: Timer = objc_getAssociatedObject(existToast, &HRToastTimer) as? Timer {
                 timer.invalidate();
             }
             // 隐藏当前Toast
-            self.hideToast(toast: existToast!, force: false);
+            self.hideToast(toast: existToast, force: false);
         }
         // View的中点
         toast.center = self.centerPointForPosition(position, toast: toast)
@@ -333,11 +333,11 @@ extension UIView {
         }
     }
     // 定时器到时完成结束
-    func toastTimerDidFinish(_ timer: Timer) {
+    @objc func toastTimerDidFinish(_ timer: Timer) {
         self.hideToast(toast: timer.userInfo as! UIView)
     }
     // 处理toast点击事件
-    func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
         let timer = objc_getAssociatedObject(self, &HRToastTimer) as? Timer
         if timer != nil{
             timer!.invalidate()
@@ -493,7 +493,7 @@ extension String{
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping;
-        let attributes = [NSFontAttributeName:font!, NSParagraphStyleAttributeName:paragraphStyle.copy()]
+        let attributes = [NSAttributedStringKey.font:font!, NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
         
         let text = self as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)

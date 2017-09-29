@@ -98,7 +98,7 @@ open class UtilEnvironment : NSObject{
     }
     /// 设置导航栏颜色(viewDidload后系统可能会改变tint渲染,所以要在viewDidAppear中修改)
     open func setNavigationBarColor(_ navigationBar:UINavigationBar?,_ colorTintBar:UIColor,_ colorTintText:UIColor){
-        navigationBar?.titleTextAttributes = [NSForegroundColorAttributeName: colorTintText] // 标题文本颜色
+        navigationBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorTintText] // 标题文本颜色
         navigationBar?.barTintColor = colorTintBar // bar背景色
         navigationBar?.tintColor = colorTintText // 左右文本颜色
         // 如果有背景图,则颜色不会渲染
@@ -107,7 +107,7 @@ open class UtilEnvironment : NSObject{
     /// 设置导航栏图片,阴影线
     open func setNavigationBarColor(_ navigationBar:UINavigationBar?,imageBar:UIImage? = nil,imageShadow:UIImage? = nil,colorTintBar:UIColor! = UIColor.white,colorTintText:UIColor! =
         UIColor.black, colorShadow:UIColor! = UIColor.gray){
-        navigationBar?.titleTextAttributes = [NSForegroundColorAttributeName: colorTintText]
+        navigationBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorTintText]
         // 设置阴影线/图,必须要设置背景图,否则
         navigationBar?.setBackgroundImage(imageBar ?? utilShared.image.genImageFromColor(colorTintBar, CGSize(width:1, height:1)), for: .default)
         // 阴影图,导航栏下部分的分割线图

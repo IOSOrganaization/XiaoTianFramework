@@ -20,7 +20,7 @@ open class GearRefreshControl: UIRefreshControl {
     /**
      Tint color for the control. Set the color of the main gear, the other ones are computed automatically
      */
-    dynamic open var gearTintColor: UIColor? {
+    open var gearTintColor: UIColor? {
         get { return self.centerGear.tintColor }
         set {
             centerGear.tintColor = newValue

@@ -60,8 +60,8 @@ open class UtilUIView: NSObject {
     }
     /// Appearance模式设置TabBar文本颜色
     public func setupTabBar(_ colorTextNormal:UIColor,_ colorTextSelected:UIColor){
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:colorTextNormal], for: UIControlState())
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:colorTextSelected], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor:colorTextNormal], for: UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor:colorTextSelected], for: .selected)
     }
     /// 设置TabBar的图标
     public func setupTabBarImage(_ tabBar:UITabBar?,_ tabIndex:Int,_ imageNormal:UIImage?,_ imageSelected:UIImage?){
@@ -130,12 +130,12 @@ open class UtilUIView: NSObject {
             for constraint in constraints {
                 // 在 UIView 中获取到约束的值,重置回约束
                 if constraint.identifier == "Height"{
-                    if let constant = objc_getAssociatedObject(uiview, &UtilUIView.KEY_CONSTRAINT_HEIGHT) as? CGFloat{
+                    if let constant = objc_getAssociatedObject(uiview!, &UtilUIView.KEY_CONSTRAINT_HEIGHT) as? CGFloat{
                         constraint.constant = constant
                         uiview?.isHidden = false
                     }
                 } else if constraint.identifier == "Width"{
-                    if let constant = objc_getAssociatedObject(uiview, &UtilUIView.KEY_CONSTRAINT_WIDTH) as? CGFloat{
+                    if let constant = objc_getAssociatedObject(uiview!, &UtilUIView.KEY_CONSTRAINT_WIDTH) as? CGFloat{
                         constraint.constant = constant
                         uiview?.isHidden = false
                     }
@@ -146,7 +146,7 @@ open class UtilUIView: NSObject {
     /// 创建一个分割线UIView
     public func genDividerView() -> UIView{
         let view = UIView(frame: CGRect.zero)
-        view.backgroundColor = UIColor(colorLiteralRed: 188/255.0, green: 186/255.0, blue: 193/255.0, alpha: 1)
+        view.backgroundColor = UIColor(red: 188/255.0, green: 186/255.0, blue: 193/255.0, alpha: 1)
         return view
     }
     /// 设置 UIView 的背景为指定图片[默认等比拉伸(Icon 配置 Slicing 拉伸属性除外)]
@@ -204,7 +204,7 @@ open class UtilUIView: NSObject {
     }
     /// 计算Text的大小
     public func calculateTextSize(_ text:NSString,_ font:UIFont,_ maxConstraintSize:CGSize) -> CGRect?{
-        return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSFontAttributeName:font], context: nil)
+        return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedStringKey.font:font], context: nil)
     }
     /// 计算Text的大小[label:1.必须设置bound视图大小,2.设置多行,3.设置font]
     public func calculateTextSize(_ text:String,_ label:UILabel) -> CGRect{

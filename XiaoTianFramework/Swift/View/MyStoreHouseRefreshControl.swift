@@ -239,7 +239,7 @@ open class MyStoreHouseRefreshControl: UIView{
             disappearProgress = 1
         }
     }
-    func updateDisappearAnimation(){
+    @objc func updateDisappearAnimation(){
         if let progress = disappearProgress{
             if progress >= 0 && progress <= 1{
                 disappearProgress = disappearProgress - CGFloat(1.0/60.0 / 1.2)
