@@ -1,7 +1,7 @@
 //
 //  MyToastTopbar.swift
 //  XiaoTianFramework
-//
+//  状态栏,导航栏,自定义高度Toast弹出提示,支持阻尼回弹,重力回弹效果
 //  Created by guotianrui on 2017/7/19.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

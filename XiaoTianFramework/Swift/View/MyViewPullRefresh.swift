@@ -1,7 +1,7 @@
 //
 //  MyViewPullRefresh.swift
 //  XiaoTianFramework
-//
+//  上拉刷新,支持箭头,菊花指示器,文件,多图片轮播
 //  Created by guotianrui on 2017/6/30.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

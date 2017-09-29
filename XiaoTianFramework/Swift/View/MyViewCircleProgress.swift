@@ -1,7 +1,7 @@
 //
 //  MyViewCircleProgress.swift
 //  XiaoTianFramework
-//
+//  圆形线条进度条,到一定比例可以开始线条旋转动画
 //  Created by guotianrui on 2017/7/26.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

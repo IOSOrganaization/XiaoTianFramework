@@ -13,6 +13,8 @@ extension UINavigationController: UIGestureRecognizerDelegate{
     private struct AssociatedKeys{
         static var CacheDefaultInteractivePopGestureRecognizerKey = "Extension_UINavigationController_CacheDefaultInteractivePopGestureRecognizerKey"
     }
+    //苹果审核可能会拒绝的方法: dynamic methods such as dlopen(), dlsym(), respondsToSelector:, performSelector:, method_exchangeImplementations()
+    //可以把框架打成静态包模式,在代码层屏蔽苹果审核
     private var cacheDefaultInteractivePopGestureRecognizer: UIGestureRecognizerDelegate?{
         get{
             return objc_getAssociatedObject(self, &AssociatedKeys.CacheDefaultInteractivePopGestureRecognizerKey) as? UIGestureRecognizerDelegate

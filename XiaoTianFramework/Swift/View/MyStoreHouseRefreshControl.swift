@@ -1,7 +1,7 @@
 //
 //  MyStoreHouseRefreshControl(CBStoreHouseRefreshControl)修改plist格式{start point},{end point}
 //  XiaoTianFramework
-//
+//  下拉合成,下拉渐出刷新动画
 //  Created by guotianrui on 2017/6/28.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

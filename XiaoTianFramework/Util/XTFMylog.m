@@ -26,7 +26,9 @@
 #if defined(DEBUG)||defined(_DEBUG)
     NSDate* currentDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    // 反斜杠字符串连接符号,取消/转义分行符,字符串太长可以用来格式化对齐字符串
+    [dateFormatter setDateFormat:@"yyyy-MM-dd \
+     HH:mm:ss"];
     if(key == nil){
         NSLog(@"%@",[dateFormatter stringFromDate:currentDate]);
     }else{

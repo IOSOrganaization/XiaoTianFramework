@@ -1,7 +1,7 @@
 //
 //  MyCircularSlider.swift
 //  XiaoTianFramework
-//
+//  圆形滑块(圆形时间选择,圆形百分比选择)
 //  Created by guotianrui on 2017/7/26.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

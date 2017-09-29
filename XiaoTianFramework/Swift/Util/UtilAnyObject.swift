@@ -641,6 +641,9 @@ public extension UtilAnyObject{
         //  CFTypeRefs 在Obje-C中必须要手动管理内存的引用和释放,在Swift中不需要考虑这些,因为Swift会自动处理这些伪对象的引用
         //6.检测实例内存释放: 重写deinit方法查看是否调用,如果调用则被释放(这是一个古老的检测方法)
         //7.
+        // 匿名函数类型转换声明:
+        //1.Swift转换为Object-C匿名函数(block): @convention(block)
+        //2.Swift转换为C匿名函数: @convention(c)
     }
 }
 /// 扩展 NSObject

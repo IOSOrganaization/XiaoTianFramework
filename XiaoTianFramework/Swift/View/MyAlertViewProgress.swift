@@ -1,7 +1,7 @@
 //
 //  MyAlertViewProgress.swift
 //  XiaoTianFramework
-//  加载中弹框(加载中,加载完成提示)
+//  加载中弹框(百分比圆环加载,循环渐变圆环加载,加载完成提示中间带图标)
 //  Created by guotianrui on 2017/6/24.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

@@ -1,7 +1,7 @@
 //
 //  MyViewLoadMoreData.swift
 //  XiaoTianFramework
-//
+//  下拉加载更多
 //  Created by guotianrui on 2017/7/3.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

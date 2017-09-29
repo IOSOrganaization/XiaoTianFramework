@@ -21,155 +21,44 @@
      当需要自动登录时自动获取密文计算MD5作为登录密码
      
      2.RSA加密参数:
-     指数:bbb315ca618d5a34d466f20d09598b81eb6bbdfb722e233c377bd7f8a0b2e06853d77384aeff2bfb0c3f00ccdce84b5a4c9acda47a2b77d2792ddb7b6fe7e72d9dcaaef111f9275ecb2ca0f7c4f37d9d70e5af5b3c85b2da00c03f87cea76fae6e73833117b8df9e17aba7409451b03e66587d9b3f4f4d5d176bd85927983f07
-     公匙的模:10001
-     私匙的模:88741cf7500c0ef43125d5fa1c3df8e9ae5859791efce3a8b73d5538eeba9be1bc71f90d109b7941bd19605f8e89619e77ea626d9c53557cb193e0e7cfe6eb6c437a3c0967dc5e9d6313c5e8ba6b058078763359cf4bda21472e54e5f856a79943057ad4ffd748e40dc617a1f23b179e7b9937955a8c7cdc0b58897a55948961
+     模:bbb315ca618d5a34d466f20d09598b81eb6bbdfb722e233c377bd7f8a0b2e06853d77384aeff2bfb0c3f00ccdce84b5a4c9acda47a2b77d2792ddb7b6fe7e72d9dcaaef111f9275ecb2ca0f7c4f37d9d70e5af5b3c85b2da00c03f87cea76fae6e73833117b8df9e17aba7409451b03e66587d9b3f4f4d5d176bd85927983f07
+     公匙的指数:10001
+     私匙的指数:88741cf7500c0ef43125d5fa1c3df8e9ae5859791efce3a8b73d5538eeba9be1bc71f90d109b7941bd19605f8e89619e77ea626d9c53557cb193e0e7cfe6eb6c437a3c0967dc5e9d6313c5e8ba6b058078763359cf4bda21472e54e5f856a79943057ad4ffd748e40dc617a1f23b179e7b9937955a8c7cdc0b58897a55948961
      
      3.案例[RSA算码器采用随机填充模式],请参考案例结果进行调试:
      明文:123456
      密文:7493D9ADE81BBC26B6B200545124F7CA24F964590E87A07F56D5BBCEA8BB03BE66F9B1D558E755C00095B029450FF30FCC7611E209CADE2A669D24492C2D3303D0FB660DF6ACE9AAB8107DE03E74D3F835AFF486A061F3F8A0D6CBBB5438D8210DFC0D1C9CA5441DA7C626BD93D81E4C52FD9723BBFF73C0C96788260ED8BE34
      密码:0428e4e99a05652a0c7cdbc3e99be06a
      */
-    //[self pem];
+    //
+    NSData * d = [self encryptDataByRSA:[self dataToBase64Data:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]] exponent:@"010001" modulus:@"bbb315ca618d5a34d466f20d09598b81eb6bbdfb722e233c377bd7f8a0b2e06853d77384aeff2bfb0c3f00ccdce84b5a4c9acda47a2b77d2792ddb7b6fe7e72d9dcaaef111f9275ecb2ca0f7c4f37d9d70e5af5b3c85b2da00c03f87cea76fae6e73833117b8df9e17aba7409451b03e66587d9b3f4f4d5d176bd85927983f07" paddingType:kSecPaddingNone];
+    [XTFMylog info:[self stringMD5:[self dataToHexString:d]]];
+    NSData *s = [self decryDataByRSA:d exponent:@"88741cf7500c0ef43125d5fa1c3df8e9ae5859791efce3a8b73d5538eeba9be1bc71f90d109b7941bd19605f8e89619e77ea626d9c53557cb193e0e7cfe6eb6c437a3c0967dc5e9d6313c5e8ba6b058078763359cf4bda21472e54e5f856a79943057ad4ffd748e40dc617a1f23b179e7b9937955a8c7cdc0b58897a55948961" modulus:@"bbb315ca618d5a34d466f20d09598b81eb6bbdfb722e233c377bd7f8a0b2e06853d77384aeff2bfb0c3f00ccdce84b5a4c9acda47a2b77d2792ddb7b6fe7e72d9dcaaef111f9275ecb2ca0f7c4f37d9d70e5af5b3c85b2da00c03f87cea76fae6e73833117b8df9e17aba7409451b03e66587d9b3f4f4d5d176bd85927983f07" paddingType:kSecPaddingNone];
+    [XTFMylog info:[[NSString alloc] initWithData:s encoding:NSUTF8StringEncoding]];
+    [self pem];
     //[self generateKeyPairWithPublicTag:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test" privateTag: @"com.xiaotian.XTCryptorSecurity.RSA_PriKey\test" keyBits:1024];
     //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test"];
-    //
-    //NSData * d = [self encryptDataByRSA:[self dataToBase64Data:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]] exponent:@"010001" modulus:@"bbb315ca618d5a34d466f20d09598b81eb6bbdfb722e233c377bd7f8a0b2e06853d77384aeff2bfb0c3f00ccdce84b5a4c9acda47a2b77d2792ddb7b6fe7e72d9dcaaef111f9275ecb2ca0f7c4f37d9d70e5af5b3c85b2da00c03f87cea76fae6e73833117b8df9e17aba7409451b03e66587d9b3f4f4d5d176bd85927983f07" paddingType:kSecPaddingNone];
-    
-    //[Mylog info:[self stringMD5:[self dataToHexString:d]]];
-    [self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
-    //30818902818100B81DCD7D57DA87FBFBB4DD2A3336058F14BA92C537963AA148AF2FA6A8CE4351BD5BD5C2E13FA3792586DF8CF7377ADCC8ADF04BAC965BFCC73ED9CC1967AE3D192C78625D92878A85D6983F5A152E2F47CC1E4DEF74554B8F833A79C77A34E40F8F25C588A11DC17A22B4F4AD9A9210689D1A995987A82E22DE53B1F9906E270203010001
+//    NSString *pubKeyHex = [self dataToBase64String:[self getKeyChainBits:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test"]];
+//    NSString *priKeyHex = [self dataToBase64String:[self getKeyChainBits:@"com.xiaotian.XTCryptorSecurity.RSA_PriKey\test"]];
+//    [XTFMylog info:pubKeyHex];
+//    [XTFMylog info:priKeyHex];
+    //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test"];
+    //[self pem];
+    //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test"];
     
 }
-
--(NSData*) encryptDataByRSA:(NSData *)data exponent:(NSString*) exp modulus:(NSString*) mod paddingType:(SecPadding) padding {
-    SecKeyRef key = [self addPublicKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey" exponent:exp modulus:mod]; // module:五位,不足前面补0
+/// 根据指数,模进行RSA加密,exponent(十六进制值):指数不足6位前面补0兼容iOS9+,(padding 模式,通常为随机: kSecPaddingNone)
+-(NSData *) encryptDataByRSA:(NSData *)data exponent:(NSString*) exponent modulus:(NSString*) modulus paddingType:(SecPadding) padding {
+    NSData* publicKeyData = [self createBerRSAData:[self hexStringToData:exponent] modulus:[self hexStringToData:modulus]]; // 指数+模,生成秘钥的二进制数据(exponent:六位,不足前面补0)
+    SecKeyRef key = [self addNewPublicKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey" publicKeyData:publicKeyData];
     if (key) {
         return [self encryptDataByRSA:data withKeyRef:key paddingType:padding];
     }
     return NULL;
 }
-- (BOOL) generateRSAPublicKeyChain:(NSString*)keyChainTag modulus: (NSString*)modulus exponent:(NSString*)exponent {
-    const uint8_t UNSIGNED_FLAG_FOR_BYTE = 0x81;
-    const uint8_t UNSIGNED_FLAG_FOR_BYTE2 = 0x82;
-    const uint8_t UNSIGNED_FLAG_FOR_BIGNUM = 0x00;
-    const uint8_t SEQUENCE_TAG = 0x30;
-    const uint8_t INTEGER_TAG = 0x02;
-    
-    NSData* tagData = [keyChainTag dataUsingEncoding:NSUTF8StringEncoding];
-    uint8_t* modulusBytes = (uint8_t*)[[self hexStringToData: modulus] bytes];
-    uint8_t* exponentBytes = (uint8_t*)([[self hexStringToData: exponent] bytes]); // 指数,默认0x10001
-    
-    //(1) calculate lengths
-    //- length of modulus
-    int lenMod = (int)[modulus length];
-    if(modulusBytes[0] >= 0x80){
-        lenMod ++;	//place for UNSIGNED_FLAG_FOR_BIGNUM
-    }
-    int lenModHeader = 2 + (lenMod >= 0x80 ? 1 : 0) + (lenMod >= 0x0100 ? 1 : 0);
-    //- length of exponent
-    int lenExp = (int)[exponent length];
-    int lenExpHeader = 2;
-    //- length of body
-    int lenBody = lenModHeader + lenMod + lenExpHeader + lenExp;
-    //- length of total
-    int lenTotal = 2 + (lenBody >= 0x80 ? 1 : 0) + (lenBody >= 0x0100 ? 1 : 0) + lenBody;
-    
-    int index = 0;
-    uint8_t* byteBuffer = malloc(sizeof(uint8_t) * lenTotal);
-    memset(byteBuffer, 0x00, sizeof(uint8_t) * lenTotal);
-    
-    //(2) fill up byte buffer
-    //- sequence tag
-    byteBuffer[index ++] = SEQUENCE_TAG;
-    //- total length
-    if(lenBody >= 0x80)
-        byteBuffer[index ++] = (lenBody >= 0x0100 ? UNSIGNED_FLAG_FOR_BYTE2 : UNSIGNED_FLAG_FOR_BYTE);
-    if(lenBody >= 0x0100)
-    {
-        byteBuffer[index ++] = (uint8_t)(lenBody / 0x0100);
-        byteBuffer[index ++] = lenBody % 0x0100;
-    }
-    else
-        byteBuffer[index ++] = lenBody;
-    //- integer tag
-    byteBuffer[index ++] = INTEGER_TAG;
-    //- modulus length
-    if(lenMod >= 0x80)
-        byteBuffer[index ++] = (lenMod >= 0x0100 ? UNSIGNED_FLAG_FOR_BYTE2 : UNSIGNED_FLAG_FOR_BYTE);
-    if(lenMod >= 0x0100){
-        byteBuffer[index ++] = (int)(lenMod / 0x0100);
-        byteBuffer[index ++] = lenMod % 0x0100;
-    } else{
-        byteBuffer[index ++] = lenMod;
-    }
-    //- modulus value
-    if(modulusBytes[0] >= 0x80)
-        byteBuffer[index ++] = UNSIGNED_FLAG_FOR_BIGNUM;
-    memcpy(byteBuffer + index, modulusBytes, sizeof(uint8_t) * [modulus length]);
-    index += [modulus length];
-    //- exponent length
-    byteBuffer[index ++] = INTEGER_TAG;
-    byteBuffer[index ++] = lenExp;
-    //- exponent value
-    memcpy(byteBuffer + index, exponentBytes, sizeof(uint8_t) * lenExp);
-    index += lenExp;
-    
-    if(index != lenTotal){
-        [XTFMylog info:@"lengths mismatch: index = %d, lenTotal = %d", index, lenTotal];
-    }
-    NSMutableData* publicKeyData = [NSMutableData dataWithBytes:byteBuffer length:lenTotal];
-    free(byteBuffer);
-    NSDictionary * publicKeyAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-     (id)kSecClassKey, kSecClass,
-     (id)kSecAttrKeyTypeRSA, kSecAttrKeyType,
-     (id)kSecAttrKeyClassPublic, kSecAttrKeyClass,
-     kCFBooleanTrue, kSecAttrIsPermanent,
-     tagData, kSecAttrApplicationTag,
-     publicKeyData, kSecValueData,
-     kCFBooleanTrue, kSecReturnPersistentRef,
-     nil];
-    SecItemDelete((CFDictionaryRef) publicKeyAttr);
-    //
-    CFDataRef ref;
-    OSStatus status = SecItemAdd((CFDictionaryRef)publicKeyAttr, (CFTypeRef *)&ref);
-    
-    [XTFMylog info:@"result = %@", [self fetchOSStatus:status]];
-    if(status == noErr){ // 添加无错误
-        return YES;
-    } else if(status == errSecDuplicateItem){ // 已存在,更新
-        OSStatus status = SecItemCopyMatching((CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                (id)kSecClassKey, kSecClass,
-                                                                kSecAttrKeyTypeRSA, kSecAttrKeyType,
-                                                                kSecAttrKeyClassPublic, kSecAttrKeyClass,
-                                                                keyChainTag, kSecAttrApplicationTag,
-                                                                nil],
-                                              NULL);	//don't need public key ref
-        
-        if(status == noErr) {
-            status = SecItemUpdate((CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     (id)kSecClassKey, kSecClass,
-                                                     kSecAttrKeyTypeRSA, kSecAttrKeyType,
-                                                     kSecAttrKeyClassPublic, kSecAttrKeyClass,
-                                                     keyChainTag, kSecAttrApplicationTag,
-                                                     nil],
-                                   (CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     publicKeyData, kSecValueData,
-                                                     nil]);
-            return status == noErr;
-        }
-        return NO;
-    }
-    return NO;
-}
-
-- (void) pem {
-    NSError *error;
-    NSString *keyStringPub = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"public_key" ofType:@"pem"] encoding:NSUTF8StringEncoding error:&error];
-    NSString *keyStringPri = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"private_key" ofType:@"pem"] encoding:NSUTF8StringEncoding error:&error];
-    [XTFMylog info:keyStringPub];
-    [XTFMylog info:keyStringPri];
-    // 过滤出完整Public Key字符串
+/// 根据公钥,进行RSA加密
+-(NSData *) encryptDataByRSA:(NSData *)data publicKey:(NSString *) keyStringPub paddingType:(SecPadding) padding{
+    // 过滤出完整前后声明Public Key字符串
     NSString *keyPubPurity = nil;
     NSRange spospu = [keyStringPub rangeOfString:@"-----BEGIN RSA PUBLIC KEY-----"];
     NSRange epospu;
@@ -179,28 +68,26 @@
         spospu = [keyStringPub rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
         epospu = [keyStringPub rangeOfString:@"-----END PUBLIC KEY-----"];
     }
-    
     if(spospu.location == NSNotFound || epospu.location == NSNotFound){
-        [XTFMylog info:@"通过-----BEGIN PUBLIC KEY-----截取公钥字符串失败."];
-        return;
+        [XTFMylog info:@"通过-----BEGIN RSA PUBLIC KEY----- 或 -----BEGIN PUBLIC KEY-----截取公钥字符串失败."];
+        return nil;
     }
-    // 截取
-    NSUInteger s = spospu.location + spospu.length;
-    NSUInteger e = epospu.location;
-    NSRange range = NSMakeRange(s, e-s);
-    keyPubPurity = [keyStringPub substringWithRange:range];
+    // 截取秘钥内容
+    NSUInteger start = spospu.location + spospu.length;
+    NSUInteger end = epospu.location;
+    keyPubPurity = [keyStringPub substringWithRange: NSMakeRange(start, end - start)];
     // 清除无效字符
     keyPubPurity = [keyPubPurity stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     keyPubPurity = [keyPubPurity stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     keyPubPurity = [keyPubPurity stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     keyPubPurity = [keyPubPurity stringByReplacingOccurrencesOfString:@" "  withString:@""];
     
-    // Public Key 进行Base64编码,后续对Base64结果码进行操作
-    NSData *keyDataPub = [self stringToBase64Data: keyPubPurity];
+    // Public Key 进行Base64解码,获取RSA秘钥的二进制
+    NSData *publicKeyData = [self base64StringToData: keyPubPurity];
     
     // 过滤RSA公钥头声明 Skip ASN.1 public key header
-    unsigned long len = [keyDataPub length];
-    unsigned char *c_key = (unsigned char *)[keyDataPub bytes];
+    unsigned long len = [publicKeyData length];
+    unsigned char *c_key = (unsigned char *)[publicKeyData bytes];
     unsigned int  idx	 = 0;
     if (c_key[idx++] == 0x30) {
         if (c_key[idx] > 0x80) {
@@ -220,72 +107,85 @@
                 }
                 if (c_key[idx++] == '\0') {
                     // Now make a new NSData from this buffer
-                    keyDataPub = ([NSData dataWithBytes:&c_key[idx] length:len - idx]);
+                    publicKeyData = ([NSData dataWithBytes:&c_key[idx] length:len - idx]);
                 } else {
                     [XTFMylog info:@"编码错误: RSA PKCS #1后续头结束位\0读取错误."];
-                    return;
+                    return nil;
                 }
             } else {
                 [XTFMylog info:@"编码错误: RSA PKCS #1后必须以0x03开始."];
-                return;
+                return nil;
             }
         } else {
             [XTFMylog info:@"编码错误: RSA PKCS #1 匹配失败."];
-            return;
+            return nil;
         }
     } else {
         [XTFMylog info:@"编码错误: RSA 秘钥必须以0x30开始."];
-        return;
+        return nil;
     }
-    [XTFMylog info:@"过滤后保存的公钥Data:\n%@", [self dataToHexString:keyDataPub]];
-    // keychain 秘钥链存储标志TAG
-    NSString *tag = @"com.xiaotian.XTCryptorSecurity.RSA_PubKey";
-    NSData *tagData = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
-    // 配置秘钥链属性
-    NSMutableDictionary *publicKey = [[NSMutableDictionary alloc] init];
-    [publicKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType]; // 类型RSA
-    [publicKey setObject:tagData forKey:(__bridge id)kSecAttrApplicationTag];
-    SecItemDelete((__bridge CFDictionaryRef)publicKey); // 如果秘钥链存在则删除,重新添加秘钥链
-    
-    // Add persistent version of the key to system keychain
-    [publicKey setObject:keyDataPub forKey:(__bridge id)kSecValueData]; // 公钥值
-    [publicKey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)kSecAttrKeyClass]; // 声明Public Key公钥
-    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnPersistentRef]; // 返回持久化结果引用
-    // 添加配置属性到的秘钥链
-    CFTypeRef persistKeyRef = nil;
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)publicKey, &persistKeyRef);
-    if (persistKeyRef != nil){
-        CFRelease(persistKeyRef);
+    //[XTFMylog info:@"过滤声明字段后的公钥数据(添加到系统秘钥链中) Data:\n%@", [self dataToHexString:keyDataPub]];
+    // keychain 添加公钥数据到秘钥链,获取公钥引用
+    SecKeyRef key = [self addNewPublicKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey" publicKeyData:publicKeyData];
+    if (key) {
+        // 获取到公钥引用开始编码
+        return [self encryptDataByRSA:data withKeyRef:key paddingType:padding];
+    }else{
+         [XTFMylog info:@"编码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
     }
-    if ((status != noErr) && (status != errSecDuplicateItem)) {
-        [XTFMylog info:@"编码错误: 添加公钥到秘钥链失败,status=%d", status];
-        return;
+    return nil;
+}
+/// 根据公钥文件,进行RSA加密
+- (NSData *) encryptDataByRSA:(NSData *)data pemCertKeyFile:(NSString *) publicKeyFile paddingType:(SecPadding) padding{
+    // 该公钥文件必须为pem[通过Base64形式保存的秘钥]
+    NSString* publicKey = [NSString stringWithContentsOfFile:publicKeyFile encoding:NSUTF8StringEncoding error:nil];
+    return [self encryptDataByRSA:data publicKey:publicKey paddingType:padding];
+}
+/// 根据公钥p12文件,进行RSA加密
+- (NSData *) encryptDataByRSA:(NSData *)data p12CertFile:(NSString *) p12KeyFile paddingType:(SecPadding) padding{
+    NSData* p12Data = [NSData dataWithContentsOfFile:p12KeyFile];
+    SecCertificateRef cert = SecCertificateCreateWithData(NULL, (CFDataRef) p12Data);
+    SecKeyRef key = NULL;//指针类型空:NULL,id类型空:nil
+    SecTrustRef trust = NULL;
+    SecPolicyRef policy = NULL;
+    if (cert != NULL){
+        policy = SecPolicyCreateBasicX509();
+        if (policy){
+            if (SecTrustCreateWithCertificates((CFTypeRef)cert, policy, &trust) == noErr){
+                SecTrustResultType result;
+                OSStatus status = SecTrustEvaluate(trust, &result);
+                if(status != noErr) {
+                    [XTFMylog info:@"编码错误: 获取证书值失败.%@", [self fetchOSStatus:status]];
+                    return nil;
+                }
+                if (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified){
+                    key = SecTrustCopyPublicKey(trust);
+                }
+            }
+        }
     }
-    // 配置读取秘钥链
-    [publicKey removeObjectForKey:(__bridge id)kSecValueData];
-    [publicKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef]; // 返回秘钥引用
-    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType]; // 类型RSA
-    // 开始匹配TAG的秘钥链 Now fetch the SecKeyRef version of the key
-    SecKeyRef pubKeyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)publicKey, (CFTypeRef *)&pubKeyRef);
-    if (status != noErr) {
-        [XTFMylog info:@"编码错误: 匹配%@的秘钥链失败,status=%d", tag, status];
-        return;
+    if (policy) CFRelease(policy);
+    if (trust) CFRelease(trust);
+    if (cert) CFRelease(cert);
+    if (key) {
+        // 获取到公钥引用开始用公钥编码
+        return [self decryptDataByRSA:data withKeyRef:key paddingType:padding];
+    }else{
+        [XTFMylog info:@"编码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
     }
-    if(!pubKeyRef){
-        [XTFMylog info:@"编码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", tag];
-        return;
+    return nil;
+}
+/// 指数,模进行
+-(NSData *) decryDataByRSA:(NSData *)data exponent:(NSString *) exponent modulus:(NSString*) modulus paddingType:(SecPadding) padding{
+    NSData* privateKeyData = [self createBerRSAData:[self hexStringToData:exponent] modulus:[self hexStringToData:modulus]]; // 指数+模,生成秘钥的二进制数据(exponent:六位,不足前面补0)
+    SecKeyRef key = [self addNewPrivateKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PrivKey" privateKeyData:privateKeyData];
+    if (key) {
+        return [self decryptDataByRSA:data withKeyRef:key paddingType:padding];
     }
-    NSData *enCode = [self encryptDataByRSA:[@"小甜甜爱吃萝卜GAGA" dataUsingEncoding:NSUTF8StringEncoding]  withKeyRef:pubKeyRef paddingType:kSecPaddingPKCS1];
-    [XTFMylog info:@"编码结果:%@", [self dataToHexString:enCode]];
-    [XTFMylog info:@"编码结果Base64:%@", [self dataToBase64String:enCode length:(int)[enCode length]]];
-    
-    //pubKeyRef = [self addPublicKeyByExponent:@"10001" modulus:@"D471AF6FAE20799E6561030E1C9656B9EFE6C6319C80C9A2FB6F0050D4C5884123F764861BFD936A8B616B74886736291D8B518026B4220EE8206E520041E0C6A82C77D98B103CB0342E93F9A10CC5BB20A6452498B191E781FCCB5393E9C2ACD466FEDA3DB3DEFF000547F5C56B25DCA3CBB88C8AB6E4AE9F87BFF95F62DE6F"];
-    //enCode = [self encryptData: [@"1234567890" dataUsingEncoding:NSUTF8StringEncoding] withKeyRef:pubKeyRef];
-    //[Mylog info:@"编码结果Base64:%@", [self dataToBase64String:enCode length:(int)[enCode length]]];
-    // 私钥解码
+    return NULL;
+}
+/// 根据私钥,进行RSA解密
+-(NSData *) decryDataByRSA:(NSData *)data privateKey:(NSString *) keyStringPri paddingType:(SecPadding) padding{
     // 过滤出完整Private Key字符串
     NSRange spospri = [keyStringPri rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
     NSRange epospri;
@@ -296,14 +196,14 @@
         epospri = [keyStringPri rangeOfString:@"-----END PRIVATE KEY-----"];
     }
     if (spospri.location == NSNotFound && epospri.location == NSNotFound) {
-        [XTFMylog info:@"解错误: 通过-----BEGIN RSA PRIVATE KEY-----或-----BEGIN PRIVATE KEY-----截取私钥字符串失败."];
-        return;
+        [XTFMylog info:@"解码错误: 通过-----BEGIN RSA PRIVATE KEY-----或-----BEGIN PRIVATE KEY-----截取私钥字符串失败."];
+        return nil;
     }
     // 截取
     NSString *keyPriPurity = nil;
-    NSUInteger sp = spospri.location + spospri.length;
-    NSUInteger ep = epospri.location;
-    NSRange rangep = NSMakeRange(sp, ep-sp);
+    NSUInteger start = spospri.location + spospri.length;
+    NSUInteger end = epospri.location;
+    NSRange rangep = NSMakeRange(start, end - start);
     keyPriPurity = [keyStringPri substringWithRange:rangep];
     // 清除无效字符
     keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@"\r" withString:@""];
@@ -312,11 +212,11 @@
     keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@" "  withString:@""];
     
     // Private Key 进行Base64编码,后续对Base64结果码进行操作
-    NSData *keyDataPri = [self stringToBase64Data:keyPriPurity];
-    [XTFMylog info:[self dataToHexString:keyDataPri]];
+    NSData *privateKeyData = [self base64StringToData:keyPriPurity];
+    //[XTFMylog info:[self dataToHexString:keyDataPri]];
     // 过滤RSA私钥头声明 Skip ASN.1 public key header
-    unsigned long lenp = [keyDataPri length];
-    unsigned char *c_keyp = (unsigned char *)[keyDataPri bytes];
+    unsigned long lenp = [privateKeyData length];
+    unsigned char *c_keyp = (unsigned char *)[privateKeyData bytes];
     unsigned int idxp = 22; // 从22位开始 magic byte at offset 22
     if (0x04 == c_keyp[idxp++]) {
         //calculate length of the key
@@ -329,7 +229,7 @@
             if (byteCount + idxp > lenp) {
                 //rsa length field longer than buffer
                 [XTFMylog info:@"解码错误:RSA私钥的字段长度大于缓存值."];
-                return;
+                return nil;
             }
             unsigned int accum = 0;
             unsigned char *ptr = &c_keyp[idxp];
@@ -342,122 +242,101 @@
             c_len = accum;
         }
         // Now make a new NSData from this buffer
-        keyDataPri = [keyDataPri subdataWithRange:NSMakeRange(idxp, c_len)];
+        privateKeyData = [privateKeyData subdataWithRange:NSMakeRange(idxp, c_len)];
     } else {
         [XTFMylog info:@"解码错误: 私钥的第22位必须为0x04.pkb64[22]=0x%02X",c_keyp[--idxp]];
-        return;
+        return nil;
     }
-    // keychain 秘钥链存储标志TAG
-    NSString *tagp = @"com.xiaotian.XTCryptorSecurity.RSA_PrivKey";
-    NSData *tagDatap = [NSData dataWithBytes:[tagp UTF8String] length:[tagp length]];
-    // 配置秘钥链属性
-    NSMutableDictionary *privateKey = [[NSMutableDictionary alloc] init];
-    [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType]; // 类型RSA
-    [privateKey setObject:tagDatap forKey:(__bridge id)kSecAttrApplicationTag];
-    SecItemDelete((__bridge CFDictionaryRef)privateKey); // 如果秘钥链存在则删除,重新添加秘钥链
-    // Add persistent version of the key to system keychain
-    [privateKey setObject:keyDataPri forKey:(__bridge id)kSecValueData];
-    [privateKey setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)kSecAttrKeyClass];
-    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnPersistentRef];
-    // 开始匹配TAG的秘钥链
-    CFTypeRef persistKeyRefp = nil;
-    OSStatus statusp = SecItemAdd((__bridge CFDictionaryRef)privateKey, &persistKeyRefp);
-    if (persistKeyRefp != nil){
-        CFRelease(persistKeyRefp);
+    // 添加私钥数据到秘钥链,得到私钥引用
+    SecKeyRef key = [self addNewPrivateKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PrivKey" privateKeyData:privateKeyData];
+    if (key) {
+        // 获取到私钥引用开始用公私解码
+        return [self decryptDataByRSA:data withKeyRef:key paddingType:padding];
+    }else{
+        [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
     }
-    if ((statusp != noErr) && (statusp != errSecDuplicateItem)) {
-        [XTFMylog info:@"解码错误: 添加私钥到秘钥链失败,status=%d", statusp];
-        return;
-    }
-    // 配置读取秘钥链
-    [privateKey removeObjectForKey:(__bridge id)kSecValueData];
-    [privateKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    // 开始匹配TAG的秘钥链
-    SecKeyRef priKeyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)privateKey, (CFTypeRef *)&priKeyRef);
-    if(statusp != noErr){
-        [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,status=%d", tagp, statusp];
-        return;
-    }
-    if(!priKeyRef){
-        [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", tagp];
-        return;
-    }
-    
-    NSData *deCode = [self decryptData:enCode withKeyRef:priKeyRef];
-    [XTFMylog info:@"解码结果:%@",[self dataToHexString: deCode]];
+    return nil;
 }
-
-// Hex NSString转化为NSData
-- (NSData *) hexStringToData:(NSString *) inputData {
-    const char *chars = [inputData UTF8String];
-    int i = 0;
-    NSUInteger len = inputData.length;
-    NSMutableData *data = [NSMutableData dataWithCapacity:len / 2];
-    char byteChars[3] = {'\0','\0','\0'};
-    unsigned long wholeByte;
-    while (i < len) {
-        byteChars[0] = chars[i++];
-        byteChars[1] = chars[i++];
-        wholeByte = strtoul(byteChars, NULL, 16);
-        [data appendBytes:&wholeByte length:1];
-    }
-    return data;
+/// 根据私钥文件,进行RSA解密
+- (NSData *) decryDataByRSA:(NSData *)data pemCertKeyFile:(NSString *) privateKeyFile paddingType:(SecPadding) padding{
+    // 该公钥文件必须为pem[通过Base64形式保存的秘钥]
+    NSString* privateKey = [NSString stringWithContentsOfFile:privateKeyFile encoding:NSUTF8StringEncoding error:nil];
+    return [self decryDataByRSA:data privateKey:privateKey paddingType:padding];
 }
-// String 的MD5码
-- (NSString *) stringMD5:(NSString *) string {
-    // Create pointer to the string as UTF8
-    const char *ptr = [string UTF8String];
-    // Create byte array of unsigned chars
-    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
-    // Create 16 byte MD5 hash value, store in buffer
-    CC_MD5(ptr, (CC_LONG)strlen(ptr), md5Buffer);
-    // Convert MD5 value in the buffer to NSString of hex values
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x",md5Buffer[i]];
-    return output;
-}
-// Data 的MD5码
-- (NSString *) dataMD5:(NSData *) data {
-    // Create byte array of unsigned chars
-    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
-    
-    // Create 16 byte MD5 hash value, store in buffer
-    CC_MD5(data.bytes, (CC_LONG)data.length, md5Buffer);
-    
-    // Convert unsigned char buffer to NSString of hex values
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x",md5Buffer[i]];
-    return output;
-}
-// Data转化为String
-- (NSString *) dataToHexString: (NSData *) data {
-    NSUInteger bytesCount = data.length;
-    if (bytesCount) {
-        const char *hexChars = "0123456789ABCDEF";
-        const unsigned char *dataBuffer = data.bytes;
-        char *chars = malloc(sizeof(char) * (bytesCount * 2 + 1));
-        char *s = chars;
-        for (unsigned i = 0; i < bytesCount; ++i) {
-            *s++ = hexChars[((*dataBuffer & 0xF0) >> 4)];
-            *s++ = hexChars[(*dataBuffer & 0x0F)];
-            dataBuffer++;
+/// 根据私钥p12文件,进行RSA解密
+- (NSData *) decryDataByRSA:(NSData *)data p12CertFile:(NSString *) p12KeyFile password:(NSString*)password paddingType:(SecPadding) padding{
+    NSData* p12Data = [NSData dataWithContentsOfFile:p12KeyFile];
+    NSMutableDictionary* options = [[NSMutableDictionary alloc] init];
+    SecKeyRef privateKeyRef = NULL;
+    //change to the actual password you used here
+    [options setObject:password forKey:(id)kSecImportExportPassphrase];
+    CFArrayRef items = CFArrayCreate(NULL, 0, 0, NULL);
+    OSStatus securityError = SecPKCS12Import((CFDataRef)p12Data, (CFDictionaryRef)options, &items);
+    if (securityError == noErr && CFArrayGetCount(items) > 0){
+        CFDictionaryRef identityDict = CFArrayGetValueAtIndex(items, 0);
+        SecIdentityRef identityApp = (SecIdentityRef)CFDictionaryGetValue(identityDict, kSecImportItemIdentity);
+        securityError = SecIdentityCopyPrivateKey(identityApp, &privateKeyRef);
+        if (securityError != noErr){
+            privateKeyRef = NULL;
         }
-        *s = '\0';
-        NSString *hexString = [NSString stringWithUTF8String:chars];
-        free(chars);
-        return hexString;
     }
-    return @"";
+    CFRelease(items);
+    if (privateKeyRef) {
+        // 获取到私钥引用开始用公私解码
+        return [self decryptDataByRSA:data withKeyRef:privateKeyRef paddingType:padding];
+    }else{
+        [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
+    }
+    return nil;
 }
 
-// 通过秘钥链引用对数据执行编码
+- (void) pem {
+    NSError *error;
+    //NSString *keyStringPub = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"public_key" ofType:@"pem"] encoding:NSUTF8StringEncoding error:&error];
+    //NSString *keyStringPri = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"private_key" ofType:@"pem"] encoding:NSUTF8StringEncoding error:&error];
+    NSString *keyStringPub = @"-----BEGIN PUBLIC KEY-----\n\
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCDoA9biOxsvffmsK8Vl6mbSNC\n\
+    bRPXErrrgGJJGZwoVEt2pCaeHiehk1kV+xuqkYegO9VfJB49ABqgROlDzTGJZG8c\n\
+    PqZ6Vah4ecUTg4ilEHJMwQhIdTgb43G8U7J3UWRrUCna9Gz/UdKradrQoPG5X1wa\n\
+    4Y0FwgyvQeH5x2sRrQIDAQAB\n\
+    -----END PUBLIC KEY-----";
+    NSString *exponent = @"010001";
+    NSString *modulus = @"C20E803D6E23B1B2F7DF9AC2BC565EA66D23426D13D712BAEB806249199C28544B76A4269E1E27A1935915FB1BAA9187A03BD55F241E3D001AA044E943CD3189646F1C3EA67A55A87879C5138388A510724CC1084875381BE371BC53B27751646B5029DAF46CFF51D2AB69DAD0A0F1B95F5C1AE18D05C20CAF41E1F9C76B11AD";
+    //
+    NSString *keyStringPri = @"-----BEGIN PRIVATE KEY-----\n\
+    MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMIOgD1uI7Gy99+a\n\
+    wrxWXqZtI0JtE9cSuuuAYkkZnChUS3akJp4eJ6GTWRX7G6qRh6A71V8kHj0AGqBE\n\
+    6UPNMYlkbxw+pnpVqHh5xRODiKUQckzBCEh1OBvjcbxTsndRZGtQKdr0bP9R0qtp\n\
+    2tCg8blfXBrhjQXCDK9B4fnHaxGtAgMBAAECgYAKqaNQPMoHTI8kISvMD27Z9Cs4\n\
+    zieF7MiKgh5kZ9zVtnQDC9f3Xi7NSPxfIdIOWDq8ii0aMjDbJzNPVRoAGLk8+6/h\n\
+    mTRTjKu4LDVAJ5VGrwd4z6LuyKX7VsaNkRtMy02MFAwqA4qXzcnQocNoTMWaD+RN\n\
+    Em64Gl1FiW0HpVDtoQJBAP0CtHJ92x4sT5tgkANbDqhLpiyNbZgTjwIM8NkohhpZ\n\
+    3Y6vGj7NB34lA//rMRPe36gRSdbrtYPRdJhUCH4Qz+UCQQDEWXmQcoDcZdkb/64q\n\
+    1ntMoKejf5aTJ0CwEGKSb1xy8m05iRvemfjLh6lKy5NPg/f3P6hlbbvwyUbXJ6MP\n\
+    uk4pAkEArkYssShLxA7VjrsGt6kDAZ2KCuon8TaXrNvpEku9g20fFWc7dsKXRKaO\n\
+    iLsiBQPhnsy5xdZ6IyAlZb+MUfmWmQJAMH5QscY14TkeR/X71ASo6yH6hTzruWhG\n\
+    Z7WEQtpSIOmS5FTilzW75riYrSpeNZNIWL5WHsbdVfjAED9v3GCNEQJAIey0MA5R\n\
+    lwJhDmFWgrthc8+NZaV6Ud83JC/KYHAa4zjgKmVNQ2JGD6M3YMoZzD2XuPoegzE0\n\
+    53BU01g4fgwF7A==\n\
+    -----END PRIVATE KEY-----";
+    
+    //RSA秘钥串(Base64)形式编码
+    NSData* enCode = [self encryptDataByRSA:[@"XiaoTiantian测试:" dataUsingEncoding:NSUTF8StringEncoding] publicKey:keyStringPub paddingType:kSecPaddingNone];
+    [XTFMylog info:@"编码结果:%@", [self dataToBase64String:enCode length:(int)[enCode length]]];
+    //解析出公钥的指数+模
+    //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
+    //RSA指数+摸形式加密
+    enCode = [self encryptDataByRSA:[@"XiaoTiantian测试:" dataUsingEncoding:NSUTF8StringEncoding] exponent:exponent modulus:modulus paddingType:kSecPaddingNone];
+    [XTFMylog info:@"编码结果:%@", [self dataToBase64String:enCode length:(int)[enCode length]]];
+    //RSA秘钥串(Base64)形式解码
+    NSData* deCode = [self decryDataByRSA:enCode privateKey:keyStringPri paddingType:kSecPaddingNone];
+    [XTFMylog info:@"解码结果:%@", [[NSString alloc] initWithData:deCode encoding:NSUTF8StringEncoding]];
+    //
+    //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PrivKey"];
+    //[Mylog info:@"编码结果Base64:%@", [self dataToBase64String:enCode length:(int)[enCode length]]];
+    // 私钥解码
+}
+/// 通过秘钥链引用对数据执行编码
 - (NSData *)encryptDataByRSA:(NSData *)data withKeyRef:(SecKeyRef) keyRef paddingType:(SecPadding) paddingType{
     const uint8_t *srcbuf = (const uint8_t *)[data bytes];
     size_t srclen = (size_t)data.length;
@@ -495,8 +374,8 @@
     CFRelease(keyRef);
     return ret;
 }
-// 通过秘钥链引用对数据执行解码
-- (NSData *)decryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef {
+/// 通过秘钥链引用对数据执行解码
+- (NSData *)decryptDataByRSA:(NSData *)data withKeyRef:(SecKeyRef) keyRef paddingType:(SecPadding) paddingType{
     const uint8_t *srcbuf = (const uint8_t *)[data bytes];
     size_t srclen = (size_t)data.length;
     
@@ -511,16 +390,9 @@
         if(data_len > src_block_size){
             data_len = src_block_size;
         }
-        
         size_t outlen = block_size;
         OSStatus status = noErr;
-        status = SecKeyDecrypt(keyRef,
-                               kSecPaddingNone,
-                               srcbuf + idx,
-                               data_len,
-                               outbuf,
-                               &outlen
-                               );
+        status = SecKeyDecrypt(keyRef, paddingType, srcbuf + idx, data_len, outbuf, &outlen);
         if (status != 0) {
             NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
             ret = nil;
@@ -539,31 +411,28 @@
                     }
                 }
             }
-            
             [ret appendBytes:&outbuf[idxFirstZero+1] length:idxNextZero-idxFirstZero-1];
         }
     }
-    
     free(outbuf);
     CFRelease(keyRef);
     return ret;
 }
-
-// 通过指数+模创建SecKeyRef秘钥链
-- (SecKeyRef) addPublicKeyChain:(NSString*) keyChaintTag exponent:(NSString*)exponent modulus:(NSString*)modulus {
-    NSData* publicKeyData = [self createBerRSAData:[self hexStringToData:exponent] modulus:[self hexStringToData:modulus]];
+/// 通过公钥数据创建SecKeyRef秘钥
+- (SecKeyRef) addNewPublicKeyChain:(NSString*) keyChaintTag publicKeyData:(NSData*)publicKeyData {
     NSData * tagData = [[NSData alloc] initWithBytes:(const void *)[keyChaintTag UTF8String] length:[keyChaintTag length]];
-    //
     NSMutableDictionary * peerKeyAttr = [[NSMutableDictionary alloc] init];
+    [peerKeyAttr setObject:tagData forKey:(__bridge id)kSecAttrApplicationTag];
     [peerKeyAttr setObject:(__bridge id)kSecClassKey forKey:(__bridge id)kSecClass];
     [peerKeyAttr setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [peerKeyAttr setObject:tagData forKey:(__bridge id)kSecAttrApplicationTag];
-    [peerKeyAttr setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)kSecAttrKeyClass];
-    [peerKeyAttr setObject:publicKeyData forKey:(__bridge id)kSecValueData];
-    OSStatus statusDel = [self deleteKeyChainByTag:tagData]; // 如果秘钥链存在则删除,重新添加秘钥链
+    // 如果秘钥链存在则删除,重新添加秘钥链
+    OSStatus statusDel = [self deleteKeyChainByTag:tagData];
     if (statusDel != noErr){
         [XTFMylog info:@"删除秘钥链%@失败.%@", keyChaintTag, [self fetchOSStatus:statusDel]];
     }
+    [peerKeyAttr setObject:publicKeyData forKey:(__bridge id)kSecValueData];
+    [peerKeyAttr setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)kSecAttrKeyClass];
+    [peerKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnPersistentRef];
     SecKeyRef persistKeyRef = nil;
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef) peerKeyAttr, (CFTypeRef *)&persistKeyRef);
     if (persistKeyRef != nil){
@@ -577,7 +446,6 @@
     [peerKeyAttr removeObjectForKey:(__bridge id)kSecValueData];
     [peerKeyAttr removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
     [peerKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [peerKeyAttr setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
     // 开始匹配TAG的秘钥链
     SecKeyRef secKeyRef = nil;
     status = SecItemCopyMatching((__bridge CFDictionaryRef)peerKeyAttr, (CFTypeRef *)&secKeyRef);
@@ -591,34 +459,73 @@
     }
     return secKeyRef;
 }
-
-// 生成RSA秘钥对并加入秘钥链[publicTagString:公钥保存到KeyChain的Tag,privateTagString:私钥保存到KeyChain的Tag,keyBits:秘钥位数[1024,2048]]
+/// 通过私钥数据创建SecKeyRef秘钥
+- (SecKeyRef) addNewPrivateKeyChain:(NSString*) keyChaintTag privateKeyData:(NSData*)privateKeyData {
+    NSData * tagData = [[NSData alloc] initWithBytes:(const void *)[keyChaintTag UTF8String] length:[keyChaintTag length]];
+    [XTFMylog info:[self dataToHexString:privateKeyData]];
+    NSMutableDictionary * peerKeyAttr = [[NSMutableDictionary alloc] init];
+    [peerKeyAttr setObject:tagData forKey:(__bridge id)kSecAttrApplicationTag];
+    [peerKeyAttr setObject:(__bridge id)kSecClassKey forKey:(__bridge id)kSecClass];
+    [peerKeyAttr setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    // 如果秘钥链存在则删除,重新添加秘钥链
+    OSStatus statusDel = [self deleteKeyChainByTag:tagData];
+    if (statusDel != noErr){
+        [XTFMylog info:@"删除秘钥链%@失败.%@", keyChaintTag, [self fetchOSStatus:statusDel]];
+    }
+    [peerKeyAttr setObject:privateKeyData forKey:(__bridge id)kSecValueData];
+    [peerKeyAttr setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)kSecAttrKeyClass];
+    [peerKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnPersistentRef];
+    SecKeyRef persistKeyRef = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef) peerKeyAttr, (CFTypeRef *)&persistKeyRef);
+    if (persistKeyRef != nil){
+        CFRelease(persistKeyRef);
+    }
+    if ((status != noErr) && (status != errSecDuplicateItem)){
+        [XTFMylog info:@"解码错误: 添加私钥到秘钥链失败,status=%d", status];
+        return nil;
+    }
+    [XTFMylog info:@"添加私钥%@:Status: %@", keyChaintTag, [self fetchOSStatus:status]];
+    // 配置读取秘钥链
+    [peerKeyAttr removeObjectForKey:(__bridge id)kSecValueData];
+    [peerKeyAttr removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [peerKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    // 开始匹配TAG的秘钥链
+    SecKeyRef secKeyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)peerKeyAttr, (CFTypeRef *)&secKeyRef);
+    if(status != noErr) {
+        [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,%@", keyChaintTag, [self fetchOSStatus:status]];
+        return nil;
+    }
+    if(!secKeyRef) {
+        [XTFMylog info:@"解码错误: 匹配秘钥链%@失败,秘钥链结果SecKeyRef=nil.", keyChaintTag];
+        return nil;
+    }
+    return secKeyRef;
+}
+/// 生成RSA秘钥对并加入秘钥链[publicTagString:公钥保存到KeyChain的Tag,privateTagString:私钥保存到KeyChain的Tag,keyBits:秘钥位数[1024,2048]]
 -(BOOL) generateKeyPairWithPublicTag:(NSString *)publicTagString privateTag:(NSString *)privateTagString keyBits:(int) keyBits {
     NSMutableDictionary *privateKeyAttr = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *publicKeyAttr = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *keyPairAttr = [[NSMutableDictionary alloc] init];
-    // Name Tag
+    // Name Tag String To NSData
     NSData *publicTag = [publicTagString dataUsingEncoding:NSUTF8StringEncoding];
     NSData *privateTag = [privateTagString dataUsingEncoding:NSUTF8StringEncoding];
     // 秘钥Key
     SecKeyRef publicKey = NULL;
     SecKeyRef privateKey = NULL;
-    //
-    [keyPairAttr setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [keyPairAttr setObject:[NSNumber numberWithInt:keyBits] forKey:(__bridge id)kSecAttrKeySizeInBits];
-    
+    // set RSA attribute
     [privateKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecAttrIsPermanent];
     [privateKeyAttr setObject:privateTag forKey:(__bridge id)kSecAttrApplicationTag];
-    
     [publicKeyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecAttrIsPermanent];
     [publicKeyAttr setObject:publicTag forKey:(__bridge id)kSecAttrApplicationTag];
-    
+    [keyPairAttr setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [keyPairAttr setObject:[NSNumber numberWithInt:keyBits] forKey:(__bridge id)kSecAttrKeySizeInBits];
     [keyPairAttr setObject:privateKeyAttr forKey:(__bridge id)kSecPrivateKeyAttrs];
     [keyPairAttr setObject:publicKeyAttr forKey:(__bridge id)kSecPublicKeyAttrs];
     // 如果已经有该秘钥链,则删除
     [self deleteKeyChainByTag:publicTag];
     [self deleteKeyChainByTag:privateTag];
-    // 生成秘钥对
+    // 生成秘钥对并保存到系统秘钥链中(要使用,根据 Tagname 在系统秘钥链中获取)
     OSStatus status = SecKeyGeneratePair((__bridge CFDictionaryRef)keyPairAttr, &publicKey, &privateKey);
     if(publicKey) CFRelease(publicKey);
     if(privateKey) CFRelease(privateKey);
@@ -630,8 +537,7 @@
         return true;
     }
 }
-
-// 计算公钥的两大部分组成信息[Exponent指数,Modulus模]
+/// 计算公钥的两大部分组成信息[Exponent指数,Modulus模]
 - (void)calculatePublicKeyExponentAndModulus:(NSString *) keyChainTag {
     NSData* keyChainData = [self getKeyChainBits: keyChainTag];
     if (keyChainData == NULL) return;
@@ -671,7 +577,7 @@
     return ret;
 }
 
-// 创建可以保存于KeyChain中的RSA秘钥数据[expBits:指数值,modBits:模值]
+/// 创建可以保存于KeyChain中的RSA秘钥二进制数据[expBits:指数值,modBits:模值]
 - (NSData *) createBerRSAData:(NSData *) expBits modulus:(NSData *) modBits {
     NSMutableData *fullKey = [[NSMutableData alloc] initWithLength:6+[modBits length]+[expBits length]  +  1  ] ;
     unsigned char *fullKeyBytes = [fullKey mutableBytes];
@@ -708,18 +614,19 @@
     [containerArray addObject:expBits]; // 指数:默认65537(0x001001),必须5位,不够5位前面加0[010001]
     return [containerArray berData]; // RSA Ber Data RSA指数模合并数据 [DataByBasicEncodingRules.h]
 }
-// 根据KeyChain中的秘钥TAG获取公钥的二进制数据
+
+/// 根据KeyChain中的秘钥Tag name获取秘钥的二进制数据
 - (NSData *)getKeyChainBits:(NSString*) keyChainTag {
+    CFTypeRef secKeyRef;
     OSStatus sanityCheck = noErr;
     NSData * publicKeyBits = NULL;
-    CFTypeRef secKeyRef;
     NSMutableDictionary * queryPublicKey = [[NSMutableDictionary alloc] init];
     NSData* publicTag = [keyChainTag dataUsingEncoding:NSUTF8StringEncoding]; // KeyChain tag
     // Set the public key query dictionary.
-    [queryPublicKey setObject:(__bridge_transfer id)kSecClassKey forKey:(__bridge_transfer id)kSecClass];
     [queryPublicKey setObject:publicTag forKey:(__bridge_transfer id)kSecAttrApplicationTag];
-    [queryPublicKey setObject:(__bridge_transfer id)kSecAttrKeyTypeRSA forKey:(__bridge_transfer id)kSecAttrKeyType];
     [queryPublicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge_transfer id)kSecReturnData];
+    [queryPublicKey setObject:(__bridge_transfer id)kSecClassKey forKey:(__bridge_transfer id)kSecClass];
+    [queryPublicKey setObject:(__bridge_transfer id)kSecAttrKeyTypeRSA forKey:(__bridge_transfer id)kSecAttrKeyType];
     // Get the key bits.
     sanityCheck = SecItemCopyMatching((__bridge_retained CFDictionaryRef)queryPublicKey, &secKeyRef); // matching KeyChain tag
     if (sanityCheck != noErr) {
@@ -731,7 +638,7 @@
     }
     return publicKeyBits;
 }
-
+///
 - (NSData*)encryptString:(NSString*)original RSAPublicKey:(SecKeyRef)publicKey padding:(SecPadding)padding{
     @try{
         size_t encryptedLength = SecKeyGetBlockSize(publicKey);
@@ -755,15 +662,16 @@
     }
     return nil;
 }
-// 删除KeyChain Tag的秘钥链
+// 删除KeyChain Tag匹配的秘钥链
 - (OSStatus)deleteKeyChainByTag:(NSData*) keyChainTag {
     NSMutableDictionary * query = [[NSMutableDictionary alloc] init];
     [query setObject:(__bridge id)kSecClassKey forKey:(__bridge id)kSecClass];
     [query setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [query setObject:keyChainTag forKey:(__bridge id)kSecAttrApplicationTag];
+    [query setObject:keyChainTag forKey:(__bridge id)kSecAttrApplicationTag]; // Tag name
     return SecItemDelete((CFDictionaryRef)query);
 }
-// 转化OSStatus消息
+
+// 转化OSStatus错误为提示消息
 - (NSString*) fetchOSStatus:(OSStatus)status{
     if(status == 0) return [NSString stringWithFormat:@"success (status=%d)", status];
     else if(status == errSecNotAvailable)
@@ -785,24 +693,91 @@
     else
         return [NSString stringWithFormat:@"unknow error (status=%d)", status];
 }
+/// Hex String转化为NSData
+- (NSData *) hexStringToData:(NSString *) inputData {
+    const char *chars = [inputData UTF8String];
+    int i = 0;
+    NSUInteger len = inputData.length;
+    NSMutableData *data = [NSMutableData dataWithCapacity:len / 2];
+    char byteChars[3] = {'\0','\0','\0'};
+    unsigned long wholeByte;
+    while (i < len) {
+        byteChars[0] = chars[i++];
+        byteChars[1] = chars[i++];
+        wholeByte = strtoul(byteChars, NULL, 16);
+        [data appendBytes:&wholeByte length:1];
+    }
+    return data;
+}
+/// String 的MD5码
+- (NSString *) stringMD5:(NSString *) string {
+    // Create pointer to the string as UTF8
+    const char *ptr = [string UTF8String];
+    // Create byte array of unsigned chars
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    // Create 16 byte MD5 hash value, store in buffer
+    CC_MD5(ptr, (CC_LONG)strlen(ptr), md5Buffer);
+    // Convert MD5 value in the buffer to NSString of hex values
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    return output;
+}
+/// Data 的MD5码
+- (NSString *) dataMD5:(NSData *) data {
+    // Create byte array of unsigned chars
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    // Create 16 byte MD5 hash value, store in buffer
+    CC_MD5(data.bytes, (CC_LONG)data.length, md5Buffer);
+    // Convert unsigned char buffer to NSString of hex values
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    return output;
+}
+/// File Path的MD5码
+- (NSString *) fileMD5:(NSString *) filePath{
+    NSData* data = [NSData dataWithContentsOfFile:filePath];
+    return data == nil ? nil : [self dataMD5:data];
+}
+/// Data转化为String
+- (NSString *) dataToHexString: (NSData *) data {
+    NSUInteger bytesCount = data.length;
+    if (bytesCount) {
+        const char *hexChars = "0123456789ABCDEF";
+        const unsigned char *dataBuffer = data.bytes;
+        char *chars = malloc(sizeof(char) * (bytesCount * 2 + 1));
+        char *s = chars;
+        for (unsigned i = 0; i < bytesCount; ++i) {
+            *s++ = hexChars[((*dataBuffer & 0xF0) >> 4)];
+            *s++ = hexChars[(*dataBuffer & 0x0F)];
+            dataBuffer++;
+        }
+        *s = '\0';
+        NSString *hexString = [NSString stringWithUTF8String:chars];
+        free(chars);
+        return hexString;
+    }
+    return @"";
+}
 
-// Base 编码
-// 普通String转为Base64的String
+// Base 64 编码
+/// 普通String转为Base64的String
 - (NSString *) stringToBase64String:(NSString *)string {
     return [self dataToBase64String:[string dataUsingEncoding:NSUTF8StringEncoding]]; // 普通String采用UTF8编码
 }
-// 普通String转为Base64的Data
+/// 普通String转为Base64的Data
 - (NSData *) stringToBase64Data:(NSString *)string {
     NSData* data = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSString* base64 = [self dataToBase64String:data length:(int)[data length]];
     return [base64 dataUsingEncoding:NSUTF8StringEncoding]; // Data为UTF8编码
 }
-// 普通Data转化为Base64的Data
+/// 普通Data转化为Base64的Data
 - (NSData *) dataToBase64Data:(NSData *)data {
     NSString* string = [self dataToBase64String:data length:(int)[data length]];
     return [string dataUsingEncoding:NSUTF8StringEncoding]; // Data为UTF8编码
 }
-// 普通Data转为Base64的String
+/// 普通Data转为Base64的String
 - (NSString *) dataToBase64String: (NSData *)data {
     return [self dataToBase64String:data length:(int) [data length]];
 }
@@ -861,22 +836,22 @@
     return result;
 }
 // Base 64 解码
-// base64 字符串转为普通String
+/// base64 字符串转为普通String
 - (NSString *) base64StringToString:(NSString *)base64String {
     NSData* data = [self base64StringToData:base64String];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
-// base64 Data转为普通String
+/// base64 Data转为普通String
 - (NSString *) base64DataToString:(NSData *)base64Data {
     NSString* string = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
     return [self base64StringToString:string];
 }
-// base64 Data转为普通Data
+/// base64 Data转为普通Data
 - (NSData *) base64DataToData:(NSData *) base64Data {
     NSString* string = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
     return [self base64StringToData:string];
 }
-// base64 String转为普通Data
+/// base64 String转为普通Data
 - (NSData *) base64StringToData:(NSString *)base64String {
     unsigned long ixtext, lentext;
     unsigned char ch, inbuf[4], outbuf[3];
@@ -946,8 +921,8 @@
     }
     return theData;
 }
-
-char base64EncodingTable[64] = { // Base64 的64个字符码集
+/// Base64 的64个字符标准码集(可以自定义Base64映射码😯,大小写字母,数字,+/)
+char base64EncodingTable[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
     'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',

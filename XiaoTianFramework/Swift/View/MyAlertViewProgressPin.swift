@@ -1,7 +1,7 @@
 //
 //  MyAlertViewProgressPin.swift
 //  XiaoTianFramework
-//
+//  Alert加载弹框,支持模糊背景,百分比
 //  Created by guotianrui on 2017/7/15.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

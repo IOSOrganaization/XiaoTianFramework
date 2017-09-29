@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 //works in DEBUG mode only
 #ifndef __OPTIMIZE__
+//宏定义:## 连接符,# 用双引号括起来
 #define XTFMylog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
 #define XTFMylog(s, ...)

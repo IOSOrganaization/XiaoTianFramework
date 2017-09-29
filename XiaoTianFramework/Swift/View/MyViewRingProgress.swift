@@ -1,7 +1,7 @@
 //
 //  MyViewRingProgress.swift
 //  XiaoTianFramework
-//
+//  渐变圆环加载进度条
 //  Created by guotianrui on 2017/6/23.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

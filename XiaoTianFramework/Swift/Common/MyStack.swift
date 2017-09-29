@@ -26,7 +26,7 @@ extension MyStack{
     public var count:Int{
         return self.items.count
     }
-    public var isEmpty:Bool{
+    public var isEmpty:Bool{ 
         return self.count == 0
     }
     public var last: T?{

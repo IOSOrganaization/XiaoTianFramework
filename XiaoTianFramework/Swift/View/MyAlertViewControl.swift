@@ -1,7 +1,7 @@
 //
 //  MyAlertViewControl.swift
 //  XiaoTianFramework
-//  弹框提示
+//  弹框提示,Alert,支持上中间分类图标,自定义上中间图标
 //  Created by guotianrui on 2017/7/11.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

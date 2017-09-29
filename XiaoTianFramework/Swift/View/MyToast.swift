@@ -1,7 +1,7 @@
 //
 //  MyToast.swift
 //  XiaoTianFramework
-//
+//  Toast弹框,支持靠下,居中,靠上弹出模式
 //  Created by guotianrui on 2017/7/27.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

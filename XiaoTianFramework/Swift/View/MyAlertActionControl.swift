@@ -1,7 +1,7 @@
 //
 //  MyAlertActionControl.swift
 //  XiaoTianFramework
-//
+//  弹框支持Alert, ActionSheet
 //  Created by guotianrui on 2017/7/17.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //

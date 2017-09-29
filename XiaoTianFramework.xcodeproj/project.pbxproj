@@ -41,6 +41,7 @@
 		6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */; };
 		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
 		6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */; };
+		6B3604761F45D69A00CD29F5 /* baseCommon.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B3604751F45D69A00CD29F5 /* baseCommon.js */; };
 		6B4422E81F2B680E00565651 /* MyUIImageViewGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */; };
 		6B45100C1F14741C00F0451F /* MyAlertViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */; };
 		6B4E1E681F1EE9CD00730561 /* MyToastTopbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */; };
@@ -89,12 +90,10 @@
 		6B5FBA2C1ED5231000331247 /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5FBA251ED5231000331247 /* BTNavigationDropdownMenu.bundle */; };
 		6B5FBA2D1ED5231000331247 /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA261ED5231000331247 /* BTNavigationDropdownMenu.swift */; };
 		6B5FBA2E1ED5231000331247 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */; };
-		6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */; };
 		6B5FBA371ED5235000331247 /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA331ED5235000331247 /* MYIntroductionPanel.m */; };
 		6B5FBA381ED5235000331247 /* MYIntroductionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B5FBA341ED5235000331247 /* MYIntroductionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6B5FBA391ED5235000331247 /* MYBlurIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA351ED5235000331247 /* MYBlurIntroductionView.m */; };
 		6B5FBA3A1ED5235000331247 /* MYBlurIntroductionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B5FBA361ED5235000331247 /* MYBlurIntroductionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6B5FBA3C1ED5365900331247 /* MyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA3B1ED5365900331247 /* MyLog.swift */; };
 		6B606C4D1ED6F7AA0058DA6D /* XTFUtilRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B606C4B1ED6F7AA0058DA6D /* XTFUtilRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6B606C4E1ED6F7AA0058DA6D /* XTFUtilRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C4C1ED6F7AA0058DA6D /* XTFUtilRuntime.m */; };
 		6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */; };
@@ -106,6 +105,10 @@
 		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
 		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
+		6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */; };
+		6B7C87461F3EB444006CE3B6 /* MyLogTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87451F3EB444006CE3B6 /* MyLogTag.swift */; };
+		6B7C87481F3ECEF1006CE3B6 /* MyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87471F3ECEF1006CE3B6 /* MyLog.swift */; };
+		6B7C874C1F3EE16C006CE3B6 /* UtilJavaScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C874B1F3EE16C006CE3B6 /* UtilJavaScript.swift */; };
 		6B8043231F18F8DA00420CDD /* UtilUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8043221F18F8DA00420CDD /* UtilUITableView.swift */; };
 		6B8266641F3B0C9E001EF9B1 /* MyStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8266631F3B0C9E001EF9B1 /* MyStack.swift */; };
 		6B8266661F3B0DF9001EF9B1 /* UtilXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8266651F3B0DF9001EF9B1 /* UtilXML.swift */; };
@@ -187,6 +190,7 @@
 		6B07EC381EF7A18B00CC94D9 /* ExtensionNSCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSCoder.swift; path = Swift/Extension/ExtensionNSCoder.swift; sourceTree = "<group>"; };
 		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
 		6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BundleXiaoTian.bundle; sourceTree = "<group>"; };
+		6B3604751F45D69A00CD29F5 /* baseCommon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = baseCommon.js; path = Swift/Util/baseCommon.js; sourceTree = "<group>"; };
 		6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIImageViewGif.swift; path = Swift/View/MyUIImageViewGif.swift; sourceTree = "<group>"; };
 		6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewControl.swift; path = Swift/View/MyAlertViewControl.swift; sourceTree = "<group>"; };
 		6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToastTopbar.swift; path = Swift/View/MyToastTopbar.swift; sourceTree = "<group>"; };
@@ -235,12 +239,10 @@
 		6B5FBA251ED5231000331247 /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BTNavigationDropdownMenu.bundle; path = Swift/Widget/BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
 		6B5FBA261ED5231000331247 /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTNavigationDropdownMenu.swift; path = Swift/Widget/BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
 		6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAPSPageMenu.swift; path = Swift/Widget/CAPSPageMenu.swift; sourceTree = "<group>"; };
-		6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RKDropdownAlert.swift; path = Swift/Widget/RKDropdownAlert.swift; sourceTree = "<group>"; };
 		6B5FBA331ED5235000331247 /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYIntroductionPanel.m; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYIntroductionPanel.m; sourceTree = SOURCE_ROOT; };
 		6B5FBA341ED5235000331247 /* MYIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYIntroductionPanel.h; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYIntroductionPanel.h; sourceTree = SOURCE_ROOT; };
 		6B5FBA351ED5235000331247 /* MYBlurIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYBlurIntroductionView.m; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYBlurIntroductionView.m; sourceTree = SOURCE_ROOT; };
 		6B5FBA361ED5235000331247 /* MYBlurIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYBlurIntroductionView.h; path = XiaoTianFramework/Widget/MYBlurIntroductionView/MYBlurIntroductionView.h; sourceTree = SOURCE_ROOT; };
-		6B5FBA3B1ED5365900331247 /* MyLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLog.swift; path = Swift/Util/MyLog.swift; sourceTree = "<group>"; };
 		6B606C4B1ED6F7AA0058DA6D /* XTFUtilRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTFUtilRuntime.h; sourceTree = "<group>"; };
 		6B606C4C1ED6F7AA0058DA6D /* XTFUtilRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTFUtilRuntime.m; sourceTree = "<group>"; };
 		6B606C541ED703190058DA6D /* UtilRuntimeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilRuntimeSwift.swift; path = Swift/Util/UtilRuntimeSwift.swift; sourceTree = "<group>"; };
@@ -252,6 +254,10 @@
 		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
 		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
+		6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwCrypt.swift; path = Swift/Util/SwCrypt.swift; sourceTree = "<group>"; };
+		6B7C87451F3EB444006CE3B6 /* MyLogTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLogTag.swift; path = Swift/Common/MyLogTag.swift; sourceTree = "<group>"; };
+		6B7C87471F3ECEF1006CE3B6 /* MyLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLog.swift; path = Swift/Common/MyLog.swift; sourceTree = "<group>"; };
+		6B7C874B1F3EE16C006CE3B6 /* UtilJavaScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJavaScript.swift; path = Swift/Util/UtilJavaScript.swift; sourceTree = "<group>"; };
 		6B8043221F18F8DA00420CDD /* UtilUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUITableView.swift; path = Swift/Util/UtilUITableView.swift; sourceTree = "<group>"; };
 		6B8266631F3B0C9E001EF9B1 /* MyStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStack.swift; path = Swift/Common/MyStack.swift; sourceTree = "<group>"; };
 		6B8266651F3B0DF9001EF9B1 /* UtilXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilXML.swift; path = Swift/Util/UtilXML.swift; sourceTree = "<group>"; };
@@ -467,8 +473,9 @@
 		6B5FB9D21ED522AD00331247 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				6B3604751F45D69A00CD29F5 /* baseCommon.js */,
 				6B5FB9D31ED522BA00331247 /* ConstantApp.swift */,
-				6B5FBA3B1ED5365900331247 /* MyLog.swift */,
+				6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */,
 				6B891F341F0395F2004A32E8 /* UtilAnimation.swift */,
 				6B5FB9D61ED522BA00331247 /* UtilAnyObject.swift */,
 				6B5FB9D71ED522BA00331247 /* UtilAttributedString.swift */,
@@ -482,6 +489,7 @@
 				6B5FB9DD1ED522BA00331247 /* UtilFont.swift */,
 				6B5FB9DE1ED522BA00331247 /* UtilImage.swift */,
 				6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */,
+				6B7C874B1F3EE16C006CE3B6 /* UtilJavaScript.swift */,
 				6BD304931ED82CCD004BDD21 /* UtilJson.swift */,
 				6B891F361F039E06004A32E8 /* UtilKVC.swift */,
 				6B5FB9DF1ED522BA00331247 /* UtilLabel.swift */,
@@ -548,7 +556,6 @@
 				6B5FBA251ED5231000331247 /* BTNavigationDropdownMenu.bundle */,
 				6B5FBA261ED5231000331247 /* BTNavigationDropdownMenu.swift */,
 				6B5FBA271ED5231000331247 /* CAPSPageMenu.swift */,
-				6B5FBA291ED5231000331247 /* RKDropdownAlert.swift */,
 			);
 			name = Widget;
 			sourceTree = "<group>";
@@ -569,6 +576,8 @@
 		6B8266621F3B0C74001EF9B1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6B7C87471F3ECEF1006CE3B6 /* MyLog.swift */,
+				6B7C87451F3EB444006CE3B6 /* MyLogTag.swift */,
 				6B8266631F3B0C9E001EF9B1 /* MyStack.swift */,
 			);
 			name = Common;
@@ -724,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3604761F45D69A00CD29F5 /* baseCommon.js in Resources */,
 				6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */,
 				6B5FBA211ED522D200331247 /* MyViewTipMessage.xib in Resources */,
 				6B5FBA2C1ED5231000331247 /* BTNavigationDropdownMenu.bundle in Resources */,
@@ -761,6 +771,7 @@
 				6BD3049D1ED84D3D004BDD21 /* XTFUtilSqlite.m in Sources */,
 				6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */,
 				6B9144D71F3C0CA00010EA3A /* MyUIViewSVG.swift in Sources */,
+				6B7C87481F3ECEF1006CE3B6 /* MyLog.swift in Sources */,
 				6B5FBA371ED5235000331247 /* MYIntroductionPanel.m in Sources */,
 				6B5FBA1C1ED522D200331247 /* MyUITextField.swift in Sources */,
 				6B5FBA1D1ED522D200331247 /* MyUITextFieldLeftIcon.swift in Sources */,
@@ -769,13 +780,14 @@
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
 				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
+				6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */,
-				6B5FBA301ED5231000331247 /* RKDropdownAlert.swift in Sources */,
 				6B5FBA161ED522D200331247 /* MyLogoIndicator.swift in Sources */,
 				6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */,
 				6B5FB9FF1ED522BA00331247 /* UtilString.swift in Sources */,
+				6B7C87461F3EB444006CE3B6 /* MyLogTag.swift in Sources */,
 				6B5FBA191ED522D200331247 /* MyUIBookLabel.swift in Sources */,
 				6B84421E1F39BF3000B83FF0 /* NetReachability.swift in Sources */,
 				6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */,
@@ -805,6 +817,7 @@
 				6B8266641F3B0C9E001EF9B1 /* MyStack.swift in Sources */,
 				6B891F371F039E06004A32E8 /* UtilKVC.swift in Sources */,
 				6B5FB9F21ED522BA00331247 /* UtilDispatch.swift in Sources */,
+				6B7C874C1F3EE16C006CE3B6 /* UtilJavaScript.swift in Sources */,
 				6B5FB9EF1ED522BA00331247 /* UtilAttributedString.swift in Sources */,
 				04ABFC611A63753B008381AE /* XTFUtilEnvironment.m in Sources */,
 				04EFE06A1A53F36B00E846CB /* UINavigationController+XTF.m in Sources */,
@@ -812,7 +825,6 @@
 				6B5FB9FD1ED522BA00331247 /* UtilRegularExpression.swift in Sources */,
 				6B5FBA1F1ED522D200331247 /* MyUIView.swift in Sources */,
 				6B5FBA181ED522D200331247 /* MySeparatorUIView.swift in Sources */,
-				6B5FBA3C1ED5365900331247 /* MyLog.swift in Sources */,
 				6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */,
 				6B5FBA001ED522BA00331247 /* UtilSwift.swift in Sources */,
 				6B94E8E11EFDFB8D00D43ECA /* MyAlertViewProgress.swift in Sources */,

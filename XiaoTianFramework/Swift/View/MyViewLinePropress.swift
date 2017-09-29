@@ -1,7 +1,7 @@
 //
 //  MyViewLinePropress.swift
 //  XiaoTianFramework
-//  线性进度条
+//  线性进度条,支持横向,竖向
 //  Created by guotianrui on 2017/6/20.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //
