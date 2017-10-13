@@ -123,6 +123,9 @@
 		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */; };
 		6BB1D0401F1CDE380070FB29 /* MyAlertActionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */; };
 		6BCABB561F29843A00EFEFF5 /* MyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCABB551F29843A00EFEFF5 /* MyToast.swift */; };
+		6BCB1F8E1F90B7DB00081ED0 /* CAPSScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */; };
+		6BCB1F8F1F90B7DB00081ED0 /* MyPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8C1F90B7DA00081ED0 /* MyPopView.swift */; };
+		6BCB1F901F90B7DB00081ED0 /* MyAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8D1F90B7DB00081ED0 /* MyAlertView.swift */; };
 		6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304931ED82CCD004BDD21 /* UtilJson.swift */; };
 		6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */; };
 		6BD304991ED83FCD004BDD21 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */; };
@@ -271,6 +274,9 @@
 		6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewLinePropress.swift; path = Swift/View/MyViewLinePropress.swift; sourceTree = "<group>"; };
 		6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertActionControl.swift; path = Swift/View/MyAlertActionControl.swift; sourceTree = "<group>"; };
 		6BCABB551F29843A00EFEFF5 /* MyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToast.swift; path = Swift/View/MyToast.swift; sourceTree = "<group>"; };
+		6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAPSScrollMenu.swift; path = Swift/View/CAPSScrollMenu.swift; sourceTree = "<group>"; };
+		6BCB1F8C1F90B7DA00081ED0 /* MyPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPopView.swift; path = Swift/View/MyPopView.swift; sourceTree = "<group>"; };
+		6BCB1F8D1F90B7DB00081ED0 /* MyAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertView.swift; path = Swift/View/MyAlertView.swift; sourceTree = "<group>"; };
 		6BD304931ED82CCD004BDD21 /* UtilJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJson.swift; path = Swift/Util/UtilJson.swift; sourceTree = "<group>"; };
 		6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilSqlite.swift; path = Swift/Util/UtilSqlite.swift; sourceTree = "<group>"; };
 		6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -510,8 +516,10 @@
 		6B5FBA031ED522C100331247 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */,
 				6B5FBA041ED522D200331247 /* GearRefreshControl.swift */,
 				6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */,
+				6BCB1F8D1F90B7DB00081ED0 /* MyAlertView.swift */,
 				6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */,
 				6B94E8E01EFDFB8D00D43ECA /* MyAlertViewProgress.swift */,
 				6B7369361F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift */,
@@ -519,6 +527,7 @@
 				6B5FBA051ED522D200331247 /* MyClickableView.swift */,
 				6B5FBA061ED522D200331247 /* MyLogoGray.swift */,
 				6B5FBA071ED522D200331247 /* MyLogoIndicator.swift */,
+				6BCB1F8C1F90B7DA00081ED0 /* MyPopView.swift */,
 				6B5FBA081ED522D200331247 /* MyRedotUIView.swift */,
 				6B5FBA091ED522D200331247 /* MySeparatorUIView.swift */,
 				6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */,
@@ -532,6 +541,7 @@
 				6B5FBA0E1ED522D200331247 /* MyUITextFieldLeftIcon.swift */,
 				6B5FBA0F1ED522D200331247 /* MyUITextView.swift */,
 				6B5FBA101ED522D200331247 /* MyUIView.swift */,
+				6B9144D61F3C0CA00010EA3A /* MyUIViewSVG.swift */,
 				6B97D29F1F28CEF900FD8099 /* MyViewCircleProgress.swift */,
 				6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */,
 				6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */,
@@ -539,7 +549,6 @@
 				6B5FBA111ED522D200331247 /* MyViewRefreshTable.swift */,
 				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
 				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
-				6B9144D61F3C0CA00010EA3A /* MyUIViewSVG.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -761,6 +770,7 @@
 				6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */,
 				6B5FBA1E1ED522D200331247 /* MyUITextView.swift in Sources */,
 				58E9BD461D21896100B9DC75 /* XTFSerializerJson.m in Sources */,
+				6BCB1F901F90B7DB00081ED0 /* MyAlertView.swift in Sources */,
 				6BD3049D1ED84D3D004BDD21 /* XTFUtilSqlite.m in Sources */,
 				6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */,
 				6B9144D71F3C0CA00010EA3A /* MyUIViewSVG.swift in Sources */,
@@ -774,6 +784,7 @@
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
 				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
 				6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */,
+				6BCB1F8F1F90B7DB00081ED0 /* MyPopView.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */,
@@ -782,6 +793,7 @@
 				6B5FB9FF1ED522BA00331247 /* UtilString.swift in Sources */,
 				6B7C87461F3EB444006CE3B6 /* MyLogTag.swift in Sources */,
 				6B5FBA191ED522D200331247 /* MyUIBookLabel.swift in Sources */,
+				6BCB1F8E1F90B7DB00081ED0 /* CAPSScrollMenu.swift in Sources */,
 				6B84421E1F39BF3000B83FF0 /* NetReachability.swift in Sources */,
 				6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */,
 				6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */,
