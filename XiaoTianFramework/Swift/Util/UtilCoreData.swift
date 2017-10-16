@@ -7,7 +7,7 @@
 //  4.手动写模型实体类/自动生成模型实体类(配置代码生成模式,进行生成代码)
 //  5.执行相关操作
 //  Created by guotianrui on 2017/6/1.
-//  Copyright © 2017年 vsix. All rights reserved.
+//  Copyright © 2017年 XiaoTian. All rights reserved.
 //
 
 import Foundation
@@ -18,7 +18,16 @@ open class UtilCoreData: NSObject{
     // Code Data : SQLite(存取速度快),Atomic(存取相对比较慢,如果数据量大),In-memory(存取很快,但是只保存在内存)
     var datamodeldFilename: String!
     var sqliteFilename: String!
-    var queryQueue: DispatchQueue?
+    var queryQueue_:DispatchQueue!
+    var queryQueue: DispatchQueue{
+        get{
+            if queryQueue_ != nil{
+                return queryQueue_
+            }
+            queryQueue_ = DispatchQueue(label: "DispatchQueue_UtilCoreData_QueryQueue")
+            return queryQueue_
+        }
+    }
     
     /// 对象管理上下文
     lazy var managedObjectContext: NSManagedObjectContext? = {
@@ -26,7 +35,12 @@ open class UtilCoreData: NSObject{
         if coordinator == nil{
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        var managedObjectContext:NSManagedObjectContext!
+        if #available(iOS 9.0, *){
+            managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        }else{
+            managedObjectContext = NSManagedObjectContext()
+        }
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
@@ -77,16 +91,13 @@ open class UtilCoreData: NSObject{
     /// 保存当前上下文
     public func saveContext(){
         if(managedObjectContext!.hasChanges){
-            UtilDispatch.syncTaskMain {
-                do{
-                    try self.managedObjectContext?.save()
-                }catch{
-                    Mylog.log("Unresolved error \(error)")
-                    abort()
-                }
+            do{
+                try self.managedObjectContext?.save()
+            }catch{
+                Mylog.log("Unresolved error \(error)")
+                abort()
             }
         }
-        
     }
     /// undo 管理器
     public func undoManager() -> UndoManager{
@@ -297,31 +308,24 @@ open class UtilCoreData: NSObject{
         return urls[urls.endIndex - 1] as NSURL
     }
     
-    /***************************** 队列调度,必须保持单例 *****************************/
-    // 查询
-    /// 异步查询
+    /***************************** 单线程队列调度执行,必须保持单例模式使用 *****************************/
+    /// 异步队列执行
     @objc(queueExecuteQueryAsync:)
     public func queueExecuteQueryAsync(_ execute: @escaping () -> Void){
-        if queryQueue == nil{
-            queryQueue = DispatchQueue(label: "DispatchQueue_UtilCoreData_QueryQueue")
-        }
         UtilDispatch.asyncTask {
-            UtilDispatch.syncTask(self.queryQueue!, execute)
+            UtilDispatch.syncTask(self.queryQueue, execute)
         }
     }
-    /// 队列同步块查询
+    /// 同步队列执行
     @objc(queueExecuteQuery:)
     public func queueExecuteQuery(_ execute: @escaping () -> Any? ) -> Any?{
-        if queryQueue == nil{
-            queryQueue = DispatchQueue(label: "DispatchQueue_UtilCoreData_QueryQueue")
-        }
         var result: Any?
-        queryQueue?.sync {
+        queryQueue.sync {
             result = execute()
         }
         return result
     }
-    /// 队列执行查询
+    /// 执行查询
     public func queueExecuteFectch<T>(_ fetchRequest:NSFetchRequest<T>) -> [T]? where T : NSFetchRequestResult{
         return executeFetch(fetchRequest)
     }
@@ -329,9 +333,15 @@ open class UtilCoreData: NSObject{
     public func queueExecuteCount<T>(_ fetchRequest:NSFetchRequest<T>) -> Int? where T : NSFetchRequestResult{
         return executeCount(fetchRequest)
     }
+    
     //1. 如果没有声明模型对应的实体,则默认对应于NSManagedObject [key-value coding (KVC)]
+    //    -> 模型实体配置中可以选择实体生成模式[手动或无:Manual/None, 生成类:Class Definition, 类别/扩展:Category/Extension]
+    //    -> 手动写模型实体:
+    //          a.实体模式类名为OC类名(系统运行时根据名称执行实例化对象)非Swift类名(用@objc(name)声明/修改类的OC名称),
+    //          b.实体必须继承NSManagedObject对象,
+    //          c.所有的模型属性/模型方法必须用@NSManaged声明(非模型的属性/方法忽略)
     //2. 自动生成实体类: Editor ➤ Create NSManagedObject Subclass... (默认生成的实体,不要改里面的源码,默认源码生成在build目录,当前目录是引用,所有属性,方法@NSManaged进行声明)
-    //3.系统会自动query相关联的所有实体
+    //3. 系统会自动query相关联的所有实体
     //
     //4. 类型匹配关系:
     //  Int16,Int32,Int64,Double,Float,Boolean:NSNumber
@@ -373,4 +383,9 @@ open class UtilCoreData: NSObject{
     //3. NSPredicate(format: "(name LIKE %@) OR (rating < %d)", "*e*ie*", 5) like非常耗时
     //4. NSPredicate(format: "(rating < %d) OR (name LIKE %@)", 5, "*e*ie*") like置后,速度更快
     //5. NSPredicate(format: "(SUBQUERY(selfies, $x, ($x.rating < %d) OR ($x.name LIKE %@)).@count > 0)", 5, "*e*ie*") 子查询
+    //
+    // 升级数据库(添加/删除字段)
+    //1. 由系统自动匹配升级(系统自动重建数据库,根据列名自动拷贝源数据匹配到列)
+    //2. 手动建立映射模型
 }
+

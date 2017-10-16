@@ -153,9 +153,9 @@ open class UtilImage: NSObject {
     // 指定图片位置内容拉伸
     
     /// UImage -> Data
-    public func imageJPEGRepresentation(_ image: UIImage?) -> Data?{
+    public func imageJPEGRepresentation(_ image: UIImage?, scaled:CGFloat = 1.0) -> Data?{
         if let image = image {
-            UIImageJPEGRepresentation(image, 90)
+            UIImageJPEGRepresentation(image, scaled)
         }
         return nil
     }
@@ -163,6 +163,13 @@ open class UtilImage: NSObject {
     public func imagePNGRepresentation(_ image: UIImage?) -> Data?{
         if let image = image {
             UIImagePNGRepresentation(image)
+        }
+        return nil
+    }
+    /// Data -> UIImage
+    public func imageFromData(_ data:Data?)-> UIImage?{
+        if let data = data{
+            return UIImage(data: data)
         }
         return nil
     }
