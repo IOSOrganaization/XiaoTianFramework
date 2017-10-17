@@ -175,7 +175,7 @@ public class MyViewPullRefresh: UIView{
     public override func layoutSubviews() {
         placeSubviews() // 布局子类视图
         super.layoutSubviews()
-        Mylog.log("MyViewRefreshControl->layoutSubviews")
+        //Mylog.log("MyViewRefreshControl->layoutSubviews")
     }
     private func placeSubviews(){
         // 插入view的位置
