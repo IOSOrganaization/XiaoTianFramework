@@ -30,7 +30,7 @@ open class UtilCoreData: NSObject{
     }
     
     /// 对象管理上下文
-    lazy var managedObjectContext: NSManagedObjectContext? = {
+    open lazy var managedObjectContext: NSManagedObjectContext? = {
         let coordinator = self.persistentStoreCoordinator
         if coordinator == nil{
             return nil
@@ -141,6 +141,13 @@ open class UtilCoreData: NSObject{
     /// Create New Object And Insert To Context
     public func createAndInsertNewObjectToContext<T>(_ entityName:String,_ clazz:T.Type) -> T? where T : NSManagedObject{
         return NSEntityDescription.insertNewObject(forEntityName: entityName, into: self.managedObjectContext!) as? T
+    }
+    /// Create New Object And Don Insert To Context
+    public func createNewObject<T>(_ entityName:String,_ clazz:T.Type) -> T? where T : NSManagedObject{
+        if let entityDescription = NSEntityDescription.entity(forEntityName: entityName, in: managedObjectContext!){
+            return T(entity: entityDescription, insertInto: nil)
+        }
+        return nil
     }
     /***************************** 删 *****************************/
     /// Delete Entity Object
@@ -302,7 +309,7 @@ open class UtilCoreData: NSObject{
     public class func createSortDescriptor(_ propertyFieldName: String,_ ascending: Bool) -> NSSortDescriptor{
         return NSSortDescriptor(key: propertyFieldName, ascending: ascending)
     }
-    
+    /***************************** sql 文件保存所在目录 *****************************/
     private var applicationDocumentsDirectory: NSURL{
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.endIndex - 1] as NSURL
@@ -340,6 +347,7 @@ open class UtilCoreData: NSObject{
     //          a.实体模式类名为OC类名(系统运行时根据名称执行实例化对象)非Swift类名(用@objc(name)声明/修改类的OC名称),
     //          b.实体必须继承NSManagedObject对象,
     //          c.所有的模型属性/模型方法必须用@NSManaged声明(非模型的属性/方法忽略)
+    //    -> NSManagedObject类必须由NSManagedContext初始化,不能手动初始化
     //2. 自动生成实体类: Editor ➤ Create NSManagedObject Subclass... (默认生成的实体,不要改里面的源码,默认源码生成在build目录,当前目录是引用,所有属性,方法@NSManaged进行声明)
     //3. 系统会自动query相关联的所有实体
     //
