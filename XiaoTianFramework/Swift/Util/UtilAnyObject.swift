@@ -671,6 +671,23 @@ public extension UtilAnyObject{
     @inline(__always) public class func getClassName(clazz:AnyClass)-> String{
        return NSStringFromClass(clazz)
     }
+    @discardableResult
+    @inline(__always) public class func copyClassPropertyValues<T>(from:T?, to:T?)-> T? where T: NSObject{
+        guard let f = from else {
+            return to
+        }
+        guard let t = to else {
+            return to
+        }
+        if let propertyNames = getClassPropertyNames(clazz: T.self){
+            for name in propertyNames{
+                if let value = f.value(forKey: name){
+                    t.setValue(value, forKey: name)
+                }
+            }
+        }
+        return to
+    }
 }
 
 
