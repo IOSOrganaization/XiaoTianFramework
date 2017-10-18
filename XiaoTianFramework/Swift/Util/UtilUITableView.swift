@@ -76,6 +76,19 @@ open class UtilUITableView: NSObject{
         objc_setAssociatedObject(rootViewControl, &UITableView.RefreshAction.KEY_SEARCH_CONTROL, searchControl, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return searchControl
     }
+    /// 滚动到指定位置
+    open func scrollTo(_ table:UITableView){
+        // 当tableView内容不为空时,使用
+        table.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        // 当tableView内容为空时,使用(reload时不能用)
+        table.setContentOffset(CGPoint(x: 0, y: -table.contentInset.top), animated: true)
+        // 当tableView内容为空时,使用(reload时不能用)
+        table.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+    }
+    /// 获取当前可见第一个cell的indexPath
+    open func getFirstVisiableIndexPath(_ table:UITableView)-> IndexPath?{
+        return table.indexPathsForVisibleRows?.first
+    }
 }
 /// 下拉刷新匿名函数模式
 extension UITableView{

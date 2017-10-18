@@ -6,6 +6,7 @@
 //  Copyright © 2016年 XiaoTian. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 @objc(UtilAttributedStringXT)
@@ -39,6 +40,10 @@ open class UtilAttributedString: NSObject{
             
         }
         return ranges
+    }
+    /// 删除线
+    func deleteLineAttributes(color:UIColor = UIColor.black) -> [NSAttributedStringKey : Any]{
+        return [NSAttributedStringKey.strikethroughStyle: 1, NSAttributedStringKey.strokeColor: color]
     }
     //
     //    Character Attributes

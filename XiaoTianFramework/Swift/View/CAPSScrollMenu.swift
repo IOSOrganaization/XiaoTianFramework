@@ -7,7 +7,6 @@
 //
 import UIKit
 import Foundation
-import XiaoTianFramework
 
 @objc
 public protocol CAPSScrollMenuDelegate {
@@ -379,7 +378,9 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
                 tapTimer!.invalidate()
             }
             tapTimer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(scrollViewDidEndTapScrollingAnimation), userInfo: nil, repeats: false)
-            delegate?.didMoveToMenu?(self, index: pageIndex)
+            if didTapMenuItemToScroll {
+                delegate?.didMoveToMenu?(self, index: pageIndex)
+            }
         }
     }
     
@@ -445,6 +446,18 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
                     didTapMenuItemToScroll = true
                     moveSelectionIndicator(itemIndex)
                 }
+            }
+        }
+    }
+    /// 设置当前选中菜单项
+    open func setCurrentMenu(_ itemIndex:Int){
+        if itemIndex >= 0 && itemIndex < menuItems.count {
+            if itemIndex != currentMenuIndex {
+                startingPageForScroll = itemIndex
+                lastPageIndex = currentMenuIndex
+                currentMenuIndex = itemIndex
+                didTapMenuItemToScroll = false
+                moveSelectionIndicator(itemIndex)
             }
         }
     }
