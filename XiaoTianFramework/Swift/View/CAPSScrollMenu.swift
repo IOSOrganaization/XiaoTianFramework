@@ -72,7 +72,7 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
     
     var selectionIndicatorView : UIView = UIView()
     
-    var currentMenuIndex : Int = 0
+    public var currentMenuIndex : Int = 0
     var lastPageIndex : Int = 0
     
     open var selectionIndicatorColor : UIColor = UIColor.white
