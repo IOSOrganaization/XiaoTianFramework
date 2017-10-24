@@ -109,7 +109,7 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
     
     var tapTimer : Timer?
     
-    func setupMenu(_ menuTitles: [String], menuOptions: [CAPSScrollMenuOption]? = nil){
+    public func setupMenu(_ menuTitles: [String], menuOptions: [CAPSScrollMenuOption]? = nil){
         
         self.menuTitles = menuTitles
         if let options = menuOptions {
@@ -169,7 +169,7 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     // MARK: - UI Setup
-    func setUpUserInterface() {
+    public func setUpUserInterface() {
         // Set up menu scroll view
         menuScrollView.translatesAutoresizingMaskIntoConstraints = false
         menuScrollView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: menuHeight)
@@ -200,7 +200,7 @@ open class CAPSScrollMenu: UIView, UIScrollViewDelegate, UIGestureRecognizerDele
         menuScrollView.backgroundColor = scrollMenuBackgroundColor
     }
     
-    func configureUserInterface() {
+    public func configureUserInterface() {
         // Add tap gesture recognizer to controller scroll view to recognize menu item selection
         let menuItemTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleMenuItemTap(_:)))
         menuItemTapGestureRecognizer.numberOfTapsRequired = 1
