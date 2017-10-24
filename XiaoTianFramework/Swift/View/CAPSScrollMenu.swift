@@ -14,7 +14,7 @@ public protocol CAPSScrollMenuDelegate {
     optional func didMoveToMenu(_ scrollMenu: CAPSScrollMenu, index: Int)
 }
 
-class CAPSScrollMenuItem: UIView {
+public class CAPSScrollMenuItem: UIView {
     var titleLabel : UILabel?
     
     func setUpMenuItemView(_ menuItemWidth: CGFloat, menuScrollViewHeight: CGFloat, indicatorHeight: CGFloat) {
