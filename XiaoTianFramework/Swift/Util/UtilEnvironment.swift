@@ -223,7 +223,8 @@ open class UtilEnvironment : NSObject{
     public class var deviceWidth: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? isLandscape ? size.height : size.width : size.width
-    }    /// 设备屏幕高度
+    }
+    /// 设备屏幕高度
     public class var deviceHeight: CGFloat{
         let size = UIScreen.main.bounds.size
         return isAfteriOS8 ? isLandscape ? size.width: size.height : size.height

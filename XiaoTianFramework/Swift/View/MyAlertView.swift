@@ -1,7 +1,7 @@
 //
 //  MyAlertView.swift
 //  Vegetables
-//
+//  无内容弹框(进入动画)
 //  Created by guotianrui on 2017/10/11.
 //  Copyright © 2017年 hexinglong. All rights reserved.
 //

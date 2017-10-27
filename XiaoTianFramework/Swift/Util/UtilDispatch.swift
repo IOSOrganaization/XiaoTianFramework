@@ -141,7 +141,8 @@ open class UtilDispatch: NSObject{
             self.firsttimer = true
             self.invalidate()
             self.timer = DispatchSource.makeTimerSource(flags: [], queue: self.q)
-            self.timer?.scheduleRepeating(wallDeadline: DispatchWallTime.now(), interval: intervalSecond, leeway:  DispatchTimeInterval.seconds(1))
+            self.timer?.schedule(wallDeadline: DispatchWallTime.now(), repeating: intervalSecond, leeway: DispatchTimeInterval.seconds(1))
+            //self.timer?.scheduleRepeating(wallDeadline: DispatchWallTime.now(), interval: intervalSecond, leeway:  DispatchTimeInterval.seconds(1))
             self.timer?.setEventHandler {
                 if self.firsttimer{
                     self.firsttimer = false

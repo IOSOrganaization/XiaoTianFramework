@@ -1,12 +1,13 @@
 //
 //  MyAlertViewProgress.swift
 //  XiaoTianFramework
-//  加载中弹框(百分比圆环加载,循环渐变圆环加载,加载完成提示中间带图标)
+//  加载中弹框(菊花,百分比圆环加载,循环渐变圆环加载,加载完成提示中间带图标)
 //  Created by guotianrui on 2017/6/24.
 //  Copyright © 2017年 XiaoTian. All rights reserved.
 //
-
+import UIKit
 import Foundation
+
 open class MyAlertViewProgress: UIView{
     // 通知事件
     public static let TAG_WILL_APPEAR = "MyAlertViewProgress.TAG_WILL_APPEAR"
@@ -16,7 +17,8 @@ open class MyAlertViewProgress: UIView{
     public static let TAG_DID_DISAPPEAR = "MyAlertViewProgress.TAG_DID_DISAPPEAR"
     public static let KEY_USER_INFO = "MyAlertViewProgress.KEY_USER_INFO"
     //
-    public static let PROGRESS_RING:CGFloat = -1
+    public static let PROGRESS_RING:CGFloat = -1// 循环圆环样式
+    public static let PROGRESS_INDICATOR:CGFloat = -2// 菊花样式
     public static let MASK_NONE:Int = 0x001;// allow user interactions while HUD is displayed
     public static let MASK_CLEAR:Int = 0x002;//  don't allow user interactions
     public static let MASK_BLACK:Int = 0x003;//  don't allow user interactions
@@ -32,6 +34,7 @@ open class MyAlertViewProgress: UIView{
     var activityCount: Int = 0
     var imageInfo, imageSuccess, imageError:UIImage!
     var colorBackground,colorForeground,colorLabelText,colorProgress:UIColor!
+    // 背景
     var overlayView: UIControl! {
         get{
             if _overlayView != nil{
@@ -47,6 +50,7 @@ open class MyAlertViewProgress: UIView{
             _overlayView = newValue
         }
     }
+    // 图标
     var imageView: UIImageView?{
         get{
             if _imageView == nil{
@@ -61,6 +65,7 @@ open class MyAlertViewProgress: UIView{
             _imageView = newValue
         }
     }
+    // 文本
     var labelString:UILabel?{
         get{
             if _labelString == nil{
@@ -82,33 +87,42 @@ open class MyAlertViewProgress: UIView{
             _labelString = newValue
         }
     }
-    var progressView:MyViewRingProgress?{
+    // 渐变旋转圆环
+    var progressView:UIView?{
         get{
             if _progressView != nil{
                 return _progressView
             }
-            _progressView = MyViewRingProgress(CGPoint(x: 0, y: 0), labelString?.text == nil ? 18 : 24, colorProgress, 7)
+            if progress > MyAlertViewProgress.PROGRESS_INDICATOR{
+                _progressView = MyViewRingProgress(CGPoint(x: 0, y: 0), labelString?.text == nil ? 18 : 24, colorProgress, 7)
+            }else{
+                let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+                activityIndicatorView.hidesWhenStopped = false
+                activityIndicatorView.color = UIColor.darkGray
+                activityIndicatorView.startAnimating()
+                _progressView = activityIndicatorView
+            }
             return _progressView
         }
         set{
             _progressView = newValue
         }
     }
-    // 进度条
+    // 圆环进度条(深色圆环)
     var ringLayer:CAShapeLayer?{
         get{
             if _ringLayer != nil{
                 return _ringLayer
             }
             let center = CGPoint(x: hudView!.frame.width/2, y: hudView!.frame.height/2)
-            let radius:CGFloat = progressView!.radius
+            let radius:CGFloat = (progressView as? MyViewRingProgress)?.radius ?? 30
             let smoothedPath = UIBezierPath(arcCenter: CGPoint(x:radius,y:radius), radius: radius, startAngle: CGFloat(-Double.pi / 2), endAngle: CGFloat(Double.pi + Double.pi / 2), clockwise: true)
             _ringLayer = CAShapeLayer()
             _ringLayer?.contentsScale = UIScreen.main.scale
             _ringLayer?.frame = CGRect(x: center.x - radius, y: center.y - radius, width: radius*2, height: radius*2)
             _ringLayer?.fillColor = UIColor.clear.cgColor
             _ringLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
-            _ringLayer?.lineWidth = progressView!.storeThickness
+            _ringLayer?.lineWidth = (progressView as? MyViewRingProgress)?.storeThickness ?? 10
             _ringLayer?.lineCap = kCALineCapRound
             _ringLayer?.lineJoin = kCALineJoinBevel
             _ringLayer?.path = smoothedPath.cgPath
@@ -119,21 +133,21 @@ open class MyAlertViewProgress: UIView{
             _ringLayer = newValue
         }
     }
-    // 进度条背景
+    // 圆环进度条背景(浅色圆)
     var backgroundRingLayer:CAShapeLayer?{
         get{
             if _backgroundRingLayer != nil{
                 return _backgroundRingLayer
             }
             let center = CGPoint(x: hudView!.frame.width/2, y: hudView!.frame.height/2)
-            let radius:CGFloat = progressView!.radius
+            let radius:CGFloat = (progressView as? MyViewRingProgress)?.radius ?? 30
             let smoothedPath = UIBezierPath(arcCenter: CGPoint(x:radius,y:radius), radius: radius, startAngle: CGFloat(-Double.pi / 2), endAngle: CGFloat(Double.pi + Double.pi / 2), clockwise: true)
             _backgroundRingLayer = CAShapeLayer()
             _backgroundRingLayer?.contentsScale = UIScreen.main.scale
             _backgroundRingLayer?.frame = CGRect(x: center.x - radius, y: center.y - radius, width: radius*2, height: radius*2)
             _backgroundRingLayer?.fillColor = UIColor.clear.cgColor
             _backgroundRingLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
-            _backgroundRingLayer?.lineWidth = progressView!.storeThickness
+            _backgroundRingLayer?.lineWidth = (progressView as? MyViewRingProgress)?.storeThickness ?? 10
             _backgroundRingLayer?.lineCap = kCALineCapRound
             _backgroundRingLayer?.lineJoin = kCALineJoinBevel
             _backgroundRingLayer?.path = smoothedPath.cgPath
@@ -145,6 +159,7 @@ open class MyAlertViewProgress: UIView{
             _backgroundRingLayer = newValue
         }
     }
+    // 弹框View
     var hudView:UIView?{
         get{
             if _hudView == nil{
@@ -177,13 +192,12 @@ open class MyAlertViewProgress: UIView{
         }
     }
     var offsetFromCenter:UIOffset = UIOffset.zero
-    //
     var _hudView:UIView?
     var _labelString:UILabel?
     var _imageView:UIImageView?
     var _overlayView:UIControl?
     var _ringLayer:CAShapeLayer?
-    var _progressView:MyViewRingProgress?
+    var _progressView:UIView?
     var _backgroundRingLayer:CAShapeLayer?
     //
     public required init?(coder aDecoder: NSCoder) {
@@ -205,8 +219,9 @@ open class MyAlertViewProgress: UIView{
         imageSuccess = bundle.imageInBundleXiaoTian("success")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
         imageError = bundle.imageInBundleXiaoTian("error")?.withRenderingMode(.alwaysTemplate)// 图片一直用渲染模式
     }
-    /// Static Class Method
-    // 进度条
+    
+    /// 显示方法 Static Class Method
+    /// 显示进度条
     public class func show(status:String? = nil, progress:CGFloat = PROGRESS_RING, maskType:Int = MASK_BLACK){
         shared.show(progress, status, maskType)
     }
@@ -282,7 +297,7 @@ open class MyAlertViewProgress: UIView{
             overlayView.addSubview(self)
         }
         updatePosition()
-        if progress != MyAlertViewProgress.PROGRESS_RING {
+        if progress > MyAlertViewProgress.PROGRESS_RING {
             self.imageView?.image = nil
             self.imageView?.isHidden = false
             self.progressView?.removeFromSuperview()
@@ -325,7 +340,7 @@ open class MyAlertViewProgress: UIView{
                 alpha = 1
                 hudView?.alpha = 0
             }
-            UIView.animate(withDuration: 0.15,delay:0,options:[.allowUserInteraction,.curveEaseOut,.beginFromCurrentState], animations: { [weak self] in
+            UIView.animate(withDuration: 0.3,delay:0,options:[.allowUserInteraction,.curveEaseOut,.beginFromCurrentState], animations: { [weak self] in
                 guard let wSelf = self else{
                     return
                 }
@@ -488,14 +503,17 @@ open class MyAlertViewProgress: UIView{
         let isUsedImage = imageView!.image != nil || imageView!.isHidden
         let isUsedProgress = progress > 0.0
         if labelString?.text != nil{
+            // 计算文本高度
             labelString?.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
             labelString?.sizeToFit()
             let stringRect:CGRect = labelString!.frame
             stringWidth = ceil(stringRect.size.width)
             stringHeight = ceil(stringRect.size.height)
             if isUsedImage || isUsedProgress{
+                // 文本+进度条
                 hubHeight = stringAndContentHeightBuffer + stringHeight
             }else{
+                // 文本
                 hubHeight = stringHeightBuffer + stringHeight
             }
             if stringWidth > hubWidth{
@@ -522,19 +540,19 @@ open class MyAlertViewProgress: UIView{
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         if labelString?.text != nil{
             if let progressView = progressView{
-                let size = progressView.calculateFrameSize()
+                let size = (progressView as? MyViewRingProgress)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
                 progressView.frame = CGRect(x: (hubWidth - size.width)/2, y: 36 - size.height/2, width: size.width, height: size.height)
             }
-            if progress > -1{
+            if progress > MyAlertViewProgress.PROGRESS_RING{
                 backgroundRingLayer?.position = CGPoint(x: hubWidth/2, y: 36)
                 ringLayer?.position = CGPoint(x: hubWidth/2, y: 36)
             }
         }else{
             if let progressView = progressView{
-                let size = progressView.calculateFrameSize()
+                let size = (progressView as? MyViewRingProgress)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
                 progressView.frame = CGRect(x: (hubWidth - size.width)/2, y: (hubHeight - size.height)/2, width: size.width, height: size.height)
             }
-            if (progress > -1){
+            if progress > MyAlertViewProgress.PROGRESS_RING{
                 backgroundRingLayer?.position = CGPoint(x:hubWidth/2, y:hubHeight/2)
                 ringLayer?.position = CGPoint(x:hubWidth/2, y:hubHeight/2)
             }
@@ -566,7 +584,7 @@ open class MyAlertViewProgress: UIView{
         }
         frame = UIScreen.main.bounds
         if notification != nil{
-            Mylog.log(notification?.name)
+            //Mylog.log(notification?.name)
             if let userInfo = notification?.userInfo{
                 let keyboardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey] as? CGRect
                 animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval

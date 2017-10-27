@@ -24,6 +24,7 @@ open class Mylog: NSObject{
             print(TAG, param == nil ? "nil" : param!)
         #endif
     }
+    
     @nonobjc
     open static func log(_ params: Any?...){
         #if DEBUG
@@ -42,9 +43,13 @@ open class Mylog: NSObject{
     }
     
     @nonobjc
-    open static func log(_ params:Any...,separator: String = ",",terminator: String = ""){
+    open static func log(_ params:Any?..., separator: String, terminator: String){
         #if DEBUG
-            print(TAG, params.count < 2 ? params[0] : params, separator, terminator)
+            if params.count < 2{
+                print(TAG, params[0] == nil ? "nil" : params[0]!)
+            }else{
+                print(TAG, params, separator, terminator)
+            }
         #endif
     }
     
@@ -53,10 +58,11 @@ open class Mylog: NSObject{
             let bundle:Bundle = Bundle.main
             let paths = bundle.paths(forResourcesOfType: nil, inDirectory: nil)
             for path in paths {
-                Mylog.log(TAG, (path as NSString).lastPathComponent)
+                print(TAG, (path as NSString).lastPathComponent)
             }
         #endif
     }
+    
     @nonobjc
     open static func logClass(_ any: AnyObject?){
         if any == nil{
@@ -64,7 +70,7 @@ open class Mylog: NSObject{
             return
         }
         guard let propertyList = XTFUtilRuntime.queryPropertyList(any!.classForCoder, endSupperClazz: NSObject.self) else {
-            Mylog.log("\(any!.classForCoder) has non property.")
+            Mylog.log("\(any!.classForCoder) has non objc property.")
             return
         }
         var clazz:String? = nil
@@ -87,11 +93,13 @@ open class Mylog: NSObject{
         }
         Mylog.log("}")
     }
+    
     @objc(logClassConsumption:)
     open static func logClassConsumption(_ clazz: AnyClass){
         print(TAG, String(format: "%zu", class_getInstanceSize(clazz)))
         //  String("Status: %lu%%", (unsigned long)(status * 100))
     }
+    
     open static func logClassProperties(_ data: Any){
         #if DEBUG
             let propertyNames =  Mirror(reflecting: self).children.flatMap { $0.label }
@@ -104,12 +112,13 @@ open class Mylog: NSObject{
 //        }
         #endif
     }
-    open static func logError(_ error:Error,file: String = #file,function:String = #function,line:Int = #line){
+    
+    open static func logError(_ error:Error, file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
             Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, error.localizedDescription))
         #endif
     }
-    open static func logLoca(_ message:String,file: String = #file,function:String = #function,line:Int = #line){
+    open static func logLocal(_ message:String,file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
             Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, message))
         #endif

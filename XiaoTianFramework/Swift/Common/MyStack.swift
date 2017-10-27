@@ -12,10 +12,12 @@ import Foundation
 public struct MyStack<T>{
     fileprivate var items = [T]()
     
+    // 入栈
     mutating public func push(_ itemToPush:T){
         self.items.append(itemToPush)
     }
     
+    // 出栈
     mutating public func pop() -> T{
         return self.items.removeLast()
     }

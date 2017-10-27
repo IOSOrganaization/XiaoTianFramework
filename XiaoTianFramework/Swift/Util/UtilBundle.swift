@@ -55,6 +55,23 @@ public class UtilBundle{
         // UINib(nibName: name, bundle: Bundle.main)
         return Bundle.main.loadNibNamed(name, owner: owner, options: option)
     }
+    /// 加载适配Nib,xxx.@4.0
+    public func loadNibNamedMatch(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
+        var postfix = ""
+        switch UtilEnvironment.deviceHeight{
+        case 480: //3.5英寸
+            postfix = "@3.5"
+        case 568: //4.0英寸
+            postfix = "@4.0"
+        case 667: //4.7英寸
+            postfix = "@4.7"
+        case 736: //5.5英寸
+            postfix = "@5.5"
+        default:
+            break
+        }
+        return Bundle.main.loadNibNamed("\(name)\(postfix)", owner: owner, options: option)
+    }
     /// 本地Bundle资源URL
     public func getResultUrl(_ name:String?,_ ext:String?)-> URL?{
         return main.url(forResource: name, withExtension: ext)
