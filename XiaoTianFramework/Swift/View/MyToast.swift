@@ -17,7 +17,7 @@ public class MyToast:NSObject{
     var message:String
     var textFont = UIFont.systemFont(ofSize: 14)
     var textColor = UIColor.white
-    var gravity = Gravity.bottom
+    var gravity = Gravity.center
     var cornerRadius:CGFloat = 10
     var marginOffset:CGFloat = 120
     var toastDuration:TimeInterval = 2
@@ -30,7 +30,12 @@ public class MyToast:NSObject{
     /// 显示
     public static func show(_ message:String?){
         if let message = message{
-            Manager.share.show(message)
+            Manager.share.show(message, .bottom)
+        }
+    }
+    public static func show(_ message:String?,_ gravity:Gravity){
+        if let message = message{
+            Manager.share.show(message, gravity)
         }
     }
     /// 隐藏全部
@@ -58,9 +63,10 @@ public class MyToast:NSObject{
             window.rootViewController = Controller()
             window.rootViewController?.view.clipsToBounds = true
         }
-        func show(_ message:String){
+        func show(_ message:String,_ gravity:Gravity = .bottom){
             let isUnshowing = notifications.isEmpty
             let toast = MyToast(message)
+            toast.gravity = gravity
             notifications.append(toast)
             if isUnshowing{
                 displayToast(toast)

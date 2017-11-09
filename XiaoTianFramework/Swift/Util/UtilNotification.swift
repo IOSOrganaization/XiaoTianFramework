@@ -24,7 +24,11 @@ open class UtilNotification: NSObject{
                 content.body = text
                 let request = UNNotificationRequest(identifier: "xiaotian_1", content: content, trigger: trigger)
                 UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
-                    Mylog.log("发送通知成功.")
+                    if error == nil{
+                        Mylog.log("发送通知成功.")
+                    }else{
+                        Mylog.log(error)
+                    }
                 })
                 return
             } else {
@@ -171,7 +175,7 @@ open class UtilNotification: NSObject{
     }
     /// 发送本地默认系统通知
     open func sendDefaultLocalNotification(_ text:String){
-        sendLocalNotification(text,[DEFAULT_USER_INFO_KEY:DEFAULT_USER_INFO_VALUE as AnyObject])
+        sendLocalNotification(text, [DEFAULT_USER_INFO_KEY:DEFAULT_USER_INFO_VALUE as AnyObject])
     }
     /// 取消本地默认系统通知
     open func cancelDefaultLocalNotification(){

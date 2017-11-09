@@ -47,7 +47,7 @@ open class UtilCoreData: NSObject{
     /// 持久化协调类
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator! = {
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        var storeURL = self.applicationDocumentsDirectory.appendingPathComponent(self.sqliteFilename)
+        var storeURL = UtilCoreData.applicationDocumentsDirectory.appendingPathComponent(self.sqliteFilename)
         do{
             Mylog.log(storeURL)
             // 数据转移自动匹配选项
@@ -73,11 +73,12 @@ open class UtilCoreData: NSObject{
         self.datamodeldFilename = datamodeld
         self.copyDatabaseIntoDocumentsDirectory(sqliteFilename)
     }
+    /// 如果bundle里有xxx.sqlite文件,则拷贝数据库
     private func copyDatabaseIntoDocumentsDirectory(_ sqliteFilename: String){
         let fm = FileManager.default
         let bundleSqliteFile = Bundle.main.path(forResource: sqliteFilename, ofType: "sqlite")
         if let bundleSqliteFile = bundleSqliteFile{
-            let storeURL = applicationDocumentsDirectory.appendingPathComponent(sqliteFilename)
+            let storeURL = UtilCoreData.applicationDocumentsDirectory.appendingPathComponent(sqliteFilename)
             if !fm.fileExists(atPath: storeURL!.path){
                 //fm.removeItem(atPath: storeURL!.path)
                 do{
@@ -135,6 +136,18 @@ open class UtilCoreData: NSObject{
     /// 重置缓冲上下文
     public func reset(){
         self.managedObjectContext?.reset()
+    }
+    /// 刷新上下文所有对象
+    public func refreshAllObjects(){
+        if #available(iOS 8.3, *) {
+            self.managedObjectContext?.refreshAllObjects()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    /// 刷新上下文指定对象
+    public func refresh<T>(_ managedObject:T?,_ mergeChanges:Bool) where T : NSManagedObject{
+        //self.managedObjectContext?.refresh(managedObject, mergeChanges: mergeChanges)
     }
     /// class Method
     /***************************** 增 *****************************/
@@ -310,7 +323,7 @@ open class UtilCoreData: NSObject{
         return NSSortDescriptor(key: propertyFieldName, ascending: ascending)
     }
     /***************************** sql 文件保存所在目录 *****************************/
-    private var applicationDocumentsDirectory: NSURL{
+    private static var applicationDocumentsDirectory: NSURL{
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.endIndex - 1] as NSURL
     }
@@ -340,7 +353,21 @@ open class UtilCoreData: NSObject{
     public func queueExecuteCount<T>(_ fetchRequest:NSFetchRequest<T>) -> Int? where T : NSFetchRequestResult{
         return executeCount(fetchRequest)
     }
-    
+    /// 删除指定数据库文件
+    public static func deleteFileIfExist(_ sqliteFilename:String?){
+        let fm = FileManager.default
+        if let sqliteFilename = sqliteFilename{
+            let storeURL = UtilCoreData.applicationDocumentsDirectory.appendingPathComponent(sqliteFilename)
+            if fm.fileExists(atPath: storeURL!.path){
+                do{
+                    try fm.removeItem(atPath: storeURL!.path)
+                    Mylog.log("Delete \(sqliteFilename) sql file in DocumentsDirectory Success")
+                }catch{
+                    Mylog.log("Delete \(sqliteFilename) sql file in DocumentsDirectory error: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
     //1. 如果没有声明模型对应的实体,则默认对应于NSManagedObject [key-value coding (KVC)]
     //    -> 模型实体配置中可以选择实体生成模式[手动或无:Manual/None, 生成类:Class Definition, 类别/扩展:Category/Extension]
     //    -> 手动写模型实体:
@@ -395,5 +422,10 @@ open class UtilCoreData: NSObject{
     // 升级数据库(添加/删除字段)
     //1. 由系统自动匹配升级(系统自动重建数据库,根据列名自动拷贝源数据匹配到列)
     //2. 手动建立映射模型
+    //
+    // 保存数据通知
+    // NSNotification.Name.NSManagedObjectContextWillSave 保存触发
+    // NSNotification.Name.NSManagedObjectContextDidSave
+    // NSNotification.Name.NSManagedObjectContextObjectsDidChange 数据改变触发
 }
 

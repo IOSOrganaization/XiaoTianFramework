@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import XiaoTianFramework
 
 /// Pop View
 open class MyPopView: UIViewController{

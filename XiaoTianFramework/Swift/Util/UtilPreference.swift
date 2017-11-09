@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class UtilPreference : NSObject {
+open class UtilPreference : NSObject {
     // Property Key Lists
     let KEY_PERSON_LOGIN = "UtilPreference.KEY_PERSON_LOGIN"
     let KEY_PHONE_LOGIN = "UtilPreference.KEY_PHONE_LOGIN"

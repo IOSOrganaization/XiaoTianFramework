@@ -15,15 +15,28 @@ import SystemConfiguration
 open class UtilEnvironment : NSObject{
     /// App Version
     public class var appVersion:String{
-        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
     /// App Build Version
-    public class var appBuildVersion:String!{
-        return Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as! String
+    public class var appBuildVersion:String{
+        return Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String ?? ""
     }
-    /// System Version eg: 7.0,8.0,9.0
+    /// System Version eg: 7.0,8.0,9.0,11.0.2
     public class var systemVersion:String{
         return UIDevice.current.systemVersion
+    }
+    // System Version eg:7.0,11.0020
+    public class var systemVersionFloat:CGFloat{
+        let systemVersion = UIDevice.current.systemVersion
+        let systemVersionComponents = systemVersion.split(separator: ".")
+        let sv0:Int = systemVersionComponents.count < 1 ? 0 : Int(systemVersionComponents[0])!
+        let sv1:Int = systemVersionComponents.count < 2 ? 0 : Int(systemVersionComponents[1])!
+        let sv2:Int = systemVersionComponents.count < 3 ? 0 : Int(systemVersionComponents[2])!
+        let version = String(format: "%02d.%02d%02d", sv0, sv1, sv2)
+        if let d = Double(version){
+            return CGFloat(d)
+        }
+        return 0.0
     }
     /// 拷贝到粘贴板
     public class func copyToPasteboard(_ text:String){
@@ -47,7 +60,7 @@ open class UtilEnvironment : NSObject{
     /// 打开AppStore 中的 App,根据APP上线分发的APPID[Appirater:自动评价APP弹框]
     public class func openAppStoreByAppID(_ appID: String){
         var appStoreURL:String!
-        let systemVersion: Float! = Float(UtilEnvironment.systemVersion)
+        let systemVersion = UtilEnvironment.systemVersionFloat
         if systemVersion > 8.0{
             // iOS 8.0+
             appStoreURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software&id=\(appID)"
@@ -78,9 +91,8 @@ open class UtilEnvironment : NSObject{
     }
     /// Class Method
     /// 系统版本大于
-    public class func systemVersionAfter(_ version:Double) -> Bool{
-        let currentVersion:Double! = Double(UtilEnvironment.systemVersion)
-        return currentVersion - version > 0.0
+    public class func systemVersionAfter(_ version:CGFloat) -> Bool{
+        return UtilEnvironment.systemVersionFloat > version
     }
     /// 打开系统邮件
     class func openEmail(_ viewController:UIViewController,_ toEmail:String,_ subject:String,_ message:String,_ delegate:MFMailComposeViewControllerDelegate?){
@@ -253,5 +265,9 @@ open class UtilEnvironment : NSObject{
     /// 屏幕横竖屏方向
     public class var screamOrientation:UIInterfaceOrientation{
         return UIApplication.shared.statusBarOrientation
+    }
+    /// 设备信息
+    public class var driverInformation:String{
+        return String(format: "%@ %@ %@%@", UIDevice.current.name,UIDevice.current.model,UIDevice.current.systemName,UIDevice.current.systemVersion)
     }
 }
