@@ -10,7 +10,7 @@ import Foundation
 
 open class UtilSecurity : NSObject {
     // 密码加密
-    func encodePassword(_ password:String) -> String{
+    public func encodePassword(_ password:String) -> String{
         let xtcs = XTFCryptorSecurity()
         // 密码->Base64
         let paswordBase64 = xtcs.string(toBase64Data: password)
@@ -21,12 +21,12 @@ open class UtilSecurity : NSObject {
         return xtcs.stringMD5(encryString);
     }
     // MD5
-    func md5Code(_ data:String) -> String{
+    public func md5Code(_ data:String) -> String{
         let xtcs = XTFCryptorSecurity()
         return xtcs.stringMD5(data);
     }
     /// assert
-    func assert(_ value: Bool){
+    public func assert(_ value: Bool){
         assert(value)
     }
 }

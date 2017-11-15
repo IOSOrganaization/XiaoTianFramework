@@ -75,7 +75,7 @@ open class UtilXML:NSObject, XMLParserDelegate{
     }
     /// 找到CDATA
     public func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-        
+        elementStack.last?.cdata = CDATABlock
     }
     /// 找到Comment备注
     public func parser(_ parser: XMLParser, foundComment comment: String) {
@@ -93,6 +93,7 @@ open class UtilXML:NSObject, XMLParserDelegate{
         var qualifiedName:String?
         var attributeDict:[String : String]
         var valueString:String?
+        var cdata:Data?
         //
         var valueElements = [Element]()
         
@@ -103,7 +104,7 @@ open class UtilXML:NSObject, XMLParserDelegate{
             self.attributeDict = attributeDict
         }
         public override var description: String{
-            return "{elementName:\(elementName),namespaceURI:\(namespaceURI ?? "nil"),qualifiedName:\(qualifiedName ?? "nil"),valueString:\(valueString ?? "nil"),attributeDict:\(attributeDict),elements:\(valueElements)}"
+            return "{elementName:\(elementName),namespaceURI:\(namespaceURI ?? "nil"),qualifiedName:\(qualifiedName ?? "nil"),valueString:\(valueString ?? "nil"),attributeDict:\(attributeDict),elements:\(valueElements),cdata:\(String(data: cdata ?? Data(), encoding:.utf8))}"
         }
     }
 }

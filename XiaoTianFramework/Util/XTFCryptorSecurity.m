@@ -250,7 +250,7 @@
     // 添加私钥数据到秘钥链,得到私钥引用
     SecKeyRef key = [self addNewPrivateKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PrivKey" privateKeyData:privateKeyData];
     if (key) {
-        // 获取到私钥引用开始用公私解码
+        // 获取到私钥引用开始用私钥解码
         return [self decryptDataByRSA:data withKeyRef:key paddingType:padding];
     }else{
         [XTFMylog info:@"解码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
@@ -289,7 +289,144 @@
     }
     return nil;
 }
-
+/// 根据私钥,执行RSA签名,返回签名的Base64
+- (NSString *) signDataByRSA:(NSData *)data privateKey:(NSString *) keyStringPri paddingType:(SecPadding) padding{
+    // 过滤出完整Private Key字符串
+    NSRange spospri = [keyStringPri rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
+    NSRange epospri;
+    if (spospri.length > 0) {
+        epospri = [keyStringPri rangeOfString:@"-----END RSA PRIVATE KEY-----"];
+    } else {
+        spospri = [keyStringPri rangeOfString:@"-----BEGIN PRIVATE KEY-----"];
+        epospri = [keyStringPri rangeOfString:@"-----END PRIVATE KEY-----"];
+    }
+    if (spospri.location == NSNotFound && epospri.location == NSNotFound) {
+        [XTFMylog info:@"签名错误: 通过-----BEGIN RSA PRIVATE KEY-----或-----BEGIN PRIVATE KEY-----截取私钥字符串失败."];
+        return nil;
+    }
+    // 截取
+    NSString *keyPriPurity = nil;
+    NSUInteger start = spospri.location + spospri.length;
+    NSUInteger end = epospri.location;
+    NSRange rangep = NSMakeRange(start, end - start);
+    keyPriPurity = [keyStringPri substringWithRange:rangep];
+    // 清除无效字符
+    keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    keyPriPurity = [keyPriPurity stringByReplacingOccurrencesOfString:@" "  withString:@""];
+    // Private Key 进行Base64编码,后续对Base64结果码进行操作
+    NSData *privateKeyData = [self base64StringToData:keyPriPurity];
+    //[XTFMylog info:[self dataToHexString:keyDataPri]];
+    // 过滤RSA私钥头声明 Skip ASN.1 public key header
+    unsigned long lenp = [privateKeyData length];
+    unsigned char *c_keyp = (unsigned char *)[privateKeyData bytes];
+    unsigned int idxp = 22; // 从22位开始 magic byte at offset 22
+    if (0x04 == c_keyp[idxp++]) {
+        //calculate length of the key
+        unsigned int c_len = c_keyp[idxp++];
+        int det = c_len & 0x80;
+        if (!det) {
+            c_len = c_len & 0x7f;
+        } else {
+            int byteCount = c_len & 0x7f;
+            if (byteCount + idxp > lenp) {
+                //rsa length field longer than buffer
+                [XTFMylog info:@"签名错误:RSA私钥的字段长度大于缓存值."];
+                return nil;
+            }
+            unsigned int accum = 0;
+            unsigned char *ptr = &c_keyp[idxp];
+            idxp += byteCount;
+            while (byteCount) {
+                accum = (accum << 8) + *ptr;
+                ptr++;
+                byteCount--;
+            }
+            c_len = accum;
+        }
+        // Now make a new NSData from this buffer
+        privateKeyData = [privateKeyData subdataWithRange:NSMakeRange(idxp, c_len)];
+    } else {
+        [XTFMylog info:@"签名错误: 私钥的第22位必须为0x04.pkb64[22]=0x%02X",c_keyp[--idxp]];
+        return nil;
+    }
+    // 添加私钥数据到秘钥链,得到私钥引用
+    SecKeyRef key = [self addNewPrivateKeyChain:@"com.xiaotian.XTCryptorSecurity.RSA_PrivKey" privateKeyData:privateKeyData];
+    if (key) {
+        // 获取到私钥引用开始用私钥签名
+        uint8_t *signedHashBytes = NULL;
+        // calculate private key size
+        size_t signedHashBytesSize = SecKeyGetBlockSize(key);
+        // create space to put signature
+        signedHashBytes = (uint8_t *)malloc(signedHashBytesSize * sizeof(uint8_t));
+        memset((void *)signedHashBytes, 0x0, signedHashBytesSize);
+        OSStatus status;
+        // sign data
+        switch (padding) {
+            case kSecPaddingPKCS1MD2:{
+                uint8_t digest[CC_MD2_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1MD2,digest,CC_MD2_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1MD5:{
+                uint8_t digest[CC_MD5_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1MD5,digest,CC_MD5_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1SHA1:{
+                uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1SHA1,digest,CC_SHA1_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1SHA224:{
+                uint8_t digest[CC_SHA224_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1SHA224,digest,CC_SHA224_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1SHA256:{
+                uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1SHA256,digest,CC_SHA256_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1SHA384:{
+                uint8_t digest[CC_SHA384_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1SHA384,digest,CC_SHA384_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            case kSecPaddingPKCS1SHA512:{
+                uint8_t digest[CC_SHA512_DIGEST_LENGTH];
+                CC_SHA256(data.bytes, (CC_LONG)data.length, digest);
+                status = SecKeyRawSign(key,kSecPaddingPKCS1SHA512,digest,CC_SHA512_DIGEST_LENGTH,signedHashBytes,&signedHashBytesSize);
+                break;
+            }
+            default:
+                status = -1;
+                [XTFMylog info:@"签名错误: SecPadding必须为[kSecPaddingPKCS1MD2,kSecPaddingPKCS1MD5,kSecPaddingPKCS1SHA1/224/256/384/512]"];
+                break;
+        }
+        if (status != errSecSuccess) {
+            [XTFMylog info:@"签名错误: ", [self fetchOSStatus:status]];
+            return nil;
+        }
+        // get signature hash
+        NSData *signedHash = [NSData dataWithBytes:(const void *)signedHashBytes length:(NSUInteger)signedHashBytesSize];
+        if (key)CFRelease(key);
+        // release created space
+        if (signedHashBytes)free(signedHashBytes);
+        // return Base64 encoded signature string
+        return [self dataToBase64String:signedHash];
+    }else{
+        [XTFMylog info:@"编码错误: 匹配%@的秘钥链失败,秘钥链结果为nil.", @"com.xiaotian.XTCryptorSecurity.RSA_PubKey"];
+    }
+    return nil;
+}
 - (void) pem {
     NSError *error;
     //NSString *keyStringPub = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"public_key" ofType:@"pem"] encoding:NSUTF8StringEncoding error:&error];

@@ -21,6 +21,8 @@
 - (NSData *) decryDataByRSA:(NSData *)data privateKey:(NSString *) keyStringPri paddingType:(SecPadding) padding;
 - (NSData *) decryDataByRSA:(NSData *)data pemCertKeyFile:(NSString *) privateKeyFile paddingType:(SecPadding) padding;
 - (NSData *) decryDataByRSA:(NSData *)data p12CertFile:(NSString *) p12KeyFile paddingType:(SecPadding) padding;
+// RSA Sign
+- (NSString *) signDataByRSA:(NSData *)data privateKey:(NSString *) keyStringPri paddingType:(SecPadding) padding;
 // HEX
 - (NSString *) dataToHexString: (NSData *) data;
 // Base64 编码

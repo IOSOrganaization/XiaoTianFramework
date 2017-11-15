@@ -225,6 +225,41 @@ open class UtilString :NSObject {
         }
         return nil
     }
+    /// String URL Encode
+    public func encodeURL(_ url:String?)->String?{
+        if let url = url{
+            let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+            let subDelimitersToEncode = "!$&'()*+,;="
+            var allowedCharacterSet = CharacterSet.urlQueryAllowed
+            allowedCharacterSet.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+            var escaped = ""
+            if #available(iOS 8.3, *) {
+                // 用系统的URL匹配编码,8.3以上
+                escaped = url.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? url
+            } else {
+                // 手动一个个匹配编码
+                let batchSize = 50
+                var index = url.startIndex
+                while index != url.endIndex {
+                    let startIndex = index
+                    let endIndex = url.index(index, offsetBy: batchSize, limitedBy: url.endIndex) ?? url.endIndex
+                    let range = startIndex..<endIndex
+                    let substring = url.substring(with: range)
+                    escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
+                    index = endIndex
+                }
+            }
+            return escaped
+        }
+        return nil
+    }
+    /// String URL Decode
+    public func decodeURL(_ urlEn:String?)->String?{
+        if let urlEn = urlEn{
+            
+        }
+        return nil
+    }
     ///
     func test(){
         

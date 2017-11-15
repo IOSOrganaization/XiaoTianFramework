@@ -21,6 +21,11 @@ public struct MyStack<T>{
     mutating public func pop() -> T{
         return self.items.removeLast()
     }
+    
+    // 清空
+    mutating public func clean(){
+        self.items.removeAll()
+    }
 }
 
 // 基本方法
@@ -33,5 +38,8 @@ extension MyStack{
     }
     public var last: T?{
         return self.isEmpty ? nil : self.items.last
+    }
+    public var values: [T]{
+        return self.items
     }
 }
