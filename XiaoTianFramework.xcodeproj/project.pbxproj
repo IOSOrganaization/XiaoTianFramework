@@ -119,6 +119,7 @@
 		6BCB1F8E1F90B7DB00081ED0 /* CAPSScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */; };
 		6BCB1F8F1F90B7DB00081ED0 /* MyPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8C1F90B7DA00081ED0 /* MyPopView.swift */; };
 		6BCB1F901F90B7DB00081ED0 /* MyAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8D1F90B7DB00081ED0 /* MyAlertView.swift */; };
+		6BCC75561FCFA56B00B52F79 /* UtilUIViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCC75551FCFA56B00B52F79 /* UtilUIViewControl.swift */; };
 		6BD304941ED82CCD004BDD21 /* UtilJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304931ED82CCD004BDD21 /* UtilJson.swift */; };
 		6BD304961ED83F9A004BDD21 /* UtilSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */; };
 		6BD304991ED83FCD004BDD21 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */; };
@@ -264,6 +265,7 @@
 		6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAPSScrollMenu.swift; path = Swift/View/CAPSScrollMenu.swift; sourceTree = "<group>"; };
 		6BCB1F8C1F90B7DA00081ED0 /* MyPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPopView.swift; path = Swift/View/MyPopView.swift; sourceTree = "<group>"; };
 		6BCB1F8D1F90B7DB00081ED0 /* MyAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertView.swift; path = Swift/View/MyAlertView.swift; sourceTree = "<group>"; };
+		6BCC75551FCFA56B00B52F79 /* UtilUIViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UtilUIViewControl.swift; path = Swift/Util/UtilUIViewControl.swift; sourceTree = "<group>"; };
 		6BD304931ED82CCD004BDD21 /* UtilJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJson.swift; path = Swift/Util/UtilJson.swift; sourceTree = "<group>"; };
 		6BD304951ED83F9A004BDD21 /* UtilSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilSqlite.swift; path = Swift/Util/UtilSqlite.swift; sourceTree = "<group>"; };
 		6BD304981ED83FCD004BDD21 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -496,6 +498,7 @@
 				6B8043221F18F8DA00420CDD /* UtilUITableView.swift */,
 				6B5FB9EA1ED522BA00331247 /* UtilUIView.swift */,
 				6B8266651F3B0DF9001EF9B1 /* UtilXML.swift */,
+				6BCC75551FCFA56B00B52F79 /* UtilUIViewControl.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				6B5FB9EF1ED522BA00331247 /* UtilAttributedString.swift in Sources */,
 				04ABFC611A63753B008381AE /* XTFUtilEnvironment.m in Sources */,
 				04EFE06A1A53F36B00E846CB /* UINavigationController+XTF.m in Sources */,
+				6BCC75561FCFA56B00B52F79 /* UtilUIViewControl.swift in Sources */,
 				6B95A8721F0A74C400804091 /* MyViewPullRefreshFooter.swift in Sources */,
 				6B5FB9FD1ED522BA00331247 /* UtilRegularExpression.swift in Sources */,
 				6B5FBA1F1ED522D200331247 /* MyUIView.swift in Sources */,

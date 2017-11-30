@@ -90,10 +90,22 @@ extension UIViewController{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: titleTextColor]
         navigationController?.navigationBar.tintColor = titleTextColor // 如果设置了背景图片,则渲染颜色无效(注意appearance方式设置)
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = utilShared.image.genImageFromColor(UIColor.lightGray, CGSize(width: 1, height: 1))// 底部阴影线
         if utilShared.color.contrastColor(barTintColor) == .white{
             UIApplication.shared.statusBarStyle = .lightContent
         }else{
             UIApplication.shared.statusBarStyle = .default
+        }
+    }
+    open func changeStatusBarContentColor(contentColor:UIColor){
+        if let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as AnyObject?{
+            if let statusBar = statusBarWindow.value(forKey: "statusBar") as AnyObject?{
+                let setForegroundColorSEL = NSSelectorFromString("setForegroundColor:")
+                if statusBar.responds(to: setForegroundColorSEL){
+                    // IOS7+ Support Method
+                    let _ = statusBar.perform(setForegroundColorSEL, with: contentColor)
+                }
+            }
         }
     }
     // Lefttime Method:
