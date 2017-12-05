@@ -17,6 +17,7 @@ open class UtilDateTime: NSObject {
     open static let PATTERN_DATE_TIME_SECOND_MILLISE = "yyyy年MM月dd日 HH:mm:ss.SSS XXXXX" // 2017年05月26日 10:21:09.733 +08:00
     open static let PATTERN_DATE_TIME_LOCAL = "dMMMMyyyyhmmaz" // July 16, 2015, 7:44 AM PDT.
     private var cacheCurrentDate: Date?
+    private static var preClickTimeInterval: TimeInterval = 0
     /// 格式化日期 (秒/s) [1990年1月1日]
     open func formatMillisecondDate(_ dateMillisecond: NSNumber?) -> String?{
         return formatMillisecond("yyyy年MM月dd日", dateMillisecond)
@@ -273,4 +274,13 @@ open class UtilDateTime: NSObject {
         return -1.0
     }
     // NSDate,NSDateComponents,NSCalendar,NSDateFormatter
+    /// 判断点击太快
+    open static func isClickFast() -> Bool{
+        let current = Date().timeIntervalSince1970
+        if current - preClickTimeInterval < 0.5{ //0.5秒
+            return true;
+        }
+        preClickTimeInterval = current
+        return false;
+    }
 }
