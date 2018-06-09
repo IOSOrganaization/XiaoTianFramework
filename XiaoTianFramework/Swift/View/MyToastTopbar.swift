@@ -93,7 +93,7 @@ public class MyToastTopbar: NSObject{
         }
     }
     //
-    public init(_ title:String,_ message:String?,_ appearance:((Void)->Void)? = nil, _ completion:((Void)->Void)? = nil){
+    public init(_ title:String,_ message:String?,_ appearance:(()->Void)? = nil, _ completion:(()->Void)? = nil){
         self.title = title
         self.subTitle = message
         self.appearance = appearance
