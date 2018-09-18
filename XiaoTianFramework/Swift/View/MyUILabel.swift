@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
+@objc(MyUILabelXT)
 class MyUILabel: UILabel{
     //
     enum `Type`: String {

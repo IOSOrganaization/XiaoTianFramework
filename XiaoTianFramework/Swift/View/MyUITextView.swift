@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
-
-class MyUITextView: UITextView{
+@IBDesignable
+@objc(MyUITextViewXT)
+open class MyUITextView: UITextView{
     var tabFunction:((_ view:MyUITextView)->())?
     
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
+@objc(MyUIViewXT)
 public class MyUIView: UIView{
     var tabFunction:((_ view:MyUIView)->())?
     
