@@ -611,7 +611,7 @@ open class HttpRequest : NSObject{
         return result
     }
     /// 过滤空值的Dictionary [过滤掉 nil 值对]
-    open func filterParamsNilValue(_ params:[String: AnyObject?]) -> NSDictionary{
+    open func filterParamsNilValue(_ params:[String: Any?]) -> NSDictionary{
         let resultDic = NSMutableDictionary()
         let unnilParams = params.filter(){ return $0.1 != nil } // filter nil value
         for (key, value) in unnilParams{
