@@ -11,7 +11,7 @@ import Foundation
 open class UtilPrepareForInterfaceBuilder{
     
     /// 获取当前 Bundle 的图片
-    class func loadImage(_ name: String) ->UIImage?{
+    public class func loadImage(_ name: String) ->UIImage?{
         let processInfo = ProcessInfo.processInfo
         let environment = processInfo.environment
         let projectSourceDirectories : AnyObject = environment["IB_PROJECT_SOURCE_DIRECTORIES"]! as AnyObject
@@ -26,13 +26,13 @@ open class UtilPrepareForInterfaceBuilder{
         return nil
     }
     ///
-    class func loadImage(_ name:String,_ clazz: AnyClass,_ traitCollection:UITraitCollection)-> UIImage?{
+    public class func loadImage(_ name:String,_ clazz: AnyClass,_ traitCollection:UITraitCollection)-> UIImage?{
         // self.classForCoder
         // self.traitCollection
         return UIImage(named: name, in: Bundle(for: clazz), compatibleWith:traitCollection)
     }
     /// 获取当前 Bundle 的渲染图片
-    class func loadImageThint(_ name:String,_ color:UIColor,_ clazz: AnyClass,_ traitCollection:UITraitCollection) -> UIImage?{
+    public class func loadImageThint(_ name:String,_ color:UIColor,_ clazz: AnyClass,_ traitCollection:UITraitCollection) -> UIImage?{
         if let image = UtilPrepareForInterfaceBuilder.loadImage(name,clazz,traitCollection){
             UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
             color.setFill()
@@ -47,10 +47,10 @@ open class UtilPrepareForInterfaceBuilder{
         }
     }
     /// 编程时用的 Bundle 资源管理器
-    class func bundleCoder(_ clazz: AnyClass) -> Bundle{
+    public class func bundleCoder(_ clazz: AnyClass) -> Bundle{
         return Bundle(for: clazz)
     }
-    class func loadPlist(_ clazz: AnyClass) -> [String:AnyObject]?{
+    public class func loadPlist(_ clazz: AnyClass) -> [String:AnyObject]?{
         let bundle = Bundle(for: clazz)
         if let plist = bundle.path(forResource: "Styles", ofType: "plist"),
             let dict = NSDictionary(contentsOfFile: plist) as? [String:AnyObject] {
@@ -59,11 +59,11 @@ open class UtilPrepareForInterfaceBuilder{
         return nil
     }
     /// 编程时用的 Bundle 加载 Xib
-    class func loadNib(_ clazz: AnyClass,_ nibName:String) -> [AnyObject]?{
+    public class func loadNib(_ clazz: AnyClass,_ nibName:String) -> [AnyObject]?{
         return Bundle(for: clazz).loadNibNamed(nibName, owner: nil, options: nil) as [AnyObject]?
     }
     /// 是否是 InterfaceBuilder
-    class func isInterfaceBuilder() -> Bool{
+    public class func isInterfaceBuilder() -> Bool{
         #if TARGET_INTERFACE_BUILDER
             return true
         #else
@@ -71,7 +71,7 @@ open class UtilPrepareForInterfaceBuilder{
         #endif
     }
     /// InterfaceBuilder 支持的图片
-    class func supportIBUIImage(_ name:String)-> UIImage?{
+    public class func supportIBUIImage(_ name:String)-> UIImage?{
         #if TARGET_INTERFACE_BUILDER
             let bundle = Bundle(for: type(of: self))
         #else
