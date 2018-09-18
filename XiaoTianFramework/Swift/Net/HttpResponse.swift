@@ -17,18 +17,18 @@ open class HttpResponse : NSObject {
     public static let CODE_ERROR_CONTEXT: Int = 4405
     public static let TYPE_SUCCESS: Int = 1
     public static let TYPE_FAILED: Int = 0
-    static let TYPE_SELF_LOSE: Int = -1 // self 丢失页面无效
+    public static let TYPE_SELF_LOSE: Int = -1 // self 丢失页面无效
     //
-    var codeXJ : Int? //错误码 200:成功,400:Token错误
-    var successXJ : Int? //成功标志 1:成功,0:失败
-    var msgXJ : String? //错误信息
-    var dataXJ : NSDictionary? //返回data数据
+    public var codeXJ : Int? //错误码 200:成功,400:Token错误
+    public var successXJ : Int? //成功标志 1:成功,0:失败
+    public var msgXJ : String? //错误信息
+    public var dataXJ : NSDictionary? //返回data数据
     //
-    var response : NSDictionary? // 返回的Json对象数据
+    public var response : NSDictionary? // 返回的Json对象数据
     
     // 其他携带到HttpResponse的参数
-    var resultExtra: AnyObject?
-    var resultExtraArray: [AnyObject]?
+    public var resultExtra: AnyObject?
+    public var resultExtraArray: [AnyObject]?
     // 构造器
     public override init(){} //必须包含无参构造器,系统实例化入口
     
