@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(HttpRequestXT)
-public class HttpRequest : NSObject{
+open class HttpRequest : NSObject{
     fileprivate var requestTaskHandler:URLSessionDataTask?
     fileprivate var requestDispatchSemaphore:DispatchSemaphore?
     fileprivate var requestCallBackHasSent: ((Int64,Int64,CGFloat) -> Void)? // sent,total,percent

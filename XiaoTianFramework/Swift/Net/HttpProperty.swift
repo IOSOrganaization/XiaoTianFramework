@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(HttpPropertyXT)
-public class HttpProperty : NSObject{
+open class HttpProperty : NSObject{
     public class HeaderProperty{
         // header fields
         public static let ACCEPT = "Accept";

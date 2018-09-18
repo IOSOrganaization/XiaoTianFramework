@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(UtilSwiftXT)
 open class UtilSwift: NSObject {
     private static var lastClickTime: CFTimeInterval = { CACurrentMediaTime() }()
     /// App名称

@@ -10,7 +10,7 @@
 import Foundation
 // open:可重写,覆盖, public: 不能重写,覆盖 [两者都是声明向module开放]
 @objc(HttpAsyncTaskXT)
-public class HttpAsyncTask : NSObject {
+open class HttpAsyncTask : NSObject {
     
     // 发起异步请求
     // class:可重写,覆盖, static: 不能重写,覆盖 [两者都是声明静态方法]

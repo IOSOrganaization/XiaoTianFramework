@@ -11,7 +11,7 @@ import SystemConfiguration
 // 全局常量
 let NetReachability_Name_NetworkDidChange = "NetReachability_NotificationName_NetworkDidChange"
 
-public class NetReachability:NSObject{
+open class NetReachability:NSObject{
     public enum Status{ case wifi, wwan, not}
     private var networkReachability: SCNetworkReachability?
     private var notifying = false
