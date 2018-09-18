@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  s.resources = "XiaoTianFramework/BundleXiaoTian.bundle","XiaoTianFramework/BTNavigationDropdownMenu.bundle"
+  s.resources = "XiaoTianFramework/BundleXiaoTian.bundle","XiaoTianFramework/Swift/Widget/BTNavigationDropdownMenu.bundle"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
