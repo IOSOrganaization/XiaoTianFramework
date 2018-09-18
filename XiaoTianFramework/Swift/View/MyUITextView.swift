@@ -16,7 +16,7 @@ open class MyUITextView: UITextView{
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
     @IBInspectable var onClickAction: String = ""
     //
-    required init?(coder aDecoder: NSCoder){
+    public required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
         clickableInit()
     }
@@ -24,7 +24,7 @@ open class MyUITextView: UITextView{
         super.init(frame: frame, textContainer:textContainer)
         clickableInit()
     }
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         if onClickAction == "" {
             return
         }
@@ -66,16 +66,16 @@ open class MyUITextView: UITextView{
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
     }
     // # PlaceHolder
