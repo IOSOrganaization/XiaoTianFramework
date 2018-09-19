@@ -12,29 +12,29 @@ open class UtilNotificationDefaultCenter: NSObject{
     // 消息传递: Delegation,Notification,KeyValueObserve
     /******************************* DefaultCenter Notification Message *******************************/
     /// Post Notification
-    open class func postNotificationName(_ notificationName:String,_ userInfo:[AnyHashable: Any]? = nil){
+    public func postNotificationName(_ notificationName:String,_ userInfo:[AnyHashable: Any]? = nil){
         NotificationCenter.default.post(name: Notification.Name(rawValue: notificationName), object: nil, userInfo: userInfo)
     }
     /// 注册通知侦听器/观察者
-    open class func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:String){
+    public func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:String){
         // addObserver:selector:name:object: Selector方法添加通知侦听器
         // addObserverForName:object:queue:usingBlock: Block方法添加通知侦听器
         // observer:通知接收器,selector:接收器的方法[必须是Objc-C的方法],name:通知名称(nil为接收所有通知)字符串常量,object:对象过滤(nil接收所有,不对对象拦截)
         NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name(rawValue: name), object: nil)
     }
     @nonobjc
-    open class func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:NSNotification.Name){
+    public func addObserver(_ observer:AnyObject,_ selector:Selector,_ name:NSNotification.Name){
         NotificationCenter.default.addObserver(observer, selector: selector, name: name, object: nil)
     }
     /// 注册通知侦听器/观察者,通过Block接收
-    open class func addObserver(_ notificationName:String,_ usingBlock:@escaping (Notification)->Void){
+    public func addObserver(_ notificationName:String,_ usingBlock:@escaping (Notification)->Void){
         // 在usingBlock中使用self的话必须要弱引用,否则会造成死锁[匿名函数中引用self必须要弱引用]
         let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:notificationName), object: nil, queue: nil, using: usingBlock)
         //NotificationCenter.default.removeObserver(ab) // 异常Block添加的侦听器,不异常会造成通知系统下发通知错乱,影响通知下发效率[在block中必须self要弱引用]
         //var observers = Set<NSObject>()
     }
     /// 移除通知侦听器/观察者
-    open class func removeAllObserve(_ observer:AnyObject){
+    public func removeAllObserve(_ observer:AnyObject){
         //1. The observer token returned from the call to add Observer For Name:  object: queue: usingBlock: is retained by the notification center until you unregister it.
         //2. The observer token may also be retaining you (self) through the block (a function, probably anonymous)
         //3. In addition, if you also retain the observer token, then if the observer token is retaining you, you have a retain cycle on your hands.
@@ -42,14 +42,14 @@ open class UtilNotificationDefaultCenter: NSObject{
     }
     /// 注册侦听器
     @objc(addObserver:)
-    open class func addObserver(_ observer: UtilNotificationDefaultCenterObserver) {
+    public func addObserver(_ observer: UtilNotificationDefaultCenterObserver) {
         let className = NSStringFromClass(type(of: observer))
         let notificationName = NSNotification.Name(rawValue:"UtilNotificationDefaultCenter_\(className)")
         NotificationCenter.default.addObserver(observer, selector: #selector(observer.notification(userInfo:)), name: notificationName, object: nil)
     }
     /// 发送通知/推播通知
     @objc(postType:userInfo:)
-    open class func postType(_ observerClass: UtilNotificationDefaultCenterObserver.Type,_ userInfo:[AnyHashable:Any]?){
+    public func postType(_ observerClass: UtilNotificationDefaultCenterObserver.Type,_ userInfo:[AnyHashable:Any]?){
         let className = NSStringFromClass(observerClass)
         let notificationName = NSNotification.Name(rawValue:"UtilNotificationDefaultCenter_\(className)")
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: userInfo)
@@ -57,19 +57,19 @@ open class UtilNotificationDefaultCenter: NSObject{
     
     /******************************* System Notification Message *******************************/
     /// 添加键盘弹出侦听器
-    open class func addObserverKeyboardWillShow(_ observer: NSObject,_ selector:Selector) {
+    public func addObserverKeyboardWillShow(_ observer: NSObject,_ selector:Selector) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     /// 添加键盘收起侦听器
-    open class func addObserverKeyboardDidHide(_ observer: NSObject,_ selector:Selector) {
+    public func addObserverKeyboardDidHide(_ observer: NSObject,_ selector:Selector) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     /// 移除键盘弹出侦听器
-    open class func removeObserverKeyboardWillShow(_ observer: NSObject){
+    public func removeObserverKeyboardWillShow(_ observer: NSObject){
         NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     /// 移除键盘收起侦听器
-    open class func removeObserverKeyboardDidHide(_ observer: NSObject){
+    public func removeObserverKeyboardDidHide(_ observer: NSObject){
         NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         /*let _: Void = "Hello".withCString {
             var cs = $0
@@ -81,7 +81,7 @@ open class UtilNotificationDefaultCenter: NSObject{
     }
     /******************************* Customer Notification Message *******************************/
     /// 注册通知接收器[封装系统默认通知的Block模式,targetContext:目标上下文(nil:当前全局上下文)]
-    public class func addObserverCustomer(name:String,targetContext:AnyObject? = nil,queue:OperationQueue = OperationQueue(),usingBlock:@escaping (Notification)->Void){
+    public func addObserverCustomer(name:String,targetContext:AnyObject? = nil,queue:OperationQueue = OperationQueue(),usingBlock:@escaping (Notification)->Void){
         SingleCustomer.executerQueue.sync {
             let instanceId = UInt(bitPattern: ObjectIdentifier(targetContext == nil ? SingleCustomer.notification : targetContext!))
             let observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:name), object: targetContext, queue: queue, using: usingBlock)
@@ -93,22 +93,22 @@ open class UtilNotificationDefaultCenter: NSObject{
             }
         }
     }
-    public class func addObserverCustomerMain(name:String,targetContext:AnyObject? = nil,usingBlock:@escaping (Notification)->Void){
+    public func addObserverCustomerMain(name:String,targetContext:AnyObject? = nil,usingBlock:@escaping (Notification)->Void){
         addObserverCustomer(name: name, targetContext: targetContext, queue: OperationQueue.main, usingBlock: usingBlock)
     }
     /// 发送通知
-    public class func postNotificationNameCustomer(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
+    public func postNotificationNameCustomer(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
         SingleCustomer.executerQueue.sync {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue:name), object: targetContext, userInfo: userInfo)
         }
     }
-    public class func postNotificationNameCustomerMain(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
+    public func postNotificationNameCustomerMain(name:String,targetContext:AnyObject? = nil,userInfo:[AnyHashable:Any]?){
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue:name), object: targetContext, userInfo: userInfo)
         }
     }
     /// 移除通知
-    public class func removeObserverCustomer(_ targetContext:AnyObject? = nil,_ name: String? = nil){
+    public func removeObserverCustomer(_ targetContext:AnyObject? = nil,_ name: String? = nil){
         SingleCustomer.executerQueue.sync {
             let instanceId = UInt(bitPattern: ObjectIdentifier(targetContext == nil ? SingleCustomer.notification : targetContext!))
             if let observers = SingleCustomer.notification.cacheObserverCustomer[instanceId]{

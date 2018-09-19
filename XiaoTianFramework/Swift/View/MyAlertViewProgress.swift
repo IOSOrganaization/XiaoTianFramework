@@ -326,15 +326,15 @@ open class MyAlertViewProgress: UIView{
         if alpha != 1 || hudView!.alpha != 1{
             // 第一次显示
             if let text = labelString?.text{
-                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
+                utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
             }else{
-                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
+                utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
             hudView!.transform = hudView!.transform.scaledBy(x: 1.3, y: 1.3)
             if isClear(){
                 alpha = 1
@@ -352,9 +352,9 @@ open class MyAlertViewProgress: UIView{
                 }
             }, completion: { [weak self](finished) in
                 if let text = self?.labelString?.text{
-                    UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
+                    self?.utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
                 }else{
-                    UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
+                    self?.utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                 }
                 UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
@@ -407,15 +407,15 @@ open class MyAlertViewProgress: UIView{
         if alpha != 1 || hudView!.alpha != 1{
             // 第一次显示
             if let text = labelString?.text{
-                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
+                utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
             }else{
-                UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
+                utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
+            utilShared.notificationCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
             hudView!.transform = hudView!.transform.scaledBy(x: 1.3, y: 1.3)
             if isClear(){
                 alpha = 1
@@ -433,9 +433,9 @@ open class MyAlertViewProgress: UIView{
                 }
                 }, completion: { [weak self](finished) in
                     if let text = self?.labelString?.text{
-                        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
+                        self?.utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, [MyAlertViewProgress.KEY_USER_INFO:text])
                     }else{
-                        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
+                        self?.utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                     }
                     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
                     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
@@ -448,7 +448,7 @@ open class MyAlertViewProgress: UIView{
     }
     @objc public func hide(){
         let  userInfo:[String:String]? = labelString!.text == nil ? [:] : [MyAlertViewProgress.KEY_USER_INFO: labelString!.text!]
-        UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_DISAPPEAR, userInfo)
+        utilShared.notificationCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_DISAPPEAR, userInfo)
         activityCount = 0
         UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut,.allowUserInteraction], animations: {[weak self] in
             guard let wSelf = self else{
