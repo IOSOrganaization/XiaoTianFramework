@@ -12,7 +12,7 @@ import Foundation
 open class UtilRegularExpression: NSObject{
     
     // 查找
-    func findFirst(_ target:String,_ pattern:String) -> NSRange{
+    public func findFirst(_ target:String,_ pattern:String) -> NSRange{
         do{
             let re = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             return re.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
@@ -22,7 +22,7 @@ open class UtilRegularExpression: NSObject{
         return NSRange(location: NSNotFound, length: 0)
     }
     // 替换
-    func replayFirst(_ target:String,_ pattern:String,_ value:String) -> String{
+    public func replayFirst(_ target:String,_ pattern:String,_ value:String) -> String{
         do{
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
@@ -40,7 +40,7 @@ open class UtilRegularExpression: NSObject{
         return String(target)
     }
     //
-    func getMatched(_ target:String,_ pattern:String) -> String!{
+    public func getMatched(_ target:String,_ pattern:String) -> String!{
         do{
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
@@ -56,7 +56,7 @@ open class UtilRegularExpression: NSObject{
         }
         return nil
     }
-    func matching(_ target:String,_ pattern:String) -> Bool{
+    public func matching(_ target:String,_ pattern:String) -> Bool{
         do{
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             let rangeOfFirstMatch = regex.rangeOfFirstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
@@ -68,7 +68,7 @@ open class UtilRegularExpression: NSObject{
         }
         return false
     }
-    func isMatch(_ target:String,_ pattern:String){
+    public func isMatch(_ target:String,_ pattern:String){
         do{
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             
