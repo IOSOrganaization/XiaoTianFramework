@@ -108,6 +108,3 @@ open class UtilXML:NSObject, XMLParserDelegate{
         }
     }
 }
-public class Person:NSObject{
-    var type:String?
-}
