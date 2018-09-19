@@ -13,7 +13,7 @@ import Foundation
 open class UtilAttributedString: NSObject{
     
     /// 设置匹配Pattern的字符串的前景色
-    func genForegroundColor(_ string: String! = nil,_ pattern:String!,_ color: UIColor) -> NSMutableAttributedString{
+    public func genForegroundColor(_ string: String! = nil,_ pattern:String!,_ color: UIColor) -> NSMutableAttributedString{
         let attributeString = NSMutableAttributedString(string: string)
         if let matchedRanges = matchingPattern(string, pattern){
             for range in matchedRanges {
@@ -42,7 +42,7 @@ open class UtilAttributedString: NSObject{
         return ranges
     }
     /// 删除线
-    func deleteLineAttributes(color:UIColor = UIColor.black) -> [NSAttributedStringKey : Any]{
+    public func deleteLineAttributes(color:UIColor = UIColor.black) -> [NSAttributedStringKey : Any]{
         return [NSAttributedStringKey.strikethroughStyle: 1, NSAttributedStringKey.strokeColor: color]
     }
     //
