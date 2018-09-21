@@ -72,7 +72,7 @@ open class UtilFont: NSObject{
         return UIFont.systemFont(ofSize: 14)
     }
     /// 工具栏
-    var textBar: UIFont{
+    public var textBar: UIFont{
         if let font = UIFont(name: "HYQiHei", size: 15){
             return font
         }
