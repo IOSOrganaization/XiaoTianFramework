@@ -97,11 +97,14 @@ open class UtilString :NSObject {
         return nil
     }
     /// 返回字符串值
-    public func valueString(_ value:AnyObject?) -> String?{
+    public func valueString(_ value:Any?) -> String?{
         if value == nil{
             return ""
         }
-        return value?.description
+        if value is String{
+            return value as? String
+        }
+        return (value as AnyObject).description
     }
     /// 区域化字符串
     public func localized(_ key:String) -> String{
