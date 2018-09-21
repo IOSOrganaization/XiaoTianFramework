@@ -11,7 +11,7 @@ import UIKit
 
 @IBDesignable
 @objc(MyUILabelXT)
-class MyUILabel: UILabel{
+open class MyUILabel: UILabel{
     //
     enum `Type`: String {
         case Normal // 默认
@@ -50,12 +50,12 @@ class MyUILabel: UILabel{
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     // Nib 初始加载完成
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         // IB 配置样式,颜色
         var color: UIColor! { // 颜色
             get{
@@ -154,16 +154,16 @@ class MyUILabel: UILabel{
         backgroundViewExt.backgroundColor = color
     }
     // Touch Event Listener
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesEnded(touches, withEvent: event)
         onTabAction()
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
+    override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?){
         clickableTouchesCancelled(touches, withEvent: event)
         onTabAction()
     }
@@ -171,7 +171,7 @@ class MyUILabel: UILabel{
     /// 背景色是否可以改变[控制点击时不Tint改变背景色]
     var changableBackground = true
     var touchAble = false
-    override internal var backgroundColor: UIColor? { //覆盖背景颜色属性
+    override open var backgroundColor: UIColor? { //覆盖背景颜色属性
         didSet {
             // 如果背景取消改变,则不执行改变
             super.backgroundColor = changableBackground ? backgroundColor : oldValue
@@ -189,7 +189,7 @@ class MyUILabel: UILabel{
         }
     }
     
-    override func drawText(in rect:CGRect){
+    override open func drawText(in rect:CGRect){
         if marginLeft != nil && marginTop != nil && marginRight != nil && marginBottom != nil{
             let insets = UIEdgeInsets(top: marginTop, left: marginLeft, bottom: marginBottom, right: marginRight)
             super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
