@@ -11,7 +11,7 @@ import Foundation
 @objc(UtilLabelXT)
 open class UtilLabel: NSObject{
     
-    func setLabelMargin(){
+    public func setLabelMargin(){
         //UIButton *mButton = [[UIButton alloc] init];
         //[mButton setTitleEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)];
         //[mButton setTitle:@"Title" forState:UIControlStateNormal];
@@ -19,7 +19,7 @@ open class UtilLabel: NSObject{
     }
     
     /// 创建标题Title的UILabel
-    func genLabelTitle(_ text:String?) -> MyUILabel{
+    public func genLabelTitle(_ text:String?) -> MyUILabel{
         let title = MyUILabel()
         title.text = text == nil ? "" : text
         title.textAlignment = NSTextAlignment.left
@@ -29,7 +29,7 @@ open class UtilLabel: NSObject{
         return title
     }
     /// 嵌入图片(生成图片属性文本)
-    func genImageAttributeString(_ string:String?,_ image:UIImage?,_ position:Int) -> NSMutableAttributedString?{
+    public func genImageAttributeString(_ string:String?,_ image:UIImage?,_ position:Int) -> NSMutableAttributedString?{
         //
         let index = string?.characters.index((string?.startIndex)!, offsetBy: position)
         let preString = string?.substring(to: index!)
