@@ -31,6 +31,7 @@ public class MyAlertActionControl {
         }
     }
     // 内容视图
+    @objc(ContentViewXT)
     open class ContentView: UIView {
         let textFieldFontSize: CGFloat = 14
         let textFieldHeight: CGFloat = 25
