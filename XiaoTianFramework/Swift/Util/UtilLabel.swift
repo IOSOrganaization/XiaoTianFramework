@@ -19,8 +19,8 @@ open class UtilLabel: NSObject{
     }
     
     /// 创建标题Title的UILabel
-    public func genLabelTitle(_ text:String?) -> MyUILabel{
-        let title = MyUILabel()
+    public func genLabelTitle(_ text:String?) -> MyUILabelXT{
+        let title = MyUILabelXT()
         title.text = text == nil ? "" : text
         title.textAlignment = NSTextAlignment.left
         title.margin = 10

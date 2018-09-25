@@ -7,7 +7,8 @@
 //
 
 import Foundation
-public class MyViewCircleProgress: UIView{
+@objc(MyViewCircleProgressXT)
+public class MyViewCircleProgressXT: UIView{
     // lazy: self:
     lazy var maskLayer: CAShapeLayer = {
         let maskLayer = CAShapeLayer()

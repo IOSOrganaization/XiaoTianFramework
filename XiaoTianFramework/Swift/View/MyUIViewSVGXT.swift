@@ -9,7 +9,8 @@
 import Foundation
 // IB可识别
 @IBDesignable
-public class MyUIViewSVG: UIView{
+@objc(MyUIViewSVGXT)
+public class MyUIViewSVGXT: UIView{
     // Draw SVG Shape
     var shapeLayer = CAShapeLayer()
     // IB可检索/可注入 项
@@ -48,7 +49,7 @@ public class MyUIViewSVG: UIView{
     }
 }
 
-extension MyUIViewSVG{
+extension MyUIViewSVGXT{
     public convenience init(svgName:String){
         self.init()
         self.svgName = svgName

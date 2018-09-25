@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 @IBDesignable
-public class MyViewRingProgress: UIView{
+@objc(MyViewRingProgressXT)
+public class MyViewRingProgressXT: UIView{
     /// 内部圆半径
     @IBInspectable
     public var radius:CGFloat = 30{

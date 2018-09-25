@@ -11,7 +11,7 @@ import UIKit
 
 @IBDesignable
 @objc(MyUILabelXT)
-open class MyUILabel: UILabel{
+open class MyUILabelXT: UILabel{
     //
     enum `Type`: String {
         case Normal // 默认
@@ -129,7 +129,7 @@ open class MyUILabel: UILabel{
     }
     
     // Clickable 点击事件控制
-    var tabFunction:((_ view:MyUILabel)->())?
+    var tabFunction:((_ view:MyUILabelXT)->())?
     func setClickable(_ clickable:Bool?){
         if clickable == nil{
             return
@@ -143,7 +143,7 @@ open class MyUILabel: UILabel{
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUILabel)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUILabelXT)->()){
         clickableInit()
         clickableExt = true
         self.tabFunction = onTabListener
@@ -210,7 +210,7 @@ private var tabDataAssociationKey: UInt8 = 0
 private var tabFunctionAssociationKey: UInt8 = 0
 private var clickableAssociationKey: UInt8 = 0
 private var backgroundViewAssociationKey: UInt8 = 0
-private extension MyUILabel {
+private extension MyUILabelXT {
     var tabDateExt : TimeInterval {
         get {
             var value = objc_getAssociatedObject(self, &tabDataAssociationKey)

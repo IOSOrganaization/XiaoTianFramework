@@ -10,7 +10,7 @@ import Foundation
 
 @IBDesignable
 @objc(MyViewLinePropressXT)
-public class MyViewLinePropress : UIView{
+public class MyViewLinePropressXT : UIView{
     public enum Orientation{
         case horizontal
         case vertical
@@ -98,9 +98,9 @@ public class MyViewLinePropress : UIView{
         })
     }
     /// 创建NavigationBar进度条
-    public static func navigationBarProgress(_ navigation:UINavigationController?,_ height:CGFloat = 2.5,_ barColor:UIColor = UIColor.gray,_ backgroundColor:UIColor = UIColor(white: 0.667, alpha: 0.2)) -> MyViewLinePropress?{
+    public static func navigationBarProgress(_ navigation:UINavigationController?,_ height:CGFloat = 2.5,_ barColor:UIColor = UIColor.gray,_ backgroundColor:UIColor = UIColor(white: 0.667, alpha: 0.2)) -> MyViewLinePropressXT?{
         if let navigationBar = navigation?.navigationBar{
-            let progressBar = MyViewLinePropress(frame: navigationBar.bounds.divided(atDistance: height, from: .maxYEdge).slice)
+            let progressBar = MyViewLinePropressXT(frame: navigationBar.bounds.divided(atDistance: height, from: .maxYEdge).slice)
             progressBar.barColor = barColor
             progressBar.backgroundColor = backgroundColor
             navigationBar.addSubview(progressBar)

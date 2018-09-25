@@ -7,7 +7,8 @@
 //
 
 import Foundation
-public class MyViewPullRefreshFooter: UIView{
+@objc(MyViewPullRefreshFooterXT)
+public class MyViewPullRefreshFooterXT: UIView{
     public enum State:Int{
         case Idle
         case Refreshing
@@ -318,18 +319,18 @@ public class MyViewPullRefreshFooter: UIView{
 public extension UIScrollView{
     // Objec-C Associaled Key
     private struct AssocialtedKey{
-        static var FOOTER:UnsafeMutablePointer<MyViewPullRefreshFooter>? = nil
+        static var FOOTER:UnsafeMutablePointer<MyViewPullRefreshFooterXT>? = nil
     }
     // 添加Footer
-    public var footerPull:MyViewPullRefreshFooter?{
+    public var footerPull:MyViewPullRefreshFooterXT?{
         get{
-            if let footer = objc_getAssociatedObject(self, &AssocialtedKey.FOOTER) as? MyViewPullRefreshFooter{
+            if let footer = objc_getAssociatedObject(self, &AssocialtedKey.FOOTER) as? MyViewPullRefreshFooterXT{
                 return footer
             }
             return nil
         }
         set{
-            if let footer = objc_getAssociatedObject(self, &AssocialtedKey.FOOTER) as? MyViewPullRefreshFooter{
+            if let footer = objc_getAssociatedObject(self, &AssocialtedKey.FOOTER) as? MyViewPullRefreshFooterXT{
                 footer.removeFromSuperview()
             }
             if let newValue = newValue{

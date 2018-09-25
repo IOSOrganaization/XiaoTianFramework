@@ -94,7 +94,7 @@ open class MyAlertViewProgress: UIView{
                 return _progressView
             }
             if progress > MyAlertViewProgress.PROGRESS_INDICATOR{
-                _progressView = MyViewRingProgress(CGPoint(x: 0, y: 0), labelString?.text == nil ? 18 : 24, colorProgress, 7)
+                _progressView = MyViewRingProgressXT(CGPoint(x: 0, y: 0), labelString?.text == nil ? 18 : 24, colorProgress, 7)
             }else{
                 let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
                 activityIndicatorView.hidesWhenStopped = false
@@ -115,14 +115,14 @@ open class MyAlertViewProgress: UIView{
                 return _ringLayer
             }
             let center = CGPoint(x: hudView!.frame.width/2, y: hudView!.frame.height/2)
-            let radius:CGFloat = (progressView as? MyViewRingProgress)?.radius ?? 30
+            let radius:CGFloat = (progressView as? MyViewRingProgressXT)?.radius ?? 30
             let smoothedPath = UIBezierPath(arcCenter: CGPoint(x:radius,y:radius), radius: radius, startAngle: CGFloat(-Double.pi / 2), endAngle: CGFloat(Double.pi + Double.pi / 2), clockwise: true)
             _ringLayer = CAShapeLayer()
             _ringLayer?.contentsScale = UIScreen.main.scale
             _ringLayer?.frame = CGRect(x: center.x - radius, y: center.y - radius, width: radius*2, height: radius*2)
             _ringLayer?.fillColor = UIColor.clear.cgColor
             _ringLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
-            _ringLayer?.lineWidth = (progressView as? MyViewRingProgress)?.storeThickness ?? 10
+            _ringLayer?.lineWidth = (progressView as? MyViewRingProgressXT)?.storeThickness ?? 10
             _ringLayer?.lineCap = kCALineCapRound
             _ringLayer?.lineJoin = kCALineJoinBevel
             _ringLayer?.path = smoothedPath.cgPath
@@ -140,14 +140,14 @@ open class MyAlertViewProgress: UIView{
                 return _backgroundRingLayer
             }
             let center = CGPoint(x: hudView!.frame.width/2, y: hudView!.frame.height/2)
-            let radius:CGFloat = (progressView as? MyViewRingProgress)?.radius ?? 30
+            let radius:CGFloat = (progressView as? MyViewRingProgressXT)?.radius ?? 30
             let smoothedPath = UIBezierPath(arcCenter: CGPoint(x:radius,y:radius), radius: radius, startAngle: CGFloat(-Double.pi / 2), endAngle: CGFloat(Double.pi + Double.pi / 2), clockwise: true)
             _backgroundRingLayer = CAShapeLayer()
             _backgroundRingLayer?.contentsScale = UIScreen.main.scale
             _backgroundRingLayer?.frame = CGRect(x: center.x - radius, y: center.y - radius, width: radius*2, height: radius*2)
             _backgroundRingLayer?.fillColor = UIColor.clear.cgColor
             _backgroundRingLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
-            _backgroundRingLayer?.lineWidth = (progressView as? MyViewRingProgress)?.storeThickness ?? 10
+            _backgroundRingLayer?.lineWidth = (progressView as? MyViewRingProgressXT)?.storeThickness ?? 10
             _backgroundRingLayer?.lineCap = kCALineCapRound
             _backgroundRingLayer?.lineJoin = kCALineJoinBevel
             _backgroundRingLayer?.path = smoothedPath.cgPath
@@ -540,7 +540,7 @@ open class MyAlertViewProgress: UIView{
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         if labelString?.text != nil{
             if let progressView = progressView{
-                let size = (progressView as? MyViewRingProgress)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
+                let size = (progressView as? MyViewRingProgressXT)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
                 progressView.frame = CGRect(x: (hubWidth - size.width)/2, y: 36 - size.height/2, width: size.width, height: size.height)
             }
             if progress > MyAlertViewProgress.PROGRESS_RING{
@@ -549,7 +549,7 @@ open class MyAlertViewProgress: UIView{
             }
         }else{
             if let progressView = progressView{
-                let size = (progressView as? MyViewRingProgress)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
+                let size = (progressView as? MyViewRingProgressXT)?.calculateFrameSize() ?? CGSize(width: 40, height: 40)
                 progressView.frame = CGRect(x: (hubWidth - size.width)/2, y: (hubHeight - size.height)/2, width: size.width, height: size.height)
             }
             if progress > MyAlertViewProgress.PROGRESS_RING{

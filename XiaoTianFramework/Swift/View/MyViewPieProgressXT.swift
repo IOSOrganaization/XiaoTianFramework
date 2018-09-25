@@ -10,7 +10,8 @@ import UIKit
 import Foundation
 
 @IBDesignable
-public class MyViewPieProgress: UIControl{
+@objc(MyViewPieProgressXT)
+public class MyViewPieProgressXT: UIControl{
     @IBInspectable
     var progressAnimationDuration: TimeInterval = 0.5{
         didSet{

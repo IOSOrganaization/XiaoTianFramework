@@ -40,10 +40,10 @@
 		6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1DDE421EE291F4003FC51C /* UtilBundle.swift */; };
 		6B2C2BAD1EFD302500757037 /* BundleXiaoTian.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */; };
 		6B3604761F45D69A00CD29F5 /* baseCommon.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B3604751F45D69A00CD29F5 /* baseCommon.js */; };
-		6B4422E81F2B680E00565651 /* MyUIImageViewGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */; };
+		6B4422E81F2B680E00565651 /* MyUIImageViewGifXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4422E71F2B680E00565651 /* MyUIImageViewGifXT.swift */; };
 		6B45100C1F14741C00F0451F /* MyAlertViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */; };
 		6B4E1E681F1EE9CD00730561 /* MyToastTopbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */; };
-		6B571DB81F062F2C0021DC2A /* MyViewPullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */; };
+		6B571DB81F062F2C0021DC2A /* MyViewPullRefreshXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B571DB71F062F2C0021DC2A /* MyViewPullRefreshXT.swift */; };
 		6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */; };
 		6B5FB9CF1ED522A600331247 /* HttpProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CB1ED522A600331247 /* HttpProperty.swift */; };
 		6B5FB9D01ED522A600331247 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FB9CC1ED522A600331247 /* HttpRequest.swift */; };
@@ -74,9 +74,9 @@
 		6B5FBA171ED522D200331247 /* MyRedotUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA081ED522D200331247 /* MyRedotUIView.swift */; };
 		6B5FBA181ED522D200331247 /* MySeparatorUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA091ED522D200331247 /* MySeparatorUIView.swift */; };
 		6B5FBA1A1ED522D200331247 /* MyUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA0B1ED522D200331247 /* MyUIImageView.swift */; };
-		6B5FBA1B1ED522D200331247 /* MyUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA0C1ED522D200331247 /* MyUILabel.swift */; };
-		6B5FBA1E1ED522D200331247 /* MyUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA0F1ED522D200331247 /* MyUITextView.swift */; };
-		6B5FBA1F1ED522D200331247 /* MyUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA101ED522D200331247 /* MyUIView.swift */; };
+		6B5FBA1B1ED522D200331247 /* MyUILabelXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA0C1ED522D200331247 /* MyUILabelXT.swift */; };
+		6B5FBA1E1ED522D200331247 /* MyUITextViewXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA0F1ED522D200331247 /* MyUITextViewXT.swift */; };
+		6B5FBA1F1ED522D200331247 /* MyUIViewXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA101ED522D200331247 /* MyUIViewXT.swift */; };
 		6B5FBA211ED522D200331247 /* MyViewTipMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */; };
 		6B5FBA2C1ED5231000331247 /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5FBA251ED5231000331247 /* BTNavigationDropdownMenu.bundle */; };
 		6B5FBA2D1ED5231000331247 /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5FBA261ED5231000331247 /* BTNavigationDropdownMenu.swift */; };
@@ -91,7 +91,7 @@
 		6B606C581ED703220058DA6D /* ExtensionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */; };
 		6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B606C571ED703220058DA6D /* ExtensionNSObject.swift */; };
 		6B64FB021F05308A00C7B527 /* MyStoreHouseRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */; };
-		6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */; };
+		6B6CCBC91EFCC86B007658DD /* MyViewRingProgressXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6CCBC81EFCC86B007658DD /* MyViewRingProgressXT.swift */; };
 		6B7369371F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7369361F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift */; };
 		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
@@ -107,13 +107,13 @@
 		6B891F331F039431004A32E8 /* UtilInterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */; };
 		6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F341F0395F2004A32E8 /* UtilAnimation.swift */; };
 		6B891F371F039E06004A32E8 /* UtilKVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B891F361F039E06004A32E8 /* UtilKVC.swift */; };
-		6B9144D71F3C0CA00010EA3A /* MyUIViewSVG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9144D61F3C0CA00010EA3A /* MyUIViewSVG.swift */; };
+		6B9144D71F3C0CA00010EA3A /* MyUIViewSVGXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9144D61F3C0CA00010EA3A /* MyUIViewSVGXT.swift */; };
 		6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */; };
 		6B94E8E11EFDFB8D00D43ECA /* MyAlertViewProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B94E8E01EFDFB8D00D43ECA /* MyAlertViewProgress.swift */; };
-		6B95A8721F0A74C400804091 /* MyViewPullRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B95A8711F0A74C400804091 /* MyViewPullRefreshFooter.swift */; };
+		6B95A8721F0A74C400804091 /* MyViewPullRefreshFooterXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B95A8711F0A74C400804091 /* MyViewPullRefreshFooterXT.swift */; };
 		6B97D29D1F28844800FD8099 /* MyCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97D29C1F28844800FD8099 /* MyCircularSlider.swift */; };
-		6B97D2A01F28CEF900FD8099 /* MyViewCircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97D29F1F28CEF900FD8099 /* MyViewCircleProgress.swift */; };
-		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */; };
+		6B97D2A01F28CEF900FD8099 /* MyViewCircleProgressXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97D29F1F28CEF900FD8099 /* MyViewCircleProgressXT.swift */; };
+		6BA91C501EF8F6EC00EE9577 /* MyViewLinePropressXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropressXT.swift */; };
 		6BB1D0401F1CDE380070FB29 /* MyAlertActionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */; };
 		6BCABB561F29843A00EFEFF5 /* MyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCABB551F29843A00EFEFF5 /* MyToast.swift */; };
 		6BCB1F8E1F90B7DB00081ED0 /* CAPSScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */; };
@@ -133,7 +133,7 @@
 		6BD380E81E56A8090034D24E /* NSData+Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD380DE1E56A8090034D24E /* NSData+Base64Additions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD380E01E56A8090034D24E /* NSStream+SKPSMTPExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6BD380EC1E56A8090034D24E /* SKPSMTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD380E21E56A8090034D24E /* SKPSMTPMessage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6BDB6FA61FB3068E002E5459 /* MyViewPieProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDB6FA51FB3068D002E5459 /* MyViewPieProgress.swift */; };
+		6BDB6FA61FB3068E002E5459 /* MyViewPieProgressXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDB6FA51FB3068D002E5459 /* MyViewPieProgressXT.swift */; };
 		6BDD036F1EE1B06800582862 /* UtilCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD036E1EE1B06800582862 /* UtilCoreData.swift */; };
 /* End PBXBuildFile section */
 
@@ -185,10 +185,10 @@
 		6B1DDE421EE291F4003FC51C /* UtilBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilBundle.swift; path = Swift/Util/UtilBundle.swift; sourceTree = "<group>"; };
 		6B2C2BAC1EFD302500757037 /* BundleXiaoTian.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BundleXiaoTian.bundle; sourceTree = "<group>"; };
 		6B3604751F45D69A00CD29F5 /* baseCommon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = baseCommon.js; path = Swift/Util/baseCommon.js; sourceTree = "<group>"; };
-		6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIImageViewGif.swift; path = Swift/View/MyUIImageViewGif.swift; sourceTree = "<group>"; };
+		6B4422E71F2B680E00565651 /* MyUIImageViewGifXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIImageViewGifXT.swift; path = Swift/View/MyUIImageViewGifXT.swift; sourceTree = "<group>"; };
 		6B45100B1F14741C00F0451F /* MyAlertViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewControl.swift; path = Swift/View/MyAlertViewControl.swift; sourceTree = "<group>"; };
 		6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToastTopbar.swift; path = Swift/View/MyToastTopbar.swift; sourceTree = "<group>"; };
-		6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefresh.swift; path = Swift/View/MyViewPullRefresh.swift; sourceTree = "<group>"; };
+		6B571DB71F062F2C0021DC2A /* MyViewPullRefreshXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefreshXT.swift; path = Swift/View/MyViewPullRefreshXT.swift; sourceTree = "<group>"; };
 		6B5FB9CA1ED522A600331247 /* HttpAsyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpAsyncTask.swift; path = Swift/Net/HttpAsyncTask.swift; sourceTree = "<group>"; };
 		6B5FB9CB1ED522A600331247 /* HttpProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpProperty.swift; path = Swift/Net/HttpProperty.swift; sourceTree = "<group>"; };
 		6B5FB9CC1ED522A600331247 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpRequest.swift; path = Swift/Net/HttpRequest.swift; sourceTree = "<group>"; };
@@ -219,9 +219,9 @@
 		6B5FBA081ED522D200331247 /* MyRedotUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyRedotUIView.swift; path = Swift/View/MyRedotUIView.swift; sourceTree = "<group>"; };
 		6B5FBA091ED522D200331247 /* MySeparatorUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MySeparatorUIView.swift; path = Swift/View/MySeparatorUIView.swift; sourceTree = "<group>"; };
 		6B5FBA0B1ED522D200331247 /* MyUIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIImageView.swift; path = Swift/View/MyUIImageView.swift; sourceTree = "<group>"; };
-		6B5FBA0C1ED522D200331247 /* MyUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUILabel.swift; path = Swift/View/MyUILabel.swift; sourceTree = "<group>"; };
-		6B5FBA0F1ED522D200331247 /* MyUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUITextView.swift; path = Swift/View/MyUITextView.swift; sourceTree = "<group>"; };
-		6B5FBA101ED522D200331247 /* MyUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIView.swift; path = Swift/View/MyUIView.swift; sourceTree = "<group>"; };
+		6B5FBA0C1ED522D200331247 /* MyUILabelXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUILabelXT.swift; path = Swift/View/MyUILabelXT.swift; sourceTree = "<group>"; };
+		6B5FBA0F1ED522D200331247 /* MyUITextViewXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUITextViewXT.swift; path = Swift/View/MyUITextViewXT.swift; sourceTree = "<group>"; };
+		6B5FBA101ED522D200331247 /* MyUIViewXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIViewXT.swift; path = Swift/View/MyUIViewXT.swift; sourceTree = "<group>"; };
 		6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyViewTipMessage.xib; path = Swift/View/MyViewTipMessage.xib; sourceTree = "<group>"; };
 		6B5FBA251ED5231000331247 /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BTNavigationDropdownMenu.bundle; path = Swift/Widget/BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
 		6B5FBA261ED5231000331247 /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTNavigationDropdownMenu.swift; path = Swift/Widget/BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		6B606C561ED703220058DA6D /* ExtensionUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIViewController.swift; path = Swift/Extension/ExtensionUIViewController.swift; sourceTree = "<group>"; };
 		6B606C571ED703220058DA6D /* ExtensionNSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNSObject.swift; path = Swift/Extension/ExtensionNSObject.swift; sourceTree = "<group>"; };
 		6B64FB011F05308A00C7B527 /* MyStoreHouseRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStoreHouseRefreshControl.swift; path = Swift/View/MyStoreHouseRefreshControl.swift; sourceTree = "<group>"; };
-		6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewRingProgress.swift; path = Swift/View/MyViewRingProgress.swift; sourceTree = "<group>"; };
+		6B6CCBC81EFCC86B007658DD /* MyViewRingProgressXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewRingProgressXT.swift; path = Swift/View/MyViewRingProgressXT.swift; sourceTree = "<group>"; };
 		6B7369361F19AE8B00FCFB4C /* MyAlertViewProgressPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewProgressPin.swift; path = Swift/View/MyAlertViewProgressPin.swift; sourceTree = "<group>"; };
 		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
@@ -252,14 +252,14 @@
 		6B891F321F039431004A32E8 /* UtilInterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilInterfaceBuilder.swift; path = Swift/Util/UtilInterfaceBuilder.swift; sourceTree = "<group>"; };
 		6B891F341F0395F2004A32E8 /* UtilAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilAnimation.swift; path = Swift/Util/UtilAnimation.swift; sourceTree = "<group>"; };
 		6B891F361F039E06004A32E8 /* UtilKVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilKVC.swift; path = Util/UtilKVC.swift; sourceTree = "<group>"; };
-		6B9144D61F3C0CA00010EA3A /* MyUIViewSVG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIViewSVG.swift; path = Swift/View/MyUIViewSVG.swift; sourceTree = "<group>"; };
+		6B9144D61F3C0CA00010EA3A /* MyUIViewSVGXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyUIViewSVGXT.swift; path = Swift/View/MyUIViewSVGXT.swift; sourceTree = "<group>"; };
 		6B9228C51EEE469E006D3F5F /* UtilUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilUIControl.swift; path = Swift/Util/UtilUIControl.swift; sourceTree = "<group>"; };
 		6B94E8E01EFDFB8D00D43ECA /* MyAlertViewProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertViewProgress.swift; path = Swift/View/MyAlertViewProgress.swift; sourceTree = "<group>"; };
-		6B95A8711F0A74C400804091 /* MyViewPullRefreshFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefreshFooter.swift; path = Swift/View/MyViewPullRefreshFooter.swift; sourceTree = "<group>"; };
+		6B95A8711F0A74C400804091 /* MyViewPullRefreshFooterXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPullRefreshFooterXT.swift; path = Swift/View/MyViewPullRefreshFooterXT.swift; sourceTree = "<group>"; };
 		6B97D29C1F28844800FD8099 /* MyCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyCircularSlider.swift; path = Swift/View/MyCircularSlider.swift; sourceTree = "<group>"; };
-		6B97D29F1F28CEF900FD8099 /* MyViewCircleProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewCircleProgress.swift; path = Swift/View/MyViewCircleProgress.swift; sourceTree = "<group>"; };
+		6B97D29F1F28CEF900FD8099 /* MyViewCircleProgressXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewCircleProgressXT.swift; path = Swift/View/MyViewCircleProgressXT.swift; sourceTree = "<group>"; };
 		6BA8856E1EFC9FEC0037E793 /* BundleXiaoTian.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BundleXiaoTian.xcodeproj; path = BundleXiaoTian/BundleXiaoTian.xcodeproj; sourceTree = "<group>"; };
-		6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewLinePropress.swift; path = Swift/View/MyViewLinePropress.swift; sourceTree = "<group>"; };
+		6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropressXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewLinePropressXT.swift; path = Swift/View/MyViewLinePropressXT.swift; sourceTree = "<group>"; };
 		6BB1D03F1F1CDE380070FB29 /* MyAlertActionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAlertActionControl.swift; path = Swift/View/MyAlertActionControl.swift; sourceTree = "<group>"; };
 		6BCABB551F29843A00EFEFF5 /* MyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyToast.swift; path = Swift/View/MyToast.swift; sourceTree = "<group>"; };
 		6BCB1F8B1F90B7DA00081ED0 /* CAPSScrollMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAPSScrollMenu.swift; path = Swift/View/CAPSScrollMenu.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		6BD380E01E56A8090034D24E /* NSStream+SKPSMTPExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSStream+SKPSMTPExtensions.m"; sourceTree = "<group>"; };
 		6BD380E11E56A8090034D24E /* SKPSMTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPSMTPMessage.h; sourceTree = "<group>"; };
 		6BD380E21E56A8090034D24E /* SKPSMTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPSMTPMessage.m; sourceTree = "<group>"; };
-		6BDB6FA51FB3068D002E5459 /* MyViewPieProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPieProgress.swift; path = Swift/View/MyViewPieProgress.swift; sourceTree = "<group>"; };
+		6BDB6FA51FB3068D002E5459 /* MyViewPieProgressXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewPieProgressXT.swift; path = Swift/View/MyViewPieProgressXT.swift; sourceTree = "<group>"; };
 		6BDD036E1EE1B06800582862 /* UtilCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilCoreData.swift; path = Swift/Util/UtilCoreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -522,17 +522,17 @@
 				6BCABB551F29843A00EFEFF5 /* MyToast.swift */,
 				6B4E1E671F1EE9CD00730561 /* MyToastTopbar.swift */,
 				6B5FBA0B1ED522D200331247 /* MyUIImageView.swift */,
-				6B4422E71F2B680E00565651 /* MyUIImageViewGif.swift */,
-				6B5FBA0C1ED522D200331247 /* MyUILabel.swift */,
-				6B5FBA0F1ED522D200331247 /* MyUITextView.swift */,
-				6B5FBA101ED522D200331247 /* MyUIView.swift */,
-				6B9144D61F3C0CA00010EA3A /* MyUIViewSVG.swift */,
-				6B97D29F1F28CEF900FD8099 /* MyViewCircleProgress.swift */,
-				6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropress.swift */,
-				6BDB6FA51FB3068D002E5459 /* MyViewPieProgress.swift */,
-				6B571DB71F062F2C0021DC2A /* MyViewPullRefresh.swift */,
-				6B95A8711F0A74C400804091 /* MyViewPullRefreshFooter.swift */,
-				6B6CCBC81EFCC86B007658DD /* MyViewRingProgress.swift */,
+				6B4422E71F2B680E00565651 /* MyUIImageViewGifXT.swift */,
+				6B5FBA0C1ED522D200331247 /* MyUILabelXT.swift */,
+				6B5FBA0F1ED522D200331247 /* MyUITextViewXT.swift */,
+				6B5FBA101ED522D200331247 /* MyUIViewXT.swift */,
+				6B9144D61F3C0CA00010EA3A /* MyUIViewSVGXT.swift */,
+				6B97D29F1F28CEF900FD8099 /* MyViewCircleProgressXT.swift */,
+				6BA91C4F1EF8F6EC00EE9577 /* MyViewLinePropressXT.swift */,
+				6BDB6FA51FB3068D002E5459 /* MyViewPieProgressXT.swift */,
+				6B571DB71F062F2C0021DC2A /* MyViewPullRefreshXT.swift */,
+				6B95A8711F0A74C400804091 /* MyViewPullRefreshFooterXT.swift */,
+				6B6CCBC81EFCC86B007658DD /* MyViewRingProgressXT.swift */,
 				6B5FBA121ED522D200331247 /* MyViewTipMessage.xib */,
 			);
 			name = View;
@@ -749,22 +749,22 @@
 				6B5FB9D01ED522A600331247 /* HttpRequest.swift in Sources */,
 				6B5FB9F71ED522BA00331247 /* UtilLabel.swift in Sources */,
 				6B5FBA391ED5235000331247 /* MYBlurIntroductionView.m in Sources */,
-				6B571DB81F062F2C0021DC2A /* MyViewPullRefresh.swift in Sources */,
+				6B571DB81F062F2C0021DC2A /* MyViewPullRefreshXT.swift in Sources */,
 				04ABFC651A63768F008381AE /* XTFUtilFile.m in Sources */,
 				6B9228C61EEE469E006D3F5F /* UtilUIControl.swift in Sources */,
-				6B5FBA1E1ED522D200331247 /* MyUITextView.swift in Sources */,
+				6B5FBA1E1ED522D200331247 /* MyUITextViewXT.swift in Sources */,
 				58E9BD461D21896100B9DC75 /* XTFSerializerJson.m in Sources */,
 				6BCB1F901F90B7DB00081ED0 /* MyAlertView.swift in Sources */,
 				6BD3049D1ED84D3D004BDD21 /* XTFUtilSqlite.m in Sources */,
 				6B606C591ED703220058DA6D /* ExtensionNSObject.swift in Sources */,
-				6B9144D71F3C0CA00010EA3A /* MyUIViewSVG.swift in Sources */,
+				6B9144D71F3C0CA00010EA3A /* MyUIViewSVGXT.swift in Sources */,
 				6B7C87481F3ECEF1006CE3B6 /* MyLog.swift in Sources */,
 				6B5FBA371ED5235000331247 /* MYIntroductionPanel.m in Sources */,
 				58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */,
 				6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */,
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
-				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
+				6B6CCBC91EFCC86B007658DD /* MyViewRingProgressXT.swift in Sources */,
 				6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */,
 				6BCB1F8F1F90B7DB00081ED0 /* MyPopView.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
@@ -776,10 +776,10 @@
 				6BCB1F8E1F90B7DB00081ED0 /* CAPSScrollMenu.swift in Sources */,
 				6B84421E1F39BF3000B83FF0 /* NetReachability.swift in Sources */,
 				6B1DDE431EE291F4003FC51C /* UtilBundle.swift in Sources */,
-				6BA91C501EF8F6EC00EE9577 /* MyViewLinePropress.swift in Sources */,
-				6B4422E81F2B680E00565651 /* MyUIImageViewGif.swift in Sources */,
-				6BDB6FA61FB3068E002E5459 /* MyViewPieProgress.swift in Sources */,
-				6B97D2A01F28CEF900FD8099 /* MyViewCircleProgress.swift in Sources */,
+				6BA91C501EF8F6EC00EE9577 /* MyViewLinePropressXT.swift in Sources */,
+				6B4422E81F2B680E00565651 /* MyUIImageViewGifXT.swift in Sources */,
+				6BDB6FA61FB3068E002E5459 /* MyViewPieProgressXT.swift in Sources */,
+				6B97D2A01F28CEF900FD8099 /* MyViewCircleProgressXT.swift in Sources */,
 				6BD380EA1E56A8090034D24E /* NSStream+SKPSMTPExtensions.m in Sources */,
 				6B8043231F18F8DA00420CDD /* UtilUITableView.swift in Sources */,
 				6BB1D0401F1CDE380070FB29 /* MyAlertActionControl.swift in Sources */,
@@ -808,9 +808,9 @@
 				04ABFC611A63753B008381AE /* XTFUtilEnvironment.m in Sources */,
 				04EFE06A1A53F36B00E846CB /* UINavigationController+XTF.m in Sources */,
 				6BCC75561FCFA56B00B52F79 /* UtilUIViewControl.swift in Sources */,
-				6B95A8721F0A74C400804091 /* MyViewPullRefreshFooter.swift in Sources */,
+				6B95A8721F0A74C400804091 /* MyViewPullRefreshFooterXT.swift in Sources */,
 				6B5FB9FD1ED522BA00331247 /* UtilRegularExpression.swift in Sources */,
-				6B5FBA1F1ED522D200331247 /* MyUIView.swift in Sources */,
+				6B5FBA1F1ED522D200331247 /* MyUIViewXT.swift in Sources */,
 				6B5FBA181ED522D200331247 /* MySeparatorUIView.swift in Sources */,
 				6B07EC391EF7A18B00CC94D9 /* ExtensionNSCoder.swift in Sources */,
 				6B5FBA001ED522BA00331247 /* UtilSwift.swift in Sources */,
@@ -830,7 +830,7 @@
 				6BD380EC1E56A8090034D24E /* SKPSMTPMessage.m in Sources */,
 				6B5FBA171ED522D200331247 /* MyRedotUIView.swift in Sources */,
 				6B4E1E681F1EE9CD00730561 /* MyToastTopbar.swift in Sources */,
-				6B5FBA1B1ED522D200331247 /* MyUILabel.swift in Sources */,
+				6B5FBA1B1ED522D200331247 /* MyUILabelXT.swift in Sources */,
 				6B8266661F3B0DF9001EF9B1 /* UtilXML.swift in Sources */,
 				6B5FB9F81ED522BA00331247 /* UtilLayoutConstraint.swift in Sources */,
 			);

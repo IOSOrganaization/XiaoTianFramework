@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 @IBDesignable
 @objc(MyUITextViewXT)
-open class MyUITextView: UITextView{
-    var tabFunction:((_ view:MyUITextView)->())?
+open class MyUITextViewXT: UITextView{
+    var tabFunction:((_ view:MyUITextViewXT)->())?
     
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView]
     @IBInspectable var onClickAction: String = ""
@@ -57,7 +57,7 @@ open class MyUITextView: UITextView{
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUITextView)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUITextViewXT)->()){
         clickableExt = true
         self.tabFunction = onTabListener
     }
@@ -120,7 +120,7 @@ private var tabDataAssociationKey: UInt8 = 0
 private var tabFunctionAssociationKey: UInt8 = 0
 private var clickableAssociationKey: UInt8 = 0
 private var backgroundViewAssociationKey: UInt8 = 0
-private extension MyUITextView {
+private extension MyUITextViewXT {
     var tabDateExt : TimeInterval {
         get {
             var value = objc_getAssociatedObject(self, &tabDataAssociationKey)

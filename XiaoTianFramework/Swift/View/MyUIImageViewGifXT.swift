@@ -9,8 +9,8 @@
 import Foundation
 import ImageIO
 import MobileCoreServices
-
-public class MyUIImageViewGif: UIImageView{
+@objc(MyUIImageViewGifXT)
+public class MyUIImageViewGifXT: UIImageView{
     var currentFrameIndex = 0// 当前位置
     var loopCountdown:Int = 0// 到计数器
     var currentFrame:UIImage?// 当前显示图片

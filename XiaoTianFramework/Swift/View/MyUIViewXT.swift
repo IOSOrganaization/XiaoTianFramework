@@ -11,8 +11,8 @@ import UIKit
 
 @IBDesignable
 @objc(MyUIViewXT)
-public class MyUIView: UIView{
-    var tabFunction:((_ view:MyUIView)->())?
+public class MyUIViewXT: UIView{
+    var tabFunction:((_ view:MyUIViewXT)->())?
     
     // IB 点击事件绑定,eg: onClickAction[无参数], onClickAction:[包含一个参数UIView],也可以通过KVC模式设置
     @IBInspectable public var onClickAction: String = ""
@@ -59,7 +59,7 @@ public class MyUIView: UIView{
         }
     }
     // 设置Tab 事件侦听器
-    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUIView)->()){
+    func setOnTabListener(_ onTabListener:@escaping (_ view:MyUIViewXT)->()){
         clickableExt = true
         self.tabFunction = onTabListener
     }
@@ -87,7 +87,7 @@ private var tabDataAssociationKey: UInt8 = 0
 private var tabFunctionAssociationKey: UInt8 = 0
 private var clickableAssociationKey: UInt8 = 0
 private var backgroundViewAssociationKey: UInt8 = 0
-private extension MyUIView {
+private extension MyUIViewXT {
     var tabDateExt : TimeInterval {
         get {
             var value = objc_getAssociatedObject(self, &tabDataAssociationKey)

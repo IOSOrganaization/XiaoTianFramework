@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-public class MyViewPullRefresh: UIView{
+@objc(MyViewPullRefreshXT)
+public class MyViewPullRefreshXT: UIView{
     public static let KEY_LAST_UPDATE_TIME = "MyViewRefreshControl.KEY_LAST_UPDATE_TIME"
     @objc
     public enum TypeShow:Int{
@@ -89,7 +89,7 @@ public class MyViewPullRefresh: UIView{
         }
     }
     var keyLastUpdateTime:String = {
-        MyViewPullRefresh.KEY_LAST_UPDATE_TIME.appending(".").appending(ProcessInfo.processInfo.globallyUniqueString)
+        MyViewPullRefreshXT.KEY_LAST_UPDATE_TIME.appending(".").appending(ProcessInfo.processInfo.globallyUniqueString)
     }()
     // initFrame:Designated initializer(系统指定构造器,必须调用)
     // init:NSObject默认构造器,系统会自动调用指定构造器
@@ -488,20 +488,20 @@ public class MyViewPullRefresh: UIView{
 public extension UIScrollView{
     // Objec-C Associaled Key
     private struct AssocialtedKey{
-        static var HEADER:UnsafeMutablePointer<MyViewPullRefresh>? = nil
+        static var HEADER:UnsafeMutablePointer<MyViewPullRefreshXT>? = nil
         static var PAGE:UnsafeMutablePointer<Int>? = nil
         static var PAGESIZE:UnsafeMutablePointer<Int>? = nil
     }
     // 添加Header
-    public var headerPull:MyViewPullRefresh?{
+    public var headerPull:MyViewPullRefreshXT?{
         get{
-            if let header = objc_getAssociatedObject(self, &AssocialtedKey.HEADER) as? MyViewPullRefresh{
+            if let header = objc_getAssociatedObject(self, &AssocialtedKey.HEADER) as? MyViewPullRefreshXT{
                 return header
             }
             return nil
         }
         set{
-            if let header = objc_getAssociatedObject(self, &AssocialtedKey.HEADER) as? MyViewPullRefresh{
+            if let header = objc_getAssociatedObject(self, &AssocialtedKey.HEADER) as? MyViewPullRefreshXT{
                 header.removeFromSuperview()
             }
             if let newValue = newValue{
