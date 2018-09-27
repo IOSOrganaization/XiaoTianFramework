@@ -50,7 +50,7 @@ open class UtilEnvironment : NSObject{
     public class func openAppStore(_ bundleName: String!){
         if bundleName == nil{
             let bundleInfo = Bundle.main.infoDictionary
-            var bundleName = bundleInfo!["CFBundleName"] as! String
+            var bundleName:String = bundleInfo!["CFBundleName"] as! String
             bundleName = bundleName.replacingOccurrences(of: " ", with: "")
             UIApplication.shared.openURL(URL(string: "itms-apps://itunes.com/app/\(bundleName)")!)
         } else {

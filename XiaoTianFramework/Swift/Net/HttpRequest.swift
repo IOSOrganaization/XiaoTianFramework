@@ -178,11 +178,11 @@ open class HttpRequest : NSObject{
         if parameters != nil {
             let enumerator = parameters?.keyEnumerator()
             while let key = enumerator?.nextObject(){
-                let value = parameters?.object(forKey: key)
-                if value == nil {
+                guard let value = parameters?.object(forKey: key) else{
                     continue
                 }
-                requestString = requestString == nil ? "\(key)=\(value!)" : "\(requestString)&\(key)=\(value!)"
+                requestString = requestString == nil ? "\(key)=\(value)" : "\(requestString!)&\(key)=\(value)"
+                Mylog.log(requestString)
             }
             // 常量参数
             requestData = requestString.data(using: String.Encoding.utf8)
@@ -603,7 +603,7 @@ open class HttpRequest : NSObject{
             if let enumerator = param?.keyEnumerator(){
                 while let key = enumerator.nextObject(){
                     if let value = param?.object(forKey: key){
-                        result = result == nil ? "\(key)=\(value)" : "\(result)&\(key)=\(value)"
+                        result = result == nil ? "\(key)=\(value)" : "\(result!)&\(key)=\(value)"
                     }
                 }
             }
@@ -720,7 +720,7 @@ open class HttpRequest : NSObject{
             message.append(method)
             message.append(")")
         }
-        let time = String(Int(CACurrentMediaTime() - startDate * 1000.0)) // ms
+        let time = String(Int((CACurrentMediaTime() - startDate) * 1000.0)) // ms
         message.append("[")
         message.append(time)
         message.append("ms]")

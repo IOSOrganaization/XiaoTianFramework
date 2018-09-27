@@ -19,10 +19,10 @@ open class HttpResponse : NSObject {
     public static let TYPE_FAILED: Int = 0
     public static let TYPE_SELF_LOSE: Int = -1 // self 丢失页面无效
     //
-    public var codeXJ : Int? //错误码 200:成功,400:Token错误
-    public var successXJ : Int? //成功标志 1:成功,0:失败
-    public var msgXJ : String? //错误信息
-    public var dataXJ : NSDictionary? //返回data数据
+    @objc public var codeXJ : NSNumber? //错误码 200:成功,400:Token错误
+    @objc public var successXJ : NSNumber? //成功标志 1:成功,0:失败
+    @objc public var msgXJ : String? //错误信息
+    @objc public var dataXJ : NSDictionary? //返回data数据
     //
     public var response : NSDictionary? // 返回的Json对象数据
     
@@ -33,8 +33,8 @@ open class HttpResponse : NSObject {
     public override init(){} //必须包含无参构造器,系统实例化入口
     
     public init(success:Int = 0, code:Int = 4409, msg:String = "请求错误.") {
-        self.successXJ = success
-        self.codeXJ = code
+        self.successXJ = success as NSNumber
+        self.codeXJ = code as NSNumber
         self.msgXJ = msg
     }
     

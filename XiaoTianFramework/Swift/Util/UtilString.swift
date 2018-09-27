@@ -113,11 +113,11 @@ open class UtilString :NSObject {
     /// 生成随机文件名称
     open func genFileName(_ minLength:Int,_ maxLength:Int,_ ext:String) -> String{
         var name:String = ""
-        let charcount = FILE_NAME_KEY.characters.count
+        let charcount = FILE_NAME_KEY.count
         let length = minLength + Int(arc4random_uniform(UInt32(maxLength - minLength)))
         for _ in 0..<length {
             let index = Int(arc4random_uniform(UInt32(charcount)))
-            let char = FILE_NAME_KEY[FILE_NAME_KEY.characters.index(FILE_NAME_KEY.startIndex, offsetBy: index)]
+            let char:Character = FILE_NAME_KEY[FILE_NAME_KEY.index(FILE_NAME_KEY.startIndex, offsetBy: index)]
             name = "\(name)\(char)"
         }
         return "\(name).\(ext)"
