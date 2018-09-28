@@ -247,7 +247,7 @@ open class UtilEnvironment : NSObject{
     }
     /// iOS8+
     public class var isAfteriOS8: Bool{
-        return Float(UIDevice.current.systemVersion)! >= 8.0
+        return Float(UIDevice.current.systemVersion.split(separator: ".")[0])! >= 8.0
     }
     /// Available iOS 10
     public class var availableiOS10: Bool{
