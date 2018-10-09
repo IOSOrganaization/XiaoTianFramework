@@ -122,7 +122,7 @@ open class MyUILabelXT: UILabel{
                         return
                     }
                     // 执行绑定的 OnClickAction [最多传递一个参数]
-                    wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
+                    let _ = wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
                 }
             }
         }
@@ -259,9 +259,7 @@ private extension MyUILabelXT {
         }
         if Date().timeIntervalSince1970 - tabDateExt < 0.1 {
             // 点击太快(小于0.1s,背景还没显示),延时隐藏背景,等待背景显示
-            let delay = 0.1 * Double(NSEC_PER_SEC)
-            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: {
                 self.backgroundViewExt.isHidden = true
             })
         } else {
@@ -275,9 +273,7 @@ private extension MyUILabelXT {
         }
         if Date().timeIntervalSince1970 - tabDateExt < 0.2 {
             // 点击太快(小于0.1s,背景还没显示),延时隐藏背景,等待背景显示
-            let delay = 0.1 * Double(NSEC_PER_SEC)
-            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: {
                 self.backgroundViewExt.isHidden = true
             })
         } else {
