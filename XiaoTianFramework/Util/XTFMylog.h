@@ -30,6 +30,7 @@
 +(void) infoClassVariable: (id _Nullable) message;
 +(void) infoMethodImplementation: (id _Nullable) target selector: (SEL _Nullable) selector;
 //
++(void) infoAllSubFiles:(NSString*)path;
 +(void) infoBundleAllFiles;
 +(void) infoBundleAllFolder;
 +(void) infoBundleAllFiles:(NSString * _Nullable)extends;

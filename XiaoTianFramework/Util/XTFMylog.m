@@ -501,7 +501,18 @@
     NSLog(@"}");
 #endif
 }
-
++(void) infoAllSubFiles:(NSString*) path{
+#if defined(DEBUG)||defined(_DEBUG)
+     [Mylog info:@"ROOT: %@", path];
+     NSFileManager* manager = [NSFileManager defaultManager];
+     NSArray *subPathArr = [manager subpathsAtPath: path];
+     if(subPathArr){
+         for (NSString *subPath in subPathArr){
+             [Mylog info:@"%@", subPath];
+         }
+     }
+#endif
+}
 +(void) infoBundleAllFiles{
 #if defined(DEBUG)||defined(_DEBUG)
     NSBundle *bundle = [NSBundle mainBundle];
