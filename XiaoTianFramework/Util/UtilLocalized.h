@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 多语言
 +(NSString*) string:(NSString*) name;
-+(NSString*) string:(NSString*) name comment:(NSString*) comment;
++(NSString*) string:(NSString*) name comment:(NSString* _Nullable) comment;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -19,27 +19,30 @@
 #endif
 
 @implementation UtilUserDefault{
-    NSUserDefaults *mNSUserDefaults;
+    NSUserDefaults *_userDefaults;
 }
 
 -(instancetype) init{
     self = [super init];
     if(self){
-        mNSUserDefaults = [NSUserDefaults standardUserDefaults];
+        _userDefaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
 }
 //
 -(BOOL) getBOOL{
-    return [mNSUserDefaults boolForKey:TAG_NAME_BOOL];
+    return [_userDefaults boolForKey:TAG_NAME_BOOL];
 }
 -(BOOL) getBOOL:(NSString*) tagname{
-    return [mNSUserDefaults boolForKey:tagname];
+    return [_userDefaults boolForKey:tagname];
 }
 -(void) setBOOL{
-    [mNSUserDefaults setBool:YES forKey:TAG_NAME_BOOL];
+    [_userDefaults setBool:YES forKey:TAG_NAME_BOOL];
 }
 -(void) setBOOL:(NSString*) tagname{
-    [mNSUserDefaults setBool:YES forKey:tagname];
+    [_userDefaults setBool:YES forKey:tagname];
+}
+-(void) setBOOL:(NSString*) tagname value:(BOOL) value{
+    [_userDefaults setBool:value forKey:tagname];
 }
 @end

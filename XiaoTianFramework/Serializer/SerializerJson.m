@@ -8,8 +8,84 @@
 
 #import "SerializerJson.h"
 #import "Mylog.h"
-
 @import ObjectiveC.runtime;
+//
+#define XTJPropertyTypeInt @"i"
+#define XTJPropertyTypeShort @"s"
+#define XTJPropertyTypeFloat @"f"
+#define XTJPropertyTypeDouble @"d"
+#define XTJPropertyTypeLong @"l"
+#define XTJPropertyTypeLongLong @"q"
+#define XTJPropertyTypeChar @"c"
+#define XTJPropertyTypeBOOL1 @"c"//0,1
+#define XTJPropertyTypeBOOL2 @"b"//true,false
+#define XTJPropertyTypePointer @"*"
+//
+#pragma mark Test Json Entity 所有参与序列化和反序列化的属性都要以: XJ结尾, 不以XJ结尾不参与序列化
+@interface XTJTestResponseFileImage : NSObject
+@property(strong,nonatomic)NSString* idXJ;
+@property(strong,nonatomic)NSString* nameXJ;
+@property(strong,nonatomic)NSString* fileUrlXJ;
+@property(strong,nonatomic)NSString* cursorXJ;
+@property(strong,nonatomic)NSString* dataRatioXJ;
+@property(assign,nonatomic)int widthXJ;
+@property(assign,nonatomic)long heightXJ;
+@end
+
+@interface XTJTestResponseFileContent : NSObject
+@property(strong,nonatomic)NSString* contentXJ;
+@property(strong,nonatomic)NSString* folderNameXJ;
+@end
+
+@interface XTJTestResponseAD : NSObject
+@property(strong,nonatomic)NSString* fileUrl;
+@property(assign,nonatomic)int fileType;
+@property(assign,nonatomic)int targetType;
+@property(strong,nonatomic)NSString* targetContent;
+@property(assign,nonatomic)long displaySeconds;
+@property(assign,nonatomic)BOOL displayOnResume;
+@property(assign,nonatomic)int style;
+@end
+@interface XTJTestResponseFile : NSObject
+@property(strong,nonatomic)NSArray<XTJTestResponseFileContent*>* filesXJ;//Array需要配置实体映射
+@property(assign,nonatomic)long latestVersionXJ;
+@end
+@interface XTJTestResponseVersion : NSObject
+@property(strong,nonatomic)NSString* idXJ;
+@property(strong,nonatomic)NSString* downloadUrlXJ;
+@property(strong,nonatomic)NSArray<XTJTestResponseFileImage*>* imagesXJ;//Array需要配置实体映射
+@property(assign,nonatomic)BOOL isForceXJ;
+@property(strong,nonatomic)NSString* nameXJ;
+@property(strong,nonatomic)NSString* versionNameXJ;
+@property(strong,nonatomic)NSString* versionDescXJ;
+@property(assign,nonatomic)int versionNumXJ;
+@end
+@interface XTJTestResponse : NSObject
+@property(strong,nonatomic)XTJTestResponseAD* advertXJ;//嵌套类,非id类型不需要声明映射实体
+@property(strong,nonatomic)XTJTestResponseFile* sysFileXJ;
+@property(strong,nonatomic)XTJTestResponseVersion* versionXJ;
+@end
+@implementation XTJTestResponse
+//- (NSDictionary<NSString *,NSString *> *)entityMapping{return @{@"advertXJ":@"XTJTestResponseAD",@"sysFileXJ":@"XTJTestResponseFile",@"versionXJ":@"XTJTestResponseVersion"};}
+- (NSString *)description{ return [NSString stringWithFormat:@"%@:{advertXJ=%@,sysFileXJ=%@,versionXJ=%@}",[self class],self.advertXJ,self.sysFileXJ,self.versionXJ];}
+@end
+@implementation XTJTestResponseVersion
+- (NSDictionary<NSString *,NSString *> *)entityMapping{return @{@"imagesXJ":@"XTJTestResponseFileImage"};}
+- (NSString *)description{return [NSString stringWithFormat:@"%@:{idXJ=%@,downloadUrlXJ=%@,imagesXJ=%@,isForceXJ=%d,nameXJ=%@,versionNameXJ=%@,versionDescXJ=%@,versionNumXJ=%d}", [self class],self.idXJ,self.downloadUrlXJ,self.imagesXJ,self.isForceXJ,self.nameXJ,self.versionNameXJ,self.versionDescXJ,self.versionNumXJ];}
+@end
+@implementation XTJTestResponseFile
+- (NSDictionary<NSString *,NSString *> *)entityMapping{return @{@"filesXJ":@"XTJTestResponseFileContent"};}
+- (NSString *)description{return [NSString stringWithFormat:@"%@:{filesXJ=%@,latestVersionXJ=%ld}",[self class],self.filesXJ,self.latestVersionXJ];}
+@end
+@implementation XTJTestResponseAD
+//- (NSString *)description{ return [NSString stringWithFormat:@"{advertXJ=%@,sysFileXJ=%@,versionXJ=%@}", self.advertXJ,self.sysFileXJ,self.versionXJ]; }
+@end
+@implementation XTJTestResponseFileContent
+- (NSString *)description{return [NSString stringWithFormat:@"%@:{contentXJ=%@,folderNameXJ=%@}",[self class],self.contentXJ,self.folderNameXJ];}
+@end
+@implementation XTJTestResponseFileImage
+- (NSString *)description{return [NSString stringWithFormat:@"%@:{idXJ=%@,nameXJ=%@,fileUrlXJ=%@,cursorXJ=%@,dataRatioXJ=%@,widthXJ=%d,heightXJ=%ld}",[self class],self.idXJ,self.nameXJ,self.fileUrlXJ,self.cursorXJ,self.dataRatioXJ,self.widthXJ,self.heightXJ];}
+@end
 
 // NSJSONSerialization 系统JSON序列化反序列化[只支持基本类型转化为JSON,以及JSON转化为基本类型,支持基本类型:NSString, NSNumber, NSArray, NSDictionary, or NSNull]
 @implementation SerializerJson {
@@ -25,44 +101,17 @@
 }
 
 -(void) test {
-    
-//    NSDictionary *registerDic = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                 [[NSNumber alloc] initWithInt:25],@"age",
-//                                 [[NSNumber alloc] initWithBool:true], @"working",
-//                                 [[NSNumber alloc] initWithBool:false], @"param3",
-//                                 [[NSNumber alloc] initWithDouble:173.56123419], @"height",
-//                                 [[NSNumber alloc] initWithFloat:50.56], @"weight",
-//                                 [[NSNumber alloc] initWithLong:12345678901], @"birthday",
-//                                 @"小甜甜",@"name",
-//                                 @"男", @"sex",
-//                                 nil];
-//    if ([NSJSONSerialization isValidJSONObject:registerDic]) {
-//        NSError *error; // NSJSONWritingPrettyPrinted 格式打印
-//        NSData *registerData = [NSJSONSerialization dataWithJSONObject:registerDic options:NSJSONWritingPrettyPrinted error:&error];
-//        NSLog(@"Register JSON:%@",[[NSString alloc] initWithData:registerData encoding:NSUTF8StringEncoding]);
-//    }
-    // Object -> Json String
-    /*Dog* dog = [[Dog alloc] init];
-    dog.nameXJ = @"D爱心";
-    dog.sexXJ = @"faile";
-    Person* person = [[Person alloc] init];
-    person.nameXJ = @"小天";
-    person.sexXJ = @"男";
-    person.weightXJ = 56.7;
-    person.heightXJ = [[NSDecimalNumber alloc] initWithFloat:175.42321323f];
-    person.ageXJ = [[NSNumber alloc] initWithInt:25];
-    person.birthdayXJ = [[NSNumber alloc] initWithLong:12309093091];
-    person.workingXJ = YES;
-    person.dogXJ = dog;
-    person.dogsXJ = @[dog,dog,dog,dog];
-    person.dogdXJ = @{@"dog1":dog,@"dog2":dog};
-    
-    NSString * jsonData = [[NSString alloc] initWithData:[self serializing: @[person,person]] encoding:NSUTF8StringEncoding];
-    //
-    //NSLog(@"Register JSON:%@", jsonData);
-    
-    [self deSerializing:[jsonData dataUsingEncoding:NSUTF8StringEncoding] clazz:[Person class]];*/
+    // 嵌套实体
+    NSString* jsonResponse = @"{\"advert\":{\"fileUrl\":\"https://img.77du.net/advert/20190529103709FhTVjOXpDsh5UWI2P1R87X2BnwCm.jpg\",\"fileType\":1,\"targetType\":3,\"targetContent\":\"{ \'page\':1,\'pageId\':\'770158466059730944\'}\",\"displaySeconds\":5,\"displayOnResume\":0,\"style\":3},\"sysFile\":{\"latestVersion\":1,\"files\":[{\"folderName\":\"assets/newsTemplate\",\"content\":\"https://static.77du.net/appres/newsTemplate.zip\"},{\"folderName\":\"assets/jjrw\",\"content\":\"https://static.77du.net/appres/77du/jjrw.zip\"}]},\"version\":{\"downloadUrl\":\"itms-apps://itunes.apple.com/cn/app/id1438339209?mt=8\",\"images\":[{\"cursor\":null,\"dataRatio\":\"0.0\",\"fileUrl\":\"https://img.77du.net/sys/20191125140353FrVt_txaKY6jney6tZQh1z0Mfpl0.jpg\",\"height\":700,\"id\":893001260897140736,\"name\":\"升级@3x.jpg\",\"width\":730}],\"isForce\":1,\"name\":\"77度-ios-3.2.5\",\"versionDesc\":\"2019.11.26更新内容\",\"versionName\":\"version-3.2.7\",\"versionNum\":139}}";
+    // 反序列化
+    SerializerJson* sj = [[SerializerJson alloc] init];
+    XTJTestResponse* response = [sj deSerializing:[jsonResponse dataUsingEncoding:NSUTF8StringEncoding] clazz:XTJTestResponse.class];
+    [Mylog info:@"SerializerJson 反序列化测试: %@", response];
+    // 序列化
+    NSData* json = [sj serializing:response];
+    [Mylog info:@"SerializerJson 反序列化测试: %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]];
 }
+
 // 序列化[任意对象->JSON序列]
 -(NSData *) serializing:(NSObject *) objectData {
     // 使用系统NSJSONSerialization序列化
@@ -131,7 +180,6 @@
                 strncpy(simpleName, propName, propNameLength - 2);
                 simpleName[propNameLength - 2] = '\0';
                 NSString *propertyName = [NSString stringWithCString:propName encoding:[NSString defaultCStringEncoding]];
-                //
                 id value = [self serializingObject:[objectData valueForKey:propertyName]];
                 if (value) {
                     [root setObject:value forKey:[NSString stringWithCString:simpleName encoding:[NSString defaultCStringEncoding]]];
@@ -302,7 +350,7 @@
             return nil;
         }
         cachePropertys = cache;
-        [cacheClassProperty setObject:cache forKey:classHash];
+        [cacheClassProperty setObject:cachePropertys forKey:classHash];
     }
     NSEnumerator* ite = [dictionary keyEnumerator];
     id itemKey = nil;
@@ -320,44 +368,77 @@
                 // 缓存NSString
                 //[Mylog info:@"%@,%@,%@", itemKey, value, propertyType];
                 @try {
+                    // 可赋值类型
                     if ([@"NSString" isEqualToString:propertyType]){
                         [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    }else if([value isKindOfClass:[NSDictionary class]]){
+                        // 子类是Dictionary单个定义类型对象
+                        Class clazz = NSClassFromString(propertyType);
+                        if (clazz != nil){
+                            id valueInstance = [self deSerializingObject:value clazz:clazz];
+                            if(valueInstance != nil){
+                                // 匹配单个对象
+                                [instance setValue:valueInstance forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                            } else {
+                                // 普通 Dictionary
+                                [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                            }
+                        } else {
+                            // 其他不能系统实例化的 Dictionary
+                            [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                        }
+                    }else if([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSMutableArray class]]){
+                        // 集合Array类(entityMapping配置映射实体)
+                        NSArray* array = (NSArray*)value;
+                        NSMutableArray* values = [[NSMutableArray alloc] init];
+                        if([instance respondsToSelector:@selector(entityMapping)]){
+                            NSDictionary<NSString*,NSString*>* map = [instance performSelector:@selector(entityMapping)];
+                            NSEnumerator* iteMap = [map keyEnumerator];
+                            id iteMapKey = nil;
+                            while (iteMapKey = [iteMap nextObject]){
+                                if([iteMapKey isEqualToString:[NSString stringWithFormat:@"%@XJ",itemKey]]){
+                                    Class mapClazz = NSClassFromString(map[iteMapKey]);
+                                    if (mapClazz != nil){
+                                        for(int i=0; i<array.count; i++){
+                                            NSObject* arrayValue = array[i];
+                                            if([arrayValue isKindOfClass:[NSDictionary class]]){
+                                                [values addObject:[self deSerializingObject:(NSDictionary*)arrayValue clazz:mapClazz]];
+                                            }else if([arrayValue isKindOfClass:[NSArray class]]){
+                                                [values addObject:[self deSerializingArrayObject:(NSArray*)arrayValue clazz:mapClazz]];
+                                            }
+                                        }
+                                    }else{
+                                        [Mylog info:@"配置的映射类不存在:%@->%@",iteMapKey,map[iteMapKey]];
+                                        values = value;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        [instance setValue:values forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    // 数字类型
                     } else if ([@"NSNumber" isEqualToString:propertyType]){
                         [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
                     } else if ([@"NSMutableString" isEqualToString:propertyType]){
                         [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
                     } else if ([@"NSDecimalNumber" isEqualToString:propertyType]){
                         [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else if ([@"f" isEqualToString:propertyType]){ // 所有数字基本类型封装为NSNumber
-                        [instance setValue:[NSNumber numberWithFloat:[value floatValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else if ([@"d" isEqualToString:propertyType]){
+                    } else if ([@"i" isEqualToString:[propertyType lowercaseString]]){//Int
                         [instance setValue:[NSNumber numberWithInt:[value intValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else if ([@"B" isEqualToString:propertyType]){
+                    } else if ([@"f" isEqualToString:[propertyType lowercaseString]]){//Float
+                        [instance setValue:[NSNumber numberWithFloat:[value floatValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    } else if ([@"d" isEqualToString:[propertyType lowercaseString]]){//Double
+                        [instance setValue:[NSNumber numberWithDouble:[value doubleValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    } else if ([@"b" isEqualToString:[propertyType lowercaseString]]){//BOOL
                         [instance setValue:[NSNumber numberWithBool:[value boolValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else if ([@"NSArray" isEqualToString:propertyType]){
+                    } else if ([@"s" isEqualToString:[propertyType lowercaseString]]){//Short
+                        [instance setValue:[NSNumber numberWithShort:[value shortValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    } else if ([@"q" isEqualToString:[propertyType lowercaseString]]){//LongLong
+                        [instance setValue:[NSNumber numberWithLongLong:[value longLongValue]] forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
+                    } else if ([@"c" isEqualToString:[propertyType lowercaseString]]){//Char /BOOL: 0/1
                         [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else if ([@"NSMutableArray" isEqualToString:propertyType]){
-                        [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                    } else {
-                        // 子类是Dictionary单个定义类型对象
-                        if([value isKindOfClass:[NSDictionary class]]){
-                            Class clazz = NSClassFromString(propertyType);
-                            if (clazz != nil){
-                                id valueInstance = [self deSerializingObject:value clazz:clazz];
-                                if(valueInstance != nil){
-                                    // 匹配单个对象
-                                    [instance setValue:valueInstance forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                                } else {
-                                    // 普通 Dictionary
-                                    [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                                }
-                            } else {
-                                // 其他不能系统实例化的 Dictionary
-                                [instance setValue:value forKey:[NSString stringWithFormat:@"%@XJ",itemKey]];
-                            }
-                        }
-                        //[Mylog info:@"跳过属性设置:%@",itemKey];
                     }
+                    //[Mylog info:@"跳过属性设置:%@",itemKey];
                 } @catch(NSException* e){
                     [Mylog info:@"尝试设置实体属性值时发生错误.属性名:%@XJ,属性值:%@,属性类型:%@", itemKey, value, propertyType];
                 }
@@ -476,5 +557,9 @@ static const char *getPropertyType(objc_property_t property) {
 static const int endsWithXJ(const char *str){
     size_t lenstr = strlen(str);
     return strncmp(str + lenstr - 2, "XJ", 2) == 0;
+}
+
+- (void)dealloc{
+    [Mylog infoDealloc:self];
 }
 @end

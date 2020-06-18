@@ -5,11 +5,14 @@
 //  Created by XiaoTian on 16/6/19.
 //  Copyright © 2016年 XiaoTian. All rights reserved.
 //
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CryptorSecurity : NSObject
-//
+/// 测试
 -(void) test;
-// RSA
+/// 根据指数exponent,模modulus, 进行RSA加密,exponent(十六进制值):指数不足6位前面补0兼容iOS9+,(padding 模式,通常为随机: kSecPaddingNone)
 - (NSData *) encryptDataByRSA:(NSData *)data exponent:(NSString *) exp modulus:(NSString*) mod paddingType:(SecPadding) padding;
+/// 根据公钥字符串,进行RSA加密
 - (NSData *) encryptDataByRSA:(NSData *)data publicKey:(NSString *) keyStringPub paddingType:(SecPadding) padding;
 - (NSData *) encryptDataByRSA:(NSData *)data pemCertKeyFile:(NSString *) publicKeyFile paddingType:(SecPadding) padding;
 - (NSData *) encryptDataByRSA:(NSData *)data p12CertFile:(NSString *) p12KeyFile paddingType:(SecPadding) padding;
@@ -36,4 +39,8 @@
 - (NSString *) dataMD5:(NSData *) data;
 - (NSString *) stringMD5:(NSString *) string;
 - (NSString *) fileMD5:(NSString *) filePath;
+// UUID
++(NSString*) createRandomUUID;
 @end
+
+NS_ASSUME_NONNULL_END

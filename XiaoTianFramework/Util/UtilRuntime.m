@@ -10,29 +10,45 @@
 @import ObjectiveC.runtime;
 @implementation UtilRuntime
 
-// 交换方法的实现体
 +(void) exchangeMethodImplementations: (Class) clazz originalSelector:(SEL) originalSelector  swizzledSelector:(SEL) swizzledSelector{
-    struct objc_method* originalMethod = class_getInstanceMethod(clazz, originalSelector);
-    struct objc_method* swizzledMethod = class_getInstanceMethod(clazz, swizzledSelector);
-    // 添加自定义的方法到指定的类里面,如果添加成功则返回true,否则false[已经存在]
+    //class_getInstanceMethod,获取通过SEL获取一个方法
+    //method_getImplementation,获取一个方法的实现
+    //method_getTypeEncoding,获取一个OC实现的编码类型
+    //class_addMethod,給方法添加实现
+    //class_replaceMethod,用一个方法的实现替换另一个方法的实现
+    //method_exchangeImplementations,交换两个方法的实现
+    //case1: 替换实例方法 Class selfClass = [self class];
+    //case2: 替换类方法 Class selfClass = object_getClass([self class]);
+    Method originalMethod = class_getInstanceMethod(clazz, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(clazz, swizzledSelector);
+    // 添加自定义的方法到指定的类里面,如果添加成功则返回true,否则false[已经存在],(先尝试給源方法添加实现，这里是为了避免源方法没有实现的情况)
     BOOL didAddMethod = class_addMethod(clazz, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
     if (didAddMethod) {
-        // 添加成功,替换原方法
+        // 添加成功,替换原方法 (将源方法的实现替换到交换方法的实现)
         class_replaceMethod(clazz, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
     } else {
-        // 交换两个方法的实现
+        // 添加失败：说明源方法已经有实现，交换两个方法的实现 (直接将两个方法的实现交换即可)
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
+    //Method Swizzling注意事项
+    //每个类都维护一个方法（Method）列表，Method则包含SEL和其对应IMP的信息，方法交换做的事情就是把SEL和IMP的对应关系断开，并和新的IMP生成对应关系。
+    //      交换前：Asel－>AImp Bsel－>BImp
+    //      交换后：Asel－>BImp Bsel－>AImp
+    //1、方法交换应该保证唯一性和线程安全 ( 唯一性：应该尽可能在＋load方法中实现，这样可以保证方法一定会调用且不会出现异常。 原子性：使用dispatch_once来执行方法交换，这样可以保证只运行一次。)
+    //2、一定要调用原始实现 (由于iOS的内部实现对我们来说是不可见的，使用方法交换可能会导致其代码结构改变，而对系统产生其他影响，因此应该调用原始实现来保证内部操作的正常运行。)
+    //3、方法名必须不能产生冲突 (这个是常识，避免跟其他库产生冲突。)
+    //4、做好记录 (记录好被影响过的方法，不然时间长了或者其他人debug代码时候可能会对一些输出信息感到困惑。)
+    //5、如果非迫不得已，尽量少用方法交换 (虽然方法交换可以让我们高效地解决问题，但是如果处理不好，可能会导致一些莫名其妙的bug。)
 }
-/// 获取NSObject的对象属性Property Name
-+(NSMutableArray *) queryPropertyList: (Class) clazz{
+
++(NSMutableArray<NSString*> *) queryPropertyList: (Class) clazz{
     //NSClassFromString(clazzName)
     return [UtilRuntime queryPropertyList:clazz endSupperClazz:nil];
 }
-/// 获取NSObject的对象属性,向上迭代到endSupperClazz为止
-+(NSMutableArray *) queryPropertyList: (Class) clazz endSupperClazz: (Class) supperClazz {
+
++(NSMutableArray<NSString*> *) queryPropertyList: (Class) clazz endSupperClazz: (Class) supperClazz {
     if (!clazz) return nil;
-    NSMutableArray* propertyList = [[NSMutableArray alloc] init];
+    NSMutableArray<NSString*>* propertyList = [[NSMutableArray alloc] init];
     unsigned int outCount, i;
     do{
         if (clazz && supperClazz && clazz == supperClazz) {
@@ -61,7 +77,31 @@
     }while (clazz);
     return propertyList;
 }
-/// 检索属性类型
+
++(NSMutableArray<NSString*>*)queryIvarList:(Class) clazz{
+    NSMutableArray *fieldNames = [NSMutableArray array];
+    while (clazz) {
+        unsigned int ivarCount = 0;
+        Ivar *ivars = class_copyIvarList(clazz, &ivarCount);
+        for (unsigned int ivarIndex = 0; ivarIndex < ivarCount; ivarIndex++) {
+            Ivar ivar = ivars[ivarIndex];
+            const char *typeEncoding = ivar_getTypeEncoding(ivar);
+            if (typeEncoding[0] == @encode(id)[0] || typeEncoding[0] == @encode(Class)[0]) {
+                [fieldNames addObject:@(ivar_getName(ivar))];
+                /*ptrdiff_t offset = ivar_getOffset(ivar);//获得ivar的偏移量
+                uintptr_t *fieldPointer = (__bridge void *)tryObject + offset;//通过偏移获得对象
+                if (*fieldPointer == (uintptr_t)(__bridge void *)object) {
+                    [instances addObject:tryObject];
+                    [fieldNames addObject:@(ivar_getName(ivar))];
+                    return;
+                }*/
+            }
+        }
+        clazz = class_getSuperclass(clazz);
+    }
+    return fieldNames;
+}
+
 +(NSString *) queryPropertyType: (Class) clazz propertyName:(NSString *) propertyName{
     const char* propType = getPropertyType(class_getProperty(clazz, [propertyName cStringUsingEncoding:NSASCIIStringEncoding]));
     return [NSString stringWithCString:propType encoding:[NSString defaultCStringEncoding]];
@@ -88,12 +128,12 @@ static const char *getPropertyType(objc_property_t property) {
     }
     return "@";
 }
-/// 获取Protocol接口协议所有方法
-+(NSMutableArray *) queryProtocolMethodList:(Protocol*) protocol isInstanceMethod:(BOOL) isInstanceMethod isRequiredMethod:(BOOL)isRequiredMethod{
+
++(NSMutableArray<NSString*> *) queryProtocolMethodList:(Protocol*) protocol isInstanceMethod:(BOOL) isInstanceMethod isRequiredMethod:(BOOL)isRequiredMethod{
     //Protocol* protocol = objc_getProtocol([trim(protocolName) cStringUsingEncoding:NSUTF8StringEncoding]);
     unsigned int selectorCount = 0;
     struct objc_method_description* methods = protocol_copyMethodDescriptionList(protocol, isRequiredMethod, isInstanceMethod, &selectorCount);
-    NSMutableArray* result = [[NSMutableArray alloc] init];
+    NSMutableArray<NSString*>* result = [[NSMutableArray alloc] init];
     for (int i = 0; i < selectorCount; i++){
         [result addObject: NSStringFromSelector(methods[i].name)];
     }
@@ -374,6 +414,26 @@ static NSString *trim(NSString *string){
     //[XTFMylog info:callClassMethod(@"XTFMylog",@"description",@[@"类名+方法名+参数: 调用类方法. %@,%@",@"参数二",@"参数三"])];
     [Mylog info: callClassMethod(@"XTFMylog",@"info:",@[@"类名+方法名+参数: 调用类方法."])];
 }
+// 运行时动态创建类
++(void)runtimeCreateClass{
+    if(NSClassFromString(@"RuntimeCreateClass")) objc_disposeClassPair(NSClassFromString(@"RuntimeCreateClass"));
+    Class runtimeCreateClass = objc_allocateClassPair([NSObject class], "RuntimeCreateClass", 0);//父类，类名，然后额外的空间
+    //添加成员
+    class_addIvar(runtimeCreateClass, @"name".UTF8String, sizeof(id), log2(sizeof(id)),@encode(id));//id类型,变量
+    
+    objc_property_attribute_t types = { "T", "@\"NSString\"" };
+    objc_property_attribute_t ownership = { "C", "" }; // C = copy
+    objc_property_attribute_t backIvar = { "V", "_privateName" };
+    objc_property_attribute_t attrs[] = { types, ownership, backIvar };
+    class_addProperty(runtimeCreateClass, @"name".UTF8String, attrs, 3);//属性
+    class_addProtocol(runtimeCreateClass, NSProtocolFromString(@"NSCoder"));//协议
+    //注册到runtime中( 因为编译后的类已经注册在 runtime 中，类结构体中的 objc_ivar_list 实例变量的链表 和 instance_size 实例变量的内存大小已经确定，同时runtime 会调用 class_setIvarLayout 或 class_setWeakIvarLayout 来处理 strong weak 引用。所以不能向存在的类中添加实例变量；)
+    objc_registerClassPair(runtimeCreateClass);//注册后不能在改变属性
+    //初始化,赋值,取值
+    id cc = [runtimeCreateClass alloc];
+    [cc setValue:@"XiaoTian" forKey:@"name"];
+    [Mylog info:[cc valueForKey:@"name"]];
+}
 // 参数常见类型的C编码
 static NSDictionary* usefuleTypeEncoding(){
     // 基本类型编码Type Encodings(types A C string that represents the method signature)
@@ -413,5 +473,15 @@ static NSDictionary* usefuleTypeEncoding(){
     [Mylog info:@"testClassMethod:(CGFloat) weight name:(NSString*) name util:(XTFUtilEnvironment*) util frame:(CGRect) frame"];
     return nil;
 }
+// 一个objc对象如何进行内存布局?  所有父类的成员变量和自己的成员变量都会存放在该对象所对应的存储空间中. 每一个对象内部都有一个isa指针,指向他的类对象,类对象中存放着本对象的 对象方法列表,成员变量的列表,属性列表 它内部也有一个isa指针指向元对象(meta class),元对象内部存放的是类方法列表,类对象内部还有一个superclass的指针,指向他的父类对象。根对象就是NSobject，它的superclass指针指向nil。 类对象既然称为对象，那它也是一个实例。类对象中也有一个isa指针指向它的元类(meta class)，即类对象是元类的实例。元类内部存放的是类方法列表，根元类的isa指针指向自己，superclass指针指向NSObject类。
+// 类方法: 属于类对象的,只能通过类对象调用,类方法中的self是类对象,类方法可以调用其他的类方法,类方法中不能访问成员变量,类方法中不能直接调用对象方法
+// 实例方法：属于实例对象的,只能通过实例对象调用,实例方法中的self是实例对象,实例方法中可以访问成员变量,实例方法中直接调用实例方法,实例方法中也可以调用类方法(通过类名)
+// 常见运算时错误:
+//1.EXC_BAD_ACCESS 访问了野指针,1.对一个已经释放的对象执行了release,2.访问已经释放对象的成员变量或者发消息, 3.自循环/死循环 (最常见的是使用了assign错误属性修饰符)
+//                开启Zombie Objects可以调试,他会用一个僵尸实现默认的dealloc,在反生异常时打印出消息并跳入调试器[Product->Scheme->Edit Scheme->Diagnositcs->Zombie Objects]
+// autoreleasepool, autoreleasepool 以一个队列数组的形式实现,主要通过下列三个函数完成.objc_autoreleasepoolPush,objc_autoreleasepoolPop,objc_autorelease
+//2.SIGSEVG 段错误信息,1.当硬件出现错误,访问不可读的内存地址,向受保护的内存地址写入数据,2.当应用中的某个指针指向不允许写操作并试图修改指向位置值时
+//3.SIGBUS 总栈错误信号,1.访问的内存是一个无效地址,指向的位置根本不是物理内存地址(SIGSEVG,SIGBUS 都是EXC_BAD_ACCESS的子类型,EXC_*等同于此信号不依赖体系结构)
+//4.
 @end
 

@@ -50,7 +50,6 @@
     //[self calculatePublicKeyExponentAndModulus:@"com.xiaotian.XTCryptorSecurity.RSA_PubKey\test"];
     
 }
-/// 根据指数,模进行RSA加密,exponent(十六进制值):指数不足6位前面补0兼容iOS9+,(padding 模式,通常为随机: kSecPaddingNone)
 -(NSData *) encryptDataByRSA:(NSData *)data exponent:(NSString*) exponent modulus:(NSString*) modulus paddingType:(SecPadding) padding {
     // 指数+模,生成秘钥的二进制数据(exponent:必须六位,不足要前面补0)
     NSData* publicKeyData = [self createBerRSAData:[self hexStringToData:exponent] modulus:[self hexStringToData:modulus]];
@@ -60,7 +59,6 @@
     }
     return NULL;
 }
-/// 根据公钥,进行RSA加密
 -(NSData *) encryptDataByRSA:(NSData *)data publicKey:(NSString *) keyStringPub paddingType:(SecPadding) padding{
     // 过滤出完整前后声明Public Key字符串
     NSString *keyPubPurity = nil;
@@ -813,7 +811,7 @@
     return SecItemDelete((CFDictionaryRef)query);
 }
 
-// 转化OSStatus错误为提示消息
+/// 转化OSStatus错误为提示消息
 - (NSString*) fetchOSStatus:(OSStatus)status{
     if(status == 0) return [NSString stringWithFormat:@"success (status=%d)", status];
     else if(status == errSecNotAvailable)
@@ -1063,6 +1061,20 @@
     }
     return theData;
 }
+
+/// 生成随机UUID
++(NSString*) createRandomUUID{
+    if(NSClassFromString(@"NSUUID")) { // only available in iOS >= 6.0
+        return [[NSUUID UUID] UUIDString];
+    }
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef cfuuid = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
+    CFRelease(uuidRef);
+    NSString *uuid = [((__bridge NSString *) cfuuid) copy];
+    CFRelease(cfuuid);
+    return uuid;
+}
+
 /// Base64 的64个字符标准码集(可以自定义Base64映射码😯,大小写字母,数字,+/)
 char base64EncodingTable[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',

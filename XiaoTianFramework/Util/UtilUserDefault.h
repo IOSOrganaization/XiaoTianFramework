@@ -14,5 +14,5 @@
 -(BOOL) getBOOL:(NSString*) tagname;
 -(void) setBOOL;
 -(void) setBOOL:(NSString*) tagname;
-
+-(void) setBOOL:(NSString*) tagname value:(BOOL) value;
 @end

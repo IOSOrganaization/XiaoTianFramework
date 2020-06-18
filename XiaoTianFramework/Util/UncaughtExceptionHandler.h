@@ -11,12 +11,14 @@
 //  this copyright and permission notice. Attribution in compiled projects is
 //  appreciated but not required.
 //
+NS_ASSUME_NONNULL_BEGIN
 
-@interface UncaughtExceptionHandler : NSObject
-{
+@interface UncaughtExceptionHandler : NSObject{
     BOOL dismissed;
 }
 
 @end
 // C
 void InstallUncaughtExceptionHandler();
+
+NS_ASSUME_NONNULL_END

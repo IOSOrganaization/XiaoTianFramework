@@ -1,11 +1,5 @@
-//
-//  XTFMylog.m
-//  XiaoTianFramework
-//
-//  Created by XiaoTian on 12/25/14.
-//  Copyright (c) 2014 XiaoTian. All rights reserved.
-//
-
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 //works in DEBUG mode only
 #ifndef __OPTIMIZE__
 //宏定义:## 连接符,# 用双引号括起来
@@ -13,7 +7,6 @@
 #else
 #define Mylog(s, ...)
 #endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Mylog : NSObject
@@ -22,16 +15,18 @@ NS_ASSUME_NONNULL_BEGIN
 //
 +(void) infoDate;
 +(void) infoDate:(NSString * _Nullable) key;
-//
 +(void) info:(id _Nullable ) message, ...;// format:NSString, ... 不定参数,任意格式;
++(void) infoTag:(id _Nonnull ) message, ...;// format: TAG, NSString, ... 不定参数,任意格式;
 +(void) infoId:(id _Nullable) message;
++(void) infoDealloc:(id _Nonnull) instance;
++(void) infoCurrentThread;
+//
 +(void) infoClassMethod: (id _Nullable) message;
 +(void) infoClassMethodCurrent: (id _Nullable) message;
 +(void) infoClassField: (id _Nullable) message;
 +(void) infoClassProperty: (id _Nullable) message;
 +(void) infoClassVariable: (id _Nullable) message;
 +(void) infoMethodImplementation: (id _Nullable) target selector: (SEL _Nullable) selector;
-+(void) infoDealloc:(id _Nonnull) instance;
 //
 +(void) infoAllSubFiles:(NSString* _Nonnull)path;
 +(void) infoBundleAllFiles;

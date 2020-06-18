@@ -46,9 +46,9 @@
     va_list args;
     va_start (args, message);
     /*NSString *arg;
-    while ((arg = va_arg(args, NSString *))) {
-        NSLog(@"%@", arg);
-    }*/
+     while ((arg = va_arg(args, NSString *))) {
+     NSLog(@"%@", arg);
+     }*/
     if([message isKindOfClass: [NSString class]]){
         // 字符串
         NSLogv([NSString stringWithFormat:@"%@%@", TAG, message], args);
@@ -80,26 +80,90 @@
     va_end (args);
 #endif
 }
-
+// [Mylog infoTag:TAG, value/formatter, values...] (TAG, value: 必填)
++(void) infoTag:(id _Nonnull ) message, ...{
+#if defined(DEBUG)||defined(_DEBUG)
+    if(message == nil) return;
+    va_list args;
+    va_start (args, message);
+    NSString* tag = [NSString stringWithFormat:@"[%@] ",message];//第一个参数
+    id formatter = va_arg(args, id);//第二个参数(读取指针移动)
+    //
+    if([formatter isKindOfClass: [NSString class]]){
+        // 字符串
+        NSLogv([NSString stringWithFormat:@"%@%@", tag, formatter], args);
+    }else if([formatter isKindOfClass: [NSArray class]]){
+        // 数组
+        NSLog(@"%@NSArray : [", tag);
+        NSArray *array = (NSArray *)formatter;
+        for (int i=0; i < [array count]; i++) {
+            NSObject *obj = [array objectAtIndex: i];
+            if([obj isKindOfClass:[NSString class]]){
+                obj = [(NSString*)obj stringByReplacingOccurrencesOfString:@"%" withString:@"％"];// 替换掉%变量占位符
+            }else{
+                //[self infoTag: message, obj];
+            }
+            NSLog(@"%@%@", tag, obj);
+        }
+        NSLog(@"%@]", tag);
+    }else if([formatter isKindOfClass:[NSDictionary class]]){
+        // Dictionary字典集合
+        NSLog(@"%@NSDictionary : {", tag);
+        NSDictionary *dictionary = (NSDictionary *)formatter;
+        NSEnumerator *enumerator = [dictionary keyEnumerator];
+        id key, value;
+        while ((key = [enumerator nextObject])) {
+            value = [dictionary objectForKey: key];
+            if([value isKindOfClass:[NSString class]]){
+                value = [(NSString*)value stringByReplacingOccurrencesOfString:@"%" withString:@"％"];// 替换掉%变量占位符
+                //NSLog(@"%@%@ = %@", tag, key, value);
+            }else{
+                //NSLog(@"%@%@ = ", tag, key);
+                //[self infoTag: [NSString stringWithFormat:@"%@",message], value];
+            }
+            NSLog(@"%@%@ = %@", tag, key, value);
+        }
+        NSLog(@"%@}", tag);
+    }else{
+        NSLog(@"%@%@", tag, formatter);
+    }
+    //NSLogv([NSString stringWithFormat:@"%@ %@", TAG, message], ap);
+    //NSString *msg = [[NSString alloc] initWithFormat:format arguments:ap];
+    va_end (args);
+#endif
+}
 +(void) infoId:(id) message{
 #if defined(DEBUG)||defined(_DEBUG)
     [Mylog info: message];
 #endif
 }
-
 +(void) infoBool:(BOOL) value key:(NSString *)key{
 #if defined(DEBUG)||defined(_DEBUG)
     NSLog(@"%@: %@", key, value ? @"YES" : @"NO");
 #endif
 }
-
 +(void) infoBool:(BOOL) value{
 #if defined(DEBUG)||defined(_DEBUG)
     [self infoBool:value key:@"BOOL"];
 #endif
 }
-
-// 必须传入Object-C 的id
++(void) infoDealloc:(id _Nonnull) instance{
+#if defined(DEBUG)||defined(_DEBUG)
+    if([instance isKindOfClass: [NSString class]]){
+        NSLog(@"%@dealloc: %@ (%p)", TAG, instance, instance);
+    }else{
+        Class messageClass = object_isClass(instance) ? instance : [instance class];
+        const char* className = class_getName(messageClass);
+        NSLog(@"%@dealloc: %s (%p)", TAG, className, instance);
+    }
+#endif
+}
++(void) infoCurrentThread{
+#if defined(DEBUG)||defined(_DEBUG)
+    [self infoDate:[[NSThread currentThread] description]];
+#endif
+}
+// 类属性,必须传入Object-C 的id
 +(void) infoClassMethod: (id) message{
 #if defined(DEBUG)||defined(_DEBUG)
     if(message == nil){
@@ -189,17 +253,6 @@
     const char* methodName  = sel_getName(selector);
     struct objc_method* method = class_getInstanceMethod(messageClass, selector);
     NSLog(@"%@%s-> %s (%p)", TAG, className, methodName, method_getImplementation(method));
-#endif
-}
-+(void) infoDealloc:(id _Nonnull) instance{
-#if defined(DEBUG)||defined(_DEBUG)
-    if([instance isKindOfClass: [NSString class]]){
-        NSLog(@"%@dealloc: %@ (%p)", TAG, instance, instance);
-    }else{
-        Class messageClass = object_isClass(instance) ? instance : [instance class];
-        const char* className = class_getName(messageClass);
-        NSLog(@"%@dealloc: %s (%p)", TAG, className, instance);
-    }
 #endif
 }
 +(void) infoClassField: (id<NSObject>) message{
@@ -346,7 +399,6 @@
     NSLog(@"%@}", TAG);
 #endif
 }
-
 +(void) infoClassProperty: (id) message{
 #if defined(DEBUG)||defined(_DEBUG)
     Class messageClass = [message class];
@@ -393,7 +445,6 @@
     NSLog(@"}");
 #endif
 }
-
 +(void) infoClassVariable: (id) message{
 #if defined(DEBUG)||defined(_DEBUG)
     Class messageClass = [message class];
@@ -516,6 +567,7 @@
     NSLog(@"}");
 #endif
 }
+// 文件/文件夹
 +(void) infoAllSubFiles:(NSString*) path{
 #if defined(DEBUG)||defined(_DEBUG)
     NSFileManager* manager = [NSFileManager defaultManager];
@@ -542,7 +594,6 @@
     }
 #endif
 }
-
 +(void) infoBundleAllFiles:(NSString *)extends{
 #if defined(DEBUG)||defined(_DEBUG)
     if(extends == nil){
@@ -560,7 +611,6 @@
     }
 #endif
 }
-
 +(void) infoBundleAllFolder{
 #if defined(DEBUG)||defined(_DEBUG)
     BOOL isDirectory;
@@ -576,7 +626,7 @@
     }
 #endif
 }
-
+//
 -(NSString *) description{
 #if defined(DEBUG)||defined(_DEBUG)
     return @"小天的自定义Log对象类,没有什么好怀念的类了.";
@@ -761,5 +811,7 @@
  NSArray: @[@"x",@"i",@"a",@"o"]
  NSDictionary: @[@"name":@"xiaotian",@"age":@"25"]
  NSNumber: @25,@173.5,@65.4,@(数字变量)
+ 
+ 
  */
 @end

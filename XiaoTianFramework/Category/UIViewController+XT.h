@@ -5,13 +5,18 @@
 //  Created by XiaoTian on 2019/12/5.
 //  Copyright © 2019 XiaoTian. All rights reserved.
 //
-
-typedef void(^ViewControllerCallBack)(void);
+// 声明所有属性默认NONNULL
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController(XT)
+// Block Declaration Aliases 定义
+typedef void(^ViewControllerCallBack)(UIViewController* vc);
 
-// Lifecycle Callback
+@interface UIViewController(XT)
+// 实例
++(instancetype) getInstance;
++(instancetype) getInstance:(NSString*)storyboardId storyboard:(NSString*)stroryboardName;
+// Property Get/Set 扩展属性
+// Block Aliases Property Lifecycle Callback strong reference
 @property(copy,nonatomic)ViewControllerCallBack callBackViewDidLoad;
 @property(copy,nonatomic)ViewControllerCallBack callBackViewWillAppear;
 @property(copy,nonatomic)ViewControllerCallBack callBackViewDidAppear;
@@ -19,10 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy,nonatomic)ViewControllerCallBack callBackViewDidDisappear;
 @property(copy,nonatomic)ViewControllerCallBack callBackDealloc;
 
-// Category Method
-+(instancetype) getInstance;
+// 扩展方法 Category Method
++(UIViewController*) getTopViewController;
+//
+-(void)changeBackImage:(NSString*)image;
+-(void)setNavigationBarHidden:(BOOL)hidden;
+-(void)addTapViewHideKeyboard:(nullable SEL) selector;
+-(void)onTapViewHideKeyboard;
+-(void)notificationOnClick:(NSNotification*) notification;
 
-// Method
+// Dialog/Toast Method
 -(void)showLoadingView;
 -(void)closeLoadingView;
 -(void)showToast:(NSString*)toast;
