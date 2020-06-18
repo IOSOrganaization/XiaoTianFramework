@@ -12,9 +12,11 @@
 //  appreciated but not required.
 //
 
+#import <UIKit/UIKit.h>
+
 @interface UncaughtExceptionHandler : NSObject
 {
-    BOOL dismissed;
+	BOOL dismissed;
 }
 
 @end

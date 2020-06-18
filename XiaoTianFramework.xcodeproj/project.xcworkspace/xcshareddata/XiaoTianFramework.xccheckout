@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6BCA8642-990C-40D2-9265-FDF0296A2D75</string>
+	<key>IDESourceControlProjectName</key>
+	<string>XiaoTianFramework</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>ca443401-536b-f545-a5e6-f19216b60c25++7948</key>
+		<string>https://192.168.1.108:4409/svn/MACWorkingSpace/DevelopSpace/IOSDevelopSpace</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>XiaoTianFramework/XiaoTianFramework.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>ca443401-536b-f545-a5e6-f19216b60c25++7948</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>ca443401-536b-f545-a5e6-f19216b60c25++7948</key>
+		<string>https://192.168.1.108:4409/svn/MACWorkingSpace</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://192.168.1.108:4409/svn/MACWorkingSpace/DevelopSpace/IOSDevelopSpace/XiaoTianFramework/XiaoTianFramework.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>ca443401-536b-f545-a5e6-f19216b60c25++7948</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>ca443401-536b-f545-a5e6-f19216b60c25++7948</string>
+			<key>IDESourceControlWCCName</key>
+			<string>IOSDevelopSpace</string>
+		</dict>
+	</array>
+</dict>
+</plist>

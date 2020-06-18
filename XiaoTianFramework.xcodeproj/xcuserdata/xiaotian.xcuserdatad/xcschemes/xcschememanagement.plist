@@ -4,10 +4,23 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>XiaoTianFramework.xcscheme_^#shared#^_</key>
+		<key>XiaoTianFramework.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>04FCC9CB1A4BA8D6001A6BBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>04FCC9D61A4BA8D6001A6BBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
