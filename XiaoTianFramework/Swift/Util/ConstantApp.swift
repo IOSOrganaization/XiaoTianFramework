@@ -71,10 +71,10 @@ import Foundation
 //      2.
 // [weak unowned] :如果能够确定在访问时不会已被释放的话，尽量使用 unowned(引用的为内存地址) ，如果存在被释放的可能，那就选择用 weak(引用的为 Option 类型)
 /**
-    程序常量配置
-    * RSA加密配置
-    * 定义Object关联Key
-    * Notification 通知标识字符串
+ 程序常量配置
+ * RSA加密配置
+ * 定义Object关联Key
+ * Notification 通知标识字符串
  */
 @objc(ConstantAppXT)
 open class ConstantApp : NSObject{

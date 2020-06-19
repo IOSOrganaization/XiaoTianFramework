@@ -94,7 +94,7 @@ public class HttpRequest : NSObject{
         // 发送请求
         Mylog.log(nsurl)
         requestTaskHandler?.resume()
-         // 锁定,等待解锁
+        // 锁定,等待解锁
         guard let _ = requestDispatchSemaphore?.wait(timeout: DispatchTime.distantFuture) else {
             cancel()
             return HttpResponse.genDataResponseFailure(HttpResponse.CODE_ERROR_CONTEXT, msg:"请求网络失败.")

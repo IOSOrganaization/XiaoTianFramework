@@ -33,17 +33,17 @@ extension UIViewController{
     // 方法交叉,方法混合,方法替换
     // Method swizzling lets you swap the implementations of two methods, essentially overriding an existing method with your own while keeping the original around.
     //open override class func initialize(){ // OBJC 每次创建实例化都会触发这个方法(Swift4被禁)
-        //It is not possible to override functionality (like properties or methods) in extensions as documented in Apple's Swift Guide.
-        //
-        //Extensions can add new functionality to a type, but they cannot override existing functionality.
-        //Apple Developer Guide
-        //The compiler is allowing you to override in the extension for compatibility with Objective-C. But it's actually violating the language directive.
-        //
-        // Directive Notes
-        // You can only override a superclass method i.e. load() initialize()in an extension of a subclass if the method is Objective-C compatible.
-        // Therefore we can take a look at why it is allowing you to compile using layoutSubviews.
-        // All Swift apps execute inside the Objective-C runtime except for when using pure Swift-only frameworks which allow for a Swift-only runtime.
-        // As we found out the Objective-C runtime generally calls two class main methods load() and initialize() automatically when initializing classes in your app’s processes.
+    //It is not possible to override functionality (like properties or methods) in extensions as documented in Apple's Swift Guide.
+    //
+    //Extensions can add new functionality to a type, but they cannot override existing functionality.
+    //Apple Developer Guide
+    //The compiler is allowing you to override in the extension for compatibility with Objective-C. But it's actually violating the language directive.
+    //
+    // Directive Notes
+    // You can only override a superclass method i.e. load() initialize()in an extension of a subclass if the method is Objective-C compatible.
+    // Therefore we can take a look at why it is allowing you to compile using layoutSubviews.
+    // All Swift apps execute inside the Objective-C runtime except for when using pure Swift-only frameworks which allow for a Swift-only runtime.
+    // As we found out the Objective-C runtime generally calls two class main methods load() and initialize() automatically when initializing classes in your app’s processes.
     //    let _ = sharedOnce
     //}
     
@@ -114,12 +114,12 @@ extension UIViewController{
         //present(contentCV, animated: true, completion: nil)
         /* Delegate 重写
          func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-            return UIModalPresentationStyle.popover // 20
+         return UIModalPresentationStyle.popover // 20
          }
          
          private func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-            let navController = UINavigationController.init(rootViewController: controller.presentedViewController)
-            return navController // 21
+         let navController = UINavigationController.init(rootViewController: controller.presentedViewController)
+         return navController // 21
          }
          */
     }

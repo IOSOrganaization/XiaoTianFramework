@@ -21,40 +21,40 @@ open class Mylog: NSObject{
     @nonobjc
     public static func log(_ param:Any?){
         #if DEBUG
-            print(TAG, param == nil ? "nil" : param!)
+        print(TAG, param == nil ? "nil" : param!)
         #endif
     }
     @nonobjc
     public static func log(_ params: Any?...){
         #if DEBUG
-            if params.count == 1{
-                print(TAG, params[0] == nil ? "nil" :params[0]!)
-            }else{
-                var text = ""
-                for item in params{
-                    if let item = item{
-                        text = "\(text)\(String(describing: item))"
-                    }
+        if params.count == 1{
+            print(TAG, params[0] == nil ? "nil" :params[0]!)
+        }else{
+            var text = ""
+            for item in params{
+                if let item = item{
+                    text = "\(text)\(String(describing: item))"
                 }
-                print(TAG, text)
             }
+            print(TAG, text)
+        }
         #endif
     }
     
     @nonobjc
     public static func log(_ params:Any...,separator: String = ",",terminator: String = ""){
         #if DEBUG
-            print(TAG, params.count < 2 ? params[0] : params, separator, terminator)
+        print(TAG, params.count < 2 ? params[0] : params, separator, terminator)
         #endif
     }
     
     public static func logBundleFiles(){
         #if DEBUG
-            let bundle:Bundle = Bundle.main
-            let paths = bundle.paths(forResourcesOfType: nil, inDirectory: nil)
-            for path in paths {
-                Mylog.log(TAG, (path as NSString).lastPathComponent)
-            }
+        let bundle:Bundle = Bundle.main
+        let paths = bundle.paths(forResourcesOfType: nil, inDirectory: nil)
+        for path in paths {
+            Mylog.log(TAG, (path as NSString).lastPathComponent)
+        }
         #endif
     }
     @nonobjc
@@ -94,43 +94,43 @@ open class Mylog: NSObject{
     }
     public static func logClassProperties(_ data: Any){
         #if DEBUG
-            let propertyNames =  Mirror(reflecting: self).children.flatMap { $0.label }
-            Mylog.log(TAG, propertyNames)
-//        for c in Mirror(reflecting: data).children
-//        {
-//            if let name = c.label{
-//                Mylog.log(name)
-//            }
-//        }
+        let propertyNames =  Mirror(reflecting: self).children.flatMap { $0.label }
+        Mylog.log(TAG, propertyNames)
+        //        for c in Mirror(reflecting: data).children
+        //        {
+        //            if let name = c.label{
+        //                Mylog.log(name)
+        //            }
+        //        }
         #endif
     }
     public static func logError(_ error:Error,file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
-            Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, error.localizedDescription))
+        Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, error.localizedDescription))
         #endif
     }
     public static func logLoca(_ message:String,file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
-            Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, message))
+        Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, message))
         #endif
     }
     // Support OBJC Methos
     @objc(logClassField:)
     public static func logClassField(_ data: Any?){
         #if DEBUG
-            XTFMylog.infoClassField(data)
+        XTFMylog.infoClassField(data)
         #endif
     }
     @objc(logClassProperty:)
     public static func logClassProperty(_ data: Any?){
         #if DEBUG
-            XTFMylog.infoClassProperty(data)
+        XTFMylog.infoClassProperty(data)
         #endif
     }
     @objc(logClassVariable:)
     public static func logClassVariable(_ data: Any?){
         #if DEBUG
-            XTFMylog.infoClassVariable(data)
+        XTFMylog.infoClassVariable(data)
         #endif
     }
     public static func test(){
