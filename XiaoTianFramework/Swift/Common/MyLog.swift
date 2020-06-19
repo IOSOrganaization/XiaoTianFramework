@@ -19,13 +19,13 @@ open class Mylog: NSObject{
     private static let TAG = "[Mylog]"
     // Swif Any Object Methos
     @nonobjc
-    open static func log(_ param:Any?){
+    public static func log(_ param:Any?){
         #if DEBUG
             print(TAG, param == nil ? "nil" : param!)
         #endif
     }
     @nonobjc
-    open static func log(_ params: Any?...){
+    public static func log(_ params: Any?...){
         #if DEBUG
             if params.count == 1{
                 print(TAG, params[0] == nil ? "nil" :params[0]!)
@@ -42,13 +42,13 @@ open class Mylog: NSObject{
     }
     
     @nonobjc
-    open static func log(_ params:Any...,separator: String = ",",terminator: String = ""){
+    public static func log(_ params:Any...,separator: String = ",",terminator: String = ""){
         #if DEBUG
             print(TAG, params.count < 2 ? params[0] : params, separator, terminator)
         #endif
     }
     
-    open static func logBundleFiles(){
+    public static func logBundleFiles(){
         #if DEBUG
             let bundle:Bundle = Bundle.main
             let paths = bundle.paths(forResourcesOfType: nil, inDirectory: nil)
@@ -58,7 +58,7 @@ open class Mylog: NSObject{
         #endif
     }
     @nonobjc
-    open static func logClass(_ any: AnyObject?){
+    public static func logClass(_ any: AnyObject?){
         if any == nil{
             Mylog.log("nil")
             return
@@ -88,11 +88,11 @@ open class Mylog: NSObject{
         Mylog.log("}")
     }
     @objc(logClassConsumption:)
-    open static func logClassConsumption(_ clazz: AnyClass){
+    public static func logClassConsumption(_ clazz: AnyClass){
         print(TAG, String(format: "%zu", class_getInstanceSize(clazz)))
         //  String("Status: %lu%%", (unsigned long)(status * 100))
     }
-    open static func logClassProperties(_ data: Any){
+    public static func logClassProperties(_ data: Any){
         #if DEBUG
             let propertyNames =  Mirror(reflecting: self).children.flatMap { $0.label }
             Mylog.log(TAG, propertyNames)
@@ -104,36 +104,36 @@ open class Mylog: NSObject{
 //        }
         #endif
     }
-    open static func logError(_ error:Error,file: String = #file,function:String = #function,line:Int = #line){
+    public static func logError(_ error:Error,file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
             Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, error.localizedDescription))
         #endif
     }
-    open static func logLoca(_ message:String,file: String = #file,function:String = #function,line:Int = #line){
+    public static func logLoca(_ message:String,file: String = #file,function:String = #function,line:Int = #line){
         #if DEBUG
             Mylog.log(TAG, String(format: "%@[%d:%@] %@", file, line, function, message))
         #endif
     }
     // Support OBJC Methos
     @objc(logClassField:)
-    open static func logClassField(_ data: Any?){
+    public static func logClassField(_ data: Any?){
         #if DEBUG
             XTFMylog.infoClassField(data)
         #endif
     }
     @objc(logClassProperty:)
-    open static func logClassProperty(_ data: Any?){
+    public static func logClassProperty(_ data: Any?){
         #if DEBUG
             XTFMylog.infoClassProperty(data)
         #endif
     }
     @objc(logClassVariable:)
-    open static func logClassVariable(_ data: Any?){
+    public static func logClassVariable(_ data: Any?){
         #if DEBUG
             XTFMylog.infoClassVariable(data)
         #endif
     }
-    open static func test(){
+    public static func test(){
         
     }
 }

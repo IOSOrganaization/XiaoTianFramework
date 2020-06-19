@@ -47,7 +47,7 @@ open class UtilRegularExpression: NSObject{
             if !NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0)){
                 let startIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location)
                 let endIndex = target.characters.index(target.startIndex, offsetBy: rangeOfFirstMatch.location+rangeOfFirstMatch.length)
-                let range = Range<String.Index>(startIndex ..< endIndex)
+                let range:Range<String.Index> = startIndex ..< endIndex
                 let subStringForFirstMatch = target.substring(with: range)
                 return subStringForFirstMatch
             }
@@ -71,7 +71,6 @@ open class UtilRegularExpression: NSObject{
     func isMatch(_ target:String,_ pattern:String){
         do{
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
-            
             //
             let match = regex.firstMatch(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
             if match != nil{

@@ -30,6 +30,7 @@
 		584923C21E8B63B8005958B4 /* UIViewController+XTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 045CB8FF1A661BEB000942CE /* UIViewController+XTF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		584923C31E8B63D5005958B4 /* SKPSMTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BD380E11E56A8090034D24E /* SKPSMTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		586B1F911E8B65B40022C175 /* XTFCryptorSecurity.h in Headers */ = {isa = PBXBuildFile; fileRef = 58E9BD3E1D2184EC00B9DC75 /* XTFCryptorSecurity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		587731A0249C926A002C5057 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877319E249C926A002C5057 /* SwCrypt.swift */; };
 		58AC85801E57F4D1008D5ED3 /* UncaughtExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 58AC857E1E57F4D1008D5ED3 /* UncaughtExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58AC85811E57F4D1008D5ED3 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AC857F1E57F4D1008D5ED3 /* UncaughtExceptionHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		58E9BD411D2184EC00B9DC75 /* XTFCryptorSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E9BD3F1D2184EC00B9DC75 /* XTFCryptorSecurity.m */; };
@@ -105,7 +106,6 @@
 		6B7A73901EE7DE6900AD1623 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */; };
 		6B7A73921EE7DE9600AD1623 /* ExtensionUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */; };
 		6B7A73941EE7E8B300AD1623 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */; };
-		6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */; };
 		6B7C87461F3EB444006CE3B6 /* MyLogTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87451F3EB444006CE3B6 /* MyLogTag.swift */; };
 		6B7C87481F3ECEF1006CE3B6 /* MyLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C87471F3ECEF1006CE3B6 /* MyLog.swift */; };
 		6B7C874C1F3EE16C006CE3B6 /* UtilJavaScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7C874B1F3EE16C006CE3B6 /* UtilJavaScript.swift */; };
@@ -176,6 +176,7 @@
 		580E07471E894DE90023FF00 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		584923A21E8B6087005958B4 /* XTFMylog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTFMylog.h; sourceTree = "<group>"; };
 		584923A31E8B6087005958B4 /* XTFMylog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTFMylog.m; sourceTree = "<group>"; };
+		5877319E249C926A002C5057 /* SwCrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwCrypt.swift; path = Swift/Util/SwCrypt.swift; sourceTree = "<group>"; };
 		589020E41C2069A3009350BB /* introduction.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = introduction.md; path = Controller/introduction.md; sourceTree = "<group>"; };
 		58AC857E1E57F4D1008D5ED3 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		58AC857F1E57F4D1008D5ED3 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
@@ -254,7 +255,6 @@
 		6B7A738F1EE7DE6900AD1623 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIImage.swift; path = Swift/Extension/ExtensionUIImage.swift; sourceTree = "<group>"; };
 		6B7A73911EE7DE9600AD1623 /* ExtensionUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUINavigationController.swift; path = Swift/Extension/ExtensionUINavigationController.swift; sourceTree = "<group>"; };
 		6B7A73931EE7E8B300AD1623 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = Swift/Extension/ExtensionString.swift; sourceTree = "<group>"; };
-		6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwCrypt.swift; path = Swift/Util/SwCrypt.swift; sourceTree = "<group>"; };
 		6B7C87451F3EB444006CE3B6 /* MyLogTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLogTag.swift; path = Swift/Common/MyLogTag.swift; sourceTree = "<group>"; };
 		6B7C87471F3ECEF1006CE3B6 /* MyLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLog.swift; path = Swift/Common/MyLog.swift; sourceTree = "<group>"; };
 		6B7C874B1F3EE16C006CE3B6 /* UtilJavaScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UtilJavaScript.swift; path = Swift/Util/UtilJavaScript.swift; sourceTree = "<group>"; };
@@ -473,9 +473,9 @@
 		6B5FB9D21ED522AD00331247 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5877319E249C926A002C5057 /* SwCrypt.swift */,
 				6B3604751F45D69A00CD29F5 /* baseCommon.js */,
 				6B5FB9D31ED522BA00331247 /* ConstantApp.swift */,
-				6B7C87421F3EA821006CE3B6 /* SwCrypt.swift */,
 				6B891F341F0395F2004A32E8 /* UtilAnimation.swift */,
 				6B5FB9D61ED522BA00331247 /* UtilAnyObject.swift */,
 				6B5FB9D71ED522BA00331247 /* UtilAttributedString.swift */,
@@ -700,6 +700,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 04FCC9C21A4BA8D6001A6BBD;
@@ -759,6 +760,7 @@
 				6B5FBA021ED522BA00331247 /* UtilUIView.swift in Sources */,
 				6B5FB9CE1ED522A600331247 /* HttpAsyncTask.swift in Sources */,
 				6BCABB561F29843A00EFEFF5 /* MyToast.swift in Sources */,
+				587731A0249C926A002C5057 /* SwCrypt.swift in Sources */,
 				6B606C551ED703190058DA6D /* UtilRuntimeSwift.swift in Sources */,
 				6B5FB9D01ED522A600331247 /* HttpRequest.swift in Sources */,
 				6B5FB9F71ED522BA00331247 /* UtilLabel.swift in Sources */,
@@ -780,7 +782,6 @@
 				6B5FB9F51ED522BA00331247 /* UtilFont.swift in Sources */,
 				6B5FB9F41ED522BA00331247 /* UtilFile.swift in Sources */,
 				6B6CCBC91EFCC86B007658DD /* MyViewRingProgress.swift in Sources */,
-				6B7C87431F3EA821006CE3B6 /* SwCrypt.swift in Sources */,
 				6B5FB9FA1ED522BA00331247 /* UtilNotificationDefaultCenter.swift in Sources */,
 				045CB9021A661BEB000942CE /* UIViewController+XTF.m in Sources */,
 				6B891F351F0395F2004A32E8 /* UtilAnimation.swift in Sources */,
