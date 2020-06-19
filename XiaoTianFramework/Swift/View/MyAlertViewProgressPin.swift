@@ -47,10 +47,10 @@ public struct MyAlertViewProgressPin{
         case round,circle,custom((UIView) -> Void)
     }
     public enum Style{
-        case light,dark,blur(UIBlurEffectStyle)// 模糊滤镜
+        case light,dark,blur(UIBlurEffect.Style)// 模糊滤镜
     }
     public enum Background{
-        case none,color(UIColor),blur(UIBlurEffectStyle)// 模糊滤镜
+        case none,color(UIColor),blur(UIBlurEffect.Style)// 模糊滤镜
     }
     open class Content{
         /// 模式
@@ -86,7 +86,7 @@ public struct MyAlertViewProgressPin{
         convenience init(){
             self.init(frame: UIScreen.main.bounds)
             rootViewController = ViewController() // VC
-            windowLevel = UIWindowLevelNormal + 500 // Keep In Top
+            windowLevel = UIWindow.Level.normal + 500 // Keep In Top
             backgroundColor = UIColor.clear
             rootViewController?.view.backgroundColor = UIColor.clear
             isHidden = true
@@ -217,7 +217,7 @@ public struct MyAlertViewProgressPin{
                 let viewBlur = UIVisualEffectView(effect: UIBlurEffect(style: effecType))
                 viewBlur.clipsToBounds = true
                 addSubview(viewBlur)
-                sendSubview(toBack: viewBlur)
+                sendSubviewToBack(viewBlur)
                 viewBlur.layer.cornerRadius = viewProgress.layer.cornerRadius
                 setCenterLayoutConstraint(viewBlur)
                 self.viewBlur = viewBlur
@@ -232,7 +232,7 @@ public struct MyAlertViewProgressPin{
                 backgroundColor = UIColor.clear
                 let viewBlur = UIVisualEffectView(effect: UIBlurEffect(style: effecType))
                 addSubview(viewBlur)
-                sendSubview(toBack: viewBlur)
+                sendSubviewToBack(viewBlur)
                 allPin(subView: viewBlur)
             }
             label.font = content.fontLabel ?? HudView.fontLabel
@@ -392,7 +392,7 @@ public struct MyAlertViewProgressPin{
         }
         func startLink(){
             displayLink = CADisplayLink(target: self, selector: #selector(updateDuration(_:)))
-            displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+            displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         }
         @objc
         func updateDuration(_ displayLink:CADisplayLink) { //执行更新
@@ -439,7 +439,7 @@ fileprivate extension UIView{
             toView?.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    func addPin(withView: UIView,attribute:NSLayoutAttribute,toView:UIView?, constant:CGFloat = 0){
+    func addPin(withView: UIView,attribute:NSLayoutConstraint.Attribute,toView:UIView?, constant:CGFloat = 0){
         checkTranslatesAutoresizing(withView: withView, toView: nil)
         _=addPinConstraint(addView: self, withItem: withView, toItem: toView, attribute: attribute, constant: constant)
     }
@@ -457,7 +457,7 @@ fileprivate extension UIView{
         _=addPinConstraint(addView: self, withItem: subView, toItem: self, attribute: .centerY, constant: constantY)
     }
     @discardableResult
-    func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutAttribute,constant:CGFloat) -> NSLayoutConstraint{
+    func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutConstraint.Attribute,constant:CGFloat) -> NSLayoutConstraint{
         return addConstraint(addView: addView, relation: .equal, withItem: withItem, withAttribute: attribute, toItem: toItem, toAttribute: attribute, constant: constant)
     }
     @discardableResult
@@ -469,7 +469,7 @@ fileprivate extension UIView{
         return addConstraint(addView: view, relation: .equal, withItem: view, withAttribute: .height, toItem: nil, toAttribute: .height, constant: constant)
     }
     @discardableResult
-    func addConstraint(addView: UIView,relation:NSLayoutRelation,withItem:UIView,withAttribute:NSLayoutAttribute,toItem:UIView?,toAttribute:NSLayoutAttribute,constant:CGFloat) ->NSLayoutConstraint{
+    func addConstraint(addView: UIView,relation:NSLayoutConstraint.Relation,withItem:UIView,withAttribute:NSLayoutConstraint.Attribute,toItem:UIView?,toAttribute:NSLayoutConstraint.Attribute,constant:CGFloat) ->NSLayoutConstraint{
         //
         let constraint = NSLayoutConstraint(item: withItem, attribute: withAttribute, relatedBy: relation, toItem: toItem, attribute: toAttribute, multiplier: 1, constant: constant)
         addView.addConstraint(constraint)

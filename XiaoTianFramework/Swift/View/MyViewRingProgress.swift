@@ -86,8 +86,8 @@ public class MyViewRingProgress: UIView{
         shapeLayout.fillColor = UIColor.clear.cgColor// 其他填充颜色
         shapeLayout.strokeColor = storeColor.cgColor// 圆弧颜色
         shapeLayout.lineWidth = storeThickness
-        shapeLayout.lineCap = kCALineCapRound // 圆弧连接圆角
-        shapeLayout.lineJoin = kCALineJoinBevel // 圆弧连接斜面(渐变)
+        shapeLayout.lineCap = CAShapeLayerLineCap.round // 圆弧连接圆角
+        shapeLayout.lineJoin = CAShapeLayerLineJoin.bevel // 圆弧连接斜面(渐变)
         shapeLayout.path = smoothPath.cgPath // 画圆弧
         //
         let maskLayer = CALayer()
@@ -99,10 +99,10 @@ public class MyViewRingProgress: UIView{
         animation.fromValue = 0
         animation.toValue = Double.pi * 2
         animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.isRemovedOnCompletion = false
         animation.repeatCount = 0x1e50f
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         animation.autoreverses = false
         shapeLayout.mask?.add(animation, forKey: "rotate")
         // 圆弧层
@@ -110,7 +110,7 @@ public class MyViewRingProgress: UIView{
         animationGroup.duration = 1
         animationGroup.repeatCount = 0x1e50f
         animationGroup.isRemovedOnCompletion = false
-        animationGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animationGroup.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         // 圆弧动画(圆角)
         let storeStartAnimation = CABasicAnimation(keyPath: "strokeStart")// 圆弧起始位置[0~1]
         storeStartAnimation.fromValue = 0.015

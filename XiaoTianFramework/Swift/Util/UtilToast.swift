@@ -270,7 +270,7 @@ extension UIView {
             activityIndicatorView.frame.origin.y -= 10 //y起点-10[上移10]
             let activityMessageLabel = UILabel(frame: CGRect(x: activityView.bounds.origin.x, y: (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), width: activityView.bounds.size.width, height: 20))//创建UILabel[宽满,高20]
             activityMessageLabel.textColor = UIView.hr_toastFontColor()//Text颜色
-            activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:UIView.hr_toastFontName(), size: 16) : UIFont(name:UIView.hr_toastFontName(), size: 13)//Text字体
+            activityMessageLabel.font = (msg.count<=10) ? UIFont(name:UIView.hr_toastFontName(), size: 16) : UIFont(name:UIView.hr_toastFontName(), size: 13)//Text字体
             activityMessageLabel.textAlignment = .center//对齐方式
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)//添加UILabel
@@ -281,7 +281,7 @@ extension UIView {
         // associate activity view with self
         objc_setAssociatedObject(self, &HRToastActivityView, activityView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         // 渐变显示
-        UIView.animate(withDuration: HRToastFadeDuration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: HRToastFadeDuration, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             activityView.alpha = 1.0
         }, completion: nil)
     }
@@ -294,7 +294,7 @@ extension UIView {
             return
         }
         // 渐变隐藏
-        UIView.animate(withDuration: HRToastFadeDuration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: HRToastFadeDuration, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             existingActivityView!.alpha = 0.0
             }, completion: {
                 (finished: Bool) in
@@ -493,7 +493,7 @@ extension String{
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping;
-        let attributes = [NSAttributedStringKey.font:font!, NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
+        let attributes = [NSAttributedString.Key.font:font!, NSAttributedString.Key.paragraphStyle:paragraphStyle.copy()]
         
         let text = self as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)

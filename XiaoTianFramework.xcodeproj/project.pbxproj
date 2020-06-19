@@ -473,9 +473,9 @@
 		6B5FB9D21ED522AD00331247 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				5877319E249C926A002C5057 /* SwCrypt.swift */,
 				6B3604751F45D69A00CD29F5 /* baseCommon.js */,
 				6B5FB9D31ED522BA00331247 /* ConstantApp.swift */,
+				5877319E249C926A002C5057 /* SwCrypt.swift */,
 				6B891F341F0395F2004A32E8 /* UtilAnimation.swift */,
 				6B5FB9D61ED522BA00331247 /* UtilAnyObject.swift */,
 				6B5FB9D71ED522BA00331247 /* UtilAttributedString.swift */,
@@ -973,7 +973,7 @@
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1005,7 +1005,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

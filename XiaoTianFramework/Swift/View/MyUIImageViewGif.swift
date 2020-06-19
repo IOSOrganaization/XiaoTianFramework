@@ -24,7 +24,7 @@ public class MyUIImageViewGif: UIImageView{
             }
         }
     }
-    var runLoopMode = RunLoopMode.commonModes {
+    var runLoopMode = RunLoop.Mode.common {
         didSet{
             if oldValue != runLoopMode{
                 stopAnimating()
@@ -236,7 +236,7 @@ public class MyUIImageViewGif: UIImageView{
             // 图片为空,重新从图片源获取
             if frame == nil && imageSource != nil{
                 if let image = CGImageSourceCreateImageAtIndex(imageSource!, index, nil){
-                    frame = UIImage(cgImage: image, scale: scale, orientation: UIImageOrientation.up)
+                    frame = UIImage(cgImage: image, scale: scale, orientation: UIImage.Orientation.up)
                 }
             }
             // 预加载GIF后面几张图片(每次预加载几张)
@@ -259,7 +259,7 @@ public class MyUIImageViewGif: UIImageView{
                             if let image = CGImageSourceCreateImageAtIndex(imageSource, _index, nil){
                                 // sync target
                                 objc_sync_enter(wSelf.imagesGif)
-                                    wSelf.imagesGif[_index] = UIImage(cgImage: image, scale: wSelf.scale, orientation: UIImageOrientation.up)
+                                wSelf.imagesGif[_index] = UIImage(cgImage: image, scale: wSelf.scale, orientation: UIImage.Orientation.up)
                                 objc_sync_exit(wSelf.imagesGif)
                             }
                         }

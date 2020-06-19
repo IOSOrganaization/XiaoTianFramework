@@ -70,7 +70,7 @@ open class UtilDispatch: NSObject{
         executor.performSelector(inBackground: selector, with: withObject) // 后台线程异步执行
     }
     /// NSObject 当前线程异步延时执行
-    @inline(__always) public class func afterNSObject(_ executor:NSObject,_ selector:Selector,_ withObject: AnyObject,_ afterDelay: TimeInterval,_ inModes:[RunLoopMode]){
+    @inline(__always) public class func afterNSObject(_ executor:NSObject,_ selector:Selector,_ withObject: AnyObject,_ afterDelay: TimeInterval,_ inModes:[RunLoop.Mode]){
         executor.perform(selector, with: withObject, afterDelay: afterDelay, inModes: inModes)// 当前线程异步执行(底层实现是通过 NSTimer 来执行)
     }
     /// NSObject 当前线程异步执行
@@ -103,7 +103,7 @@ open class UtilDispatch: NSObject{
     /// NSTimer 调度执行器
     @inline(__always) public class func timerFire(_ timeIntervalSecond:TimeInterval,_ target:AnyObject,_ selector:Selector,_ userInfo:AnyObject?,_ repeats:Bool) -> Timer {
         let timer = Timer.scheduledTimer(timeInterval: timeIntervalSecond, target: target, selector: selector, userInfo: userInfo, repeats: repeats)// 创建执行指定的定时器
-        RunLoop.main.add(timer, forMode: RunLoopMode.defaultRunLoopMode) // 加入到 RunLoop 执行中
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.default) // 加入到 RunLoop 执行中
         timer.fire() // 触发
         return timer
     }

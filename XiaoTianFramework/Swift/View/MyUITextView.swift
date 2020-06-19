@@ -85,7 +85,8 @@ class MyUITextView: UITextView{
             }
             // 超出后面用...省略
             let maxChars = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone ? 33 : 109 //iPhone,iPad
-            if placeHolder.characters.count > maxChars{
+            if placeHolder.count > maxChars{
+                //placeHolder = String(placeHolder![0 ..< placeHolder.index(placeHolder.startIndex, offsetBy: maxChars - 8)])
                 placeHolder = placeHolder.substring(to: placeHolder.index(placeHolder.startIndex, offsetBy: maxChars - 8))
                 placeHolder = placeHolder.trimmingCharacters(in: CharacterSet.whitespaces) + "..."
             }
@@ -109,7 +110,7 @@ class MyUITextView: UITextView{
         }
     }
     func numberOfLinesForMessage(_ text:String)-> Int{
-            return text.characters.count / maxCharactersPerLine + 1
+            return text.count / maxCharactersPerLine + 1
     }
     // # overrides
     

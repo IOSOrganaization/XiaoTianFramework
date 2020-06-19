@@ -155,13 +155,13 @@ open class MyAlertViewControl: UIViewController{
     }
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if event?.touches(for: view)?.count ?? 0 > 0 {
@@ -182,7 +182,7 @@ open class MyAlertViewControl: UIViewController{
         guard let userInfo = notification.userInfo else{
             return
         }
-        guard let endKeyBoardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.minY else{
+        guard let endKeyBoardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.minY else{
             return
         }
         if tmpContentViewFrameOrigin == nil{
@@ -277,7 +277,7 @@ open class MyAlertViewControl: UIViewController{
         appearance.setkWindowHeight(appearance.kWindowHeight + appearance.kButtonHeight)
         let btn = MyButton()
         btn.layer.masksToBounds = true
-        btn.setTitle(title, for: UIControlState())
+        btn.setTitle(title, for: UIControl.State())
         btn.titleLabel?.font = appearance.kButtonFont
         btn.customBackgroundColor = backgroundColor
         btn.customTextColor = textColor
@@ -361,7 +361,7 @@ open class MyAlertViewControl: UIViewController{
         if !subTitle.isEmpty{
             viewText.text = subTitle
             let str = subTitle as NSString
-            let attr = [NSAttributedStringKey.font:viewText.font ?? UIFont()]
+            let attr = [NSAttributedString.Key.font:viewText.font ?? UIFont()]
             let sz = CGSize(width: appearance.kWindowWidth - 24, height: 90)
             let r = str.boundingRect(with: sz, options: .usesLineFragmentOrigin, attributes: attr, context: nil)
             let ht = ceil(r.size.height)
@@ -377,7 +377,7 @@ open class MyAlertViewControl: UIViewController{
         circleView.isHidden = circleBG.isHidden
         circleView.backgroundColor = viewColor
         if style == .wait{
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            let indicator = UIActivityIndicatorView(style: .white)
             indicator.startAnimating()
             circleIconView = indicator
         }else{
@@ -401,7 +401,7 @@ open class MyAlertViewControl: UIViewController{
         }
         for btn in buttons {
             btn.backgroundColor = btn.customBackgroundColor ?? viewColor
-            btn.setTitleColor(btn.customTextColor ?? colorTextButton ?? UIColor.white, for: UIControlState())
+            btn.setTitleColor(btn.customTextColor ?? colorTextButton ?? UIColor.white, for: UIControl.State())
         }
         if duration ?? 0 > 0 {
             self.duration = duration
@@ -418,7 +418,7 @@ open class MyAlertViewControl: UIViewController{
         duration = duration.advanced(by: -1)// advanced:增加
         for btn in buttons.filter({ $0.showDurationStatus }) {
             let text = "\(btn.initialTitle ?? "") (\(Int(duration ?? 0)))"
-            btn.setTitle(text, for: UIControlState())
+            btn.setTitle(text, for: UIControl.State())
         }
     }
     private func showAnimation(_ animationType:Animation = .topToBottom, animationStartOffset:CGFloat = -400, boundingAnimationOffset:CGFloat = 15,animationDuration:TimeInterval = 0.2){

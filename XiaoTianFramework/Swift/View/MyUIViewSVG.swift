@@ -39,10 +39,10 @@ public class MyUIViewSVG: UIView{
         }
         // 100px,100px
         if width.hasSuffix("px") {
-            width.characters.removeLast(2)
+            width.removeLast(2)
         }
         if height.hasSuffix("px") {
-            height.characters.removeLast(2)
+            height.removeLast(2)
         }
         return CGSize(width:CGFloat(strtof(width, nil)), height:CGFloat(strtof(height, nil)))
     }
@@ -57,7 +57,7 @@ extension MyUIViewSVG{
 
 // SVG Shape
 fileprivate extension CAShapeLayer{
-    fileprivate struct AssociateKey {
+    struct AssociateKey {
         static var width = "MyUIViewSVG_CAShapeLayer_AssociateKey_width"
         static var height = "MyUIViewSVG_CAShapeLayer_AssociateKey_height"
     }
@@ -207,7 +207,7 @@ fileprivate func parseSVGPath(_ pathString:String, forPath:UIBezierPath? = nil)-
             }
         }
         // 迭代字符
-        for character in workingString.characters{
+        for character in workingString{
             if let result = charachterDictionary[character]{
                 if result is Path{
                     pushCoordinateAndClear()
@@ -346,7 +346,7 @@ fileprivate struct StackNumber{
         return isEmpty ? nil : CGFloat(strtod(character, nil))// String To Double
     }
     var isEmpty:Bool{
-        return character.characters.isEmpty
+        return character.isEmpty
     }
     init(){}
     init(_ character:Character){

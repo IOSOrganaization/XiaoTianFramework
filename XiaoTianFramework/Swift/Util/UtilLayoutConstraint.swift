@@ -1010,7 +1010,7 @@ public extension UtilLayoutConstraint{
      - Parameter views: A Dictionary<String, AnyObject> of view key / value pairs.
      - Returns: The Array<NSLayoutConstraint> instance.
      */
-    public class func constraint(_ format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+    public class func constraint(_ format: String, options: NSLayoutConstraint.FormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
         for (_, a) in views {
             if let v: UIView = a as? UIView {
                 v.translatesAutoresizingMaskIntoConstraints = false

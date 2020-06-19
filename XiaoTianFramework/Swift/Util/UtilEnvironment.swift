@@ -68,7 +68,7 @@ open class UtilEnvironment : NSObject{
     }
     /// 打开App设置
     public class func openSettingNetwork(){
-        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
             return
         }
         if UIApplication.shared.canOpenURL(settingsUrl) {
@@ -98,7 +98,7 @@ open class UtilEnvironment : NSObject{
     }
     /// 设置导航栏颜色(viewDidload后系统可能会改变tint渲染,所以要在viewDidAppear中修改)
     open func setNavigationBarColor(_ navigationBar:UINavigationBar?,_ colorTintBar:UIColor,_ colorTintText:UIColor){
-        navigationBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorTintText] // 标题文本颜色
+        navigationBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorTintText] // 标题文本颜色
         navigationBar?.barTintColor = colorTintBar // bar背景色
         navigationBar?.tintColor = colorTintText // 左右文本颜色
         // 如果有背景图,则颜色不会渲染
@@ -107,7 +107,7 @@ open class UtilEnvironment : NSObject{
     /// 设置导航栏图片,阴影线
     open func setNavigationBarColor(_ navigationBar:UINavigationBar?,imageBar:UIImage? = nil,imageShadow:UIImage? = nil,colorTintBar:UIColor! = UIColor.white,colorTintText:UIColor! =
         UIColor.black, colorShadow:UIColor! = UIColor.gray){
-        navigationBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: colorTintText]
+        navigationBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorTintText]
         // 设置阴影线/图,必须要设置背景图,否则
         navigationBar?.setBackgroundImage(imageBar ?? utilShared.image.genImageFromColor(colorTintBar, CGSize(width:1, height:1)), for: .default)
         // 阴影图,导航栏下部分的分割线图
@@ -135,7 +135,7 @@ open class UtilEnvironment : NSObject{
     /// 加载Nib
     public class func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
         // UINib(nibName: name, bundle: Bundle.main)
-        return Bundle.main.loadNibNamed(name, owner: owner, options: option)
+        return Bundle.main.loadNibNamed(name, owner: owner, options: option as! [UINib.OptionsKey : Any])
     }
     /// 获取可视键盘的高度
     func visibleKeyboardHeight() -> CGFloat{
@@ -203,11 +203,11 @@ open class UtilEnvironment : NSObject{
     public static var screenSizeFor35Inch = CGSize(width: 320, height: 480)
     /// 是否横屏
     public class var isLandscape: Bool{
-        return UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)
+        return UIApplication.shared.statusBarOrientation.isLandscape
     }
     /// 设备是否横屏(与app无关)
     public class var isDriverLandscape: Bool{
-        return UIDeviceOrientationIsLandscape(UIDevice.current.orientation)
+        return UIDevice.current.orientation.isLandscape
     }
     /// 当前屏幕宽(横竖屏会变)
     public class var screenWidth: CGFloat{

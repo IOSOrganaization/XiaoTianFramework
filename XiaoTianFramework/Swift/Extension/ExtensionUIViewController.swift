@@ -87,7 +87,7 @@ extension UIViewController{
     }
     open func changeNavigationBarColor(barTintColor:UIColor,titleTextColor:UIColor){
         navigationController?.navigationBar.barTintColor = barTintColor
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: titleTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleTextColor]
         navigationController?.navigationBar.tintColor = titleTextColor // 如果设置了背景图片,则渲染颜色无效(注意appearance方式设置)
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         if utilShared.color.contrastColor(barTintColor) == .white{

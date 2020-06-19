@@ -56,16 +56,16 @@ open class MyStoreHouseRefreshControl: UIView{
             let regexPoint = try NSRegularExpression(pattern: "\\{(\\d|,|\\.)+?\\}", options: .caseInsensitive)
             for points in plistPoints!{
                 if let startEndPoint = points as? String {
-                    let matchedResult = regexPoint.matches(in: startEndPoint, options: .reportProgress, range: NSMakeRange(0, startEndPoint.characters.count))
+                    let matchedResult = regexPoint.matches(in: startEndPoint, options: .reportProgress, range: NSMakeRange(0, startEndPoint.count))
                     if matchedResult.count == 2{
                         let start = matchedResult[0].range
                         let end = matchedResult[1].range
                         var startRange = startEndPoint.index(startEndPoint.startIndex, offsetBy: start.location)
                         var endRange = startEndPoint.index(startRange, offsetBy: start.length)
-                        let startPoint = CGPointFromString(startEndPoint.substring(with: startRange..<endRange))
+                        let startPoint = NSCoder.cgPoint(for: startEndPoint.substring(with: startRange..<endRange))
                         startRange = startEndPoint.index(startEndPoint.startIndex, offsetBy: end.location)
                         endRange = startEndPoint.index(startRange, offsetBy: end.length)
-                        let endPoint = CGPointFromString(startEndPoint.substring(with: startRange..<endRange))
+                        let endPoint = NSCoder.cgPoint(for: startEndPoint.substring(with: startRange..<endRange))
                         // 最大值
                         if startPoint.x > width {
                             width = startPoint.x
@@ -180,12 +180,12 @@ open class MyStoreHouseRefreshControl: UIView{
         if reverseAnimationLoading{
             for (index,barItem) in barItems.enumerated().reversed(){
                 let delay:TimeInterval = Double(barItems.count - index - 1) * 0.1
-                perform(#selector(barItemAnimation(_:)), with: barItem, afterDelay: delay, inModes: [.commonModes])
+                perform(#selector(barItemAnimation(_:)), with: barItem, afterDelay: delay, inModes: [RunLoop.Mode.common])
             }
         }else{
             for (index,barItem) in barItems.enumerated(){
                 let delay:TimeInterval = Double(index) * 0.1
-                perform(#selector(barItemAnimation(_:)), with: barItem, afterDelay: delay, inModes: [.commonModes])
+                perform(#selector(barItemAnimation(_:)), with: barItem, afterDelay: delay, inModes: [RunLoop.Mode.common])
             }
         }
     }
@@ -235,7 +235,7 @@ open class MyStoreHouseRefreshControl: UIView{
                 barItem.alpha = 0.8
             }
             displayLink = CADisplayLink(target: self, selector: #selector(updateDisappearAnimation))
-            displayLink?.add(to: RunLoop.main, forMode: .commonModes)
+            displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
             disappearProgress = 1
         }
     }
@@ -258,7 +258,7 @@ open class MyStoreHouseRefreshControl: UIView{
             break
         case "pan.state":
             if let state = change?[NSKeyValueChangeKey.newKey] as? Int{
-                if state == UIGestureRecognizerState.ended.rawValue {
+                if state == UIGestureRecognizer.State.ended.rawValue {
                     scrollViewDidEndDragging()
                 }
             }
@@ -362,16 +362,16 @@ public class MyStoreHouseRefreshControlIBDrawableView: UIView{
     let lineWidth:CGFloat = 2
     @nonobjc
     func drawLine(_ startEndPoint:String){ // {0,0}{1,1}
-        let matchedResult = regexPoint.matches(in: startEndPoint, options: .reportProgress, range: NSMakeRange(0, startEndPoint.characters.count))
+        let matchedResult = regexPoint.matches(in: startEndPoint, options: .reportProgress, range: NSMakeRange(0, startEndPoint.count))
         if matchedResult.count == 2{
             let start = matchedResult[0].range
             let end = matchedResult[1].range
             var startRange = startEndPoint.index(startEndPoint.startIndex, offsetBy: start.location)
             var endRange = startEndPoint.index(startRange, offsetBy: start.length)
-            let startPoint = CGPointFromString(startEndPoint.substring(with: startRange..<endRange))
+            let startPoint = NSCoder.cgPoint(for: startEndPoint.substring(with: startRange..<endRange))
             startRange = startEndPoint.index(startEndPoint.startIndex, offsetBy: end.location)
             endRange = startEndPoint.index(startRange, offsetBy: end.length)
-            let endPoint = CGPointFromString(startEndPoint.substring(with: startRange..<endRange))
+            let endPoint = NSCoder.cgPoint(for: startEndPoint.substring(with: startRange..<endRange))
             drawLine(startPoint.x,startPoint.y,endPoint.x,endPoint.y)
         }
     }

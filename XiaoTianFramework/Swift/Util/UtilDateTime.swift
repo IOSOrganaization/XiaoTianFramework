@@ -11,11 +11,11 @@ import UIKit
 
 @objc(UtilDateTimeXT)
 open class UtilDateTime: NSObject {
-    open static let PATTERN_DATE = "yyyy年MM月dd日"
-    open static let PATTERN_DATE_TIME = "yyyy年MM月dd日 HH:mm"
-    open static let PATTERN_DATE_TIME_SECOND = "yyyy年MM月dd日 HH:mm:ss"
-    open static let PATTERN_DATE_TIME_SECOND_MILLISE = "yyyy年MM月dd日 HH:mm:ss.SSS XXXXX" // 2017年05月26日 10:21:09.733 +08:00
-    open static let PATTERN_DATE_TIME_LOCAL = "dMMMMyyyyhmmaz" // July 16, 2015, 7:44 AM PDT.
+    public static let PATTERN_DATE = "yyyy年MM月dd日"
+    public static let PATTERN_DATE_TIME = "yyyy年MM月dd日 HH:mm"
+    public static let PATTERN_DATE_TIME_SECOND = "yyyy年MM月dd日 HH:mm:ss"
+    public static let PATTERN_DATE_TIME_SECOND_MILLISE = "yyyy年MM月dd日 HH:mm:ss.SSS XXXXX" // 2017年05月26日 10:21:09.733 +08:00
+    public static let PATTERN_DATE_TIME_LOCAL = "dMMMMyyyyhmmaz" // July 16, 2015, 7:44 AM PDT.
     private var cacheCurrentDate: Date?
     /// 格式化日期 (秒/s) [1990年1月1日]
     open func formatMillisecondDate(_ dateMillisecond: NSNumber?) -> String?{

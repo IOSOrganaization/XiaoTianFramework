@@ -110,7 +110,7 @@ class MyUILabel: UILabel{
         // 配置的点击事件
         if onClickAction != "" {
             // 获取当前 Responder 链中包含该Selector的第一个Responder
-            if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject {
+            if let responder: AnyObject? = self.target(forAction: Selector(onClickAction), withSender: self) as AnyObject? {
                 setTabedBackground(onClickColor)
                 setOnTabListener() {
                     [weak self, responder] params in
@@ -121,7 +121,7 @@ class MyUILabel: UILabel{
                         return
                     }
                     // 执行绑定的 OnClickAction [最多传递一个参数]
-                    wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
+                    let _ = wResponder.perform(Selector(wSelf.onClickAction), with: wSelf)
                 }
             }
         }
@@ -191,7 +191,7 @@ class MyUILabel: UILabel{
     override func drawText(in rect:CGRect){
         if marginLeft != nil && marginTop != nil && marginRight != nil && marginBottom != nil{
             let insets = UIEdgeInsets(top: marginTop, left: marginLeft, bottom: marginBottom, right: marginRight)
-            super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+            super.drawText(in: rect.inset(by: insets))
         } else {
             super.drawText(in: rect)
         }

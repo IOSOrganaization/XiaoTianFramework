@@ -16,7 +16,7 @@ open class UtilAttributedString: NSObject{
         let attributeString = NSMutableAttributedString(string: string)
         if let matchedRanges = matchingPattern(string, pattern){
             for range in matchedRanges {
-                attributeString.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
+                attributeString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
             }
         }
         return attributeString
@@ -28,7 +28,7 @@ open class UtilAttributedString: NSObject{
         do{
             let escapedPattern = NSRegularExpression.escapedPattern(for: pattern)
             let regex = try NSRegularExpression(pattern: escapedPattern, options: .caseInsensitive)
-            let matchs = regex.matches(in: target, options: .reportProgress, range: NSMakeRange(0, target.characters.count))
+            let matchs = regex.matches(in: target, options: .reportProgress, range: NSMakeRange(0, target.count))
             if matchs.count > 0 {
                 ranges = []
             }

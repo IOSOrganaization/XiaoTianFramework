@@ -677,8 +677,8 @@ open class CC {
         case ecb = 1, cbc, cfb, ctr, f8, lrw, ofb, xts, rc4, cfb8
         var needIV: Bool {
             switch self {
-                case .cbc, .cfb, .ctr, .ofb, .cfb8: return true
-                default: return false
+            case .cbc, .cfb, .ctr, .ofb, .cfb8: return true
+            default: return false
             }
         }
     }
@@ -693,13 +693,13 @@ open class CC {
         
         var blockSize: Int? {
             switch self {
-                case .aes: return 16
-                case .des: return 8
-                case .threeDES: return 8
-                case .cast: return 8
-                case .rc2: return 8
-                case .blowfish: return 8
-                default: return nil
+            case .aes: return 16
+            case .des: return 8
+            case .threeDES: return 8
+            case .cast: return 8
+            case .rc2: return 8
+            case .blowfish: return 8
+            default: return nil
             }
         }
     }
@@ -863,7 +863,7 @@ open class CC {
     open class CCM {
         
         public static func crypt(_ opMode: OpMode, algorithm: Algorithm, data: Data, key: Data, iv: Data,
-                               aData: Data, tagLength: Int) throws -> (Data, Data) {
+                                 aData: Data, tagLength: Int) throws -> (Data, Data) {
             var cryptor: CCCryptorRef? = nil
             var status = CCCryptorCreateWithMode!(
                 opMode.rawValue, AuthBlockMode.ccm.rawValue,
@@ -984,7 +984,7 @@ open class CC {
             
             let status = withUnsafePointers(data, tag, &buffer, {dataBytes, tagBytes, bufferBytes in
                 return CCRSACryptorEncrypt!(key, padding.rawValue, dataBytes, data.count, bufferBytes, &bufferSize,
-                    tagBytes, tag.count, digest.rawValue)
+                                            tagBytes, tag.count, digest.rawValue)
             })
             guard status == noErr else { throw CCError(status) }
             
@@ -1005,7 +1005,7 @@ open class CC {
             let status = withUnsafePointers(data, tag, &buffer, {
                 dataBytes, tagBytes, bufferBytes in
                 return CCRSACryptorDecrypt!(key, padding.rawValue, dataBytes, data.count, bufferBytes, &bufferSize,
-                    tagBytes, tag.count, digest.rawValue)
+                                            tagBytes, tag.count, digest.rawValue)
             })
             guard status == noErr else { throw CCError(status) }
             buffer.count = bufferSize
@@ -1057,11 +1057,8 @@ open class CC {
                 var signedData = Data(count:signedDataLength)
                 let status = signedData.withUnsafeMutableBytes({
                     (signedDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
-                    return CCRSACryptorSign!(key,
-                        AsymmetricPadding.pkcs1.rawValue,
-                        (hash as NSData).bytes, hash.count,
-                        digest.rawValue, 0 /*unused*/,
-                        signedDataBytes, &signedDataLength)
+                    return CCRSACryptorSign!(key, AsymmetricPadding.pkcs1.rawValue, (hash as NSData).bytes, hash.count,
+                                             digest.rawValue, 0 /*unused*/, signedDataBytes, &signedDataLength)
                 })
                 guard status == noErr else { throw CCError(status) }
                 
@@ -1242,7 +1239,7 @@ open class CC {
             let dbMask = mgf1(digest, seed: mPrimeHash, maskLength: emLength - hash.count - 1)
             var db = xorData(maskedDB, dbMask)
             db.withUnsafeMutableBytes { dbBytes in
-            dbBytes[0] &= 0xff >> UInt8(zeroBits)
+                dbBytes[0] &= 0xff >> UInt8(zeroBits)
             }
             
             let zeroLength = emLength - hash.count - saltLength - 2
@@ -1267,17 +1264,17 @@ open class CC {
         
         public static func available() -> Bool {
             return CCRSACryptorGeneratePair != nil &&
-            CCRSACryptorGetPublicKeyFromPrivateKey != nil &&
-            CCRSACryptorRelease != nil &&
-            CCRSAGetKeyType != nil &&
-            CCRSAGetKeySize != nil &&
-            CCRSACryptorEncrypt != nil &&
-            CCRSACryptorDecrypt != nil &&
-            CCRSACryptorExport != nil &&
-            CCRSACryptorImport != nil &&
-            CCRSACryptorSign != nil &&
-            CCRSACryptorVerify != nil &&
-            CCRSACryptorCrypt != nil
+                CCRSACryptorGetPublicKeyFromPrivateKey != nil &&
+                CCRSACryptorRelease != nil &&
+                CCRSAGetKeyType != nil &&
+                CCRSAGetKeySize != nil &&
+                CCRSACryptorEncrypt != nil &&
+                CCRSACryptorDecrypt != nil &&
+                CCRSACryptorExport != nil &&
+                CCRSACryptorImport != nil &&
+                CCRSACryptorSign != nil &&
+                CCRSACryptorVerify != nil &&
+                CCRSACryptorCrypt != nil
         }
         
         fileprivate typealias CCRSACryptorRef = UnsafeRawPointer
@@ -1483,8 +1480,8 @@ open class CC {
         }
         
         public static func verifyHash(_ publicKey: Data,
-                                    hash: Data,
-                                    signedData: Data) throws -> Bool {
+                                      hash: Data,
+                                      signedData: Data) throws -> Bool {
             let pubKey = try importKey(publicKey, format: .binary, keyType: .keyPublic)
             defer { CCECCryptorRelease!(pubKey) }
             
@@ -1776,11 +1773,11 @@ open class CC {
             case sha1 = 1, sha224, sha256, sha384, sha512
             var cc: CC.HMACAlg {
                 switch self {
-                    case .sha1: return .sha1
-                    case .sha224: return .sha224
-                    case .sha256: return .sha256
-                    case .sha384: return .sha384
-                    case .sha512: return .sha512
+                case .sha1: return .sha1
+                case .sha224: return .sha224
+                case .sha256: return .sha256
+                case .sha384: return .sha384
+                case .sha512: return .sha512
                 }
             }
         }
@@ -1821,7 +1818,7 @@ open class CC {
             var wrappedKey = Data(count:wrappedKeyLength)
             let status = withUnsafePointers(iv, kek, rawKey, &wrappedKey, {ivBytes, kekBytes, rawKeyBytes, wrappedKeyBytes in
                 return CCSymmetricKeyWrap!(alg, ivBytes, iv.count, kekBytes, kek.count,
-                    rawKeyBytes, rawKey.count, wrappedKeyBytes, &wrappedKeyLength)
+                                           rawKeyBytes, rawKey.count, wrappedKeyBytes, &wrappedKeyLength)
             })
             guard status == noErr else { throw CCError(status) }
             
@@ -1835,7 +1832,7 @@ open class CC {
             var rawKey = Data(count:rawKeyLength)
             let status = withUnsafePointers(iv, kek, wrappedKey, &rawKey, {ivBytes, kekBytes, wrappedKeyBytes, rawKeyBytes in
                 return CCSymmetricKeyUnwrap!(alg, ivBytes, iv.count, kekBytes, kek.count,
-                    wrappedKeyBytes, wrappedKey.count, rawKeyBytes, &rawKeyLength)
+                                             wrappedKeyBytes, wrappedKey.count, rawKeyBytes, &rawKeyLength)
             })
             guard status == noErr else { throw CCError(status) }
             

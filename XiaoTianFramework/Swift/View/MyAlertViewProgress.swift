@@ -109,8 +109,8 @@ open class MyAlertViewProgress: UIView{
             _ringLayer?.fillColor = UIColor.clear.cgColor
             _ringLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
             _ringLayer?.lineWidth = progressView!.storeThickness
-            _ringLayer?.lineCap = kCALineCapRound
-            _ringLayer?.lineJoin = kCALineJoinBevel
+            _ringLayer?.lineCap = CAShapeLayerLineCap.round
+            _ringLayer?.lineJoin = CAShapeLayerLineJoin.bevel
             _ringLayer?.path = smoothedPath.cgPath
             hudView?.layer.addSublayer(_ringLayer!)
             return _ringLayer
@@ -134,8 +134,8 @@ open class MyAlertViewProgress: UIView{
             _backgroundRingLayer?.fillColor = UIColor.clear.cgColor
             _backgroundRingLayer?.strokeColor = colorProgress.withAlphaComponent(0.4).cgColor
             _backgroundRingLayer?.lineWidth = progressView!.storeThickness
-            _backgroundRingLayer?.lineCap = kCALineCapRound
-            _backgroundRingLayer?.lineJoin = kCALineJoinBevel
+            _backgroundRingLayer?.lineCap = CAShapeLayerLineCap.round
+            _backgroundRingLayer?.lineJoin = CAShapeLayerLineJoin.bevel
             _backgroundRingLayer?.path = smoothedPath.cgPath
             _backgroundRingLayer?.strokeEnd = 1 // 100%
             hudView?.layer.addSublayer(_backgroundRingLayer!)
@@ -222,7 +222,7 @@ open class MyAlertViewProgress: UIView{
     public class func showSuccess(status:String? = nil,maskType:Int = MASK_CLEAR,tintColor:UIColor = UIColor.green){
         var displayInterval:TimeInterval = 0.5
         if status != nil {
-            displayInterval = Double.minimum(Double(status!.characters.count) * 0.06 + 0.5, 5.0)
+            displayInterval = Double.minimum(Double(status!.count) * 0.06 + 0.5, 5.0)
         }
         shared.show(shared.tintColorImage(shared.imageSuccess, tintColor), status, displayInterval, maskType)
     }
@@ -230,7 +230,7 @@ open class MyAlertViewProgress: UIView{
     public class func showError(status:String? = nil,maskType:Int = MASK_CLEAR,tintColor:UIColor = UIColor.red){
         var displayInterval:TimeInterval = 0.5
         if status != nil {
-            displayInterval = Double.minimum(Double(status!.characters.count) * 0.06 + 0.5, 5.0)
+            displayInterval = Double.minimum(Double(status!.count) * 0.06 + 0.5, 5.0)
         }
         shared.show(shared.tintColorImage(shared.imageError, tintColor), status, displayInterval, maskType)
     }
@@ -238,7 +238,7 @@ open class MyAlertViewProgress: UIView{
     public class func showInfo(status:String? = nil,maskType:Int = MASK_CLEAR,tintColor:UIColor = UIColor.gray){
         var displayInterval:TimeInterval = 0.5
         if status != nil {
-            displayInterval = Double.minimum(Double(status!.characters.count) * 0.06 + 0.5, 5.0)
+            displayInterval = Double.minimum(Double(status!.count) * 0.06 + 0.5, 5.0)
         }
         shared.show(shared.tintColorImage(shared.imageInfo, tintColor), status, displayInterval, maskType)
     }
@@ -268,7 +268,7 @@ open class MyAlertViewProgress: UIView{
             for window in frontToBackWindows{
                 let windowOnMainScreen = window.screen == UIScreen.main
                 let windowIsVisible = !window.isHidden && window.alpha > 0
-                let windowLevelNormal = window.windowLevel == UIWindowLevelNormal
+                let windowLevelNormal = window.windowLevel == UIWindow.Level.normal
                 if windowOnMainScreen && windowIsVisible && windowLevelNormal{
                     window.addSubview(overlayView)
                     break
@@ -276,7 +276,7 @@ open class MyAlertViewProgress: UIView{
             }
         }else{
             // 移到最上层
-            overlayView.superview?.bringSubview(toFront: overlayView)
+            overlayView.superview?.bringSubviewToFront(overlayView)
         }
         if superview == nil {
             overlayView.addSubview(self)
@@ -315,11 +315,11 @@ open class MyAlertViewProgress: UIView{
             }else{
                 UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIApplication.didChangeStatusBarOrientationNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardWillHideNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardDidHideNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardWillShowNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardDidShowNotification)
             hudView!.transform = hudView!.transform.scaledBy(x: 1.3, y: 1.3)
             if isClear(){
                 alpha = 1
@@ -341,8 +341,8 @@ open class MyAlertViewProgress: UIView{
                 }else{
                     UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                 }
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: nil)
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: status)
             })
         }
         // Draw in rect
@@ -360,7 +360,7 @@ open class MyAlertViewProgress: UIView{
             for window in frontToBackWindows{
                 let windowOnMainScreen = window.screen == UIScreen.main
                 let windowIsVisible = !window.isHidden && window.alpha > 0
-                let windowLevelNormal = window.windowLevel == UIWindowLevelNormal
+                let windowLevelNormal = window.windowLevel == UIWindow.Level.normal
                 if windowOnMainScreen && windowIsVisible && windowLevelNormal{
                     window.addSubview(overlayView)
                     break
@@ -368,7 +368,7 @@ open class MyAlertViewProgress: UIView{
             }
         }else{
             // 移到最上层
-            overlayView.superview?.bringSubview(toFront: overlayView)
+            overlayView.superview?.bringSubviewToFront(overlayView)
         }
         if superview == nil {
             overlayView.addSubview(self)
@@ -396,11 +396,11 @@ open class MyAlertViewProgress: UIView{
             }else{
                 UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
             }
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIApplicationDidChangeStatusBarOrientation)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidHide)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardWillShow)
-            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), NSNotification.Name.UIKeyboardDidShow)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIApplication.didChangeStatusBarOrientationNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardWillHideNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardDidHideNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardWillShowNotification)
+            UtilNotificationDefaultCenter.addObserver(self, #selector(notifyPositionHUD(_:)), UIResponder.keyboardDidShowNotification)
             hudView!.transform = hudView!.transform.scaledBy(x: 1.3, y: 1.3)
             if isClear(){
                 alpha = 1
@@ -422,14 +422,14 @@ open class MyAlertViewProgress: UIView{
                     }else{
                         UtilNotificationDefaultCenter.postNotificationName(MyAlertViewProgress.TAG_WILL_APPEAR, nil)
                     }
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
-                    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, status)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: nil)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: status)
             })
         }
         // Draw in rect
         setNeedsDisplay()
         fadeOutTimer = Timer(timeInterval: duration, target: self, selector: #selector(hide), userInfo: nil, repeats: false)
-        RunLoop.main.add(fadeOutTimer!, forMode: .commonModes)
+        RunLoop.main.add(fadeOutTimer!, forMode: RunLoop.Mode.common)
     }
     @objc public func hide(){
         let  userInfo:[String:String]? = labelString!.text == nil ? [:] : [MyAlertViewProgress.KEY_USER_INFO: labelString!.text!]
@@ -460,7 +460,7 @@ open class MyAlertViewProgress: UIView{
                 wSelf.overlayView = nil
                 wSelf.progressView?.removeFromSuperview()
                 wSelf.progressView = nil
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(MyAlertViewProgress.TAG_DID_DISAPPEAR), object: nil, userInfo: userInfo)
                 let rootController = UIApplication.shared.keyWindow?.rootViewController
                 rootController?.setNeedsStatusBarAppearanceUpdate()
@@ -568,9 +568,9 @@ open class MyAlertViewProgress: UIView{
         if notification != nil{
             Mylog.log(notification?.name)
             if let userInfo = notification?.userInfo{
-                let keyboardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey] as? CGRect
-                animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval
-                if notification!.name == Notification.Name.UIKeyboardWillShow || notification!.name == Notification.Name.UIKeyboardDidShow{
+                let keyboardFrame = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+                animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+                if notification!.name == UIResponder.keyboardWillShowNotification || notification!.name == UIResponder.keyboardDidShowNotification{
                     if ignoreOrientation || screamOrientation.isPortrait {
                         keyboardHeight = keyboardFrame!.height
                     }else{

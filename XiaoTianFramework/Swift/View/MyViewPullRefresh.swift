@@ -127,14 +127,14 @@ public class MyViewPullRefresh: UIView{
         case .Simple:
             imageArrow = UIImageView(image: bundle.imageInBundleXiaoTian("arrow"))
             addSubview(imageArrow!)
-            indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            indicatorView = UIActivityIndicatorView(style: .gray)
             indicatorView?.hidesWhenStopped = true
             addSubview(indicatorView!)
             break
         case .Normal:
             imageArrow = UIImageView(image: bundle.imageInBundleXiaoTian("arrow"))
             addSubview(imageArrow!)
-            indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            indicatorView = UIActivityIndicatorView(style: .gray)
             indicatorView?.hidesWhenStopped = true
             addSubview(indicatorView!)
             //

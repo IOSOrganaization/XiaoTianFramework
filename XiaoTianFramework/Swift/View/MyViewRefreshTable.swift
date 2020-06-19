@@ -61,7 +61,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         viewReloading = rootViews?[3] as? MyUIView
         viewErrorNetSetting = viewError.viewWithTag(4610) as? MyUIView
         //
-        tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
         _ = utilLayoutConstant(tableView).top().left().widthMultiplier(1).heightMultiplier(1) // x,y,w,h才能确定准确位置
         _ = utilLayoutConstant(viewLoading).top().left().widthMultiplier(1).heightMultiplier(1)
         _ = utilLayoutConstant(viewEmpty).top().left().widthMultiplier(1).heightMultiplier(1)
@@ -99,17 +99,17 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         })
         viewReloading.setOnTabListener({view in})
         refreshController = MyLogoRefreshControl()
-        refreshController.addTarget(self, action: #selector(loadFirstPageData), for: UIControlEvents.valueChanged)
+        refreshController.addTarget(self, action: #selector(loadFirstPageData), for: UIControl.Event.valueChanged)
         tableView.backgroundView = refreshController
     }
     
     override func awakeFromNib() {
         // 样式要在系统完全初始化后才不会被系统修改
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.tableView.backgroundColor = UIColor.clear
         layoutIfNeeded()
     }
@@ -140,14 +140,14 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         }
         return false
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         dataSourceRefresh?.tableView?(tableView, commitEditingStyle: editingStyle, forRowAtIndexPath: indexPath)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         if let result = dataSourceRefresh?.tableView?(tableView, heightForRowAtIndexPath: indexPath){
             return result
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int{
         if let result = dataSourceRefresh?.numberOfSectionsInTableView?(tableView){
@@ -536,7 +536,7 @@ class MyViewRefreshTable: UIView,UITableViewDataSource,UITableViewDelegate{
         if dataArray.isEmpty || data == nil{
             return
         }
-        if let index = dataArray.index(where: { data!.hash == $0.hash }){
+        if let index = dataArray.firstIndex(where: { data!.hash == $0.hash }){
             dataArray.remove(at: index)
             if dataArray.isEmpty{
                 tableView.isHidden = true
@@ -622,7 +622,7 @@ protocol MyViewRefreshTableDataSource {
     @objc optional func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
     @objc optional func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     @objc optional func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool
-    @objc optional func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath)
+    @objc optional func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: IndexPath)
     @objc optional func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
     @objc optional func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [UITableViewRowAction]?
     @objc optional func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -648,7 +648,7 @@ class MyLogoRefreshControl: UIRefreshControl{
     override init() {
         super.init()
         setupRefreshControl()
-        addTarget(self, action: #selector(triggerValueChange), for: UIControlEvents.valueChanged)
+        addTarget(self, action: #selector(triggerValueChange), for: UIControl.Event.valueChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {

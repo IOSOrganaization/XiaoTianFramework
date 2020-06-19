@@ -115,7 +115,7 @@ public class UtilJavaScript:NSObject {
             do{// 正则匹配替换格式化
                 //Mylog.log(javaScript)
                 let reges = try NSRegularExpression(pattern: "(?<!\\\\)\\.\\s*(\\w+)\\s*\\(", options: .caseInsensitive)//(?<!\).s*(\w+)\s*\(
-                let nativeJavaScript = reges.stringByReplacingMatches(in: javaScript, options: .reportProgress, range: NSMakeRange(0, javaScript.characters.count), withTemplate: ".__c(\"$1\")(")
+                let nativeJavaScript = reges.stringByReplacingMatches(in: javaScript, options: .reportProgress, range: NSMakeRange(0, javaScript.count), withTemplate: ".__c(\"$1\")(")
                 let tryCatchJavaScript = String(format: "(function(){ try{ \n %@ \n }catch(e){ console.log([e.message, e.stack]) } })()", nativeJavaScript)
                 Mylog.log(tryCatchJavaScript)
                 if #available(iOS 8.0, *){

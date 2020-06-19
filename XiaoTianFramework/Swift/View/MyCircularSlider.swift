@@ -78,7 +78,7 @@ public class MyCircularSlider: UIControl{
                 let radiansTowardsCenter = toRad(Int(angleFromNorth(center, closestPointOnCircleToLabel, false)))
                 labelLocation.origin.x = labelLocation.origin.x + CGFloat(distanceToMove*cos(radiansTowardsCenter)) - labelLocation.size.width/4
                 labelLocation.origin.y = labelLocation.origin.y + CGFloat(distanceToMove*sin(radiansTowardsCenter)) - labelLocation.size.height/4
-                text.draw(in: labelLocation, withAttributes: [NSAttributedStringKey.font:labelFont, NSAttributedStringKey.foregroundColor:labelColor])
+                text.draw(in: labelLocation, withAttributes: [NSAttributedString.Key.font:labelFont, NSAttributedString.Key.foregroundColor:labelColor])
             }
         }
         //
@@ -170,7 +170,7 @@ public class MyCircularSlider: UIControl{
         return result >= 0 ? result : result + 360
     }
     func labelSize(_ label:NSString)-> CGSize{
-        let rect = label.boundingRect(with: CGSize(width:CGFloat.greatestFiniteMagnitude, height:CGFloat.greatestFiniteMagnitude), options:.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: labelFont], context:nil)
+        let rect = label.boundingRect(with: CGSize(width:CGFloat.greatestFiniteMagnitude, height:CGFloat.greatestFiniteMagnitude), options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: labelFont], context:nil)
         return rect.size
     }
     func valueFromAngle()-> CGFloat{

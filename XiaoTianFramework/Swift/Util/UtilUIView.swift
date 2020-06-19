@@ -60,8 +60,8 @@ open class UtilUIView: NSObject {
     }
     /// Appearance模式设置TabBar文本颜色
     public func setupTabBar(_ colorTextNormal:UIColor,_ colorTextSelected:UIColor){
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor:colorTextNormal], for: UIControlState())
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor:colorTextSelected], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:colorTextNormal], for: UIControl.State())
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:colorTextSelected], for: .selected)
     }
     /// 设置TabBar的图标
     public func setupTabBarImage(_ tabBar:UITabBar?,_ tabIndex:Int,_ imageNormal:UIImage?,_ imageSelected:UIImage?){
@@ -204,7 +204,7 @@ open class UtilUIView: NSObject {
     }
     /// 计算Text的大小
     public func calculateTextSize(_ text:NSString,_ font:UIFont,_ maxConstraintSize:CGSize) -> CGRect?{
-        return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedStringKey.font:font], context: nil)
+        return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedString.Key.font:font], context: nil)
     }
     /// 计算Text的大小[label:1.必须设置bound视图大小,2.设置多行,3.设置font]
     public func calculateTextSize(_ text:String,_ label:UILabel) -> CGRect{
@@ -215,7 +215,7 @@ open class UtilUIView: NSObject {
         return label.frame
     }
     /// 创建一个模糊的UIView[父View背景要设置为透明,才会有效果,设置子view为底层:sendSubview(toBack: viewBlur)]
-    public func genBlurUIView(effecType:UIBlurEffectStyle) -> UIView{
+    public func genBlurUIView(effecType:UIBlurEffect.Style) -> UIView{
         return UIVisualEffectView(effect: UIBlurEffect(style: effecType))
     }
     /// 开启约束布局
@@ -228,11 +228,11 @@ open class UtilUIView: NSObject {
         }
     }
     /// 添加约束标注
-    public func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutAttribute,constant:CGFloat) -> NSLayoutConstraint{
+    public func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutConstraint.Attribute,constant:CGFloat) -> NSLayoutConstraint{
         return addNewConstraint(addView: addView, relation: .equal, withItem: withItem, withAttribute: attribute, toItem: toItem, toAttribute: attribute, constant: constant)
     }
     /// 添加约束
-    public func addNewConstraint(addView: UIView, relation:NSLayoutRelation, withItem:UIView, withAttribute:NSLayoutAttribute, toItem:UIView?, toAttribute:NSLayoutAttribute, constant:CGFloat) ->NSLayoutConstraint{
+    public func addNewConstraint(addView: UIView, relation:NSLayoutConstraint.Relation, withItem:UIView, withAttribute:NSLayoutConstraint.Attribute, toItem:UIView?, toAttribute:NSLayoutConstraint.Attribute, constant:CGFloat) ->NSLayoutConstraint{
         // 公式变量不可反,反了常量(若是零没影响,非零不一样[正,负关系])
         // relatedBy:.equal -> widthItem.attribute = toItem.toAttribute * multiplier + constant
         let constraint = NSLayoutConstraint(item: withItem, attribute: withAttribute, relatedBy: relation, toItem: toItem, attribute: toAttribute, multiplier: 1, constant: constant)

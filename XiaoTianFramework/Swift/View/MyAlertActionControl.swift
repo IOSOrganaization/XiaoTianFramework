@@ -84,7 +84,7 @@ public class MyAlertActionControl {
             textViewHeightConstraint = addNewConstraint(addView: textBackgroundView, relation: .equal, withItem: textBackgroundView, withAttribute: .height, toItem: nil, toAttribute: .height, constant: 0)
         }
     }
-    open static func presentAlert(_ nvc:UINavigationController?,_ title:String,_ message:String){
+    public static func presentAlert(_ nvc:UINavigationController?,_ title:String,_ message:String){
         let controller = Controller(title: title, message: message, style: .alert)
         controller.addAction(Action(title: "确定", style: .ok))
         nvc?.present(controller, animated: true, completion: nil)
@@ -166,7 +166,7 @@ public class MyAlertActionControl {
                 let left = marginViewLeftSpaceConstraint.constant
                 let bottom = marginViewBottomSpaceConstraint.constant
                 let right = marginViewRightSpaceConstraint.constant
-                return UIEdgeInsetsMake(top, left, bottom, right)
+                return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
             }
         }
         // 构造器
@@ -179,8 +179,8 @@ public class MyAlertActionControl {
             modalTransitionStyle = .crossDissolve// 交叉溶解
             transitioningDelegate = self// 过场事件委托
             // 通知中心->添加键盘侦听器
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
         }
         
         public convenience init(title: String?, message: String?, style: Style) {
@@ -432,7 +432,7 @@ public class MyAlertActionControl {
 private extension MyAlertActionControl.Action {
     func setButton(_ forButton: UIButton) {
         button = forButton
-        button.setTitle(title, for: UIControlState())
+        button.setTitle(title, for: UIControl.State())
         button.isEnabled = enabled
     }
 }
@@ -512,7 +512,7 @@ private extension MyAlertActionControl.Controller {
     func layoutContainer() {
         var containerWidth = AlertDefaultWidth
         if preferredStyle == .actionSheet {
-            marginInsets = UIEdgeInsetsMake(ActionSheetMargin, ActionSheetMargin, ActionSheetMargin, ActionSheetMargin)
+            marginInsets = UIEdgeInsets(top: ActionSheetMargin, left: ActionSheetMargin, bottom: ActionSheetMargin, right: ActionSheetMargin)
             marginView.layoutIfNeeded()
             containerWidth = min(view.bounds.width, view.bounds.height) - marginInsets.top - marginInsets.bottom
         }
@@ -617,7 +617,7 @@ private extension MyAlertActionControl.Controller {
     func configurAlertButton(_ style :MyAlertActionControl.Action.Style, forButton button: UIButton) {
         switch style {
         case .destructive:
-            button.setTitleColor(UIColor.red, for: UIControlState())
+            button.setTitleColor(UIColor.red, for: UIControl.State())
             button.titleLabel?.font = UIFont.systemFont(ofSize: AlertButtonFontSize)
         case .cancel:
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: AlertButtonFontSize)
@@ -629,7 +629,7 @@ private extension MyAlertActionControl.Controller {
     func configurActionSheetButton(_ style :MyAlertActionControl.Action.Style, forButton button: UIButton) {
         switch style {
         case .destructive:
-            button.setTitleColor(UIColor.red, for: UIControlState())
+            button.setTitleColor(UIColor.red, for: UIControl.State())
             button.titleLabel?.font = UIFont.systemFont(ofSize: ActionSheetButtonFontSize)
         case .cancel:
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: ActionSheetButtonFontSize)
@@ -656,7 +656,7 @@ extension MyAlertActionControl.Controller {
     //键盘显示
     @objc func keyboardWillShow(_ notification: Notification) {
         if let window = view.window {
-            if let frame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
+            if let frame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
                 let rect = window.convert(frame, to: view)
                 backgroundViewBottomSpaceConstraint.constant = view.bounds.size.height - rect.origin.y
             }
@@ -685,8 +685,8 @@ extension MyAlertActionControl.Controller: UIViewControllerAnimatedTransitioning
         return 0.25
     }
     // 动画执行曲线
-    func animationOptionsForAnimationCurve(_ curve: UInt) -> UIViewAnimationOptions {
-        return UIViewAnimationOptions(rawValue: curve << 16)
+    func animationOptionsForAnimationCurve(_ curve: UInt) -> UIView.AnimationOptions {
+        return UIView.AnimationOptions(rawValue: curve << 16)
     }
     // 创建动画转换视图
     func createCoverView(_ frame: CGRect) -> UIView {
@@ -799,11 +799,11 @@ fileprivate func checkTranslatesAutoresizing(withView: UIView?, toView:UIView?){
     }
 }
 @discardableResult
-fileprivate func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutAttribute,constant:CGFloat) -> NSLayoutConstraint{
+fileprivate func addPinConstraint(addView:UIView,withItem:UIView,toItem:UIView?,attribute:NSLayoutConstraint.Attribute,constant:CGFloat) -> NSLayoutConstraint{
     return addNewConstraint(addView: addView, relation: .equal, withItem: withItem, withAttribute: attribute, toItem: toItem, toAttribute: attribute, constant: constant)
 }
 @discardableResult
-fileprivate func addNewConstraint(addView: UIView, relation:NSLayoutRelation, withItem:UIView, withAttribute:NSLayoutAttribute, toItem:UIView?, toAttribute:NSLayoutAttribute, constant:CGFloat) ->NSLayoutConstraint{
+fileprivate func addNewConstraint(addView: UIView, relation:NSLayoutConstraint.Relation, withItem:UIView, withAttribute:NSLayoutConstraint.Attribute, toItem:UIView?, toAttribute:NSLayoutConstraint.Attribute, constant:CGFloat) ->NSLayoutConstraint{
     let constraint = NSLayoutConstraint(item: withItem, attribute: withAttribute, relatedBy: relation, toItem: toItem, attribute: toAttribute, multiplier: 1, constant: constant)
     addView.addConstraint(constraint)
     return constraint

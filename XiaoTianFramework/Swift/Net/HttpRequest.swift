@@ -593,7 +593,7 @@ public class HttpRequest : NSObject{
     }
     /// 获取文件名
     open func getFileName(_ filePath:String) -> String{
-        let paths = filePath.characters.split(separator: "/").map(String.init)
+        let paths = filePath.split(separator: "/").map(String.init)
         return paths[paths.count - 1]
     }
     /// 请求参数格式化为String

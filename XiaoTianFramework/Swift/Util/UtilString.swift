@@ -18,7 +18,7 @@ open class UtilString :NSObject {
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping;
-        let attributes = [NSAttributedStringKey.font:font!, NSAttributedStringKey.paragraphStyle:paragraphStyle.copy()]
+        let attributes = [NSAttributedString.Key.font:font!, NSAttributedString.Key.paragraphStyle:paragraphStyle.copy()]
         
         let text = string as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
@@ -110,11 +110,11 @@ open class UtilString :NSObject {
     /// 生成随机文件名称
     open func genFileName(_ minLength:Int,_ maxLength:Int,_ ext:String) -> String{
         var name:String = ""
-        let charcount = FILE_NAME_KEY.characters.count
+        let charcount = FILE_NAME_KEY.count
         let length = minLength + Int(arc4random_uniform(UInt32(maxLength - minLength)))
         for _ in 0..<length {
             let index = Int(arc4random_uniform(UInt32(charcount)))
-            let char = FILE_NAME_KEY[FILE_NAME_KEY.characters.index(FILE_NAME_KEY.startIndex, offsetBy: index)]
+            let char = FILE_NAME_KEY[FILE_NAME_KEY.index(FILE_NAME_KEY.startIndex, offsetBy: index)]
             name = "\(name)\(char)"
         }
         return "\(name).\(ext)"
@@ -157,7 +157,7 @@ open class UtilString :NSObject {
     public func urlHost(url: String) -> String?{
         do{
             let regex = try NSRegularExpression(pattern: ".*?//(.*?)/.*", options: [])
-            let match = regex.firstMatch(in: url, options: .reportCompletion, range: NSMakeRange(0, url.characters.count))
+            let match = regex.firstMatch(in: url, options: .reportCompletion, range: NSMakeRange(0, url.count))
             if match != nil{
                 if let range = match?.range(at: 1){
                     let start = url.index(url.startIndex, offsetBy: range.location)
@@ -173,12 +173,12 @@ open class UtilString :NSObject {
     }
     /// 获取指定位置字符串
     public func character(_ data:String,_ index:Int)-> Character{
-        let index = data.characters.index(data.startIndex, offsetBy: index)
+        let index = data.index(data.startIndex, offsetBy: index)
         return data[index]
     }
     /// 剪字符串
     public func subString(_ data:String,_ start:Int,_ count:Int) -> String{
-        if start < 0 || start + count >= data.characters.count || start > count {
+        if start < 0 || start + count >= data.count || start > count {
             return data
         }
         //data.index(after: data.startIndex)
@@ -189,8 +189,8 @@ open class UtilString :NSObject {
     }
     /// 剪字符串
     public func subString(_ data:String,_ integerRange:Range<Int>) -> String{
-        let startIndex = data.characters.index(data.startIndex, offsetBy: integerRange.lowerBound)
-        let endIndex = data.characters.index(startIndex, offsetBy: integerRange.upperBound - integerRange.lowerBound)
+        let startIndex = data.index(data.startIndex, offsetBy: integerRange.lowerBound)
+        let endIndex = data.index(startIndex, offsetBy: integerRange.upperBound - integerRange.lowerBound)
         let range = startIndex ..< endIndex
         return String(data[range])
     }
@@ -218,7 +218,7 @@ open class UtilString :NSObject {
         if var hex = hexString{
             // if has 0x remove it
             if hex.lowercased().hasPrefix("0x"){
-                hex = String(hex.characters.dropFirst(2))
+                hex = String(hex.dropFirst(2))
             }
             // string to long (swift integer)
             return strtol(hex, nil, 16)

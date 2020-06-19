@@ -58,19 +58,19 @@ open class UtilNotificationDefaultCenter: NSObject{
     /******************************* System Notification Message *******************************/
     /// 添加键盘弹出侦听器
     open class func addObserverKeyboardWillShow(_ observer: NSObject,_ selector:Selector) {
-        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(observer, selector: selector, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     /// 添加键盘收起侦听器
     open class func addObserverKeyboardDidHide(_ observer: NSObject,_ selector:Selector) {
-        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(observer, selector: selector, name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     /// 移除键盘弹出侦听器
     open class func removeObserverKeyboardWillShow(_ observer: NSObject){
-        NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(observer, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     /// 移除键盘收起侦听器
     open class func removeObserverKeyboardDidHide(_ observer: NSObject){
-        NotificationCenter.default.removeObserver(observer, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.removeObserver(observer, name: UIResponder.keyboardDidHideNotification, object: nil)
         /*let _: Void = "Hello".withCString {
             var cs = $0
             while cs.pointee != 0{

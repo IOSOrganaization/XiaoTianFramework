@@ -31,7 +31,8 @@ open class UtilLabel: NSObject{
     /// 嵌入图片(生成图片属性文本)
     func genImageAttributeString(_ string:String?,_ image:UIImage?,_ position:Int) -> NSMutableAttributedString?{
         //
-        let index = string?.characters.index((string?.startIndex)!, offsetBy: position)
+        //let index = string?.characters.index((string?.startIndex)!, offsetBy: position)
+        let index = string?.index(string!.startIndex, offsetBy: position)
         let preString = string?.substring(to: index!)
         let sufString = string?.substring(from: index!)
         let mutableAttributeString = NSMutableAttributedString(string: preString!)

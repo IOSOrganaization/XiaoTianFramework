@@ -37,7 +37,7 @@ open class UtilImage: NSObject {
         return tintedImage
     }
     /// 渲染后的图片还有可能被系统上下文渲染器自动渲染,所以要根据不同情况进行是否取消系统自动渲染
-    public func translateRenderingModeImage(_ image:UIImage?,_ renderingMode:UIImageRenderingMode) -> UIImage?{
+    public func translateRenderingModeImage(_ image:UIImage?,_ renderingMode:UIImage.RenderingMode) -> UIImage?{
         if image == nil{
             return nil
         }
@@ -48,7 +48,7 @@ open class UtilImage: NSObject {
     }
     /// 普通渲染原色模式
     public func renderingImageForNavigation(_ image: UIImage,_ color:UIColor) -> UIImage{
-        return translateRenderingModeImage(renderingImageWithTintColor(image, color), UIImageRenderingMode.alwaysOriginal)!
+        return translateRenderingModeImage(renderingImageWithTintColor(image, color), UIImage.RenderingMode.alwaysOriginal)!
     }
     /// 颜色渲染
     public func maskImageWithColor(_ image:UIImage?,_ color:UIColor) -> UIImage?{
@@ -71,7 +71,7 @@ open class UtilImage: NSObject {
         return coloredImage
     }
     /// 对图片设置渲染模式
-    public func renderingImage(_ image: UIImage?,_ renderingMode: UIImageRenderingMode) -> UIImage?{
+    public func renderingImage(_ image: UIImage?,_ renderingMode: UIImage.RenderingMode) -> UIImage?{
         // .automatic :有系统自动根据上下文颜色渲染
         // .alwaysOriginal :永远保持原图,不执行颜色渲染
         // .alwaysTemplate :永远作为模板,忽略颜色
@@ -155,14 +155,14 @@ open class UtilImage: NSObject {
     /// UImage -> Data
     public func imageJPEGRepresentation(_ image: UIImage?) -> Data?{
         if let image = image {
-            UIImageJPEGRepresentation(image, 90)
+            image.jpegData(compressionQuality: 90)
         }
         return nil
     }
     /// UIImage -> Data
     public func imagePNGRepresentation(_ image: UIImage?) -> Data?{
         if let image = image {
-            UIImagePNGRepresentation(image)
+            image.pngData()
         }
         return nil
     }

@@ -93,7 +93,7 @@ class MyLogoIndicator: UIView{
         rotation.duration = 1.0 //动画持续时间
         rotation.isRemovedOnCompletion = false //完成后移除动画
         rotation.repeatCount = HUGE //重复次数 [darwin/c/math]
-        rotation.fillMode = kCAFillModeForwards //填充模式
+        rotation.fillMode = CAMediaTimingFillMode.forwards //填充模式
         rotation.fromValue = NSNumber(value: 0.0 as Float) //开始值
         rotation.toValue = NSNumber(value: 3.1415 * 2.0 as Float)//结束值
         //

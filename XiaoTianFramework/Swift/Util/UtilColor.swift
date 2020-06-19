@@ -115,7 +115,7 @@ open class UtilColor: NSObject{
         scanner.scanHexInt32(value)// Hex->Int
         let argb:UInt32 = value.pointee
         // Int to A,R,G,B
-        switch hexString!.characters.count {
+        switch hexString!.count {
         case 4:     //#RGB
             let r = (argb & 0xF00) >> 8
             let g = (argb & 0xF0) >> 4

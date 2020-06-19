@@ -20,7 +20,7 @@ open class UtilNotification: NSObject{
             if #available(iOS 10.0, *) {
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.01, repeats: false)
                 let content = UNMutableNotificationContent()
-                content.sound = UNNotificationSound.default()
+                content.sound = UNNotificationSound.default
                 content.body = text
                 let request = UNNotificationRequest(identifier: "xiaotian_1", content: content, trigger: trigger)
                 UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
@@ -66,7 +66,7 @@ open class UtilNotification: NSObject{
                     content.categoryIdentifier = "departureNotifications" // id
                     content.setValue(true, forKey: "shouldAlwaysAlertWhileAppIsForeground") // app在前台是也通知
                     content.userInfo = [:]
-                    content.sound = UNNotificationSound.default()
+                    content.sound = UNNotificationSound.default
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssz"

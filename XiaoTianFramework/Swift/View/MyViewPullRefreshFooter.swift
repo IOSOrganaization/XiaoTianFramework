@@ -67,7 +67,7 @@ public class MyViewPullRefreshFooter: UIView{
         self.executeRefreshingCallback = refreshing
         //
         imageArrowMrginLabel = 25
-        indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        indicatorView = UIActivityIndicatorView(style: .gray)
         indicatorView?.hidesWhenStopped = true
         addSubview(indicatorView!)
         labelState = UILabel()

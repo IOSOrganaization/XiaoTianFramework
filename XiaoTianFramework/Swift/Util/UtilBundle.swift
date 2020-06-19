@@ -51,7 +51,7 @@ public class UtilBundle{
         return main.path(forResource: name, ofType: type)
     }
     /// 加载Nib
-    public func loadNibNamed(_ name:String,_ owner: Any?,_ option: [AnyHashable : Any]?) -> [Any]?{
+    public func loadNibNamed(_ name:String,_ owner: Any?,_ option: [UINib.OptionsKey : Any]?) -> [Any]?{
         // UINib(nibName: name, bundle: Bundle.main)
         return Bundle.main.loadNibNamed(name, owner: owner, options: option)
     }

@@ -258,7 +258,7 @@ public class MyToastTopbar: NSObject{
         }
     }
     /// 显示提示
-    public static func show(_ title:String, _ message: String? = nil,_ appearance:((Void)->Void)? = nil, _ completion:((Void)->Void)? = nil){
+    public static func show(_ title:String, _ message: String? = nil,_ appearance:(()->Void)? = nil, _ completion:(()->Void)? = nil){
         Manager.share.addNotification(MyToastTopbar(title, message, appearance, completion))
     }
     /// 显示自定义配置的提示
@@ -327,7 +327,7 @@ public class MyToastTopbar: NSObject{
             // 全屏窗口初始化
             window = Window(frame: UIScreen.main.bounds)
             window.backgroundColor = UIColor.clear
-            window.windowLevel = UIWindowLevelStatusBar
+            window.windowLevel = UIWindow.Level.statusBar
             window.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             window.rootViewController = Controller()
             window.rootViewController?.view.clipsToBounds = true
@@ -353,7 +353,7 @@ public class MyToastTopbar: NSObject{
             rootVC.autorotate = toast.autorotate
             rootVC.toast = toast
             // 窗口,VC大小
-            window.windowLevel = toast.displayUnderStatusBar ? UIWindowLevelNormal + 1 : UIWindowLevelStatusBar // 窗口级别[在其他窗口上/状态栏级别(覆盖状态栏)]
+            window.windowLevel = toast.displayUnderStatusBar ? UIWindow.Level.normal + 1 : UIWindow.Level.statusBar // 窗口级别[在其他窗口上/状态栏级别(覆盖状态栏)]
             window.rootViewController?.view.frame = getNotificationContainerFrame(getDeviceOrientation(), notificationSize)
             // 背景(被推效果)
             statusBarView = toast.statusBarView
@@ -376,10 +376,10 @@ public class MyToastTopbar: NSObject{
             let inCompleteFun = Manager.toastInwardAnimationsCompletionFunc(self, toast, toast.uuid.uuidString)
             toast.state = .entering
             showNotification(toast, inFunc, inCompleteFun)
-            if toast.title?.characters.count ?? 0 > 0 || toast.subTitle?.characters.count ?? 0 > 0 {
+            if toast.title?.count ?? 0 > 0 || toast.subTitle?.count ?? 0 > 0 {
                 UtilDispatch.afterMainQueueDispatch(0.5, task: {
                     //Mylog.log("UIAccessibilityPostNotification")
-                    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ["Alert: \(toast.title ?? ""), \(toast.subTitle ?? "")"])
+                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: ["Alert: \(toast.title ?? ""), \(toast.subTitle ?? "")"])
                 })
             }
         }
@@ -505,7 +505,7 @@ public class MyToastTopbar: NSObject{
                 manager.window.rootViewController?.view.gestureRecognizers = nil
                 firstToast.state = .completed
                 firstToast.completion?()
-                manager.notifications.remove(at: manager.notifications.index(of: firstToast)!)
+                manager.notifications.remove(at: manager.notifications.firstIndex(of: firstToast)!)
                 manager.notificationView.removeFromSuperview()
                 manager.statusBarView.removeFromSuperview()
                 manager.gravityAnimationCompletionFunc = nil
@@ -604,7 +604,7 @@ public class MyToastTopbar: NSObject{
             var labelSub = UILabel()
             var imageView = UIImageView()
             var backgroundView:UIView?
-            var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            var activityIndicator = UIActivityIndicatorView(style: .white)
             var toast:MyToastTopbar!{
                 didSet{
                     if toast != nil{
@@ -650,7 +650,7 @@ public class MyToastTopbar: NSObject{
                 }
                 imageView.contentMode = .center
                 backgroundColor = toast.backgroundColor
-                activityIndicator.activityIndicatorViewStyle = .white
+                activityIndicator.style = .white
                 if let backgroundView = toast.backgroundView{
                     self.backgroundView = backgroundView
                     if self.backgroundView!.superview == nil{
@@ -677,7 +677,7 @@ public class MyToastTopbar: NSObject{
                     let centerX = centerXForActivityIndicatorWithAligment(toast.indicatorAligment, contentFrame.height, contentFrame.width, toast.imageTextPadding)
                     activityIndicator.center = CGPoint(x: centerX, y: contentFrame.midY + statusBarYOffset)
                     activityIndicator.startAnimating()
-                    bringSubview(toFront: activityIndicator)
+                    bringSubviewToFront(activityIndicator)
                     x = max(contentXOffsetForAlignmentAndWidth(toast.indicatorAligment, imageXOffset, contentFrame.height, toast.imageTextPadding), x)
                 }
                 let isShowImage = imageSize?.width ?? 0 > 0
@@ -762,7 +762,7 @@ public class MyToastTopbar: NSObject{
                 return (!show || alignment == .center) ? 0 : padding + height + padding
             }
             public func calculateTextSize(_ text:NSString,_ font:UIFont,_ maxConstraintSize:CGSize) -> CGRect?{
-                return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedStringKey.font:font], context: nil)
+                return text.boundingRect(with: maxConstraintSize, options: [.truncatesLastVisibleLine,.usesLineFragmentOrigin,.usesFontLeading], attributes: [NSAttributedString.Key.font:font], context: nil)
             }
         }
     }
@@ -822,7 +822,7 @@ fileprivate func getStatusBarWidthForOrientation(_ orientation:UIInterfaceOrient
     if frameAutoAdjustedForOrientation(){
         return screenBounds.width
     }
-    return UIInterfaceOrientationIsPortrait(orientation) ? screenBounds.width : screenBounds.height
+    return orientation.isPortrait ? screenBounds.width : screenBounds.height
 }
 // 根据屏幕方向获取状态栏高度
 fileprivate func getStatusBarHeightForOrientation(_ orientation:UIInterfaceOrientation) -> CGFloat{
@@ -830,7 +830,7 @@ fileprivate func getStatusBarHeightForOrientation(_ orientation:UIInterfaceOrien
     if frameAutoAdjustedForOrientation(){
         return statusBarFrame.height
     }
-    return UIInterfaceOrientationIsLandscape(orientation) ? statusBarFrame.width : statusBarFrame.height
+    return orientation.isLandscape ? statusBarFrame.width : statusBarFrame.height
 }
 fileprivate func notificationViewHeight(_ type:MyToastTopbar.ToastType,_ preferredHeight:CGFloat) -> CGFloat{
     return getNotificationViewHeightForOrientation(type, preferredHeight, getDeviceOrientation())
@@ -841,7 +841,7 @@ fileprivate func getNavigatioinBarHeigthForOrientation(_ orientation:UIInterface
     if isUserSizeClass(){
         regularHorizontalSizeClass = isHorizontalSizeClassRegular()
     }
-    if (UIInterfaceOrientationIsPortrait(orientation) || UI_USER_INTERFACE_IDIOM() == .pad || regularHorizontalSizeClass){
+    if (orientation.isPortrait || UI_USER_INTERFACE_IDIOM() == .pad || regularHorizontalSizeClass){
         // 其他,导航栏高度
         return 45
     }else{

@@ -22,7 +22,7 @@ public class MyToast:NSObject{
     var marginOffset:CGFloat = 120
     var toastDuration:TimeInterval = 2
     var backgroundColor = UIColor(white: 0.25, alpha: 0.8)
-    var contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
+    var contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     init(_ message:String) {
         self.message = message
@@ -53,7 +53,7 @@ public class MyToast:NSObject{
         override init() {
             window = Window(frame: UIScreen.main.bounds)
             window.backgroundColor = UIColor.clear
-            window.windowLevel = UIWindowLevelStatusBar + 1
+            window.windowLevel = UIWindow.Level.statusBar + 1
             window.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             window.rootViewController = Controller()
             window.rootViewController?.view.clipsToBounds = true
@@ -81,7 +81,8 @@ public class MyToast:NSObject{
             self.toastView!.status = .entering
             self.toastView!.frame = CGRect(x: toastViewFrame.origin.x, y: toastViewFrame.origin.y + 2*toastViewFrame.height, width: toastViewFrame.width, height: 0)
             // 重力弹出
-            UIView.animate(withDuration: toast.animationTime, delay: 0.0, usingSpringWithDamping: toast.springDamping, initialSpringVelocity: toast.springInitialVelocity, options: [], animations: {[weak self] in
+            UIView.animate(withDuration: toast.animationTime, delay: 0.0, usingSpringWithDamping: toast.springDamping,
+                           initialSpringVelocity: toast.springInitialVelocity, options: [], animations: {   [weak self] in
                 guard let wSelf = self else {
                     return
                 }
@@ -90,52 +91,52 @@ public class MyToast:NSObject{
                 }
                 toastView.alpha = 1
                 toastView.frame = toastViewFrame
-            }, completion: {[weak self] finished in
-                // 定时关闭
-                if self?.toastView?.status ?? .completed != .entering{
-                    return
-                }
-                self?.toastView!.status = .displaying
-                UtilDispatch.afterMainQueueDispatch(toast.toastDuration, task: {[weak self] in
-                    if self?.toastView?.status ?? .completed != .displaying{
+                }, completion: {[weak self] finished in
+                    // 定时关闭
+                    if self?.toastView?.status ?? .completed != .entering{
                         return
                     }
-                    self?.toastView?.status = .exiting
-                    UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {[weak self] in
-                        guard let wSelf = self else {
+                    self?.toastView!.status = .displaying
+                    UtilDispatch.afterMainQueueDispatch(toast.toastDuration, task: {[weak self] in
+                        if self?.toastView?.status ?? .completed != .displaying{
                             return
                         }
-                        guard let firstToast = wSelf.notifications.first else {
-                            return
-                        }
-                        firstToast.toastView?.alpha = 0
-                    }, completion: { [weak self] finished in
-                        guard let wSelf = self else{
-                            return
-                        }
-                        guard let firstToast = wSelf.notifications.first else{
-                            return
-                        }
-                        firstToast.toastView?.status = .completed
-                        wSelf.notifications.remove(at: wSelf.notifications.index(of: firstToast)!)
-                        firstToast.toastView?.removeFromSuperview()
-                        // 释放
-                        firstToast.toastView?.toast = nil
-                        firstToast.toastView = nil
-                        wSelf.toastView = nil
-                        if wSelf.isHideToastAll{
-                            wSelf.notifications.removeAll()
-                        }
-                        // 如果集合中还有则继续弹框
-                        if !wSelf.notifications.isEmpty{
-                            if let next = wSelf.notifications.first{
-                                wSelf.displayToast(next)
+                        self?.toastView?.status = .exiting
+                        UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {[weak self] in
+                            guard let wSelf = self else {
+                                return
                             }
-                        }else{
-                            wSelf.window.isHidden = true
-                        }
+                            guard let firstToast = wSelf.notifications.first else {
+                                return
+                            }
+                            firstToast.toastView?.alpha = 0
+                            }, completion: { [weak self] finished in
+                                guard let wSelf = self else{
+                                    return
+                                }
+                                guard let firstToast = wSelf.notifications.first else{
+                                    return
+                                }
+                                firstToast.toastView?.status = .completed
+                                wSelf.notifications.remove(at: wSelf.notifications.firstIndex(of: firstToast)!)
+                                firstToast.toastView?.removeFromSuperview()
+                                // 释放
+                                firstToast.toastView?.toast = nil
+                                firstToast.toastView = nil
+                                wSelf.toastView = nil
+                                if wSelf.isHideToastAll{
+                                    wSelf.notifications.removeAll()
+                                }
+                                // 如果集合中还有则继续弹框
+                                if !wSelf.notifications.isEmpty{
+                                    if let next = wSelf.notifications.first{
+                                        wSelf.displayToast(next)
+                                    }
+                                }else{
+                                    wSelf.window.isHidden = true
+                                }
+                        })
                     })
-                })
             })
         }
         func hideToastAll(){
@@ -226,14 +227,14 @@ public class MyToast:NSObject{
         if MyToast.frameAutoAdjustedForOrientation(){
             return screenBounds.width
         }
-        return UIInterfaceOrientationIsPortrait(getDeviceOrientation()) ? screenBounds.width : screenBounds.height
+        return getDeviceOrientation().isPortrait ? screenBounds.width : screenBounds.height
     }
     private static func getScreenHeightForOrientation()-> CGFloat{
         let screenBounds = UIScreen.main.bounds
         if MyToast.frameAutoAdjustedForOrientation(){
             return screenBounds.height
         }
-        return UIInterfaceOrientationIsPortrait(getDeviceOrientation()) ? screenBounds.height : screenBounds.width
+        return getDeviceOrientation().isPortrait ? screenBounds.height : screenBounds.width
     }
     private static func getDeviceOrientation()-> UIInterfaceOrientation{
         return UIApplication.shared.statusBarOrientation
